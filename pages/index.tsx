@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function Home() {
 	return (
 		<div>
-			<h1>MBHS</h1>
+			<h1 className="text-4xl text-center font-bold pt-5">MBHS</h1>
 		</div>
 	);
 }
