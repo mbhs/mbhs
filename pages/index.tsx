@@ -8,7 +8,16 @@ export default function Home() {
 			<h1 className="text-4xl text-center font-bold pt-5">
 				Montgomery Blair High School
 			</h1>
-			<Calendar />
+			<div className="flex flex-wrap justify-between p-5 md:px-20 gap-5">
+				<div>
+					<img
+						src="https://mbhs.edu/carousel/img3.png"
+						alt="MBHS"
+						className="rounded-lg w-full md:h-72"
+					/>
+				</div>
+				<Calendar />
+			</div>
 		</div>
 	);
 }
