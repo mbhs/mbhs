@@ -10,12 +10,12 @@ export default function Home() {
 			<h1 className="text-xl md:text-4xl text-center font-bold pt-5">
 				Montgomery Blair High School
 			</h1>
-			<div className="bg-neutral-200 rounded-lg p-2 my-5 w-max m-auto flex flex-wrap gap-5">
-				<p className="flex gap-2 items-center">
+			<div className="flex flex-wrap gap-3 justify-center my-5">
+				<p className="bg-neutral-200 rounded-full px-2 py-1 flex gap-2 items-center">
 					<IoLocationSharp />
 					51 University Blvd East
 				</p>
-				<p className="flex gap-2 items-center">
+				<p className="bg-neutral-200 rounded-full px-2 py-1 flex gap-2 items-center">
 					<BsFillTelephoneFill />
 					(240) 740-7200
 				</p>
