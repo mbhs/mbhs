@@ -31,7 +31,7 @@ export default function Home() {
 						</p>
 					</div>
 					<div className="flex-1">
-						<div className="mx-auto w-max">
+						<div className="mx-auto md:w-max">
 							<div className="grid relative grid-cols-12">
 								<img
 									src="https://mbhs.edu/carousel/img3.png"

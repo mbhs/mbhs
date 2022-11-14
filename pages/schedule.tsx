@@ -31,6 +31,51 @@ const buses = [
 	},
 ];
 
+interface Schedules {
+	[key: string]: {
+		name: string;
+		periods: { name: string; startTime: string; endTime: string }[];
+	};
+}
+
+const bell: Schedules = {
+	today: {
+		name: "Regular Bell Schedule",
+		periods: [
+			{
+				name: "Period 1/2",
+				startTime: "7:45 AM",
+				endTime: "9:23 AM",
+			},
+			{
+				name: "Period 3/4",
+				startTime: "9:29 AM",
+				endTime: "11:00 AM",
+			},
+			{
+				name: "Lunch",
+				startTime: "11:00 AM",
+				endTime: "12:00 PM",
+			},
+			{
+				name: "Period 6",
+				startTime: "12:06 PM",
+				endTime: "12:52 PM",
+			},
+			{
+				name: "Period 7/8",
+				startTime: "12:58 PM",
+				endTime: "2:30 PM",
+			},
+			{
+				name: "Period 9",
+				startTime: "2:35 PM",
+				endTime: "3:20 PM",
+			},
+		],
+	},
+};
+
 export default function schedule() {
 	const [tab, setTab] = useState<string>("today");
 
@@ -111,6 +156,38 @@ export default function schedule() {
 						</a>
 					</li>
 				</ul>
+			</div>
+
+			<div className="overflow-x-auto relative shadow-md rounded-lg my-5">
+				<table className="w-full text-sm text-left text-gray-500">
+					<thead className="text-xs text-gray-700 bg-gray-50">
+						<tr>
+							<th scope="col" className="py-3 px-6">
+								Period
+							</th>
+							<th scope="col" className="py-3 px-6">
+								Start Time
+							</th>
+							<th scope="col" className="py-3 px-6">
+								End Time
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						{bell[tab].periods.map(({ name, startTime, endTime }) => (
+							<tr className="bg-white border-y hover:bg-gray-50">
+								<th
+									scope="row"
+									className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap"
+								>
+									{name}
+								</th>
+								<td className="py-4 px-6">{startTime}</td>
+								<td className="py-4 px-6">{endTime}</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
 			</div>
 		</div>
 	);
