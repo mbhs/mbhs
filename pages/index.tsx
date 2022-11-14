@@ -1,3 +1,4 @@
+import React from "react";
 import Head from "next/head";
 import Image from "next/image";
 import Calendar from "../components/Calendar";
@@ -5,14 +6,27 @@ import { BsFillTelephoneFill, BsFillPersonFill } from "react-icons/bs";
 import { GrTextAlignCenter } from "react-icons/gr";
 import { IoLocationSharp } from "react-icons/io5";
 import { HiHome } from "react-icons/hi";
+import { Event } from "../lib/types";
 
-export default function Home() {
+export async function getStaticProps() {
+	let res = await fetch("https://strapi.mbhs.edu/api/events").then((res) =>
+		res.json()
+	);
+
+	return {
+		props: {
+			events: res.data,
+		},
+	};
+}
+
+interface IndexProps {
+	events: Event[];
+}
+
+export default function Home({ events }: IndexProps) {
 	return (
 		<div className="px-5 md:px-10">
-			{/* <div className="bg-neutral-200 rounded-lg p-2 my-5 w-max m-auto flex flex-wrap gap-5">
-				<p>Principal Renay Johnson</p>
-				<p>Home of the Blazers</p>
-			</div> */}
 			<div className="flex flex-wrap justify-between gap-5 pt-5">
 				<div className="flex-1 mx-auto">
 					<h1 className="text-xl md:text-4xl text-center font-bold">
@@ -90,7 +104,7 @@ export default function Home() {
 							<BsFillTelephoneFill /> (240) 740-7200
 						</p>
 					</div>
-					<Calendar />
+					<Calendar events={events} />
 				</div>
 			</div>
 		</div>

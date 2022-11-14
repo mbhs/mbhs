@@ -1,41 +1,46 @@
 import React from "react";
 import Link from "next/link";
+import { Event } from "../lib/types";
+import ReactMarkdown from "react-markdown";
 
-export default function Calendar() {
-	const date = new Date();
+interface CalendarProps {
+	events: Event[];
+}
+
+const parseDate = (date: string): string => {
+	let dateObj = new Date(date);
+	return dateObj.toLocaleString("default", {
+		timeZone: "UTC",
+		month: "short",
+		day: "numeric",
+	});
+};
+
+export default function Calendar({ events }: CalendarProps) {
+	React.useEffect(() => {
+		console.log(events);
+	}, []);
 
 	return (
 		<div className="border-4 bg-neutral-200 rounded-lg p-2 w-full md:w-80">
 			<h1 className="text-xl font-bold text-center pb-3">Upcoming Events</h1>
 			<div className="flex flex-col flex-wrap gap-2">
-				<div className="rounded-lg p-2 bg-neutral-300">
-					<div className="flex items-center gap-3 mb-2">
-						<div className="bg-black rounded-lg p-2 flex-none w-16 h-16">
-							<p className="text-center font-semibold text-white">Nov 11</p>
+				{events.map(({ attributes: { title, description, startDate } }, i) => (
+					<div className="rounded-lg p-2 bg-neutral-300 text-sm" key={i}>
+						<div className="flex items-center gap-3 mb-2">
+							<div className="bg-black rounded-lg p-2 flex-none w-16 h-16">
+								<p className="text-center font-semibold text-white text-base">
+									{parseDate(startDate)}
+								</p>
+							</div>
+							<div>
+								<p className="font-semibold text-lg">{title}</p>
+								<p className="text-sm">6:30 PM</p>
+							</div>
 						</div>
-						<div>
-							<p className="font-semibold text-lg">Postseason Football</p>
-							<p className="text-sm">6:30 PM</p>
-						</div>
+						<ReactMarkdown>{description}</ReactMarkdown>
 					</div>
-					<p className="text-sm">home versus Einstein; tickets here</p>
-				</div>
-				<div className="rounded-lg p-2 bg-neutral-300">
-					<div className="flex items-center gap-3 mb-2">
-						<div className="bg-black rounded-lg p-2 flex-none w-16 h-16">
-							<p className="text-center font-semibold text-white">Nov 11</p>
-						</div>
-						<div>
-							<p className="font-semibold text-lg">Fall Play</p>
-							<p className="text-sm">7:00 PM</p>
-						</div>
-					</div>
-					<p className="text-sm">
-						Hit and Myth: Tickets are $8 and are available here; please make
-						sure you select the correct performance date/time when purchasing;
-						Alumni Auditorium.
-					</p>
-				</div>
+				))}
 				<div className="mt-2 flex justify-center">
 					<Link href="/calender">
 						<div className="px-4 py-2 bg-black rounded-xl text-white font-extrabold w-max">
