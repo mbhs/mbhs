@@ -36,9 +36,9 @@ export default function Calendar() {
 						Alumni Auditorium.
 					</p>
 				</div>
-				<div className="mt-2">
+				<div className="mt-2 flex justify-center">
 					<Link href="/calender">
-						<div className="px-4 py-2 bg-black rounded-xl text-white font-extrabold w-max m-auto">
+						<div className="px-4 py-2 bg-black rounded-xl text-white font-extrabold w-max">
 							View Full Calendar
 						</div>
 					</Link>

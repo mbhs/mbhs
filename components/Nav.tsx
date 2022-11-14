@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Nav() {
 	return (
-		<div className="bg-red-500 p-3 flex justify-between">
+		<div className="bg-red-600 p-3 flex text-white justify-between">
 			<p>Montgomery Blair High School</p>
 			<div className="flex gap-3">
 				<Link href="/">Home</Link>
