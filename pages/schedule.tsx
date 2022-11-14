@@ -35,7 +35,7 @@ export default function schedule() {
 	const [tab, setTab] = useState<string>("today");
 
 	return (
-		<div className="px-5 md:px-48">
+		<div className="px-5 sm:px-12 md:px-24 lg:px-36 xl:px-48">
 			<h1 className="text-xl md:text-4xl text-center font-bold py-5">
 				Bus Schedule & Routes + Drop Off Info
 			</h1>
@@ -51,16 +51,17 @@ export default function schedule() {
 						<a
 							href={link}
 							target="blank"
-							className="font-extrabold bg-black text-white px-4 py-2 rounded-xl w-max"
+							className="font-extrabold bg-black text-white px-4 py-2 rounded-xl w-full md:w-max text-xs md:text-base"
 						>
 							{name}
 						</a>
 					))}
 				</div>
 				<img
-					className="w-full md:w-96"
+					className="w-full cursor-pointer md:w-96"
 					src="/assets/drop-off-map.jpg"
 					alt="drop off diagram"
+					onClick={() => window.open("/assets/drop-off-map.jpg")}
 				/>
 			</div>
 

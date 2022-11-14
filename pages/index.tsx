@@ -14,7 +14,7 @@ export default function Home() {
 				<p>Home of the Blazers</p>
 			</div> */}
 			<div className="flex flex-wrap justify-between gap-5 pt-5">
-				<div className="mx-auto">
+				<div className="flex-1 mx-auto">
 					<h1 className="text-xl md:text-4xl text-center font-bold">
 						Montgomery Blair High School
 					</h1>
@@ -31,12 +31,39 @@ export default function Home() {
 						</p>
 					</div>
 					<div className="flex-1">
-						<div className="w-full">
-							<img
-								src="https://mbhs.edu/carousel/img3.png"
-								alt="MBHS"
-								className="rounded-lg w-full md:w-auto md:h-72 mx-auto"
-							/>
+						<div className="mx-auto w-max">
+							<div className="grid relative grid-cols-12">
+								<img
+									src="https://mbhs.edu/carousel/img3.png"
+									alt="MBHS"
+									className="rounded-lg md:w-auto md:h-72 col-span-8 row-span-1 z-10"
+								/>
+								<img
+									src="https://mbhs.edu/carousel/img4.png"
+									alt="MBHS"
+									className="rounded-lg md:w-auto md:h-72 col-span-8 mt-[-10%] ml-[50%] z-20"
+								/>
+							</div>
+						</div>
+					</div>
+					<h2 className="font-bold text-2xl text-center pt-5 pb-3">News</h2>
+					<div className="flex flex-col gap-3">
+						<div className="bg-neutral-200 rounded-lg p-2">
+							The November Principal's Newsletter from Ms. Johnson is now
+							available!
+						</div>
+						<div className="bg-neutral-200 rounded-lg p-2">
+							Senior families! You can pay for your Cap & Gown and other
+							Graduation items here through 12/16. You can also support our
+							Graduation Fund for needy Blair families here. If you have
+							questions about MCPS's new online payment system, please contact
+							Donna Franklin.
+						</div>
+						<div className="bg-neutral-200 rounded-lg p-2">
+							Parents/guardians! Instructions for the county's new online
+							payment system are available here. These will be used to provide
+							online payment options for field trips, event tickets,
+							obligations, and other school-related payments.
 						</div>
 					</div>
 				</div>
