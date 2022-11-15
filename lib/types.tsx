@@ -14,6 +14,7 @@ interface New {
 	attributes: {
 		title: string;
 		description: string;
+		updatedAt: string;
 	};
 }
 
