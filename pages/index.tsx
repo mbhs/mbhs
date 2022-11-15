@@ -69,7 +69,7 @@ export default function Home({ events, news }: IndexProps) {
 					<div className="flex flex-col gap-3">
 						{news.map(({ attributes: { title, description } }, i) => (
 							<div
-								className="bg-neutral-200 rounded-lg p-2 transition-all duration-300 border-2 border-black border-opacity-0 hover:border-opacity-100"
+								className="bg-neutral-200 rounded-lg p-2 transition-all duration-300 hover:bg-neutral-300"
 								key={i}
 							>
 								{title && <p className="font-bold text-xl pb-2">{title}</p>}
@@ -81,23 +81,23 @@ export default function Home({ events, news }: IndexProps) {
 				<div>
 					<div className="bg-neutral-200 p-5 rounded-lg mb-5 w-full md:w-80">
 						<h2 className="text-center font-bold text-xl">School Info</h2>
-						<p className="flex gap-2 p-1 items-center domHoverRed domCursor">
+						<p className="flex gap-2 p-1 items-center duration-200 hover:text-red-600 cursor-pointer">
 							<BsFillPersonFill />
 							Principal Renay Johnson
 						</p>
-						<p className="flex gap-2 p-1 items-center domHoverRed domCursor">
+						<p className="flex gap-2 p-1 items-center duration-200 hover:text-red-600 cursor-pointer">
 							<HiHome />
 							Home of the Blazers
 						</p>
-						<p className="flex gap-2 p-1 items-center domHoverRed domCursor">
+						<p className="flex gap-2 p-1 items-center duration-200 hover:text-red-600 cursor-pointer">
 							<GrTextAlignCenter />
 							Crescens Scientia
 						</p>
-						<p className="flex gap-2 p-1 items-center domHoverRed domCursor">
+						<p className="flex gap-2 p-1 items-center duration-200 hover:text-red-600 cursor-pointer">
 							<IoLocationSharp className="flex-none" />
 							51 University Blvd East Silver Spring Maryland 20901-2451
 						</p>
-						<p className="flex gap-2 p-1 items-center domHoverRed domCursor">
+						<p className="flex gap-2 p-1 items-center duration-200 hover:text-red-600 cursor-pointer">
 							<BsFillTelephoneFill /> (240) 740-7200
 						</p>
 					</div>
