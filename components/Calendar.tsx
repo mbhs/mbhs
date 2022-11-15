@@ -45,7 +45,7 @@ export default function Calendar({ events }: CalendarProps) {
 					</div>
 				))}
 				<div className="mt-2 flex justify-center">
-					<Link href="/calender">
+					<Link href="/calendar">
 						<div className="px-4 py-2 bg-black rounded-xl text-white font-extrabold w-max">
 							View Full Calendar
 						</div>
