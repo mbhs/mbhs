@@ -22,11 +22,11 @@ export async function getStaticProps() {
 function News({ news }: NewsProps) {
     return ( 
         <div>
-            <h1 className="text-xl md:text-4xl text-center font-bold pt-5">
+            <h1 className="text-xl md:text-4xl text-center font-bold pt-5 domShadowText1">
 				News
 			</h1>
             
-            <div className="content-body ">
+            <div className="content-body">
 
                 <div >
                     {news.map(({attributes: { title, description, updatedAt }}) => (

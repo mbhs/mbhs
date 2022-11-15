@@ -41,7 +41,7 @@ export default function Home({ events, news }: IndexProps) {
 		<div className="px-5 md:px-10">
 			<div className="flex flex-wrap justify-between gap-5 pt-5">
 				<div className="flex-1 mx-auto">
-					<h1 className="text-xl md:text-4xl text-center font-bold mb-5">
+					<h1 className="text-xl md:text-4xl text-center font-bold mb-5 domShadowText1">
 						Montgomery Blair High School
 					</h1>
 					{/* <div className="flex flex-wrap gap-3 justify-center mb-5">
