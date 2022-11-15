@@ -79,25 +79,25 @@ export default function Home({ events, news }: IndexProps) {
 					</div>
 				</div>
 				<div>
-					<div className="bg-neutral-200 p-2 rounded-lg mb-5 w-full md:w-80">
+					<div className="bg-neutral-200 p-5 rounded-lg mb-5 w-full md:w-80">
 						<h2 className="text-center font-bold text-xl">School Info</h2>
-						<p className="flex gap-2 items-center">
+						<p className="flex gap-2 p-1 items-center domHoverRed domCursor">
 							<BsFillPersonFill />
 							Principal Renay Johnson
 						</p>
-						<p className="flex gap-2 items-center">
+						<p className="flex gap-2 p-1 items-center domHoverRed domCursor">
 							<HiHome />
 							Home of the Blazers
 						</p>
-						<p className="flex gap-2 items-center">
+						<p className="flex gap-2 p-1 items-center domHoverRed domCursor">
 							<GrTextAlignCenter />
 							Crescens Scientia
 						</p>
-						<p className="flex gap-2 items-center">
+						<p className="flex gap-2 p-1 items-center domHoverRed domCursor">
 							<IoLocationSharp className="flex-none" />
 							51 University Blvd East Silver Spring Maryland 20901-2451
 						</p>
-						<p className="flex gap-2 items-center">
+						<p className="flex gap-2 p-1 items-center domHoverRed domCursor">
 							<BsFillTelephoneFill /> (240) 740-7200
 						</p>
 					</div>
