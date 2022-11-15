@@ -6,25 +6,37 @@ import { BsFillTelephoneFill, BsFillPersonFill } from "react-icons/bs";
 import { GrTextAlignCenter } from "react-icons/gr";
 import { IoLocationSharp } from "react-icons/io5";
 import { HiHome } from "react-icons/hi";
-import { Event } from "../lib/types";
+import { Event, New } from "../lib/types";
+import ReactMarkdown from "react-markdown";
 
 export async function getStaticProps() {
-	let res = await fetch("https://strapi.mbhs.edu/api/events").then((res) =>
+	//gets all events that are ending today or later and sorts them by date
+	let today = new Date()
+		.toLocaleDateString("en-GB")
+		.split("/")
+		.reverse()
+		.join("-");
+	let events = await fetch(
+		`https://strapi.mbhs.edu/api/events?filters[endDate][$gte]=${today}&sort=startDate:ASC`
+	).then((res) => res.json());
+
+	let news = await fetch("https://strapi.mbhs.edu/api/news").then((res) =>
 		res.json()
 	);
-
 	return {
 		props: {
-			events: res.data,
+			events: events.data,
+			news: news.data,
 		},
 	};
 }
 
 interface IndexProps {
 	events: Event[];
+	news: New[];
 }
 
-export default function Home({ events }: IndexProps) {
+export default function Home({ events, news }: IndexProps) {
 	return (
 		<div className="px-5 md:px-10">
 			<div className="flex flex-wrap justify-between gap-5 pt-5">
@@ -62,23 +74,12 @@ export default function Home({ events }: IndexProps) {
 					</div>
 					<h2 className="font-bold text-2xl text-center pt-5 pb-3">News</h2>
 					<div className="flex flex-col gap-3">
-						<div className="bg-neutral-200 rounded-lg p-2">
-							The November Principal's Newsletter from Ms. Johnson is now
-							available!
-						</div>
-						<div className="bg-neutral-200 rounded-lg p-2">
-							Senior families! You can pay for your Cap & Gown and other
-							Graduation items here through 12/16. You can also support our
-							Graduation Fund for needy Blair families here. If you have
-							questions about MCPS's new online payment system, please contact
-							Donna Franklin.
-						</div>
-						<div className="bg-neutral-200 rounded-lg p-2">
-							Parents/guardians! Instructions for the county's new online
-							payment system are available here. These will be used to provide
-							online payment options for field trips, event tickets,
-							obligations, and other school-related payments.
-						</div>
+						{news.map(({ attributes: { title, description } }, i) => (
+							<div className="bg-neutral-200 rounded-lg p-2" key={i}>
+								{title && <p className="font-bold text-xl pb-2">{title}</p>}
+								<ReactMarkdown>{description}</ReactMarkdown>
+							</div>
+						))}
 					</div>
 				</div>
 				<div>

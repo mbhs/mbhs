@@ -8,4 +8,13 @@ interface Event {
 	};
 }
 
-export type { Event };
+//singular form of News
+interface New {
+	id: number;
+	attributes: {
+		title: string;
+		description: string;
+	};
+}
+
+export type { Event, New };
