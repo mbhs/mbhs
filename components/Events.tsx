@@ -1,6 +1,7 @@
-import React from "react";
+	import React from "react";
 import { Event } from "../lib/types";
 import ReactMarkdown from "react-markdown";
+
 
 interface EventsProps {
 	events: Event[];
@@ -14,7 +15,15 @@ const parseDate = (date: string): string => {
 		day: "numeric",
 	});
 };
-
+const checkDate = (currentDate: string)  => {
+	const autumn = ["SEP","OCT","NOV"]
+	var scurrentDate = currentDate.split(" ");
+	var mcurrentDate = scurrentDate[0];
+	var dcurrentDate = scurrentDate[1];
+	if (autumn.includes(mcurrentDate)) {
+		return "https://cdn.britannica.com/18/196818-050-7030C41D/Maple-Colors.jpg";
+	}
+}
 
 export default function Events({ events }: EventsProps) {
 	React.useEffect(() => {
@@ -22,7 +31,7 @@ export default function Events({ events }: EventsProps) {
 	}, []);
 
 	return (
-		<div className=" bg-gradient-to-r from-purple-500 to-red-500 pt-10 px-20 w-full md:w-100% min-h-screen lg:px-10">
+		<div className=" bg-gradient-to-r from-black to-red-500 pt-10 px-20 w-full md:w-100% min-h-screen lg:px-10">
 			<h1 className="text-4xl font-bold text-center pb-10 text-white drop-shadow-lg">Upcoming Events</h1>
 			<div className="flex flex-col flex-wrap gap-6">
 				{events.map(({ attributes: { title, description, startDate } }, i) => (
