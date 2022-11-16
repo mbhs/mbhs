@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import Calendar from "../components/Calendar";
@@ -6,6 +6,8 @@ import { BsFillTelephoneFill, BsFillPersonFill } from "react-icons/bs";
 import { GrTextAlignCenter } from "react-icons/gr";
 import { IoLocationSharp } from "react-icons/io5";
 import { HiHome } from "react-icons/hi";
+import { AiOutlineMenu } from "react-icons/ai";
+import { CgClose } from "react-icons/cg";
 import { Event, New } from "../lib/types";
 import Markdown from "../components/Markdown";
 import Link from "next/link";
@@ -38,23 +40,55 @@ interface IndexProps {
 }
 
 export default function Home({ events, news }: IndexProps) {
+	const [shortcuts, setShortcuts] = useState<boolean>(false);
+
 	return (
 		<div className="px-5 md:px-10">
+			{shortcuts && (
+				<div className="absolute top-0 left-0 min-h-screen z-50 bg-neutral-200 p-2 flex flex-col items-end gap-2 w-full md:w-1/3">
+					<CgClose
+						size="1.5rem"
+						className="cursor-pointer"
+						onClick={() => setShortcuts(false)}
+					/>
+					<Link
+						href="/schedule"
+						className="font-extrabold bg-black text-center hover:bg-red-600 duration-300  text-white px-4 py-2 rounded-xl w-full text-xs md:text-base"
+					>
+						Bell Schedule & Buses
+					</Link>
+					{new Array(10).fill(0).map(() => (
+						<Link
+							href="/events"
+							className="font-extrabold bg-black text-center hover:bg-red-600 duration-300  text-white px-4 py-2 rounded-xl w-full text-xs md:text-base"
+						>
+							Events
+						</Link>
+					))}
+				</div>
+			)}
 			<div className="flex flex-wrap justify-between gap-5 pt-5">
-				<div className="md:block hidden">
+				<div
+					className="xl:hidden cursor-pointer absolute bg-neutral-200 border-2 border-neutral-300 rounded-lg p-2"
+					onClick={() => setShortcuts(!shortcuts)}
+				>
+					<AiOutlineMenu />
+				</div>
+
+				<div className="xl:block hidden">
 					<div className="bg-neutral-200 p-5 py-2 rounded-lg mb-3 w-full md:w-80">
 						<h2 className="text-center font-bold text-xl pb-3">Shortcuts</h2>
 						<div className="flex flex-col gap-3 justify-center">
 							<Link
 								href="/schedule"
-								className="font-extrabold bg-black text-center hover:text-red-500 duration-300  text-white px-4 py-2 rounded-xl w-full text-xs md:text-base"
+								className="font-extrabold bg-black text-center hover:bg-red-600 duration-300  text-white px-4 py-2 rounded-xl w-full text-xs md:text-base"
 							>
 								Bell Schedule & Buses
 							</Link>
 							{new Array(10).fill(0).map(() => (
 								<Link
 									href="/events"
-									className="font-extrabold bg-black text-center hover:text-red-500 duration-300  text-white px-4 py-2 rounded-xl w-full text-xs md:text-base"
+									className="font-extrabold bg-black text-center hover:bg-red-600 duration-300  text-white px-4 py-2 rounded-xl w-full text-xs md:text-base"
 								>
 									Events
 								</Link>
@@ -71,7 +105,7 @@ export default function Home({ events, news }: IndexProps) {
 							<img
 								src="https://mbhs.edu/carousel/img3.png"
 								alt="MBHS"
-								className="rounded-lg md:w-auto md:h-72"
+								className="rounded-lg md:w-full md:h-72"
 							/>
 						</div>
 					</div>
