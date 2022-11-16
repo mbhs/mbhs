@@ -27,7 +27,7 @@ interface EventsProps {
 
 export default function Events({ events }: EventsProps) {
 	return (
-		<div className="px-5 md:px-10 min-h-screen">
+		<div className="min-h-screen">
 					<Eventss events={events} />
 		</div>
 	);
