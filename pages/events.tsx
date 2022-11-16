@@ -1,8 +1,7 @@
 import React from "react";
 import Eventss from "../components/Events";
 import { Event } from "../lib/types";
-import ReactMarkdown from "react-markdown";
-
+import Markdown from "../components/Markdown";
 
 export async function getStaticProps() {
 	//gets all events that are ending today or later and sorts them by date
@@ -16,7 +15,7 @@ export async function getStaticProps() {
 	).then((res) => res.json());
 	return {
 		props: {
-			events: events.data
+			events: events.data,
 		},
 	};
 }
@@ -28,7 +27,7 @@ interface EventsProps {
 export default function Events({ events }: EventsProps) {
 	return (
 		<div className="min-h-screen">
-					<Eventss events={events} />
+			<Eventss events={events} />
 		</div>
 	);
 }

@@ -7,7 +7,7 @@ import { GrTextAlignCenter } from "react-icons/gr";
 import { IoLocationSharp } from "react-icons/io5";
 import { HiHome } from "react-icons/hi";
 import { Event, New } from "../lib/types";
-import ReactMarkdown from "react-markdown";
+import Markdown from "../components/Markdown";
 
 export async function getStaticProps() {
 	//gets all events that are ending today or later and sorts them by date
@@ -73,31 +73,31 @@ export default function Home({ events, news }: IndexProps) {
 								key={i}
 							>
 								{title && <p className="font-bold text-xl pb-2">{title}</p>}
-								<ReactMarkdown>{description}</ReactMarkdown>
+								<Markdown>{description}</Markdown>
 							</div>
 						))}
 					</div>
 				</div>
 				<div>
-					<div className="bg-neutral-200 p-5 rounded-lg mb-5 w-full md:w-80">
+					<div className="bg-neutral-200 p-5 py-2 rounded-lg mb-3 w-full md:w-80">
 						<h2 className="text-center font-bold text-xl">School Info</h2>
-						<p className="flex gap-2 p-1 items-center duration-200 hover:text-red-600 cursor-pointer">
+						<p className="flex gap-2 items-center duration-200 hover:text-red-600 cursor-pointer">
 							<BsFillPersonFill />
 							Principal Renay Johnson
 						</p>
-						<p className="flex gap-2 p-1 items-center duration-200 hover:text-red-600 cursor-pointer">
+						<p className="flex gap-2 items-center duration-200 hover:text-red-600 cursor-pointer">
 							<HiHome />
 							Home of the Blazers
 						</p>
-						<p className="flex gap-2 p-1 items-center duration-200 hover:text-red-600 cursor-pointer">
+						<p className="flex gap-2 items-center duration-200 hover:text-red-600 cursor-pointer">
 							<GrTextAlignCenter />
 							Crescens Scientia
 						</p>
-						<p className="flex gap-2 p-1 items-center duration-200 hover:text-red-600 cursor-pointer">
+						<p className="flex gap-2 items-center duration-200 hover:text-red-600 cursor-pointer">
 							<IoLocationSharp className="flex-none" />
 							51 University Blvd East Silver Spring Maryland 20901-2451
 						</p>
-						<p className="flex gap-2 p-1 items-center duration-200 hover:text-red-600 cursor-pointer">
+						<p className="flex gap-2 items-center duration-200 hover:text-red-600 cursor-pointer">
 							<BsFillTelephoneFill /> (240) 740-7200
 						</p>
 					</div>
