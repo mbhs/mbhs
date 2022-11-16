@@ -20,7 +20,7 @@ export async function getStaticProps() {
 function News({ news }: NewsProps) {
 	return (
 		<div>
-			<h1 className="text-xl md:text-4xl text-center font-bold pt-5 domShadowText1">
+			<h1 className="text-xl md:text-4xl text-center font-bold pt-5">
 				News
 			</h1>
 
