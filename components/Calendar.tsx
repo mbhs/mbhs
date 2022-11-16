@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Event } from "../lib/types";
-import ReactMarkdown from "react-markdown";
+import Markdown from "./Markdown";
 
 interface CalendarProps {
 	events: Event[];
@@ -38,7 +38,7 @@ export default function Calendar({ events }: CalendarProps) {
 								<p className="text-sm">6:30 PM</p>
 							</div>
 						</div>
-						<ReactMarkdown>{description}</ReactMarkdown>
+						<Markdown>{description}</Markdown>
 					</div>
 				))}
 				<div className="mt-2 flex justify-center">

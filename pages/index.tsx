@@ -7,7 +7,7 @@ import { GrTextAlignCenter } from "react-icons/gr";
 import { IoLocationSharp } from "react-icons/io5";
 import { HiHome } from "react-icons/hi";
 import { Event, New } from "../lib/types";
-import ReactMarkdown from "react-markdown";
+import Markdown from "../components/Markdown";
 
 export async function getStaticProps() {
 	//gets all events that are ending today or later and sorts them by date
@@ -73,7 +73,7 @@ export default function Home({ events, news }: IndexProps) {
 								key={i}
 							>
 								{title && <p className="font-bold text-xl pb-2">{title}</p>}
-								<ReactMarkdown>{description}</ReactMarkdown>
+								<Markdown>{description}</Markdown>
 							</div>
 						))}
 					</div>
