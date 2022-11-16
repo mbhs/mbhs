@@ -8,6 +8,7 @@ import { IoLocationSharp } from "react-icons/io5";
 import { HiHome } from "react-icons/hi";
 import { Event, New } from "../lib/types";
 import Markdown from "../components/Markdown";
+import Link from "next/link";
 
 export async function getStaticProps() {
 	//gets all events that are ending today or later and sorts them by date
@@ -40,22 +41,31 @@ export default function Home({ events, news }: IndexProps) {
 	return (
 		<div className="px-5 md:px-10">
 			<div className="flex flex-wrap justify-between gap-5 pt-5">
+				<div className="md:block hidden">
+					<div className="bg-neutral-200 p-5 py-2 rounded-lg mb-3 w-full md:w-80">
+						<h2 className="text-center font-bold text-xl pb-3">Shortcuts</h2>
+						<div className="flex flex-col gap-3 justify-center">
+							<Link
+								href="/schedule"
+								className="font-extrabold bg-black text-center hover:text-red-500 duration-300  text-white px-4 py-2 rounded-xl w-full text-xs md:text-base"
+							>
+								Bell Schedule & Buses
+							</Link>
+							{new Array(10).fill(0).map(() => (
+								<Link
+									href="/events"
+									className="font-extrabold bg-black text-center hover:text-red-500 duration-300  text-white px-4 py-2 rounded-xl w-full text-xs md:text-base"
+								>
+									Events
+								</Link>
+							))}
+						</div>
+					</div>
+				</div>
 				<div className="flex-1 mx-auto">
 					<h1 className="text-xl md:text-4xl text-center font-bold mb-5">
 						Montgomery Blair High School
 					</h1>
-					{/* <div className="flex flex-wrap gap-3 justify-center mb-5">
-						<a href="https://goo.gl/maps/xWzmWbCvaTaGV6eE8" target="blank">
-							<p className="bg-neutral-200 rounded-full px-2 py-1 flex gap-2 items-center">
-								<IoLocationSharp />
-								51 University Blvd East
-							</p>
-						</a>
-						<p className="bg-neutral-200 rounded-full px-2 py-1 flex gap-2 items-center">
-							<BsFillTelephoneFill />
-							(240) 740-7200
-						</p>
-					</div> */}
 					<div className="flex-1">
 						<div className="mx-auto md:w-max">
 							<img
