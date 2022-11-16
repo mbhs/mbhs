@@ -31,7 +31,7 @@ export default function Events({ events }: EventsProps) {
 						key={i}
 					>
 						<div className="flex items-center gap-3 mb-2">
-							<div className="bg-black rounded-lg p-2 flex-none w-16 h-16">
+							<div className="bg-black rounded-lg p-2 flex-none w-16 h-16">//"alternate colors and put gradient" suggestion from student
 								<p className="text-center font-semibold text-white text-base">
 									{parseDate(startDate)}
 								</p>
