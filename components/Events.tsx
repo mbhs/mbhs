@@ -6,7 +6,19 @@ import Markdown from "./Markdown";
 interface EventsProps {
 	events: Event[];
 }
-
+const parseTime = (time: string) => {
+	let timeArr = time.split(":");
+	let hours = parseInt(timeArr[0]);
+	let minutes = parseInt(timeArr[1]);
+	let ampm = hours >= 12 ? "PM" : "AM";
+	hours = hours % 12;
+	if (hours == 0) {
+		hours = 12;
+	}
+	return `${hours < 10 ? "0" + hours : hours}:${
+		minutes < 10 ? "0" + minutes : minutes
+	} ${ampm}`;
+};
 const parseDate = (date: string): string => {
 	let dateObj = new Date(date);
 	return dateObj.toLocaleString("default", {
@@ -56,9 +68,9 @@ export default function Events({ events }: EventsProps) {
 	return (
 		<div className=" bg-gradient-to-r from-black to-red-500 pt-10 px-20 w-full md:w-100% min-h-screen lg:px-10">
 			<h1 className="text-4xl font-bold text-center pb-10 text-white drop-shadow-lg">Upcoming Events</h1>
-			<input autoFocus onInput={handleChange} className="focus:ring focus:ring-red-500 flex bg-white rounded-full w-full relative mb-10 p-3 text-2xl outline-none" placeholder="Search Events..."></input>
+			<input autoFocus onChange={handleChange} className="focus:ring focus:ring-red-500 flex bg-white rounded-full w-full relative mb-10 p-3 text-2xl outline-none" placeholder="Search Events..."></input>
 			<div className="flex flex-col flex-wrap gap-6 pb-10">
-				{events.map(({ attributes: { title, description, startDate } }, i) => (
+				{events.map(({ attributes: { title, description, startDate, startTime } }, i) => (
 					<div
 						className={`rounded-lg p-5 ${colorSwitch(i)} text-sm drop-shadow-md `}
 						key={i}
@@ -71,7 +83,7 @@ export default function Events({ events }: EventsProps) {
 							</div>
 							<div>
 								<p className="font-semibold text-lg">{title}</p>
-								<p className="text-sm">6:30 PM</p>
+								<p className="text-sm">{startTime && parseTime(startTime)}</p>
 							</div>
 						</div>
 						<Markdown className="w-full md:w-1/2">{description}</Markdown>
