@@ -92,10 +92,11 @@ export default function schedule() {
 			</p>
 			<div className="flex flex-wrap justify-between items-center py-5">
 				<div className="flex flex-col gap-3">
-					{buses.map(({ name, link }) => (
+					{buses.map(({ name, link }, i) => (
 						<a
 							href={link}
 							target="blank"
+							key={i}
 							className="font-extrabold bg-black text-white px-4 py-2 rounded-xl w-full md:w-max text-xs md:text-base"
 						>
 							{name}
@@ -174,8 +175,8 @@ export default function schedule() {
 						</tr>
 					</thead>
 					<tbody>
-						{bell[tab].periods.map(({ name, startTime, endTime }) => (
-							<tr className="bg-white border-y hover:bg-gray-50">
+						{bell[tab].periods.map(({ name, startTime, endTime }, i) => (
+							<tr className="bg-white border-y hover:bg-gray-50" key={i}>
 								<th
 									scope="row"
 									className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap"

@@ -26,6 +26,7 @@ export async function getStaticProps() {
 	let news = await fetch("https://strapi.mbhs.edu/api/news").then((res) =>
 		res.json()
 	);
+
 	return {
 		props: {
 			events: events.data,
@@ -57,9 +58,10 @@ export default function Home({ events, news }: IndexProps) {
 					>
 						Bell Schedule & Buses
 					</Link>
-					{new Array(10).fill(0).map(() => (
+					{new Array(10).fill(0).map((x, i) => (
 						<Link
 							href="/events"
+							key={i}
 							className="font-extrabold bg-black text-center hover:bg-red-600 duration-300  text-white px-4 py-2 rounded-xl w-full text-xs md:text-base"
 						>
 							Events
@@ -85,8 +87,9 @@ export default function Home({ events, news }: IndexProps) {
 							>
 								Bell Schedule & Buses
 							</Link>
-							{new Array(10).fill(0).map(() => (
+							{new Array(10).fill(0).map((x, i) => (
 								<Link
+									key={i}
 									href="/events"
 									className="font-extrabold bg-black text-center hover:bg-red-600 duration-300  text-white px-4 py-2 rounded-xl w-full text-xs md:text-base"
 								>

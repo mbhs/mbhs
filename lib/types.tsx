@@ -5,6 +5,8 @@ interface Event {
 		description: string;
 		startDate: string;
 		endDate: string;
+		startTime: string;
+		endTime?: string;
 	};
 }
 
