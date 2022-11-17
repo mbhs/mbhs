@@ -26,7 +26,7 @@ export default function Calendar({ events }: CalendarProps) {
 			<h1 className="text-xl font-bold text-center pb-3">Upcoming Events</h1>
 			<div className="flex flex-col flex-wrap gap-2">
 				{events.map(({ attributes: { title, description, startDate } }, i) => (
-					<div className="rounded-lg p-2 bg-neutral-300 text-sm" key={i}>
+					<div className="rounded-lg p-2 bg-neutral-300 text-sm w-full break-words" key={i}>
 						<div className="flex items-center gap-3 mb-2">
 							<div className="bg-black rounded-lg p-2 flex-none w-16 h-16">
 								<p className="text-center font-semibold text-white text-base">
