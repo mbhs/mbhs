@@ -17,7 +17,10 @@ export default function Markdown({
 	[key: string]: any;
 }) {
 	return (
-		<ReactMarkdown components={{ a: Link }} {...rest}>
+		<ReactMarkdown components={{
+			a: Link,
+			img: ({children, ...rest}) => (<img {...rest}>{children}</img>)
+		}} {...rest}>
 			{children}
 		</ReactMarkdown>
 	);
