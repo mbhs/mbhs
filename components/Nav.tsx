@@ -14,6 +14,7 @@ export default function Nav() {
 					<Link href="/academies">Academies</Link>
 					<Link href="/news">News</Link>
 					<Link href="/schedule">Bell Schedule & Buses</Link>
+					<Link href="/schedule">Shortcuts</Link>
 				</div>
 			</div>
 		</div>

@@ -45,7 +45,7 @@ export default function Home({ events, news }: IndexProps) {
 
 	return (
 		<div className="px-5 md:px-10">
-			{shortcuts && (
+			{/* {shortcuts && (
 				<div className="absolute top-0 left-0 min-h-screen z-50 bg-neutral-200 p-2 flex flex-col items-end gap-2 w-full md:w-1/3">
 					<CgClose
 						size="1.5rem"
@@ -68,16 +68,16 @@ export default function Home({ events, news }: IndexProps) {
 						</Link>
 					))}
 				</div>
-			)}
+			)} */}
 			<div className="flex flex-wrap justify-between gap-5 pt-5">
-				<div
+				{/* <div
 					className="xl:hidden cursor-pointer absolute bg-neutral-200 border-2 border-neutral-300 rounded-lg p-2"
 					onClick={() => setShortcuts(!shortcuts)}
 				>
 					<AiOutlineMenu />
-				</div>
+				</div> */}
 
-				<div className="xl:block hidden">
+				{/* <div className="xl:block hidden">
 					<div className="bg-neutral-200 p-5 py-2 rounded-lg mb-3 w-full md:w-80">
 						<h2 className="text-center font-bold text-xl pb-3">Shortcuts</h2>
 						<div className="flex flex-col gap-3 justify-center">
@@ -98,7 +98,7 @@ export default function Home({ events, news }: IndexProps) {
 							))}
 						</div>
 					</div>
-				</div>
+				</div> */}
 				<div className="flex-1 mx-auto">
 					<h1 className="text-xl md:text-4xl text-center font-bold mb-5">
 						Montgomery Blair High School
@@ -108,7 +108,7 @@ export default function Home({ events, news }: IndexProps) {
 							<img
 								src="https://mbhs.edu/carousel/img3.png"
 								alt="MBHS"
-								className="rounded-lg md:w-full md:h-72"
+								className="rounded-lg md:w-full md:h-96"
 							/>
 						</div>
 					</div>

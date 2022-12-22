@@ -1,5 +1,22 @@
 import React, { useState } from "react";
 
+export async function getStaticProps() {
+	//gets all events that are ending today or later and sorts them by date
+	let today = new Date()
+		.toLocaleDateString("en-GB")
+		.split("/")
+		.reverse()
+		.join("-");
+	let events = await fetch(`https://strapi.mbhs.edu/api/schedules`).then(
+		(res) => res.json()
+	);
+	return {
+		props: {
+			schedules: events.data,
+		},
+	};
+}
+
 const selected = (val: boolean) => {
 	if (val) {
 		return "inline-block p-4 text-red-600 rounded-t-lg border-b-2 border-red-600 active cursor-pointer";
@@ -32,52 +49,22 @@ const buses = [
 ];
 
 interface Schedules {
-	[key: string]: {
+	attributes: {
 		name: string;
-		periods: { name: string; startTime: string; endTime: string }[];
+		periods: {
+			name: string;
+			startTime: string;
+			endTime: string;
+		}[];
 	};
 }
 
-const bell: Schedules = {
-	today: {
-		name: "Regular Bell Schedule",
-		periods: [
-			{
-				name: "Period 1/2",
-				startTime: "7:45 AM",
-				endTime: "9:23 AM",
-			},
-			{
-				name: "Period 3/4",
-				startTime: "9:29 AM",
-				endTime: "11:00 AM",
-			},
-			{
-				name: "Lunch",
-				startTime: "11:00 AM",
-				endTime: "12:00 PM",
-			},
-			{
-				name: "Period 6",
-				startTime: "12:06 PM",
-				endTime: "12:52 PM",
-			},
-			{
-				name: "Period 7/8",
-				startTime: "12:58 PM",
-				endTime: "2:30 PM",
-			},
-			{
-				name: "Period 9",
-				startTime: "2:35 PM",
-				endTime: "3:20 PM",
-			},
-		],
-	},
-};
+export default function schedule({ schedules }: { schedules: Schedules[] }) {
+	const [tab, setTab] = useState<string>(schedules[0].attributes.name);
 
-export default function schedule() {
-	const [tab, setTab] = useState<string>("today");
+	React.useEffect(() => {
+		console.log(schedules);
+	}, [schedules]);
 
 	return (
 		<div className="px-5 sm:px-12 md:px-24 lg:px-36 xl:px-48">
@@ -116,46 +103,16 @@ export default function schedule() {
 			</h1>
 			<div className="text-sm font-medium text-center text-gray-500 border-b border-gray-200">
 				<ul className="flex flex-wrap -mb-px">
-					<li className="mr-2">
-						<a
-							className={selected(tab === "today")}
-							onClick={() => setTab("today")}
-						>
-							Today
-						</a>
-					</li>
-					<li className="mr-2">
-						<a
-							className={selected(tab === "early")}
-							onClick={() => setTab("early")}
-						>
-							Early (2.5 Hour) Dismissal
-						</a>
-					</li>
-					<li className="mr-2">
-						<a
-							className={selected(tab === "late")}
-							onClick={() => setTab("late")}
-						>
-							Late (2 Hour) Opening
-						</a>
-					</li>
-					<li className="mr-2">
-						<a
-							className={selected(tab === "innovation")}
-							onClick={() => setTab("innovation")}
-						>
-							Innovation Day
-						</a>
-					</li>
-					<li className="mr-2">
-						<a
-							className={selected(tab === "all")}
-							onClick={() => setTab("all")}
-						>
-							All Period Day
-						</a>
-					</li>
+					{schedules.map(({ attributes: { name } }, i) => (
+						<li className="mr-2" key={i}>
+							<a
+								className={selected(tab === name)}
+								onClick={() => setTab(name)}
+							>
+								{name}
+							</a>
+						</li>
+					))}
 				</ul>
 			</div>
 
@@ -175,18 +132,20 @@ export default function schedule() {
 						</tr>
 					</thead>
 					<tbody>
-						{bell[tab].periods.map(({ name, startTime, endTime }, i) => (
-							<tr className="bg-white border-y hover:bg-gray-50" key={i}>
-								<th
-									scope="row"
-									className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap"
-								>
-									{name}
-								</th>
-								<td className="py-4 px-6">{startTime}</td>
-								<td className="py-4 px-6">{endTime}</td>
-							</tr>
-						))}
+						{schedules
+							.find((x) => x.attributes.name == tab)
+							?.attributes.periods.map(({ name, startTime, endTime }, i) => (
+								<tr className="bg-white border-y hover:bg-gray-50" key={i}>
+									<th
+										scope="row"
+										className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap"
+									>
+										{name}
+									</th>
+									<td className="py-4 px-6">{startTime}</td>
+									<td className="py-4 px-6">{endTime}</td>
+								</tr>
+							))}
 					</tbody>
 				</table>
 			</div>
