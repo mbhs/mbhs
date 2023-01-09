@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Nav() {
   const [scrollPosition, setScrollPosition] = useState(0);
-  const [navbarClass, setNavbarClass] = useState("");
+  const [navbarClass, setNavbarClass] = useState("bg-red-600 p-3");
 
   useEffect(() => {
     function handleScroll() {
