@@ -27,7 +27,7 @@ export default function Calendar({ events }: CalendarProps) {
 	}, []);
 
 	return (
-		<div className="border-4 bg-neutral-200 rounded-lg p-2 w-full md:w-80">
+		<div className="bg-white shadow-md rounded-lg p-2 w-full md:w-80">
 			<h1 className="text-xl font-bold text-center pb-3">Upcoming Events</h1>
 			<div className="flex flex-col flex-wrap gap-2">
 				{events.map(
@@ -57,7 +57,7 @@ export default function Calendar({ events }: CalendarProps) {
 				)}
 				<div className="mt-2 flex justify-center">
 					<Link href="/events">
-						<div className="px-4 py-2 bg-black rounded-xl text-white font-extrabold w-max">
+						<div className="px-4 py-2 bg-black rounded-xl text-white font-extrabold w-max duration-200 hover:bg-red-600 hover:shadow-md">
 							View Full Calendar
 						</div>
 					</Link>
