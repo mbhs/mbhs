@@ -51,7 +51,7 @@ export default function Home({ events, news, carousel }: IndexProps) {
 	const [shortcuts, setShortcuts] = useState<boolean>(false);
 
 	return (
-		<div className="px-5 md:px-12 lg:px-24 xl:px-48">
+		<div className="px-5 md:px-12 lg:px-24 xl:px-48 2xl:px-72">
 			<div className="flex flex-wrap justify-between gap-5 pt-5">
 				<div className="flex-1 mx-auto">
 					<h1 className="text-xl md:text-4xl text-center font-bold mb-5">
