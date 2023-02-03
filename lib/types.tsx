@@ -20,4 +20,18 @@ interface New {
 	};
 }
 
-export type { Event, New };
+interface Carousel {
+	id: number;
+	attributes: {
+		description: string;
+		image: {
+			data: {
+				attributes: {
+					url: string
+				}
+			}
+		};
+	}
+}
+
+export type { Event, New, Carousel };
