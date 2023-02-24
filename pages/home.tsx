@@ -4,12 +4,25 @@ import { HiOutlineDocumentText } from "react-icons/hi";
 import { BsNewspaper } from "react-icons/bs";
 import { MdOutlineLocationOn, MdEvent } from "react-icons/md";
 import { AiOutlineSound, AiFillSound } from "react-icons/ai";
+import { FaPlay, FaPause } from "react-icons/fa";
 
 export default function home() {
-  const [sound, setSound] = React.useState<boolean>(false);
+	const [sound, setSound] = React.useState<boolean>(false);
+	const videoRef = React.useRef<HTMLVideoElement>(null);
+	const [playing, setPlaying] = React.useState<boolean>(false);
+
+	const togglePlayPause = () => {
+		if (playing) {
+			videoRef.current?.pause();
+			setPlaying(false);
+		} else {
+			videoRef.current?.play();
+			setPlaying(true);
+		}
+	};
 
 	return (
-		<div className="relative w-full bg-red-600 h-screen">
+		<div className="relative w-full bg-red-600 h-screen -mt-6">
 			<div className="p-10 absolute z-10">
 				<h1 className="text-white font-bold text-5xl">
 					Montgomery Blair High School
@@ -61,12 +74,25 @@ export default function home() {
 						src="https://ia801509.us.archive.org/10/items/Rick_Astley_Never_Gonna_Give_You_Up/Rick_Astley_Never_Gonna_Give_You_Up.mp4"
 						controls={false}
 						autoPlay={true}
-            loop={true}
+						ref={videoRef}
+						loop={true}
 						muted={!sound}
+						onPlay={() => setPlaying(true)}
 						className="h-full"
 					/>
 					<div className="absolute inset-0 opacity-100 bg-gradient-to-r from-red-600 to-transparent h-full" />
-					<button onClick={() => setSound(!sound)}>{sound ? <AiFillSound className="absolute bottom-5 right-5 bg-red-800 h-8 w-8 p-2 rounded-full text-white"/> : <AiOutlineSound className="absolute bottom-5 right-5 bg-red-800 h-8 w-8 p-2 rounded-full text-white" />}</button>
+					<button
+						className="absolute bottom-5 right-16 h-8 w-8 bg-red-800 text-white transition-all duration-300 hover:bg-white hover:text-red-600 p-2 rounded-full"
+						onClick={() => togglePlayPause()}
+					>
+						{playing ? <FaPause /> : <FaPlay />}
+					</button>
+					<button
+						className="absolute bottom-5 right-5 h-8 w-8 bg-red-800 text-white transition-all duration-300 hover:bg-white hover:text-red-600 p-2 rounded-full"
+						onClick={() => setSound(!sound)}
+					>
+						{sound ? <AiOutlineSound /> : <AiFillSound />}
+					</button>
 				</div>
 			</div>
 		</div>
