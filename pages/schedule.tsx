@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Schedule } from "../lib/types";
 
 export async function getStaticProps() {
 	//gets all events that are ending today or later and sorts them by date
@@ -48,18 +49,7 @@ const buses = [
 	},
 ];
 
-interface Schedules {
-	attributes: {
-		name: string;
-		periods: {
-			name: string;
-			startTime: string;
-			endTime: string;
-		}[];
-	};
-}
-
-export default function schedule({ schedules }: { schedules: Schedules[] }) {
+export default function schedule({ schedules }: { schedules: Schedule[] }) {
 	const [tab, setTab] = useState<string>(schedules[0].attributes.name);
 
 	React.useEffect(() => {
