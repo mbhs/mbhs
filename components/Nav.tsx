@@ -126,11 +126,11 @@ export default function Nav() {
             </div>
 
             <div className="flex flex-row">
-              <Link onMouseEnter={() => toggleHoverMenu("home", true)} href="/" className="block py-1 px-3 text-white">Home</Link>
-              <Link onMouseEnter={() => toggleHoverMenu("about", true)} href="/about" className="block py-1 px-3 text-white">About</Link>
-              <Link onMouseEnter={() => toggleHoverMenu("academies", true)} href="/academies" className="block py-1 px-3 text-white">Academies</Link>
-              <Link onMouseEnter={() => toggleHoverMenu("news", true)} href="/news" className="block py-1 px-3 text-white">News</Link>
-              <Link onMouseEnter={() => toggleHoverMenu("schedule", true)} href="/schedule" className="block py-1 px-3 text-white">Schedule</Link>
+              <Link onMouseEnter={() => toggleHoverMenu("home", true)} onMouseLeave={() => toggleHoverMenu("home", false)} href="/" className="block py-1 px-3 text-white">Home</Link>
+              <Link onMouseEnter={() => toggleHoverMenu("about", true)} onMouseLeave={() => toggleHoverMenu("about", false)} href="/about" className="block py-1 px-3 text-white">About</Link>
+              <Link onMouseEnter={() => toggleHoverMenu("academies", true)} onMouseLeave={() => toggleHoverMenu("academies", false)} href="/academies" className="block py-1 px-3 text-white">Academies</Link>
+              <Link onMouseEnter={() => toggleHoverMenu("news", true)} onMouseLeave={() => toggleHoverMenu("news", false)} href="/news" className="block py-1 px-3 text-white">News</Link>
+              <Link onMouseEnter={() => toggleHoverMenu("schedule", true)} onMouseLeave={() => toggleHoverMenu("schedule", false)} href="/schedule" className="block py-1 px-3 text-white">Schedule</Link>
             </div>
 
           </div>
@@ -140,21 +140,21 @@ export default function Nav() {
         <div className="w-full h-full flex flex-row">
           <div className="basis-7/12 w-full"></div>
           <div className="basis-5/12 w-full">
-            <motion.div className="fixed h-64 flex flex-row" initial="exit" animate={isHover.home ? "enter" : "exit"} variants={subMenuAnimate} onHoverEnd={() => toggleHoverMenu("home", false)}>
+            <motion.div className="fixed h-64 w-full flex flex-row bg-white" initial="exit" animate={isHover.home ? "enter" : "exit"} variants={subMenuAnimate}>
               <img src="/assets/MBHS_Entrance.jpg" />
               <div className="flex flex-col">
                 <div>Home</div>
               </div>
             </motion.div>
 
-            <motion.div className="fixed h-64 flex flex-row" initial="exit" animate={isHover.about ? "enter" : "exit"} variants={subMenuAnimate} onHoverEnd={() => toggleHoverMenu("about", false)}>
+            <motion.div className="fixed h-64 w-full flex flex-row bg-white" initial="exit" animate={isHover.about ? "enter" : "exit"} variants={subMenuAnimate}>
               <img src="/assets/MBHS_Entrance.jpg" />
               <div className="flex flex-col">
                 <div>About</div>
               </div>
             </motion.div>
 
-            <motion.div className="fixed h-64 flex flex-row" initial="exit" animate={isHover.academies ? "enter" : "exit"} variants={subMenuAnimate} onHoverEnd={() => toggleHoverMenu("academies", false)}>
+            <motion.div className="fixed h-64 w-full flex flex-row bg-white" initial="exit" animate={isHover.academies ? "enter" : "exit"} variants={subMenuAnimate}>
               <img src="/assets/MBHS_Entrance.jpg" />
               <div className="flex flex-col">
                 <div>Magnet</div>
@@ -166,14 +166,14 @@ export default function Nav() {
               </div>
             </motion.div>
 
-            <motion.div className="fixed h-64 flex flex-row" initial="exit" animate={isHover.news ? "enter" : "exit"} variants={subMenuAnimate} onHoverEnd={() => toggleHoverMenu("news", false)}>
+            <motion.div className="fixed h-64 w-full flex flex-row bg-white" initial="exit" animate={isHover.news ? "enter" : "exit"} variants={subMenuAnimate}>
               <img src="/assets/MBHS_Entrance.jpg" />
               <div className="flex flex-col">
                 <div>TOP NEWS</div>
               </div>
             </motion.div>
 
-            <motion.div className="fixed h-64 flex flex-row" initial="exit" animate={isHover.schedule ? "enter" : "exit"} variants={subMenuAnimate} onHoverEnd={() => toggleHoverMenu("schedule", false)}>
+            <motion.div className="fixed h-64 w-full flex flex-row bg-white" initial="exit" animate={isHover.schedule ? "enter" : "exit"} variants={subMenuAnimate}>
               <img src="/assets/MBHS_Entrance.jpg" />
               <div className="flex flex-col">
                 <div>Regular Day</div>
