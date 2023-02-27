@@ -134,11 +134,6 @@ export default function Nav() {
               <Link onMouseEnter={() => toggleHoverMenu("academies", true)} onMouseLeave={() => toggleHoverMenu("academies", false)} href="/academies" className="block py-1 px-3 text-white">Academies</Link>
               <Link onMouseEnter={() => toggleHoverMenu("news", true)} onMouseLeave={() => toggleHoverMenu("news", false)} href="/news" className="block py-1 px-3 text-white">News</Link>
               <Link onMouseEnter={() => toggleHoverMenu("schedule", true)} onMouseLeave={() => toggleHoverMenu("schedule", false)} href="/schedule" className="block py-1 px-3 text-white">Schedule</Link>
-              <Link onMouseEnter={() => toggleHoverMenu("home", true)} onMouseLeave={() => toggleHoverMenu("home", false)} href="/" className="block py-1 px-3 text-white">Home</Link>
-              <Link onMouseEnter={() => toggleHoverMenu("about", true)} onMouseLeave={() => toggleHoverMenu("about", false)} href="/about" className="block py-1 px-3 text-white">About</Link>
-              <Link onMouseEnter={() => toggleHoverMenu("academies", true)} onMouseLeave={() => toggleHoverMenu("academies", false)} href="/academies" className="block py-1 px-3 text-white">Academies</Link>
-              <Link onMouseEnter={() => toggleHoverMenu("news", true)} onMouseLeave={() => toggleHoverMenu("news", false)} href="/news" className="block py-1 px-3 text-white">News</Link>
-              <Link onMouseEnter={() => toggleHoverMenu("schedule", true)} onMouseLeave={() => toggleHoverMenu("schedule", false)} href="/schedule" className="block py-1 px-3 text-white">Schedule</Link>
             </div>
 
           </div>
