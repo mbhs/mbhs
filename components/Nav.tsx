@@ -103,7 +103,7 @@ export default function Nav() {
               <motion.div onHoverEnd={() => toggleHoverMenu("students", false)}>
                 <Link onMouseEnter={() => toggleHoverMenu("students", true)} href="/students" className="block py-1 px-3 text-white">Students</Link>
                 <motion.div initial="exit" animate={isHover.students ? "enter" : "exit"} variants={subMenuAnimate}>
-                  <div className="mx-auto text-black font-semibold fixed bg-white z-[50]">
+                  <div className="mx-auto text-black font-semibold fixed bg-white">
                     <div>Vijay</div>
                     <div>Tinu</div>
                     <div>Asher</div>
