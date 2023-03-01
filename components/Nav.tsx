@@ -4,25 +4,29 @@ import { motion } from "framer-motion";
 
 export default function Nav() {
   const [scrollPosition, setScrollPosition] = useState(0);
-  const [navbarClass, setNavbarClass] = useState("bg-red-600 p-1");
+  const [navbarClass, setNavbarClass] = useState("bg-red-700");
   const [mainDiv, setMainDiv] = useState("pb-16");
   const [scrollDir, setScrollDir] = useState(0);
   const [isHover, setHover] = useState<{ [name: string]: boolean }>({});
 
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+
   const subMenuAnimate = {
     enter: {
+      originY: 0,
       opacity: 1,
-      rotateX: 0,
+      scaleY: 1,
       transition: {
-        duration: 0.2
+        duration: .2
       },
       display: "flex"
     },
     exit: {
+      originY: 0,
       opacity: 0,
-      rotateX: -25,
+      scaleY: 0,
       transition: {
-        duration: 0.1,
+        duration: .2,
         delay: 0.2
       },
       transitionEnd: {
@@ -72,12 +76,12 @@ export default function Nav() {
 
   useEffect(() => {
     if (scrollPosition < 80) {
-      setNavbarClass("bg-red-600");
+      setNavbarClass("bg-red-700");
       setMainDiv("");
     } else {
       setMainDiv("pb-20");
       if (scrollDir > 0) {
-        setNavbarClass("bg-red-600 fixed");
+        setNavbarClass("bg-red-700 fixed");
       } else if (scrollDir < 0) {
         setNavbarClass("hidden");
       }
@@ -91,7 +95,7 @@ export default function Nav() {
 
   return (
 
-    <div className={`${mainDiv} mb-5 w-full flex flex-col`}>
+    <div className={`${mainDiv} w-full flex flex-col`}>
       <div className={`h-20 w-full ${navbarClass}`}>
         <div className="px-8 flex flex-wrap items-center justify-between mx-auto">
           <Link href="/" className="flex items-center">
@@ -128,7 +132,7 @@ export default function Nav() {
               </motion.div>
             </div>
 
-            <div className="flex flex-row">
+            <div className="flex flex-row" onMouseEnter={() => setDropdownVisible(true)} onMouseLeave={() => setDropdownVisible(false)}>
               <Link onMouseEnter={() => toggleHoverMenu("home", true)} onMouseLeave={() => toggleHoverMenu("home", false)} href="/" className="block py-1 px-3 text-white">Home</Link>
               <Link onMouseEnter={() => toggleHoverMenu("about", true)} onMouseLeave={() => toggleHoverMenu("about", false)} href="/about" className="block py-1 px-3 text-white">About</Link>
               <Link onMouseEnter={() => toggleHoverMenu("academies", true)} onMouseLeave={() => toggleHoverMenu("academies", false)} href="/academies" className="block py-1 px-3 text-white">Academies</Link>
@@ -139,18 +143,18 @@ export default function Nav() {
           </div>
         </div>
       </div>
-      <div className="absolute z-50 w-full fixed mt-20 h-64">
-        <div className="w-full h-full flex flex-row-reverse">
-          <div className="basis-4/12 w-full">
+      {dropdownVisible && <div className="fixed w-full z-50 mt-20 h-64">
+        <div className="w-full h-full z-50 flex flex-row-reverse">
+          <div className="w-[33%] z-50 rounded-lg mr-8">
             <motion.div onMouseEnter={() => toggleHoverMenu("home", true)} onMouseLeave={() => toggleHoverMenu("home", false)} className="fixed h-64 w-full flex flex-row bg-white rounded-lg" initial="exit" animate={isHover.home ? "enter" : "exit"} variants={subMenuAnimate}>
               <img src="/assets/MBHS_Entrance.jpg" className="rounded-l-lg" />
-              <div className="flex flex-col rounded-r-lg">
+              <div className="flex flex-col">
                 <div>Home</div>
               </div>
             </motion.div>
 
             <motion.div onMouseEnter={() => toggleHoverMenu("about", true)} onMouseLeave={() => toggleHoverMenu("about", false)} className="fixed h-64 w-full flex flex-row bg-white rounded-lg" initial="exit" animate={isHover.about ? "enter" : "exit"} variants={subMenuAnimate}>
-              <img src="/assets/MBHS_Entrance.jpg" className="rounded-l-lg" />
+              <img src="/assets/drop-off-map.jpg" className="rounded-l-lg" />
               <div className="flex flex-col">
                 <div>About</div>
               </div>
@@ -169,7 +173,7 @@ export default function Nav() {
             </motion.div>
 
             <motion.div onMouseEnter={() => toggleHoverMenu("news", true)} onMouseLeave={() => toggleHoverMenu("news", false)} className="fixed h-64 w-full flex flex-row bg-white rounded-lg" initial="exit" animate={isHover.news ? "enter" : "exit"} variants={subMenuAnimate}>
-              <img src="/assets/MBHS_Entrance.jpg" className="rounded-l-lg" />
+              <img src="/assets/drop-off-map.jpg" className="rounded-l-lg" />
               <div className="flex flex-col">
                 <div>TOP NEWS</div>
               </div>
@@ -187,7 +191,7 @@ export default function Nav() {
             </motion.div>
           </div>
         </div>
-      </div>
+      </div>}
     </div>
 
   );
