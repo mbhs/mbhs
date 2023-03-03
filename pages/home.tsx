@@ -6,8 +6,44 @@ import { MdOutlineLocationOn, MdEvent } from "react-icons/md";
 import { AiOutlineSound, AiFillSound, AiOutlineClose } from "react-icons/ai";
 import { FaPlay, FaPause } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { Event, New, HomePage } from "../lib/types";
+import Markdown from "../components/Markdown";
 
-export default function home() {
+export async function getStaticProps() {
+	//gets all events that are ending today or later and sorts them by date
+	let today = new Date()
+		.toLocaleDateString("en-GB")
+		.split("/")
+		.reverse()
+		.join("-");
+	let events = await fetch(
+		`https://strapi.mbhs.edu/api/events?filters[endDate][$gte]=${today}&sort=startDate:ASC`
+	).then((res) => res.json());
+
+	let news = await fetch("https://strapi.mbhs.edu/api/news").then((res) =>
+		res.json()
+	);
+
+	let meta = await fetch("https://strapi.mbhs.edu/api/home-page?populate=*").then((res) =>
+		res.json()
+	);
+
+	return {
+		props: {
+			events: events.data,
+			news: news.data,
+			meta: meta.data,
+		},
+	};
+}
+
+interface IndexProps {
+	events: Event[];
+	news: New[];
+	meta: HomePage;
+}
+
+export default function home({ events, news, meta }: IndexProps) {
 	const [sound, setSound] = React.useState<boolean>(false);
 	const videoRef = React.useRef<HTMLVideoElement>(null);
 	const [playing, setPlaying] = React.useState<boolean>(false);
@@ -24,7 +60,7 @@ export default function home() {
 	};
 
 	return (
-		<div className="relative w-full bg-red-700 h-screen">
+		<div className="relative w-full bg-black h-screen">
 			{maps && (
 				<div className="z-30 backdrop-blur-lg absolute h-screen w-full flex justify-center items-center">
 					<motion.div
@@ -53,7 +89,7 @@ export default function home() {
 				</div>
 			)}
 
-			<div className="p-10 absolute z-10">
+			<div className="p-10 absolute z-10 w-full md:w-3/4 xl:w-7/12">
 				<h1 className="text-white font-bold text-5xl">
 					Montgomery Blair High School
 				</h1>
@@ -73,37 +109,48 @@ export default function home() {
 				</h3>
 				<div className="flex justify-center pt-10 gap-10">
 					<div className="flex flex-col items-center">
-						<div className="rounded-full bg-red-900 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-white text-white hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-4">
+						<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-white text-white hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-4">
 							<HiOutlineDocumentText className="h-full w-full" />
 						</div>
 						<p className="text-white font-semibold pt-2">Resources</p>
 					</div>
-					<div className="flex flex-col items-center">
-						<div className="rounded-full bg-red-900 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-white text-white hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-4">
+					{/* <div className="flex flex-col items-center">
+						<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-white text-white hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-4">
 							<BsNewspaper className="h-full w-full" />
 						</div>
 						<p className="text-white font-semibold pt-2">News</p>
-					</div>
+					</div> */}
 					<div className="flex flex-col items-center">
 						<button onClick={() => setMaps(!maps)}>
-							<div className="rounded-full bg-red-900 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-white text-white hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-4">
+							<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-white text-white hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-4">
 								<MdOutlineLocationOn className="h-full w-full" />
 							</div>
 						</button>
 						<p className="text-white font-semibold pt-2">Directions</p>
 					</div>
 					<div className="flex flex-col items-center">
-						<div className="rounded-full bg-red-900 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-white text-white hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-4">
+						<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-white text-white hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-4">
 							<MdEvent className="h-full w-full" />
 						</div>
 						<p className="text-white font-semibold pt-2">Events</p>
 					</div>
 				</div>
+				<div className="pt-10 flex flex-col gap-3">
+					{news.map(({ attributes: { title, description } }, i) => (
+						<div
+							className="bg-white bg-opacity-10 text-white backdrop-blur-lg rounded-lg p-3 transition-all duration-300 hover:bg-opacity-5"
+							key={i}
+						>
+							{title && <p className="font-bold text-xl pb-2">{title}</p>}
+							<Markdown>{description}</Markdown>
+						</div>
+					))}
+				</div>
 			</div>
 			<div className="absolute right-0 top-0 h-5/6">
 				<div className="relative h-full">
 					<video
-						src="https://ia801509.us.archive.org/10/items/Rick_Astley_Never_Gonna_Give_You_Up/Rick_Astley_Never_Gonna_Give_You_Up.mp4"
+						src={meta.attributes.video.data.attributes.url}
 						controls={false}
 						autoPlay={true}
 						ref={videoRef}
@@ -112,7 +159,7 @@ export default function home() {
 						onPlay={() => setPlaying(true)}
 						className="h-full"
 					/>
-					<div className="absolute inset-0 opacity-100 bg-gradient-to-r from-red-700 to-transparent h-full" />
+					<div className="absolute inset-0 opacity-100 bg-gradient-to-r from-black to-transparent h-full" />
 					<button
 						className="absolute bottom-5 right-16 h-8 w-8 bg-red-700 text-white transition-all duration-300 hover:bg-white hover:text-red-700 p-2 rounded-full"
 						onClick={() => togglePlayPause()}
