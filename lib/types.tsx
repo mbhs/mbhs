@@ -85,4 +85,18 @@ interface Page {
 	}
 }
 
-export type { Event, New, Carousel, Schedule, ShortcutSection, Shortcut, FooterBadge, Page };
+interface HomePage {
+	id: number;
+	attributes: {
+		title: string;
+		video : {
+			data: {
+				attributes: {
+					url: string
+				}
+			}
+		}
+	}
+}
+
+export type { Event, New, Carousel, Schedule, ShortcutSection, Shortcut, FooterBadge, Page, HomePage };
