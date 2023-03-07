@@ -61,7 +61,7 @@ export default function home({ events, news, meta }: IndexProps) {
 	};
 
 	return (
-		<div className="relative w-full -z-20 bg-black min-h-screen">
+		<div className="relative w-full min-h-screen">
 			{maps && (
 				<div className="z-30 absolute backdrop-blur-lg h-screen w-full flex justify-center items-center">
 					<motion.div
@@ -90,7 +90,7 @@ export default function home({ events, news, meta }: IndexProps) {
 				</div>
 			)}
 
-			<div className="p-10 z-30 w-full sm:w-7/8 md:w-3/4 xl:w-8/12 2xl:w-7/12">
+			<div className="p-10 w-full sm:w-7/8 md:w-3/4 xl:w-8/12 2xl:w-7/12">
 				<h1 className="text-white font-bold text-center text-xl sm:text-left sm:text-3xl lg:text-4xl 2xl:text-5xl">
 					Montgomery Blair High School
 				</h1>
