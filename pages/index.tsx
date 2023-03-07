@@ -21,9 +21,9 @@ export async function getStaticProps() {
 		`https://strapi.mbhs.edu/api/events?filters[endDate][$gte]=${today}&sort=startDate:ASC`
 	).then((res) => res.json());
 
-	let news = await fetch("https://strapi.mbhs.edu/api/news?populate=*&sort=rank:ASC").then(
-		(res) => res.json()
-	);
+	let news = await fetch(
+		"https://strapi.mbhs.edu/api/news?populate=*&sort=rank:ASC"
+	).then((res) => res.json());
 
 	let meta = await fetch(
 		"https://strapi.mbhs.edu/api/home-page?populate=*"
@@ -61,9 +61,9 @@ export default function home({ events, news, meta }: IndexProps) {
 	};
 
 	return (
-		<div className="relative w-full bg-black min-h-screen">
+		<div className="relative w-full -z-20 bg-black min-h-screen">
 			{maps && (
-				<div className="z-30 backdrop-blur-lg h-screen w-full flex justify-center items-center">
+				<div className="z-30 absolute backdrop-blur-lg h-screen w-full flex justify-center items-center">
 					<motion.div
 						initial={{ scale: 0.1, opacity: 0 }}
 						animate={{ scale: 1, opacity: 1 }}
@@ -90,7 +90,7 @@ export default function home({ events, news, meta }: IndexProps) {
 				</div>
 			)}
 
-			<div className="p-10 absolute z-10 w-full sm:w-7/8 md:w-3/4 xl:w-8/12 2xl:w-7/12">
+			<div className="p-10 z-30 w-full sm:w-7/8 md:w-3/4 xl:w-8/12 2xl:w-7/12">
 				<h1 className="text-white font-bold text-center text-xl sm:text-left sm:text-3xl lg:text-4xl 2xl:text-5xl">
 					Montgomery Blair High School
 				</h1>
@@ -128,7 +128,9 @@ export default function home({ events, news, meta }: IndexProps) {
 				<div className="pt-6 flex flex-col items-center gap-3">
 					{news.map(({ attributes: { title, description, image } }, i) => (
 						<div
-							className={`bg-white bg-opacity-10 w-full text-white backdrop-blur-lg rounded-lg p-3 transition-all duration-300 hover:bg-opacity-5 ${image.data && 'flex p-0 gap-0'}`}
+							className={`bg-white bg-opacity-10 w-full text-white backdrop-blur-lg rounded-lg p-3 transition-all duration-300 hover:bg-opacity-5 ${
+								image.data && "flex p-0 gap-0"
+							}`}
 							key={i}
 						>
 							{image.data && (
@@ -151,7 +153,7 @@ export default function home({ events, news, meta }: IndexProps) {
 					</Link>
 				</div>
 			</div>
-			<div className="absolute right-0 top-0 h-5/6">
+			<div className="absolute -z-10 right-0 top-0 h-5/6">
 				<div className="relative h-full">
 					<video
 						src={meta.attributes.video.data.attributes.url}
