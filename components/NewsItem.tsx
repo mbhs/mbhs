@@ -10,7 +10,7 @@ function NewsItem({
 	lastUpdated: Date;
 }) {
 	return (
-		<div className="bg-neutral-200 md:w-1/2 place-content-center my-3 md:my-5 m-5 md:m-12 content-center rounded-xl hover:bg-neutral-300 transition-all md:odd:float-left md:even:float-right">
+		<div className="bg-white text-white bg-opacity-10 backdrop-blur-md hover:bg-opacity-5 my-3 md:my-5 m-5 md:m-12 rounded-xl hover:bg-neutral-300 transition-all">
 			<div className="px-5 py-5">
 				<h1 className="text-xl md:text-3xl ">{header}</h1>
 				<Markdown>{content}</Markdown>

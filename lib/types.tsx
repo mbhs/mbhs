@@ -16,6 +16,13 @@ interface New {
 	attributes: {
 		title: string;
 		description: string;
+		image: {
+			data: {
+				attributes: {
+					url: string;
+				};
+			};
+		};
 		updatedAt: string;
 	};
 }
@@ -39,18 +46,18 @@ interface Carousel {
 		image: {
 			data: {
 				attributes: {
-					url: string
-				}
-			}
+					url: string;
+				};
+			};
 		};
-	}
+	};
 }
 
 interface ShortcutSection {
 	id: number;
 	attributes: {
 		text: string;
-	}
+	};
 }
 
 interface Shortcut {
@@ -59,7 +66,7 @@ interface Shortcut {
 		text: string;
 		link: string;
 		section_id: number;
-	}
+	};
 }
 
 interface FooterBadge {
@@ -68,12 +75,12 @@ interface FooterBadge {
 		image: {
 			data: {
 				attributes: {
-					url: string
-				}
-			}
+					url: string;
+				};
+			};
 		};
 		link: string;
-	}
+	};
 }
 
 interface Page {
@@ -82,21 +89,31 @@ interface Page {
 		slug: string;
 		title: string;
 		content: string;
-	}
+	};
 }
 
 interface HomePage {
 	id: number;
 	attributes: {
 		title: string;
-		video : {
+		video: {
 			data: {
 				attributes: {
-					url: string
-				}
-			}
-		}
-	}
+					url: string;
+				};
+			};
+		};
+	};
 }
 
-export type { Event, New, Carousel, Schedule, ShortcutSection, Shortcut, FooterBadge, Page, HomePage };
+export type {
+	Event,
+	New,
+	Carousel,
+	Schedule,
+	ShortcutSection,
+	Shortcut,
+	FooterBadge,
+	Page,
+	HomePage,
+};
