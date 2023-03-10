@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Schedule } from "../lib/types";
+import { Schedule, BusRoute } from "../lib/types";
 
 export async function getStaticProps() {
 	//gets all events that are ending today or later and sorts them by date
@@ -8,12 +8,19 @@ export async function getStaticProps() {
 		.split("/")
 		.reverse()
 		.join("-");
-	let events = await fetch(`https://strapi.mbhs.edu/api/schedules`).then(
-		(res) => res.json()
-	);
+
+	let events = await fetch(
+		`https://strapi.mbhs.edu/api/schedules?sort=rank:ASC`
+	).then((res) => res.json());
+
+	let routes = await fetch(
+		`https://strapi.mbhs.edu/api/bus-route?populate=*`
+	).then((res) => res.json());
+
 	return {
 		props: {
 			schedules: events.data,
+			routes: routes.data,
 		},
 	};
 }
@@ -26,35 +33,18 @@ const selected = (val: boolean) => {
 	}
 };
 
-const buses = [
-	{
-		name: "Morning Buses (Arrives ~ 7:25 AM)",
-		link: "https://www.montgomeryschoolsmd.org/departments/transportation/busroutes/04757bus.pdf",
-	},
-	{
-		name: "Afternoon Buses (Departs ~ 2:37 PM)",
-		link: "https://mbhs.edu/newsevents/Announcements/BLAIR%20HS%20-%20757%20-%20REG%20DEP.pdf",
-	},
-	{
-		name: "Morning CAP/Magnet Buses (Arrives ~ 7:35 AM)",
-		link: "https://mbhs.edu/newsevents/Announcements/BLAIR%20HS%20-%20757%20-%20MAGNET%20ARR.pdf",
-	},
-	{
-		name: "Afternoon CAP/Magnet Buses (Departs ~ 3:27 PM)",
-		link: "https://mbhs.edu/newsevents/Announcements/BLAIR%20HS%20-%20757%20-%20MAGNET%20DEP.pdf",
-	},
-	{
-		name: "Activity Buses (Departs ~ 4:30 PM)",
-		link: "https://mbhs.edu/newsevents/Announcements/BLAIR%20MAGNET%20ACTIVITIES.pdf",
-	},
-];
-
-export default function schedule({ schedules }: { schedules: Schedule[] }) {
+export default function schedule({
+	schedules,
+	routes,
+}: {
+	schedules: Schedule[];
+	routes: BusRoute;
+}) {
 	const [tab, setTab] = useState<string>(schedules[0].attributes.name);
 
 	React.useEffect(() => {
-		console.log(schedules);
-	}, [schedules]);
+		console.log(routes);
+	}, [routes]);
 
 	return (
 		<div className="px-5 sm:px-12 md:px-24 lg:px-36 xl:px-48">
@@ -69,22 +59,26 @@ export default function schedule({ schedules }: { schedules: Schedule[] }) {
 			</p>
 			<div className="flex flex-wrap justify-between items-center py-5">
 				<div className="flex flex-col gap-3">
-					{buses.map(({ name, link }, i) => (
-						<a
-							href={link}
-							target="blank"
-							key={i}
-							className="font-extrabold bg-black text-white px-4 py-2 rounded-md w-full md:w-max text-xs md:text-base"
-						>
-							{name}
-						</a>
-					))}
+					{routes.attributes.routes.data.map(
+						({ attributes: { url, name } }, i) => (
+							<a
+								href={url}
+								target="blank"
+								key={i}
+								className="font-extrabold bg-black text-white px-4 py-2 rounded-xl w-full md:w-max text-xs md:text-base"
+							>
+								{name}
+							</a>
+						)
+					)}
 				</div>
 				<img
 					className="w-full cursor-pointer md:w-96"
-					src="/assets/drop-off-map.jpg"
+					src={routes.attributes.image.data.attributes.url}
 					alt="drop off diagram"
-					onClick={() => window.open("/assets/drop-off-map.jpg")}
+					onClick={() =>
+						window.open(routes.attributes.image.data.attributes.url)
+					}
 				/>
 			</div>
 
@@ -106,7 +100,7 @@ export default function schedule({ schedules }: { schedules: Schedule[] }) {
 				</ul>
 			</div>
 
-			<div className="overflow-x-auto relative shadow-md rounded-lg my-5">
+			<div className="overflow-x-auto relative shadow-md rounded-lg my-5 bg-gray-200">
 				<table className="w-full text-sm text-left text-gray-500">
 					<thead className="text-xs text-gray-700 bg-gray-50">
 						<tr>

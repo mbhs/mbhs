@@ -47,7 +47,7 @@ interface IndexProps {
 export default function home({ events, news, meta }: IndexProps) {
 	const [sound, setSound] = React.useState<boolean>(false);
 	const videoRef = React.useRef<HTMLVideoElement>(null);
-	const [playing, setPlaying] = React.useState<boolean>(false);
+	const [playing, setPlaying] = React.useState<boolean>(true);
 	const [maps, setMaps] = React.useState<boolean>(false);
 
 	const togglePlayPause = () => {
@@ -62,6 +62,12 @@ export default function home({ events, news, meta }: IndexProps) {
 
 	return (
 		<div className="relative w-full min-h-screen">
+			{/* use gloabl styles so that the video is not covered by div background */}
+			<style jsx global>{`
+				body {
+					background-color: black;
+				}
+			`}</style>
 			{maps && (
 				<div className="z-30 absolute backdrop-blur-lg h-screen w-full flex justify-center items-center">
 					<motion.div
@@ -128,15 +134,15 @@ export default function home({ events, news, meta }: IndexProps) {
 				<div className="pt-6 flex flex-col items-center gap-3">
 					{news.map(({ attributes: { title, description, image } }, i) => (
 						<div
-							className={`bg-white bg-opacity-10 w-full text-white backdrop-blur-lg rounded-lg p-3 transition-all duration-300 hover:bg-opacity-5 ${
-								image.data && "flex p-0 gap-0"
+							className={`bg-white bg-opacity-10 w-full text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-5 ${
+								image.data ? "flex flex-col md:flex-row p-0 gap-0" : "p-3"
 							}`}
 							key={i}
 						>
 							{image.data && (
 								<img
 									src={image.data.attributes.url}
-									className="rounded-l-lg h-40 object-cover w-80"
+									className="rounded-t-lg md:rounded-tr-none md:rounded-l-lg h-40 object-cover w-full md:w-80"
 								/>
 							)}
 							<div className={`${image.data && "p-3"}`}>
@@ -153,7 +159,7 @@ export default function home({ events, news, meta }: IndexProps) {
 					</Link>
 				</div>
 			</div>
-			<div className="absolute -z-10 right-0 top-0 h-5/6">
+			<div className="-z-10 absolute right-0 top-0 h-5/6">
 				<div className="relative h-full">
 					<video
 						src={meta.attributes.video.data.attributes.url}
@@ -163,17 +169,22 @@ export default function home({ events, news, meta }: IndexProps) {
 						loop={true}
 						muted={!sound}
 						onPlay={() => setPlaying(true)}
-						className="h-full"
+						onPause={() => setPlaying(false)}
+						className="h-full w-full object-cover"
 					/>
-					<div className="absolute inset-0 opacity-100 bg-gradient-to-r from-black to-transparent h-full" />
+					<div className="absolute inset-0 bg-black bg-opacity-80 md:bg-opacity-0 md:opacity-100 md:bg-gradient-to-r from-black to-transparent h-full" />
+				</div>
+			</div>
+			<div className="absolute right-0 top-0 h-5/6">
+				<div className="relative h-full">
 					<button
-						className="absolute bottom-5 right-16 h-8 w-8 bg-red-700 text-white transition-all duration-300 hover:bg-white hover:text-red-700 p-2 rounded-full"
+						className="fixed md:absolute z-50 bottom-5 right-5 md:right-16 h-8 w-8 bg-red-700 text-white transition-all duration-300 hover:bg-white hover:text-red-700 p-2 rounded-full"
 						onClick={() => togglePlayPause()}
 					>
 						{playing ? <FaPause /> : <FaPlay />}
 					</button>
 					<button
-						className="absolute bottom-5 right-5 h-8 w-8 bg-red-700 text-white transition-all duration-300 hover:bg-white hover:text-red-700 p-2 rounded-full"
+						className="hidden md:block absolute z-50 bottom-5 right-5 h-8 w-8 bg-red-700 text-white transition-all duration-300 hover:bg-white hover:text-red-700 p-2 rounded-full"
 						onClick={() => setSound(!sound)}
 					>
 						{sound ? <AiOutlineSound /> : <AiFillSound />}

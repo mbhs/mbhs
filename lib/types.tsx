@@ -106,6 +106,27 @@ interface HomePage {
 	};
 }
 
+interface BusRoute {
+	attributes: {
+		image: {
+			data: {
+				attributes: {
+					url: string;
+				};
+			};
+		};
+		routes: {
+			data: {
+				attributes: {
+					name: string;
+					description: string;
+					url: string;
+				};
+			}[];
+		};
+	};
+}
+
 export type {
 	Event,
 	New,
@@ -116,4 +137,5 @@ export type {
 	FooterBadge,
 	Page,
 	HomePage,
+	BusRoute,
 };
