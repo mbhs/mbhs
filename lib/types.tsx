@@ -127,6 +127,16 @@ interface BusRoute {
 	};
 }
 
+interface Department {
+	id: number;
+	attributes: {
+		name: string;
+		rank: number;
+		slug: string;
+		content: string;
+	};
+}
+
 export type {
 	Event,
 	New,
@@ -138,4 +148,5 @@ export type {
 	Page,
 	HomePage,
 	BusRoute,
+	Department,
 };

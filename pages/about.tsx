@@ -7,7 +7,7 @@ export default function About() {
 
 	return (
         <>
-        <div className="flex flex-row" >
+        <div className="flex flex-row">
             <div className="flex flex-row flex-wrap" style={{width: '85%'}}>
                 <div className="flex justify-center flex-wrap" style={{width: '100%'}}>
                 <div style={{paddingLeft:'20%'}}>
