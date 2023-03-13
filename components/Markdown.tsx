@@ -11,7 +11,7 @@ function Link({ children, ...rest }: { children: React.ReactNode }) {
 
 function List({ children, ...rest }: { children: React.ReactNode }) {
 	return (
-		<ul {...rest} className="list-disc list-inside">
+		<ul {...rest} className="list-disc list-inside pl-3">
 			{children}
 		</ul>
 	);
@@ -19,7 +19,7 @@ function List({ children, ...rest }: { children: React.ReactNode }) {
 
 function h1({ children, ...rest }: { children: React.ReactNode }) {
 	return (
-		<h1 {...rest} className="text-4xl font-bold">
+		<h1 {...rest} className="text-4xl font-bold py-2">
 			{children}
 		</h1>
 	);
@@ -27,9 +27,17 @@ function h1({ children, ...rest }: { children: React.ReactNode }) {
 
 function h2({ children, ...rest }: { children: React.ReactNode }) {
 	return (
-		<h2 {...rest} className="text-2xl font-bold">
+		<h2 {...rest} className="text-2xl font-bold py-2">
 			{children}
 		</h2>
+	);
+}
+
+function h3({ children, ...rest }: { children: React.ReactNode }) {
+	return (
+		<h3 {...rest} className="text-xl font-bold py-2">
+			{children}
+		</h3>
 	);
 }
 
@@ -48,6 +56,7 @@ export default function Markdown({
 				ul: List,
 				h1,
 				h2,
+				h3,
 			}}
 			{...rest}
 		>

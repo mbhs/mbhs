@@ -134,6 +134,13 @@ interface Department {
 		rank: number;
 		slug: string;
 		content: string;
+		image: {
+			data: {
+				attributes: {
+					url: string;
+				};
+			};
+		};
 	};
 }
 
