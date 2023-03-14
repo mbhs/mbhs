@@ -3,7 +3,22 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { GiHamburgerMenu } from "react-icons/gi"
 import { SlClose } from "react-icons/sl"
+import { ImPlus, ImMinus } from "react-icons/im"
 //import { NavLink, NavDropdownLink } from "../lib/types"
+
+interface NavProp { //example strapi pull (we still need to figure out how to pull it from strapi though)
+  name: string;
+  link: string;
+  img: string;
+  links: { [name: string]: string};
+}
+
+let examplePull: NavProp[] = [];
+examplePull.push({name: "Home", link: "/", links: {"Home": "/"}, img: "/assets/drop-off-map.jpg"})
+examplePull.push({name: "About", link: "/about", links: {"About": "/about"}, img: "/assets/MBHS_Entrance.jpg"})
+examplePull.push({name: "Academies", link: "/academies", links: { "Magnet": "/academies/magnet", "Cap": "/academies/cap", "STEM": "/academies/stem", "MMA": "/academies/mma", "Some other thing": "/test", "Some other thing2": "/test2" }, img: "/assets/drop-off-map.jpg"})
+examplePull.push({name: "News", link: "/news", links: {"TOP NEWS": "/news"}, img: "/assets/MBHS_Entrance.jpg"})
+examplePull.push({name: "Schedule", link: "/schedule", links: { "Regular Day": "/schedule#regular", "Innovation Day": "/schedule#innovation", "Early Release Day": "/schedule#early-release", "2-Hour Delay": "/schedule#2hourdelat", "All Period Day": "/schedule#all-period" }, img: "/assets/drop-off-map.jpg"})
 
 
 interface ImageNavLinkProps {
@@ -14,20 +29,19 @@ interface ImageNavLinkProps {
   isHover: { [name: string]: boolean };
   toggle(which: string, state: boolean): void;
   animate: { enter: {}, exit: {} };
-  transition: {};
 }
 
-export function ImageNavLink({ name, link, img, links, isHover, toggle, animate, transition }: ImageNavLinkProps) {
+function ImageNavLink({ name, link, img, links, isHover, toggle, animate }: ImageNavLinkProps) {
   return (
     <div>
       <Link onMouseOver={() => toggle(name, true)} onMouseLeave={() => toggle(name, false)} href={link} className="block py-1 px-3 text-white">{name}</Link>
-      <motion.div id={name}
-        onMouseEnter={() => toggle(name, true && (+document.getElementById(name)!.style.opacity) > 0.5)}
+      <motion.div id={name+"NavLink"}
+        onMouseEnter={() => toggle(name, true && (+document.getElementById(name+"NavLink")!.style.opacity) > 0.75)}
         onMouseLeave={() => toggle(name, false)}
         className="absolute mt-24 top-0 right-5 h-auto md:h-64 min-w-max w-auto md:w-[40%] flex flex-row bg-white rounded-lg"
         initial={animate.exit}
-        animate={(isHover[name]) ? animate.enter : animate.exit}
-        transition={transition}
+        animate={(isHover[name]) ? "enter" : "exit"}
+        variants={animate}
       >
 
         <img src={img} className="rounded-l-lg" />
@@ -41,74 +55,103 @@ export function ImageNavLink({ name, link, img, links, isHover, toggle, animate,
   );
 };
 
+interface MobileSideBarLinkProps {
+  name: string;
+  link: string;
+  links: { [name: string]: string };
+  isClick: { [name: string]: boolean};
+  toggle(which: string, state: boolean): void;
+  animate: {enter: {}, exit: {}};
+}
+
+function MobileSideBarLink({ name, link, links, isClick, toggle, animate }: MobileSideBarLinkProps) { //TODO: get link to work (not child links, but main link)
+  return (
+  <div className="flex mx-auto justify-between text-white text-xl">
+    <div> <Link href={link}>{name}</Link>
+      <motion.div className="pl-6" initial={animate.exit} animate={isClick[name] ? "enter" : "exit"} variants={animate}>
+        <ul className="py-2 space-y-1">
+          {Object.keys(links).map(link =>
+            <li key={links[link]}><Link href={links[link]} className="text-lg">{link}</Link></li>
+          )}
+        </ul>
+      </motion.div>
+    </div>
+    <div className="relative pr-2 py-2">
+      {!isClick[name] && <ImPlus className="mx-2" onClick={() => toggle(name, true)} />}
+      {isClick[name] && <ImMinus className="mx-2" onClick={() => toggle(name, false)} />}
+    </div>
+  </div>
+  )
+}
 
 export default function Nav() {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [scrollDir, setScrollDir] = useState(0);
   const [navbarClass, setNavbarClass] = useState(["hidden", "bg-red-700"]);
-  const [isHover, setHover] = useState<{ [name: string]: boolean }>({});
-  const [mobileIsClick, setMobileIsClick] = useState<{ [name: string]: boolean }>({});
+  const [linkSelected, setLinkSelected] = useState<{ [name: string]: boolean }>({});
   const [mobileNav, setMobileNav] = useState(false);
 
-  const hiddenMask = "repeating-linear-gradient(to top, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 500px, rgba(0,0,0,1) 500px, rgba(0,0,0,1) 500px)";
-  const visibleMask = "repeating-linear-gradient(to top, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 0px, rgba(0,0,0,1) 0px, rgba(0,0,0,1) 500px)";
+  const hiddenMask = "linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 100%, rgba(0,0,0,1) 100%, rgba(0,0,0,1) 100%)";
+  const visibleMask = "linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 100%)";
 
   const dropdownAnimate = {
     enter: {
       opacity: 1,
       maskImage: visibleMask,
       WebkitMaskImage: visibleMask,
+      transition: {
+        duration: 0.35,
+        delay: 0.2
+      },
       display: "flex"
     },
     exit: {
       opacity: 0,
       maskImage: hiddenMask,
       WebkitMaskImage: hiddenMask,
+      transition: {
+        duration: 0.35,
+        delay: 0.1,
+      },
       transitionEnd: {
         display: "none"
       }
     }
-  };
-
-  const dropdownTransition = {
-    duration: .35,
-    delay: .2
   };
 
   const mobileSideBarAnimate = {
     enter: {
       opacity: 1,
       x: 0,
-      display: "flex"
+      display: "flex",
+      transition: {
+        duration: 0.35
+      }
     },
     exit: {
       opacity: 0.1,
       x: 400,
+      transition: {
+        duration: 0.35
+      },
       transitionEnd: {
         display: "none"
       }
     }
   }
 
-  const mobileSideBarTransition = {
-    duration: .35,
-    delat: .2
-  }
-
   const dropdownAnimateNames = {
     enter: {
-      originY: 0,
       opacity: 1,
-      scaleY: 1,
+      //WebkitMaskImage: visibleMask,
       transition: {
         duration: .2
       },
       display: "flex"
     },
     exit: {
-      originY: 0,
       opacity: 0,
-      scaleY: 0,
+      //WebkitMaskImage: hiddenMask,
       transition: {
         duration: .2,
         delay: 0.2
@@ -119,36 +162,46 @@ export default function Nav() {
     }
   };
 
-  const toggleHoverMenu = (which: string, state: boolean): void => {
-    let copy = { ...isHover };
+  const mobileLinkAnimate = {
+    enter: {
+      opacity: 1,
+      maskImage: visibleMask,
+      WebkitMaskImage: visibleMask,
+      height: "max-content",
+      display: "flex",
+      transition: {
+        duration: .3
+      }
+    },
+    exit: {
+      opacity: 0,
+      maskImage: hiddenMask,
+      WebkitImageMask: hiddenMask,
+      height: "0px",
+      transition: {
+        duration: .3
+      },
+      transitionEnd: {
+        display: "none"
+      }
+    }
+  }
+
+  const toggleLinkSelected = (which: string, state: boolean): void => {
+    let copy = { ...linkSelected };
     if (which == "all") {
       for (var key in copy) {
         copy[key] = state;
       }
-      setHover(isHover => ({ ...copy }));
+      setLinkSelected(linkSelected => ({ ...copy }));
       return;
     }
     for (var key in copy) {
       copy[key] = false;
     }
     copy[which] = state;
-    setHover(isHover => ({ ...copy }));
+    setLinkSelected(linkSelected => ({ ...copy }));
   };
-
-  const toggleMoileDropdownMenu = (which: string, state: boolean): void => {
-    let copy = { ...mobileIsClick };
-    if (which == "all") {
-      for (var key in copy) {
-        copy[key] = state;
-      }
-      setMobileIsClick(mobileIsClick => ({ ...copy }));
-    }
-    for (var key in copy) {
-      copy[key] = false;
-    }
-    copy[which] = state;
-    setMobileIsClick(mobileIsClick => ({ ...copy }));
-  }
 
   useEffect(() => {
     const threshold = 15;
@@ -172,7 +225,10 @@ export default function Nav() {
   }, [scrollDir]);
 
   useEffect(() => {
-    if (scrollPosition < 60) {
+    if (mobileNav) {
+      setNavbarClass(["", "bg-red-700 fixed"]);
+    }
+    else if (scrollPosition < 60) {
       setNavbarClass(["hidden", "bg-red-700"]);
     } else {
       if (scrollDir > 0) {
@@ -184,6 +240,7 @@ export default function Nav() {
   }, [scrollPosition]);
 
   //TODO: strapi pull links
+  //TODO: change the studen/parent/teacher dropdowns
 
   return (
 
@@ -197,9 +254,9 @@ export default function Nav() {
           </Link>
           <div className="hidden md:flex flex-col">
             <div className="mt-1 flex flex-row gap-4 items-center ml-auto px-auto">
-              <motion.div onHoverEnd={() => toggleHoverMenu("students", false)}>
-                <Link onMouseEnter={() => toggleHoverMenu("students", true)} href="/students" className="block py-1 px-3 text-white">Students</Link>
-                <motion.div initial="exit" animate={isHover.students ? "enter" : "exit"} variants={dropdownAnimateNames}>
+              <motion.div onHoverEnd={() => toggleLinkSelected("students", false)}>
+                <Link onMouseEnter={() => toggleLinkSelected("students", true)} href="/students" className="block py-1 px-3 text-white">Students</Link>
+                <motion.div initial="exit" animate={linkSelected.students ? "enter" : "exit"} variants={dropdownAnimateNames}>
                   <div className="mx-auto text-black font-semibold fixed bg-white rounded-lg">
                     <div>Vijay</div>
                     <div>Tinu</div>
@@ -207,17 +264,17 @@ export default function Nav() {
                   </div>
                 </motion.div>
               </motion.div>
-              <motion.div onHoverEnd={() => toggleHoverMenu("teachers", false)}>
-                <Link onMouseEnter={() => toggleHoverMenu("teachers", true)} href="/teachers" className="block py-1 px-3 text-white">Teachers</Link>
-                <motion.div initial="exit" animate={isHover.teachers ? "enter" : "exit"} variants={dropdownAnimateNames}>
+              <motion.div onHoverEnd={() => toggleLinkSelected("teachers", false)}>
+                <Link onMouseEnter={() => toggleLinkSelected("teachers", true)} href="/teachers" className="block py-1 px-3 text-white">Teachers</Link>
+                <motion.div initial="exit" animate={linkSelected.teachers ? "enter" : "exit"} variants={dropdownAnimateNames}>
                   <div className="mx-auto text-black font-semibold fixed bg-white rounded-lg">
                     <div>Mr. Foster</div>
                   </div>
                 </motion.div>
               </motion.div>
-              <motion.div onHoverEnd={() => toggleHoverMenu("parents", false)}>
-                <Link onMouseEnter={() => toggleHoverMenu("parents", true)} href="/parents" className="block py-1 px-3 text-white">Parents</Link>
-                <motion.div initial="exit" animate={isHover.parents ? "enter" : "exit"} variants={dropdownAnimateNames}>
+              <motion.div onHoverEnd={() => toggleLinkSelected("parents", false)}>
+                <Link onMouseEnter={() => toggleLinkSelected("parents", true)} href="/parents" className="block py-1 px-3 text-white">Parents</Link>
+                <motion.div initial="exit" animate={linkSelected.parents ? "enter" : "exit"} variants={dropdownAnimateNames}>
                   <div className="mx-auto text-black font-semibold fixed bg-white rounded-lg">
                     <div>[parents]</div>
                   </div>
@@ -227,72 +284,21 @@ export default function Nav() {
 
             <div>
               <div className="flex flex-row gap-4">
-                <ImageNavLink name="Home"
-                  link="/"
-                  img="/assets/MBHS_Entrance.jpg"
-                  links={{ "Home": "/" }}
-                  isHover={isHover}
-                  toggle={toggleHoverMenu}
-                  animate={dropdownAnimate}
-                  transition={dropdownTransition}
-                />
-                <ImageNavLink name="About"
-                  link="/about"
-                  img="/assets/drop-off-map.jpg"
-                  links={{ "About": "/about" }}
-                  isHover={isHover}
-                  toggle={toggleHoverMenu}
-                  animate={dropdownAnimate}
-                  transition={dropdownTransition}
-                />
-                <ImageNavLink name="Academies"
-                  link="/academies"
-                  img="/assets/MBHS_Entrance.jpg"
-                  links={{ "Magnet": "/academies/magnet", "Cap": "/academies/cap", "STEM": "/academies/stem", "MMA": "/academies/mma", "Some other thing": "/test", "Some other thing2": "/test2" }}
-                  isHover={isHover}
-                  toggle={toggleHoverMenu}
-                  animate={dropdownAnimate}
-                  transition={dropdownTransition}
-                />
-                <ImageNavLink name="News"
-                  link="/news"
-                  img="/assets/drop-off-map.jpg"
-                  links={{ "TOP NEWS": "/news" }}
-                  isHover={isHover}
-                  toggle={toggleHoverMenu}
-                  animate={dropdownAnimate}
-                  transition={dropdownTransition}
-                />
-                <ImageNavLink name="Schedule"
-                  link="/schedule"
-                  img="/assets/MBHS_Entrance.jpg"
-                  links={{ "Regular Day": "/schedule#regular", "Innovation Day": "/schedule#innovation", "Early Release Day": "/schedule#early-release", "2-Hour Delay": "/schedule#2hourdelat", "All Period Day": "/schedule#all-period" }}
-                  isHover={isHover}
-                  toggle={toggleHoverMenu}
-                  animate={dropdownAnimate}
-                  transition={dropdownTransition}
-                />
+                {examplePull.map(prop => 
+                  <ImageNavLink key={prop.name + "TopBar"} name={prop.name} link={prop.link} img={prop.img} links={prop.links} isHover={linkSelected} toggle={toggleLinkSelected} animate={dropdownAnimate}/>
+                )}
               </div>
             </div>
           </div>
           <div className="flex md:hidden">
-            <GiHamburgerMenu className="text-white scale-[2.0] mt-1 transition-all duration-300 hover:scale-[2.5]" onClick={() => setMobileNav(true)} />
-            <motion.div initial={mobileSideBarAnimate.exit} animate={mobileNav ? mobileSideBarAnimate.enter : mobileSideBarAnimate.exit} transition={mobileSideBarTransition} className="fixed w-5/6 h-full top-0 right-0 bg-red-700">
-              <SlClose className="text-white scale-[2.0] fixed top-5 sm:top-6 right-8 transition-all duration-300 hover:scale-[2.5]" onClick={() => setMobileNav(false)} />
-              <div className="mt-16 sm:mt-20 px-4 w-full">
-                <ul className="text-white space-y-2">
-                  <li onClick={() => toggleMoileDropdownMenu("test", !mobileIsClick.test)}>number one
-                    {mobileIsClick.test && <ul className="py-3 pl-6">
-                      <li>test</li> <hr />
-                      <li>test2</li> <hr />
-                      <li>test3</li> <hr />
-                    </ul>}
-                  </li><hr />
-                  <li>number two</li><hr />
-                  <li>number three</li><hr />
-                  <li>number four</li><hr />
-                  <li>number five</li><hr />
-                </ul>
+            <GiHamburgerMenu className={`text-white active:bg-red-700 scale-[2.0] mt-1 transition-all duration-300 hover:scale-[2.5] opacity-${mobileNav ? 0 : 1}`} onClick={() => { setMobileNav(true), setNavbarClass(["", "bg-red-700 fixed"]), document.body.style.overflow = "hidden" }} />
+            <motion.div initial={mobileSideBarAnimate.exit} animate={mobileNav ? "enter" : "exit"} variants={mobileSideBarAnimate} className="fixed w-full h-full top-0 right-0">
+              <SlClose className="text-white active:bg-red-700 scale-[2.0] fixed top-5 sm:top-6 right-8 transition-all duration-300 hover:scale-[2.5]" onClick={() => { setMobileNav(false), document.body.style.overflow = "" }} />
+              <div className="opacity-0 w-1/6" onTouchStart={() => { setMobileNav(false), document.body.style.overflow = "" }} onClick={() => { setMobileNav(false), document.body.style.overflow = "" }}></div>
+              <div className="mt-16 sm:mt-20 px-4 w-5/6 bg-red-700 overflow-auto text-white text-xl space-y-2">
+                {examplePull.map(prop =>
+                  <MobileSideBarLink key={prop.name + "SideBar"} name={prop.name} link={prop.link} links={prop.links} isClick={linkSelected} toggle={toggleLinkSelected} animate={mobileLinkAnimate} />
+                )}
               </div>
             </motion.div>
           </div>
