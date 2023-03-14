@@ -125,10 +125,12 @@ export default function home({ events, news, meta }: IndexProps) {
 						<p className="text-white font-semibold pt-2">Directions</p>
 					</div>
 					<div className="flex flex-col items-center">
-						<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-white text-white hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-4">
-							<MdEvent className="h-full w-full" />
-						</div>
-						<p className="text-white font-semibold pt-2">Events</p>
+						<Link href="/calendar">
+							<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-white text-white hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-4">
+								<MdEvent className="h-full w-full" />
+							</div>
+						</Link>
+						<p className="text-white font-semibold pt-2">Calendar</p>
 					</div>
 				</div>
 				<div className="pt-6 flex flex-col items-center gap-3">
@@ -151,12 +153,12 @@ export default function home({ events, news, meta }: IndexProps) {
 							</div>
 						</div>
 					))}
-					<Link
+					{/* <Link
 						href="/news"
 						className="p-2 bg-opacity-10 text-white bg-white rounded-md font-bold max-w-max"
 					>
 						View all News
-					</Link>
+					</Link> */}
 				</div>
 			</div>
 			<div className="-z-10 absolute right-0 top-0 h-5/6">
