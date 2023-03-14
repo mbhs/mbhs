@@ -2,8 +2,9 @@ import { GetStaticPropsContext } from "next";
 import React from "react";
 import { Department } from "../../lib/types";
 import Markdown from "../../components/Markdown";
+import { GetStaticPaths } from "next";
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
 	//gets all departments
 	let departments = await fetch(
 		`https://strapi.mbhs.edu/api/departments?sort=rank:ASC`

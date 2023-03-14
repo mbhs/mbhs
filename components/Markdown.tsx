@@ -41,6 +41,14 @@ function h3({ children, ...rest }: { children: React.ReactNode }) {
 	);
 }
 
+function Image({ children, ...rest }: { children: React.ReactNode }) {
+	return (
+		<img {...rest} className="rounded-lg w-96">
+			{children}
+		</img>
+	);
+}
+
 export default function Markdown({
 	children,
 	...rest
@@ -52,7 +60,7 @@ export default function Markdown({
 		<ReactMarkdown
 			components={{
 				a: Link,
-				img: ({ children, ...rest }) => <img {...rest}>{children}</img>,
+				img: Image,
 				ul: List,
 				h1,
 				h2,
