@@ -16,7 +16,7 @@ interface NavProp { //example strapi pull (we still need to figure out how to pu
 let examplePull: NavProp[] = [
 { name: "Home", link: "/", links: {"Home": "/"}, img: "/assets/drop-off-map.jpg" },
 { name: "About", link: "/about", links: {"About": "/about"}, img: "/assets/MBHS_Entrance.jpg" },
-//{ name: "Academies", link: "/academies", links: { "Magnet": "/academies/magnet", "Cap": "/academies/cap", "STEM": "/academies/stem", "MMA": "/academies/mma", "Some other thing": "/test", "Some other thing2": "/test2" }, img: "/assets/drop-off-map.jpg" },
+{ name: "Directory", link: "/directory", links: { "Blair Staff Directory": "/directory" }, img: "/assets/drop-off-map.jpg" },
 { name: "Departments", link: "/departments", links: {"English": "/departments/english", "Career and Technology Education": "/departments/teched"}, img: "/assets/MBHS_Entrance.jpg" }, 
 { name: "News", link: "/news", links: { "TOP NEWS": "/news" }, img: "/assets/MBHS_Entrance.jpg" },
 { name: "Calendar", link: "/calendar", links: {"Calendar": "/calendar"}, img: "/assets/drop-off-map.jpg" },
