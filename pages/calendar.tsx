@@ -46,7 +46,7 @@ export default function Calendar({ events }: CalendarProps) {
 			<h1 className="text-xl md:text-4xl font-bold text-center pb-3">
 				Calendar
 			</h1>
-			<div className="flex flex-col flex-wrap">
+			<div className="flex flex-col gap-5 flex-wrap">
 				{events.map(
 					({ attributes: { title, description, startDate, startTime } }, i) => (
 						<div
@@ -69,7 +69,7 @@ export default function Calendar({ events }: CalendarProps) {
 									</p>
 								</div>
 
-								<div>
+								<div className="flex-1">
 									<p className="font-semibold text-lg">{title}</p>
 									<p className="flex gap-1 items-center">
 										<AiOutlineClockCircle /> {startTime && parseTime(startTime)}
