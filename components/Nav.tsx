@@ -14,12 +14,12 @@ interface NavProp { //example strapi pull (we still need to figure out how to pu
 };
 
 let examplePull: NavProp[] = [
-{ name: "Home", link: "/", links: { "Home": "/" }, img: "/assets/drop-off-map.jpg" },
-{ name: "About", link: "/about", links: { "About": "/about" }, img: "/assets/MBHS_Entrance.jpg" },
-{ name: "Academies", link: "/academies", links: { "Magnet": "/academies/magnet", "Cap": "/academies/cap", "STEM": "/academies/stem", "MMA": "/academies/mma", "Some other thing": "/test", "Some other thing2": "/test2" }, img: "/assets/drop-off-map.jpg" },
+{ name: "Home", link: "/", links: {"Home": "/"}, img: "/assets/drop-off-map.jpg" },
+{ name: "About", link: "/about", links: {"About": "/about"}, img: "/assets/MBHS_Entrance.jpg" },
+//{ name: "Academies", link: "/academies", links: { "Magnet": "/academies/magnet", "Cap": "/academies/cap", "STEM": "/academies/stem", "MMA": "/academies/mma", "Some other thing": "/test", "Some other thing2": "/test2" }, img: "/assets/drop-off-map.jpg" },
 { name: "Departments", link: "/departments", links: {"English": "/departments/english", "Career and Technology Education": "/departments/teched"}, img: "/assets/MBHS_Entrance.jpg" }, 
 { name: "News", link: "/news", links: { "TOP NEWS": "/news" }, img: "/assets/MBHS_Entrance.jpg" },
-{ name: "Calendar", link: "/calendar", links: {}, img: "/assets/drop-off-map.jpg" },
+{ name: "Calendar", link: "/calendar", links: {"Calendar": "/calendar"}, img: "/assets/drop-off-map.jpg" },
 { name: "Schedule", link: "/schedule", links: { "Regular Day": "/schedule#regular", "Innovation Day": "/schedule#innovation", "Early Release Day": "/schedule#early-release", "2-Hour Delay": "/schedule#2hourdelat", "All Period Day": "/schedule#all-period" }, img: "/assets/drop-off-map.jpg" }
 ];
 
@@ -37,7 +37,7 @@ function ImageDropdownNavLink({ name, link, img, links, isHover, toggle, animate
     return (
         <div>
             <Link onClick={() => toggle("all", false)} onMouseOver={() => toggle(name, true)} onMouseLeave={() => toggle(name, false)} href={link} className="block py-1 px-3 text-white">{name}</Link>
-            <motion.div id={name + "NavLink"}
+            {(Object.keys(links).length > 0) && <motion.div id={name + "NavLink"}
                 onMouseEnter={() => toggle(name, true && (+document.getElementById(name + "NavLink")!.style.opacity) > 0.75)}
                 onMouseLeave={() => toggle(name, false)}
                 className="absolute mt-24 top-0 right-5 h-auto md:h-64 min-w-max w-auto md:w-[40%] flex flex-row bg-white rounded-lg"
@@ -52,7 +52,7 @@ function ImageDropdownNavLink({ name, link, img, links, isHover, toggle, animate
                         <Link href={links[link]} key={links[link]} className="text-lg">{link}</Link>
                     )}
                 </div>
-            </motion.div>
+            </motion.div>}
         </div>
     );
 };
@@ -74,18 +74,18 @@ function MobileSideBarLink({ name, link, links, isClick, sideBar, toggle, animat
         <div>
             <div className="flex mx-auto justify-between text-white text-xl">
                 <div className="w-full rounded-lg"><Link onClick={() => {sideBar(false), document.body.style.overflow = "" }} href={link}>{name}</Link>
-                    <motion.div className="pl-6 bg-red-800 w-full rounded-md" initial={animate.exit} animate={isClick[name] ? "enter" : "exit"} variants={animate}>
+                    {(Object.keys(links).length > 0) && <motion.div className="pl-6 bg-red-800 w-full rounded-md" initial={animate.exit} animate={isClick[name] ? "enter" : "exit"} variants={animate}>
                         <ul className="py-2 space-y-1">
                             {Object.keys(links).map(link =>
                                 <li key={links[link]}><Link href={links[link]} onClick={() => {sideBar(false), document.body.style.overflow = "" }} className="text-lg">{link}</Link></li>
                             )}
                         </ul>
-                    </motion.div>
+                    </motion.div>}
                 </div>
-                <div className="relative pl-8 py-2 pr-2">
+                {(Object.keys(links).length > 0) && <div className="relative pl-8 py-2 pr-2">
                     {!isClick[name] && <ImPlus className="mx-2 text-base" onClick={() => toggle(name, true)} />}
                     {isClick[name] && <ImMinus className="mx-2 text-base" onClick={() => toggle(name, false)} />}
-                </div>
+                </div>}
             </div>
             <hr />
         </div>
@@ -134,7 +134,7 @@ export default function Nav() {
             display: "flex",
             transition: {
                 duration: 0.35,
-                delay: 0.2
+                delay: 0.1
             }
         },
         exit: {
@@ -142,35 +142,13 @@ export default function Nav() {
             x: 400,
             transition: {
                 duration: 0.35,
-                delay: 0.2
+                delay: 0.1
             },
             transitionEnd: {
                 display: "none"
             }
         }
     }
-
-    const dropdownAnimateNames = {
-        enter: {
-            opacity: 1,
-            //WebkitMaskImage: visibleMask,
-            transition: {
-                duration: .2
-            },
-            display: "flex"
-        },
-        exit: {
-            opacity: 0,
-            //WebkitMaskImage: hiddenMask,
-            transition: {
-                duration: .2,
-                delay: 0.2
-            },
-            transitionEnd: {
-                display: "none",
-            }
-        }
-    };
 
     const mobileLinkAnimate = {
         enter: {
@@ -260,35 +238,7 @@ export default function Nav() {
                     <span className="self-center mt-1 text-lg sm:text-xl font-semibold whitespace-nowrap text-white">MBHS</span>
                 </Link>
                 <div className="hidden -mt-1 md:flex flex-col">
-                    {/*<div className="mt-1 flex flex-row gap-4 items-center ml-auto px-auto">
-                        <motion.div onHoverEnd={() => toggleLinkSelected("students", false)}>
-                            <Link onMouseEnter={() => toggleLinkSelected("students", true)} href="/students" className="block py-1 px-3 text-white">Students</Link>
-                            <motion.div initial="exit" animate={linkSelected.students ? "enter" : "exit"} variants={dropdownAnimateNames}>
-                                <div className="mx-auto text-black font-semibold fixed bg-white rounded-lg">
-                                    <div>Vijay</div>
-                                    <div>Tinu</div>
-                                    <div>Asher</div>
-                                </div>
-                            </motion.div>
-                        </motion.div>
-                        <motion.div onHoverEnd={() => toggleLinkSelected("teachers", false)}>
-                            <Link onMouseEnter={() => toggleLinkSelected("teachers", true)} href="/teachers" className="block py-1 px-3 text-white">Teachers</Link>
-                            <motion.div initial="exit" animate={linkSelected.teachers ? "enter" : "exit"} variants={dropdownAnimateNames}>
-                                <div className="mx-auto text-black font-semibold fixed bg-white rounded-lg">
-                                    <div>Mr. Foster</div>
-                                </div>
-                            </motion.div>
-                        </motion.div>
-                        <motion.div onHoverEnd={() => toggleLinkSelected("parents", false)}>
-                            <Link onMouseEnter={() => toggleLinkSelected("parents", true)} href="/parents" className="block py-1 px-3 text-white">Parents</Link>
-                            <motion.div initial="exit" animate={linkSelected.parents ? "enter" : "exit"} variants={dropdownAnimateNames}>
-                                <div className="mx-auto text-black font-semibold fixed bg-white rounded-lg">
-                                    <div>[parents]</div>
-                                </div>
-                            </motion.div>
-                        </motion.div>
-                    </div>*/}
-                    <div className="flex flex-row gap-4">
+                    <div className="flex flex-row gap-2">
                         {examplePull.map(({ name, link, links, img }, prop) =>
                             <ImageDropdownNavLink key={name + "TopBar"} name={name} link={link} img={img} links={links} isHover={linkSelected} toggle={toggleLinkSelected} animate={dropdownAnimate} />
                         )}
