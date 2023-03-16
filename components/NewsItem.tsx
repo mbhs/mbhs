@@ -10,17 +10,10 @@ function NewsItem({
 	lastUpdated: Date;
 }) {
 	return (
-		<div className="bg-white text-white bg-opacity-10 backdrop-blur-md hover:bg-opacity-5 my-3 md:my-5 m-5 md:m-12 rounded-xl hover:bg-neutral-300 transition-all">
+		<div className="bg-black text-black bg-opacity-20 backdrop-blur-md hover:bg-opacity-10 my-3 md:my-5 m-5 md:m-12 rounded-lg duration-300 transition-all">
 			<div className="px-5 py-5">
 				<h1 className="text-xl md:text-3xl ">{header}</h1>
 				<Markdown>{content}</Markdown>
-				<p className="pt-4 italic">
-					{`Last updated on ${lastUpdated.toLocaleString("default", {
-						month: "long",
-						day: "numeric",
-						year: "numeric",
-					})}`}
-				</p>
 			</div>
 		</div>
 	);
