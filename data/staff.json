@@ -1,0 +1,89 @@
+{
+    "Main Office": [
+      {
+        "name": "Barillas Carcamo, Mrs. Wendy M",
+        "email": "Wendy_M_Barillas@mcpsmd.org",
+        "position": "School Secretary I 10 Month"
+      },
+      {
+        "name": "Heiss, Mrs. Eileen F",
+        "email": "Eileen_F_Heiss@mcpsmd.org",
+        "position": "School Secretary I 10 Month"
+      },
+      {
+        "name": "Fanning, Mr. Joseph M",
+        "email": "Joseph_M_Fanning@mcpsmd.org",
+        "position": "Principal Asst High"
+      }
+    ],
+    "Attendance Office": [
+      {
+        "name": "Fus, Mrs. Roxanne F",
+        "email": "Roxanne_F_Fus@mcpsmd.org",
+        "position": "School Secretary II 10 Month"
+      }
+    ],
+    "Principal": [
+      {
+        "name": "Johnson, Mrs. Renay C",
+        "email": "Renay_C_Johnson@mcpsmd.org",
+        "position": "Principal"
+      },
+      {
+        "name": "Biggs, Ms. Claudine",
+        "email": "Claudine_Biggs@mcpsmd.org",
+        "position": "Administrative Secretary"
+      }
+    ],
+    "Assistant Principal": [
+      {
+        "name": "Addison, Ms. Carrie E",
+        "email": "Carrie_E_Addison@mcpsmd.org",
+        "position": "School Secretary II 10 Month"
+      },
+      {
+        "name": "Burgos-Ojeda, Ms. Adriana",
+        "email": "Adriana_Burgos-Ojeda@mcpsmd.org",
+        "position": "Principal Asst High"
+      },
+      {
+        "name": "Pettis-Jones, Mrs. Tracy D",
+        "email": "Tracy_Pettis-Jones@mcpsmd.org",
+        "position": "Principal Asst High"
+      }
+    ],
+    "Assistant Principal; 2nd floor": [
+      {
+        "name": "Addison, Ms. Carrie E",
+        "email": "Carrie_E_Addison@mcpsmd.org",
+        "position": "School Secretary II 10 Month"
+      },
+      {
+        "name": "Burgos-Ojeda, Ms. Adriana",
+        "email": "Adriana_Burgos-Ojeda@mcpsmd.org",
+        "position": "Principal Asst High"
+      },
+      {
+        "name": "Pettis-Jones, Mrs. Tracy D",
+        "email": "Tracy_Pettis-Jones@mcpsmd.org",
+        "position": "Principal Asst High"
+      }
+    ],
+    "Assistant Principal; 3rd floor": [
+      {
+        "name": "Carrillo, Mrs. Lavina",
+        "email": "Lavina_Carrillo@mcpsmd.org",
+        "position": "Principal Asst High"
+      },
+      {
+        "name": "Culver, Mr. Rahman A",
+        "email": "Rahman_A_Culver@mcpsmd.org",
+        "position": "Asst Sch Admin Sr 11 Mo"
+      },
+      {
+        "name": "Madrid-rivas, Ms. Ashley G",
+        "email": "Ashley_G_Madrid-rivas@mcpsmd.org",
+        "position": "School Secretary II 10 Month"
+      }
+    ]
+}
