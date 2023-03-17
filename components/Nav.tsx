@@ -4,30 +4,28 @@ import { motion } from "framer-motion";
 import { GiHamburgerMenu } from "react-icons/gi"
 import { SlClose } from "react-icons/sl"
 import { ImPlus, ImMinus } from "react-icons/im"
-//import { NavLink, NavDropdownLink } from "../lib/types"
+import { NavLink, NavDropdownLink } from "../lib/types"
 
 interface NavProp { //example strapi pull (we still need to figure out how to pull it from strapi though)
-    name: string; //on the strapi for a NavLink
-    link: string; //on the strapi for NavLink
-    img: string; //on the strapi for NavLink
-    links: { [name: string]: string }; //a relationship node between NavLink and NavDropdownLink [NOT SURE HOW THIS WILL WORK]
+    links: NavLink[];
 };
 
-let examplePull: NavProp[] = [
-{ name: "Home", link: "/", links: {"Home": "/"}, img: "/assets/drop-off-map.jpg" },
-{ name: "About", link: "/about", links: {"About": "/about"}, img: "/assets/MBHS_Entrance.jpg" },
-{ name: "Directory", link: "/directory", links: { "Blair Staff Directory": "/directory" }, img: "/assets/drop-off-map.jpg" },
-{ name: "Departments", link: "/departments", links: {"English": "/departments/english", "Career and Technology Education": "/departments/teched"}, img: "/assets/MBHS_Entrance.jpg" }, 
-{ name: "News", link: "/news", links: { "TOP NEWS": "/news" }, img: "/assets/MBHS_Entrance.jpg" },
-{ name: "Calendar", link: "/calendar", links: {"Calendar": "/calendar"}, img: "/assets/drop-off-map.jpg" },
-{ name: "Schedule", link: "/schedule", links: { "Regular Day": "/schedule#regular", "Innovation Day": "/schedule#innovation", "Early Release Day": "/schedule#early-release", "2-Hour Delay": "/schedule#2hourdelat", "All Period Day": "/schedule#all-period" }, img: "/assets/drop-off-map.jpg" }
-];
+let examplePull: NavProp = {links: [
+{ id: 1, attributes: { name: "Home", link: "/", links: [{id: 1, attributes: {text: "Home", link: "/"}}], image: { data: { attributes: {url: "/assets/drop-off-map.jpg" }}}}},
+{ id: 2, attributes: { name: "About", link: "/about", links: [{id: 1, attributes: {text: "About", link: "/about"}}], image: { data: { attributes: {url: "/assets/MBHS_Entrance.jpg" }}}}},
+{ id: 3, attributes: { name: "Directory", link: "/directory", links: [{id: 1, attributes: {text: "Blair Staff Directory", link: "/directory"}}], image: { data: { attributes: {url: "/assets/drop-off-map.jpg" }}}}},
+{ id: 4, attributes: { name: "Departments", link: "/departments", links: [{id: 1, attributes: {text: "English", link: "/departments/english"}}, {id: 2, attributes: {text: "Career and Technology Education", link: "/departments/teched"}}], image: { data: { attributes: {url: "/assets/MBHS_Entrance.jpg" }}}}},
+{ id: 5, attributes: { name: "News", link: "/news", links: [{id: 1, attributes: {text: "TOP NEWS", link: "/news"}}], image: { data: { attributes: {url: "/assets/drop-off-map.jpg" }}}}},
+{ id: 6, attributes: { name: "Calendar", link: "/calendar", links: [{id: 1, attributes: {text: "Calendar", link: "/calendar"}}], image: { data: { attributes: {url: "/assets/MBHS_Entrance.jpg" }}}}},
+{ id: 7, attributes: { name: "Schedule", link: "/schedule", links: [{id: 1, attributes: {text: "Regular Day", link: "/schedule#regular"}}, {id: 2, attributes: {text: "Innovation Day", link: "/schedule#innovation"}}, {id: 3, attributes: {text: "Early Release Day", link: "/schedule#early-release"}}, {id: 4, attributes: {text: "2-Hour Delay", link: "/schedule#2hrdelay"}}, {id: 5, attributes: {text: "All Period Day", link: "/schedule#all-period"}}], image: { data: { attributes: {url: "/assets/drop-off-map.jpg" }}}}},
+//{ name: "Schedule", link: "/schedule", links: { "Regular Day": "/schedule#regular", "Innovation Day": "/schedule#innovation", "Early Release Day": "/schedule#early-release", "2-Hour Delay": "/schedule#2hourdelat", "All Period Day": "/schedule#all-period" }, img: "/assets/drop-off-map.jpg" }
+]};
 
 interface ImageDropdownNavLinkProps {
     name: string;
     link: string;
     img: string;
-    links: { [name: string]: string };
+    links: NavDropdownLink[];
     isHover: { [name: string]: boolean };
     toggle(which: string, state: boolean): void;
     animate: { enter: {}, exit: {} };
@@ -37,7 +35,7 @@ function ImageDropdownNavLink({ name, link, img, links, isHover, toggle, animate
     return (
         <div>
             <Link onClick={() => toggle("all", false)} onMouseOver={() => toggle(name, true)} onMouseLeave={() => toggle(name, false)} href={link} className="block py-1 px-3 text-white">{name}</Link>
-            {(Object.keys(links).length > 0) && <motion.div id={name + "NavLink"}
+            {(links.length > 0) && <motion.div id={name + "NavLink"}
                 onMouseEnter={() => toggle(name, true && (+document.getElementById(name + "NavLink")!.style.opacity) > 0.75)}
                 onMouseLeave={() => toggle(name, false)}
                 className="absolute mt-24 top-0 right-5 h-auto md:h-64 min-w-max w-auto md:w-[40%] flex flex-row bg-white rounded-lg"
@@ -48,8 +46,8 @@ function ImageDropdownNavLink({ name, link, img, links, isHover, toggle, animate
 
                 <img src={img} className="rounded-l-lg" />
                 <div className="flex flex-col p-4 gap-3">
-                    {Object.keys(links).map(link =>
-                        <Link href={links[link]} key={links[link]} className="text-lg">{link}</Link>
+                    {links.map(({attributes: {text, link}}) =>
+                        <Link href={link} key={text+"DropdownLink"} className="text-lg">{text}</Link>
                     )}
                 </div>
             </motion.div>}
@@ -62,7 +60,7 @@ function ImageDropdownNavLink({ name, link, img, links, isHover, toggle, animate
 interface MobileSideBarLinkProps {
     name: string;
     link: string;
-    links: { [name: string]: string };
+    links: NavDropdownLink[];
     isClick: { [name: string]: boolean };
     sideBar(state: boolean): void;
     toggle(which: string, state: boolean): void;
@@ -75,9 +73,9 @@ function MobileSideBarLink({ name, link, links, isClick, sideBar, toggle, animat
             <div className="flex mx-auto justify-between text-white text-xl">
                 <div className="w-full rounded-lg"><Link onClick={() => {sideBar(false), document.body.style.overflow = "" }} href={link}>{name}</Link>
                     {(Object.keys(links).length > 0) && <motion.div className="pl-6 bg-red-800 w-full rounded-md" initial={animate.exit} animate={isClick[name] ? "enter" : "exit"} variants={animate}>
-                        <ul className="py-2 space-y-1">
-                            {Object.keys(links).map(link =>
-                                <li key={links[link]}><Link href={links[link]} onClick={() => {sideBar(false), document.body.style.overflow = "" }} className="text-lg">{link}</Link></li>
+                        <ul className="py-2 space-y-2">
+                            {links.map(({attributes: {text, link}}) =>
+                                <li key={text+"SideBarLink"}><Link href={link} onClick={() => {sideBar(false), document.body.style.overflow = "" }} className="text-lg">{text}</Link></li>
                             )}
                         </ul>
                     </motion.div>}
@@ -98,6 +96,7 @@ export default function Nav() {
     const [navbarClass, setNavbarClass] = useState(["hidden", "bg-red-700"]);
     const [linkSelected, setLinkSelected] = useState<{ [name: string]: boolean }>({});
     const [mobileNav, setMobileNav] = useState(false);
+    let links: NavLink[] = [];
 
     const hiddenMask = "linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 100%, rgba(0,0,0,1) 100%, rgba(0,0,0,1) 100%)";
     const visibleMask = "linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 100%)";
@@ -239,8 +238,8 @@ export default function Nav() {
                 </Link>
                 <div className="hidden -mt-1 md:flex flex-col">
                     <div className="flex flex-row gap-2">
-                        {examplePull.map(({ name, link, links, img }, prop) =>
-                            <ImageDropdownNavLink key={name + "TopBar"} name={name} link={link} img={img} links={links} isHover={linkSelected} toggle={toggleLinkSelected} animate={dropdownAnimate} />
+                        {examplePull.links.map(({ attributes: { name, link, links, image }}, prop) =>
+                            <ImageDropdownNavLink key={name + "TopBar"} name={name} link={link} img={image.data.attributes.url} links={links} isHover={linkSelected} toggle={toggleLinkSelected} animate={dropdownAnimate} />
                         )}
                     </div>
                 </div>
@@ -250,7 +249,7 @@ export default function Nav() {
                         <SlClose className="text-white active:bg-red-700 scale-[2.0] fixed top-5 sm:top-6 right-8 transition-all duration-300 hover:scale-[2.5]" onClick={() => { setMobileNav(false), document.body.style.overflow = "" }} />
                         <div className="opacity-0 w-1/6" onTouchStart={() => { setMobileNav(false), document.body.style.overflow = "" }} onClick={() => { setMobileNav(false), document.body.style.overflow = "" }}></div>
                         <div className="mt-16 sm:mt-20 pt-1 px-4 w-5/6 bg-red-700 overflow-auto text-white text-xl space-y-2">
-                            {examplePull.map(({ name, link, links }, prop) =>
+                            {examplePull.links.map(({attributes: { name, link, links }}, prop) =>
                                 <MobileSideBarLink key={name + "SideBar"} name={name} link={link} links={links} isClick={linkSelected} sideBar={setMobileNav} toggle={toggleLinkSelected} animate={mobileLinkAnimate} />
                             )}
                         </div>

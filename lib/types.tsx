@@ -53,19 +53,27 @@ interface Carousel {
 	};
 }
 
-interface ShortcutSection {
+interface NavLink {
 	id: number;
 	attributes: {
-		text: string;
+		name: string;
+		link: string;
+		links: NavDropdownLink[];
+		image: {
+			data: {
+				attributes: {
+					url: string;
+				};
+			};
+		};
 	};
 }
 
-interface Shortcut {
+interface NavDropdownLink {
 	id: number;
 	attributes: {
 		text: string;
 		link: string;
-		section_id: number;
 	};
 }
 
@@ -149,8 +157,8 @@ export type {
 	New,
 	Carousel,
 	Schedule,
-	ShortcutSection,
-	Shortcut,
+	NavLink,
+	NavDropdownLink,
 	FooterBadge,
 	Page,
 	HomePage,
