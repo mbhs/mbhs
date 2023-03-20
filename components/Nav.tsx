@@ -96,7 +96,6 @@ export default function Nav() {
     const [navbarClass, setNavbarClass] = useState(["hidden", "bg-red-700"]);
     const [linkSelected, setLinkSelected] = useState<{ [name: string]: boolean }>({});
     const [mobileNav, setMobileNav] = useState(false);
-    let links: NavLink[] = [];
 
     const hiddenMask = "linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 100%, rgba(0,0,0,1) 100%, rgba(0,0,0,1) 100%)";
     const visibleMask = "linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 100%)";
@@ -225,7 +224,6 @@ export default function Nav() {
     }, [scrollPosition]);
 
     //TODO: strapi pull links
-    //TODO: change the studen/parent/teacher dropdowns
 
     return (
 
@@ -233,11 +231,11 @@ export default function Nav() {
             <div className={`${navbarClass[0]} h-16 sm:h-20 w-full bg-red-700 `}></div>
             <div className={`h-16 sm:h-20 z-20 w-full ${navbarClass[1]} px-3 md:px-8 flex flex-wrap items-center justify-between mx-auto`}>
                 <Link href="/" className="flex -mt-1 z-10 items-center">
-                    <img src="/assets/logo.png" className="h-8 m-3 sm:h-10" alt="Logo" />
+                    {/*<img src="/assets/logo.png" className="h-8 m-3 sm:h-10" alt="Logo" />*/}
                     <span className="self-center mt-1 text-lg sm:text-xl font-semibold whitespace-nowrap text-white">MBHS</span>
                 </Link>
                 <div className="hidden -mt-1 md:flex flex-col">
-                    <div className="flex flex-row gap-2">
+                    <div className="flex flex-row gap-1 md:gap-2">
                         {examplePull.links.map(({ attributes: { name, link, links, image }}, prop) =>
                             <ImageDropdownNavLink key={name + "TopBar"} name={name} link={link} img={image.data.attributes.url} links={links} isHover={linkSelected} toggle={toggleLinkSelected} animate={dropdownAnimate} />
                         )}
