@@ -1,92 +1,66 @@
 import React, { useState } from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
+import { AboutPage } from "../lib/types";
+import Markdown from "../components/Markdown";
+import  ReactMarkdown  from "react-markdown";
 
-export default function About() {
-	const [shortcuts, setShortcuts] = useState<boolean>(false);
+export async function getStaticProps() {
 
-	return (
+    let meta = await fetch(
+        "https://strapi.mbhs.edu/api/about-page?populate=*"
+    ).then((res) => res.json());
+
+    return {
+        props: {
+            meta: meta.data,
+        }
+    }
+}
+
+interface AboutProps {
+    meta: AboutPage;
+}
+
+export default function About({ meta }: AboutProps) {
+    const [shortcuts, setShortcuts] = useState<boolean>(false);
+
+    /* for in-page navigation
+    const links = meta.attributes.text.split("\n").filter((phrase, index, arr) => {return phrase.startsWith("#")});
+    for (var i = 0; i < links.length; i++) {
+        links[i] = links[i].replaceAll("#", "").trim().replaceAll(" ", "-").toLocaleLowerCase().replaceAll(/[^a-zA-Z-]/gi, "")
+    }
+
+    console.log(links);*/
+
+    return (
         <>
-        <div className="flex flex-row">
-            <div className="flex flex-row flex-wrap" style={{width: '85%'}}>
-                <div className="flex justify-center flex-wrap" style={{width: '100%'}}>
-                <div style={{paddingLeft:'20%'}}>
-              <Carousel infiniteLoop width="70%" showThumbs={false} showStatus={false}>
-                  <div>
-                      <img src="https://news.montgomeryschoolsmd.org/wp-content/uploads/2015/04/Renay-Johnson.jpg" alt="image1"/>
-                      <p className="legend">Our wonderful principal, Renay Johnson</p>
-  
-                  </div>
-                  <div>
-                      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9Txz9AZ3mqnJ1KTPKsIEehO_eiHteQ-1FWA&usqp=CAU" alt="image2" />
-                      <p className="legend">Image 2</p>
-  
-                  </div>
-                  <div>
-                      <img src="/3.png" alt="image3"/>
-                      <p className="legend">Image 3</p>
-  
-                  </div>
-                  <div>
-                      <img src="/4.png" alt="image4"/>
-                      <p className="legend">Image 4</p>
-  
-                  </div>
-                  <div>
-                      <img src="/5.png" alt="image5"/>
-                      <p className="legend">Image 5</p>
-  
-                  </div>
-              </Carousel></div>
-            </div>
-                <div className="flex flex-wrap" style={{width: '100%', padding: "5%"}}>
-                <h1 className="text-xl md:text-4xl font-bold mb-5">About</h1>
-                <p style={{flexBasis: '100%', height: '0'}}></p>
-                <h3 className="text-xl md:text-xl font-bold mb-5">Admin</h3>
-                <p style={{flexBasis: '100%', height: '0'}}></p>
-                <div id="Admin" className="flex" style={{justifyContent : 'space-between'}}>
-                <p>Meet our wonderful administrative team: 
-                    <br></br>
-                    Principal: Renay Johnson
-                    <br></br>
-                    Assistant Principals:
-                    ...
-                </p>
-                
-                <img width="40%" src="https://pbs.twimg.com/media/DyfaHwkW0AARh9n.jpg" alt="image1"/>
+            <div className="flex flex-col">
+                <h1 className="text-xl md:text-4xl text-center font-bold py-5">About</h1>
+                <div className="flex flex-wrap w-full px-5 md:px-12 lg:px-24 xl:px-48 2xl:px-60">
+                    <img
+						src={meta.attributes.image.data?.attributes.url}
+						className="absolute top-0 left-0 right-0 h-96 w-full object-cover -z-20"
+					/>
+					<div className="absolute top-0 left-0 right-0 h-96 w-full -z-20 bg-gradient-to-t backdrop-blur-sm from-white to-transparent" />
+					<div className="absolute top-0 left-0 right-0 h-96 w-full -z-10 opacity-30 bg-white" />
+                    
+                    <div>
+                        <Markdown>{meta.attributes.text}</Markdown>
+                    </div>
+
+                    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
                 </div>
-                <p style={{flexBasis: '100%', height: '0'}}></p>
-                <h3 id="directions" className="text-xl md:text-xl font-bold mb-5">Directions</h3>
-                <p style={{flexBasis: '100%', height: '0'}}></p>
-                <p>Widget?</p>
-                <p style={{flexBasis: '100%', height: '0'}}></p>
-                <h3 id="history" className="text-xl md:text-xl font-bold mb-5">History</h3>
-                <p style={{flexBasis: '100%', height: '0'}}></p>
-                <p>History stuffs...</p>
             </div>
-            </div>
-            <div className="flex " style={{justifyContent: 'flex-end', textAlign: 'right', width: '15%', background: "LightGray", paddingTop: "3%", paddingRight: "3%"}}>
-                <div style={{position:"fixed"}}>
+            {/* in-page navigation
+            <div className="fixed top-40 mx-10 p-4 flex flex-col bg-slate-300 rounded-lg">
                 <h1 className="text-xl md:text-2xl font-bold mb-5">Content</h1>
-                <p style={{width: '100%', height: '0'}}></p>
-                <a className="hover:text-red-600" href="#Admin">Admin</a>
-                <p style={{width: '100%', height: '40'}}></p>
-                <a className="hover:text-red-600" href="#directions"><br></br>Directions</a>
-                <p style={{width: '100%', height: '3%'}}></p>
-                <a className="hover:text-red-600" href="#history"><br></br>History</a>
-                <p style={{width: '100%', height: '3%'}}></p>
-                <p><br></br>Schedule</p>
-                <p style={{width: '100%', height: '3%'}}></p>
-                <p><br></br>Directory</p>
-                <p style={{width: '100%', height: '3%'}}></p>
-                <p><br></br>Traffic Cameras?</p>
-                <p style={{width: '100%', height: '3%'}}></p>
-                <p><br></br>Academies</p>
-                <p style={{width: '100%', height: '3%'}}></p>
-                <p><br></br>Programs</p>
-                <p style={{width: '100%', height: '3%'}}></p>
-                <p><br></br>Student News</p></div>
-            </div>
-        </div></>
-	);
+                <div className="flex flex-col text-wrap space-y-4 w-32">
+                    {links.map((link) => 
+                        <a key={link} className="hover:text-red-600" href={`#${link}`}>{link}</a>
+                    )}
+                </div>
+            </div>*/}
+        </>
+    );
 }
