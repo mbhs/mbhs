@@ -54,8 +54,14 @@ export default function Footer() {
 			<p className="text-center">
 				Montgomery Blair High School <br />
 				51 University Blvd. W, Silver Spring, MD 20901
-				<br /> (240) 740-2000 <br /> These pages were created by the Blair
-				Sysops under the supervision of Peter Hammond.
+				<br /> (240) 740-2000 <br /> These pages were created by the{" "}
+				<a
+					href="https://github.com/mbhs"
+					className="text-red-600 hover:underline"
+				>
+					Blair Sysops
+				</a>{" "}
+				under the supervision of Peter Hammond.
 			</p>
 		</div>
 	);

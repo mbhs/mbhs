@@ -1,31 +1,30 @@
 import React, { useState } from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from 'react-responsive-carousel';
+import { Carousel } from "react-responsive-carousel";
 import { AboutPage } from "../lib/types";
 import Markdown from "../components/Markdown";
-import  ReactMarkdown  from "react-markdown";
+import ReactMarkdown from "react-markdown";
 
 export async function getStaticProps() {
+	let meta = await fetch(
+		"https://strapi.mbhs.edu/api/about-page?populate=*"
+	).then((res) => res.json());
 
-    let meta = await fetch(
-        "https://strapi.mbhs.edu/api/about-page?populate=*"
-    ).then((res) => res.json());
-
-    return {
-        props: {
-            meta: meta.data,
-        }
-    }
+	return {
+		props: {
+			meta: meta.data,
+		},
+	};
 }
 
 interface AboutProps {
-    meta: AboutPage;
+	meta: AboutPage;
 }
 
 export default function About({ meta }: AboutProps) {
-    const [shortcuts, setShortcuts] = useState<boolean>(false);
+	const [shortcuts, setShortcuts] = useState<boolean>(false);
 
-    /* for in-page navigation
+	/* for in-page navigation
     const links = meta.attributes.text.split("\n").filter((phrase, index, arr) => {return phrase.startsWith("#")});
     for (var i = 0; i < links.length; i++) {
         links[i] = links[i].replaceAll("#", "").trim().replaceAll(" ", "-").toLocaleLowerCase().replaceAll(/[^a-zA-Z-]/gi, "")
@@ -33,26 +32,26 @@ export default function About({ meta }: AboutProps) {
 
     console.log(links);*/
 
-    return (
-        <>
-            <div className="flex flex-col">
-                <h1 className="text-xl md:text-4xl text-center font-bold py-5">About</h1>
-                <div className="flex flex-wrap w-full px-5 md:px-12 lg:px-24 xl:px-48 2xl:px-60">
-                    <img
+	return (
+		<>
+			<div className="flex flex-col pb-10">
+				<h1 className="text-xl md:text-4xl text-center font-bold py-5">
+					About
+				</h1>
+				<div className="flex flex-wrap w-full px-5 md:px-12 lg:px-24 xl:px-48 2xl:px-60">
+					<img
 						src={meta.attributes.image.data?.attributes.url}
 						className="absolute top-0 left-0 right-0 h-96 w-full object-cover -z-20"
 					/>
 					<div className="absolute top-0 left-0 right-0 h-96 w-full -z-20 bg-gradient-to-t backdrop-blur-sm from-white to-transparent" />
 					<div className="absolute top-0 left-0 right-0 h-96 w-full -z-10 opacity-30 bg-white" />
-                    
-                    <div>
-                        <Markdown>{meta.attributes.text}</Markdown>
-                    </div>
 
-                    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-                </div>
-            </div>
-            {/* in-page navigation
+					<div>
+						<Markdown>{meta.attributes.text}</Markdown>
+					</div>
+				</div>
+			</div>
+			{/* in-page navigation
             <div className="fixed top-40 mx-10 p-4 flex flex-col bg-slate-300 rounded-lg">
                 <h1 className="text-xl md:text-2xl font-bold mb-5">Content</h1>
                 <div className="flex flex-col text-wrap space-y-4 w-32">
@@ -61,6 +60,6 @@ export default function About({ meta }: AboutProps) {
                     )}
                 </div>
             </div>*/}
-        </>
-    );
+		</>
+	);
 }
