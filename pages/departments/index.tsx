@@ -21,7 +21,7 @@ interface DepartmentsProps {
 
 export default function index({ departments }: DepartmentsProps) {
 	return (
-		<div className="px-5 md:px-12 lg:px-24 xl:px-48 2xl:px-72">
+		<div className="pb-10 px-5 md:px-12 lg:px-24 xl:px-48 2xl:px-72">
 			<h1 className="text-4xl font-bold text-center py-5">Departments</h1>
 			<div className="flex flex-col gap-5">
 				{departments.map((d, i) => (
