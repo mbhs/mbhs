@@ -46,7 +46,7 @@ export default function Calendar({ events }: CalendarProps) {
 			<h1 className="text-xl md:text-4xl font-bold text-center pb-3">
 				Calendar
 			</h1>
-			<div className="flex flex-col gap-5 flex-wrap">
+			<div className="flex flex-col gap-3 flex-wrap">
 				{events.map(
 					(
 						{

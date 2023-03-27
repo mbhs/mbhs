@@ -104,6 +104,7 @@ interface HomePage {
 	id: number;
 	attributes: {
 		title: string;
+		principal: string;
 		caption: string;
 		video: {
 			data: {

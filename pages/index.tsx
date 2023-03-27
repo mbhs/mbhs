@@ -136,7 +136,7 @@ export default function home({ events, news, meta }: IndexProps) {
 				<h1 className="text-white font-bold text-center text-xl sm:text-left sm:text-3xl lg:text-4xl 2xl:text-5xl">
 					Montgomery Blair High School
 				</h1>
-				<h3 className="text-white text-xl pt-3">Principal Renay Johnson</h3>
+				<h3 className="text-white text-xl pt-3">Principal {meta.attributes.principal}</h3>
 				<h3 className="text-white text-xl">Home of the Blazers</h3>
 				<h3 className="text-white text-xl">Crescens Scientia</h3>
 				<div className="flex justify-center pt-10 gap-10">
