@@ -115,6 +115,20 @@ interface HomePage {
 	};
 }
 
+interface AboutPage {
+	id: number;
+	attributes: {
+		text: string;
+		image: {
+			data: {
+				attributes: {
+					url: string;
+				};
+			};
+		};
+	};
+}
+
 interface BusRoute {
 	attributes: {
 		image: {
@@ -163,6 +177,7 @@ export type {
 	FooterBadge,
 	Page,
 	HomePage,
+	AboutPage,
 	BusRoute,
 	Department,
 };
