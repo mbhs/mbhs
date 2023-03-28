@@ -168,6 +168,15 @@ interface Department {
 	};
 }
 
+interface Resource {
+	id: number;
+	attributes: {
+		name: string;
+		link: string;
+		description: string;
+	};
+}
+
 export type {
 	Event,
 	New,
@@ -181,4 +190,5 @@ export type {
 	AboutPage,
 	BusRoute,
 	Department,
+	Resource,
 };
