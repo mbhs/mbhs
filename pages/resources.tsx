@@ -39,7 +39,7 @@ export default function Resources({ students, staff, parents }: ResourcesProps) 
 			<div className="w-full flex flex-col md:flex-row px-12 space-y-4 md:space-y-0 md:space-x-4 justify-between text-md sm:text-lg md:text-xl">
 				<div className="w-7/8 md:w-1/3 bg-black bg-opacity-10 rounded-lg text-black text-center p-2">
 					<h2 className="text-lg sm:text-xl md:text-3xl font-bold md:pb-4">Students</h2>
-					<div className="flex flex-row flex-wrap md:flex-col justify-around gap-1 gap-x-1 md:gap-0 md:space-x-0 md:space-y-3 mb-2">
+					<div className="flex flex-col justify-around gap-1 gap-x-1 md:gap-0 md:space-x-0 md:space-y-3 mb-2">
 						{students.map(({ attributes: { name, link, description } }, i) => (
 							<div key={i}>
 								<Link href={link} className="text-red-700 hover:text-red-800 font-semibold hover:underline">{name}</Link>
@@ -50,7 +50,7 @@ export default function Resources({ students, staff, parents }: ResourcesProps) 
 				</div>
 				<div className="w-7/8 md:w-1/3 bg-black bg-opacity-10 rounded-lg text-black text-center p-2">
 					<h2 className="text-lg sm:text-xl md:text-3xl font-bold md:pb-4">Staff</h2>
-					<div className="flex flex-row flex-wrap md:flex-col justify-around gap-1 md:gap-0 md:space-x-0 md:space-y-3 mb-2">
+					<div className="flex flex-col justify-around gap-1 md:gap-0 md:space-x-0 md:space-y-3 mb-2">
 						{staff.map(({ attributes: { name, link, description } }, i) => (
 							<div key={i}>
 								<Link href={link} className="text-red-700 hover:text-red-800 font-semibold hover:underline">{name}</Link>
@@ -61,7 +61,7 @@ export default function Resources({ students, staff, parents }: ResourcesProps) 
 				</div>
 				<div className="w-7/8 md:w-1/3 bg-black bg-opacity-10 rounded-lg text-black text-center p-2">
 					<h2 className="text-lg sm:text-xl md:text-3xl font-bold md:pb-4">Parents</h2>
-					<div className="flex flex-row flex-wrap md:flex-col justify-around gap-1 md:gap-0 md:space-x-0 md:space-y-3 mb-2">
+					<div className="flex flex-col justify-around gap-1 md:gap-0 md:space-x-0 md:space-y-3 mb-2">
 						{parents.map(({ attributes: { name, link, description } }, i) => (
 							<div key={i}>
 								<Link href={link} className="text-red-700 hover:text-red-800 font-semibold hover:underline">{name}</Link>
