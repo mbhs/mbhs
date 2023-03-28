@@ -216,7 +216,7 @@ export default function Nav() {
             setNavbarClass(["hidden", "bg-red-700"]);
         } else {
             if (scrollDir > 0) {
-                setNavbarClass(["", "bg-red-700 fixed"]);
+                setNavbarClass(["", "bg-red-700 fixed animate-fadeIn"]);
             } else if (scrollDir < 0) {
                 setNavbarClass(["", "hidden"]);
             }
@@ -227,7 +227,7 @@ export default function Nav() {
 
     return (
 
-        <div className="w-full flex flex-col">
+        <div className="w-full flex flex-col animate-fadeIn">
             <div className={`${navbarClass[0]} h-16 sm:h-20 w-full bg-red-700 `}></div>
             <div className={`h-16 sm:h-20 z-20 w-full ${navbarClass[1]} px-3 md:px-8 flex flex-wrap items-center justify-between mx-auto`}>
                 <Link href="/" className="flex -mt-1 z-10 items-center">
