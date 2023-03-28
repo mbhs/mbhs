@@ -255,6 +255,7 @@ export default function home({ events, news, meta }: IndexProps) {
 			</div>
 			<div className="-z-10 absolute right-0 top-0 h-5/6">
 				<div className="relative h-full">
+					<div className="absolute inset-0 bg-black bg-opacity-80 md:bg-opacity-0 md:opacity-100 md:bg-gradient-to-t from-black to-transparent h-full"></div>
 					<video
 						src={meta.attributes.video.data.attributes.url}
 						controls={false}
@@ -266,7 +267,7 @@ export default function home({ events, news, meta }: IndexProps) {
 						onPause={() => setPlaying(false)}
 						className="h-full w-full object-cover"
 					/>
-
+					
 					<div className="absolute inset-0 bg-black bg-opacity-80 md:bg-opacity-0 md:opacity-100 md:bg-gradient-to-r from-black to-transparent h-full" />
 				</div>
 			</div>
