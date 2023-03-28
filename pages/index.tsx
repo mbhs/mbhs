@@ -136,14 +136,18 @@ export default function home({ events, news, meta }: IndexProps) {
 				<h1 className="text-white font-bold text-center text-xl sm:text-left sm:text-3xl lg:text-4xl 2xl:text-5xl">
 					Montgomery Blair High School
 				</h1>
-				<h3 className="text-white text-xl pt-3">Principal {meta.attributes.principal}</h3>
+				<h3 className="text-white text-xl pt-3">
+					Principal {meta.attributes.principal}
+				</h3>
 				<h3 className="text-white text-xl">Home of the Blazers</h3>
 				<h3 className="text-white text-xl">Crescens Scientia</h3>
 				<div className="flex justify-center pt-10 gap-10">
 					<div className="flex flex-col items-center">
-						<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-white text-white hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-4">
-							<HiOutlineDocumentText className="h-full w-full" />
-						</div>
+						<Link href="/resources">
+							<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-white text-white hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-4">
+								<HiOutlineDocumentText className="h-full w-full" />
+							</div>
+						</Link>
 						<p className="text-white font-semibold pt-2">Resources</p>
 					</div>
 					{/* <div className="flex flex-col items-center">

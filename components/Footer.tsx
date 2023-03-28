@@ -36,18 +36,11 @@ export default function Footer() {
 						className="h-16"
 					/>
 				</a>
-				<a href="https://sites.google.com/mcpsmd.net/blazing-toward-equity-mbhs/home">
+				<a href="https://ww2.montgomeryschoolsmd.org/digital-citizenship/index.html">
 					<img
-						src="https://mbhs.edu/img/Blazing%20Toward%20Equity%20Logo.png"
+						src="https://mbhs.edu/img/digitalcitizenship.png"
 						alt="Blair Logo"
-						className="h-24"
-					/>
-				</a>
-				<a href="https://sites.google.com/mcpsmd.net/blazing-toward-equity-mbhs/home">
-					<img
-						src="https://mbhs.edu/img/Blazing%20Toward%20Equity%20Logo.png"
-						alt="Blair Logo"
-						className="h-24"
+						className="h-24 rounded-lg"
 					/>
 				</a>
 			</div>
