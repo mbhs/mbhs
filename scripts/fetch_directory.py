@@ -37,10 +37,12 @@ def parse_staff_directory_to_json(html_content, json_file_path):
 
                 # Append the information to the staff_info_json list as a dictionary
                 staff_info_json.append({
-                    #'Department': department_name,
-                    'name': name,
-                    'title': title,
-                    'email': email
+                  #'Department': department_name,
+                  'name': name,
+                  'title': title,
+                  'email': email,
+                  "createdBy": "Python Web Scraping Script",
+                  "updatedBy": "Python Web Scraping Script"
                 })
 
 

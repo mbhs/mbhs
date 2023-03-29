@@ -159,6 +159,7 @@ interface Department {
 		slug: string;
 		content: string;
 		phone: string;
+		overrideLink: string;
 		resource: {
 			data: Staff;
 		};

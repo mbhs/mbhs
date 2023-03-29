@@ -28,7 +28,7 @@ export async function getStaticProps() {
 	).then((res) => res.json());
 
 	let staff = await fetch(
-		`https://strapi.mbhs.edu/api/directory?populate=*`
+		`https://strapi.mbhs.edu/api/directory?populate=*&pagination[limit]=1000&sort=name:ASC`
 	).then((res) => res.json());
 
 	console.log(staff);

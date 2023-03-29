@@ -1,6 +1,6 @@
 import { GetStaticPropsContext } from "next";
 import React from "react";
-import { Department } from "../../lib/types";
+import { Department, Staff } from "../../lib/types";
 import Markdown from "../../components/Markdown";
 import { GetStaticPaths } from "next";
 import Link from "next/link";
@@ -28,6 +28,17 @@ export async function getStaticProps({ params }: GetStaticPropsContext) {
 	let department = departments.data.find(
 		(d: Department) => d.attributes.slug === params?.slug
 	);
+
+	// sort the staff alphabetically
+	department.attributes.staff.data.sort((a: Staff, b: Staff) => {
+		if (a.attributes.name < b.attributes.name) {
+			return -1;
+		} else if (a.attributes.name > b.attributes.name) {
+			return 1;
+		} else {
+			return 0;
+		}
+	});
 
 	return {
 		props: {
