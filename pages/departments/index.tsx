@@ -26,7 +26,7 @@ export default function index({ departments }: DepartmentsProps) {
 			<div className="flex flex-col gap-5">
 				{departments.map((d, i) => (
 					<Link href={`/departments/${d.attributes.slug}`} key={i}>
-						<div className="hover:shadow-md transition-all duration-300 hover:scale-[1.001] relative bg-black bg-opacity-50 backdrop-blur-lg rounded-lg p-5 text-center object-cover before:opacity-20">
+						<div className="hover:shadow-md transition-all duration-300 hover:scale-[1.001] relative bg-black bg-opacity-10 backdrop-blur-lg rounded-lg p-5 text-center object-cover before:opacity-20">
 							{d.attributes.image.data && (
 								<>
 									<img

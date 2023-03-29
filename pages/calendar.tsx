@@ -54,45 +54,43 @@ export default function Calendar({ events }: CalendarProps) {
 						},
 						i
 					) => (
-						<Link href="/calendar" className="w-full">
-							<div className="bg-black flex gap-3 bg-opacity-10 w-full text-black backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-20 p-3">
-								<div className="flex flex-col justify-center items-center text-center font-semibold bg-red-600 text-white p-2 h-16 w-16 rounded-full">
-									<p className="text-md -mb-1">
-										{new Date(startDate).toLocaleString("default", {
-											timeZone: "UTC",
-											month: "short",
-										})}
-									</p>
-									<p className="text-xl">
-										{new Date(startDate).toLocaleString("default", {
-											timeZone: "UTC",
-											day: "numeric",
-										})}
-									</p>
-								</div>
-								<div className="flex-1">
-									{title && <p className="font-bold text-xl">{title}</p>}
-									<p className="flex gap-1 items-center">
-										{startTime && (
-											<>
-												<AiOutlineClockCircle /> {parseTime(startTime)}
-											</>
-										)}
-										{endDate && (
-											<>
-												<AiOutlineCalendar /> Ends{" "}
-												{new Date(endDate).toLocaleString("default", {
-													timeZone: "UTC",
-													month: "short",
-													day: "numeric",
-												})}
-											</>
-										)}
-									</p>
-									{description && <Markdown>{description}</Markdown>}
-								</div>
+						<div className="bg-neutral-400 border border-neutral-300 shadow-sm hover:shadow-md flex gap-3 bg-opacity-10 hover:bg-opacity-20 w-full text-black backdrop-blur-lg rounded-lg transition-all duration-300 p-3">
+							<div className="flex flex-col justify-center items-center text-center font-semibold bg-red-600 text-white p-2 h-16 w-16 rounded-full">
+								<p className="text-md -mb-1">
+									{new Date(startDate).toLocaleString("default", {
+										timeZone: "UTC",
+										month: "short",
+									})}
+								</p>
+								<p className="text-xl">
+									{new Date(startDate).toLocaleString("default", {
+										timeZone: "UTC",
+										day: "numeric",
+									})}
+								</p>
 							</div>
-						</Link>
+							<div className="flex-1">
+								{title && <p className="font-bold text-xl">{title}</p>}
+								<p className="flex gap-1 items-center">
+									{startTime && (
+										<>
+											<AiOutlineClockCircle /> {parseTime(startTime)}
+										</>
+									)}
+									{endDate && (
+										<>
+											<AiOutlineCalendar /> Ends{" "}
+											{new Date(endDate).toLocaleString("default", {
+												timeZone: "UTC",
+												month: "short",
+												day: "numeric",
+											})}
+										</>
+									)}
+								</p>
+								{description && <Markdown>{description}</Markdown>}
+							</div>
+						</div>
 					)
 				)}
 			</div>

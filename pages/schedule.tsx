@@ -77,7 +77,7 @@ export default function schedule({
 					src={routes.attributes.image.data.attributes.url}
 					alt="drop off diagram"
 					onClick={() =>
-						window.open(routes.attributes.image.data.attributes.url)
+						window.open(routes.attributes.image.data?.attributes.url)
 					}
 				/>
 			</div>
