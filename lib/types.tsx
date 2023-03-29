@@ -158,6 +158,13 @@ interface Department {
 		rank: number;
 		slug: string;
 		content: string;
+		phone: string;
+		resource: {
+			data: Staff;
+		};
+		staff: {
+			data: Staff[];
+		};
 		image: {
 			data: {
 				attributes: {
