@@ -73,38 +73,6 @@ export default function Directory({ departments, staff }: DirectoryProps) {
 		}
 	}, [searchTerm]);
 
-	// const filteredStaff = departments.reduce((acc, department) => {
-	// 	if (selectedDepartment && selectedDepartment !== department) {
-	// 		return acc;
-	// 	}
-
-	// 	const staff = staffData[department].filter((person) =>
-	// 		person.name.toLowerCase().includes(searchTerm.toLowerCase())
-	// 	);
-
-	// 	return [...acc, ...staff];
-	// }, []);
-
-	// const staffByDepartment = departments.reduce((acc, department) => {
-	// 	const staff = staffData[department];
-
-	// 	if (!staff || staff.length === 0) {
-	// 		return acc;
-	// 	}
-
-	// 	const filteredStaff = staff.filter((person) =>
-	// 		person.name.toLowerCase().includes(searchTerm.toLowerCase())
-	// 	);
-
-	// 	return [
-	// 		...acc,
-	// 		{
-	// 			department,
-	// 			staff: filteredStaff,
-	// 		},
-	// 	];
-	// }, []);
-
 	return (
 		<div className="px-5 sm:px-12 md:px-24 lg:px-36 xl:px-48">
 			<h1 className="text-xl md:text-4xl text-center font-bold py-5">

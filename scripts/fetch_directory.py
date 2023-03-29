@@ -1,10 +1,10 @@
 import json
 from bs4 import BeautifulSoup
 import requests
-import dotenv
+from decouple import config
 
 # Load environment variables
-dotenv.load_dotenv()
+# dotenv.load_dotenv()
 
 def get_current_staff():
     current_staff = requests.get('https://strapi.mbhs.edu/api/directory').json().get('data')
@@ -37,15 +37,25 @@ def parse_staff_directory_to_json(html_content, json_file_path):
 
                 # Append the information to the staff_info_json list as a dictionary
                 staff_info_json.append({
-                    'Department': department_name,
-                    'Name': name,
-                    'Title': title,
-                    'Email': email
+                    #'Department': department_name,
+                    'name': name,
+                    'title': title,
+                    'email': email
                 })
 
+
+    print(staff_info_json)
+    for i in staff_info_json:
+      res = requests.post('https://strapi.mbhs.edu/api/directory', headers={
+        'Authorization': f'Bearer {config("STRAPI_API_KEY")}',
+      }, json={'data': i})
+
+    res.raise_for_status()
+    print(res)
+
     # Save the extracted data to a JSON file
-    with open(json_file_path, 'w') as jsonfile:
-        json.dump(staff_info_json, jsonfile, indent=4)
+    # with open(json_file_path, 'w') as jsonfile:
+    #     json.dump(staff_info_json, jsonfile, indent=4)
 
 # Specify the path to the input HTML file and the output JSON file
 html = requests.get('https://ww2.montgomeryschoolsmd.org/directory/directory_Boxschool.aspx?processlevel=04757').text
@@ -53,4 +63,5 @@ json_file_path = 'teachers.json'
 
 # Execute the function to parse the HTML and save the data to JSON
 parse_staff_directory_to_json(html, json_file_path)
-get_current_staff()
+#get_current_staff()
+print(config("STRAPI_API_KEY"))
