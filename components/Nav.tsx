@@ -12,14 +12,14 @@ interface NavProp { //example strapi pull (we still need to figure out how to pu
 
 let examplePull: NavProp = {
     links: [
-        { id: 1, attributes: { name: "Home", link: "/", links: [{ id: 1, attributes: { text: "Home", link: "/" } }], image: { data: { attributes: { url: "/assets/drop-off-map.jpg" } } } } },
-        { id: 2, attributes: { name: "About", link: "/about", links: [{ id: 1, attributes: { text: "About", link: "/about" } }], image: { data: { attributes: { url: "/assets/MBHS_Entrance.jpg" } } } } },
-        { id: 3, attributes: { name: "Directory", link: "/directory", links: [{ id: 1, attributes: { text: "Blair Staff Directory", link: "/directory" } }], image: { data: { attributes: { url: "/assets/drop-off-map.jpg" } } } } },
-        { id: 4, attributes: { name: "Departments", link: "/departments", links: [{ id: 1, attributes: { text: "English", link: "/departments/english" } }, { id: 2, attributes: { text: "Career and Technology Education", link: "/departments/teched" } }], image: { data: { attributes: { url: "/assets/MBHS_Entrance.jpg" } } } } },
+        { id: 1, attributes: { name: "Home", link: "/", links: [] /*[{ id: 1, attributes: { text: "Home", link: "/" } }]*/, image: { data: { attributes: { url: "/assets/drop-off-map.jpg" } } } } },
+        { id: 2, attributes: { name: "About", link: "/about", links: []/*[{ id: 1, attributes: { text: "About", link: "/about" } }]*/, image: { data: { attributes: { url: "/assets/MBHS_Entrance.jpg" } } } } },
+        { id: 3, attributes: { name: "Directory", link: "/directory", links: []/*[{ id: 1, attributes: { text: "Blair Staff Directory", link: "/directory" } }]*/, image: { data: { attributes: { url: "/assets/drop-off-map.jpg" } } } } },
+        { id: 4, attributes: { name: "Departments", link: "/departments", links: []/*[{ id: 1, attributes: { text: "English", link: "/departments/english" } }, { id: 2, attributes: { text: "Career and Technology Education", link: "/departments/teched" } }]*/, image: { data: { attributes: { url: "/assets/MBHS_Entrance.jpg" } } } } },
         { id: 5, attributes: { name: "Resources", link: "/resources", links: [], image: { data: { attributes: { url: "no picture" } } } } },
-        { id: 6, attributes: { name: "News", link: "/news", links: [{ id: 1, attributes: { text: "TOP NEWS", link: "/news" } }], image: { data: { attributes: { url: "/assets/drop-off-map.jpg" } } } } },
-        { id: 7, attributes: { name: "Calendar", link: "/calendar", links: [{ id: 1, attributes: { text: "Calendar", link: "/calendar" } }], image: { data: { attributes: { url: "/assets/MBHS_Entrance.jpg" } } } } },
-        { id: 8, attributes: { name: "Schedule", link: "/schedule", links: [{ id: 1, attributes: { text: "Regular Day", link: "/schedule#regular" } }, { id: 2, attributes: { text: "Innovation Day", link: "/schedule#innovation" } }, { id: 3, attributes: { text: "Early Release Day", link: "/schedule#early-release" } }, { id: 4, attributes: { text: "2-Hour Delay", link: "/schedule#2hrdelay" } }, { id: 5, attributes: { text: "All Period Day", link: "/schedule#all-period" } }], image: { data: { attributes: { url: "/assets/drop-off-map.jpg" } } } } },
+        { id: 6, attributes: { name: "News", link: "/news", links: []/*[{ id: 1, attributes: { text: "TOP NEWS", link: "/news" } }]*/, image: { data: { attributes: { url: "/assets/drop-off-map.jpg" } } } } },
+        { id: 7, attributes: { name: "Calendar", link: "/calendar", links: []/*[{ id: 1, attributes: { text: "Calendar", link: "/calendar" } }]*/, image: { data: { attributes: { url: "/assets/MBHS_Entrance.jpg" } } } } },
+        { id: 8, attributes: { name: "Schedule", link: "/schedule", links: []/*[{ id: 1, attributes: { text: "Regular Day", link: "/schedule#regular" } }, { id: 2, attributes: { text: "Innovation Day", link: "/schedule#innovation" } }, { id: 3, attributes: { text: "Early Release Day", link: "/schedule#early-release" } }, { id: 4, attributes: { text: "2-Hour Delay", link: "/schedule#2hrdelay" } }, { id: 5, attributes: { text: "All Period Day", link: "/schedule#all-period" } }]*/, image: { data: { attributes: { url: "/assets/drop-off-map.jpg" } } } } },
     ]
 };
 
