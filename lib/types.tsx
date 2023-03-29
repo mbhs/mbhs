@@ -177,6 +177,25 @@ interface Resource {
 	};
 }
 
+interface Staff {
+	id: number;
+	attributes: {
+		name: string;
+		email: string;
+		title: string;
+		departments: {
+			data: Department[];
+		};
+		image: {
+			data: {
+				attributes: {
+					url: string;
+				};
+			};
+		};
+	};
+}
+
 export type {
 	Event,
 	New,
@@ -191,4 +210,5 @@ export type {
 	BusRoute,
 	Department,
 	Resource,
+	Staff,
 };

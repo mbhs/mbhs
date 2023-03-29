@@ -11,7 +11,6 @@ import {
 	AiOutlineCalendar,
 } from "react-icons/ai";
 import { FaPlay, FaPause } from "react-icons/fa";
-import { motion } from "framer-motion";
 import { Event, New, HomePage } from "../lib/types";
 import Markdown from "../components/Markdown";
 import Link from "next/link";
@@ -187,7 +186,7 @@ export default function home({ events, news, meta }: IndexProps) {
 							},
 							i
 						) => (
-							<Link href="/calendar" className="w-full">
+							<Link href="/calendar" className="w-full" key={i}>
 								<div className="bg-white flex gap-3 bg-opacity-10 w-full text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-5 p-3">
 									<div className="flex flex-col justify-center items-center text-center font-semibold bg-red-600 text-white p-2 h-16 w-16 rounded-full">
 										<p className="text-md -mb-1">
