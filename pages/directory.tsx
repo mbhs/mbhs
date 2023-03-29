@@ -183,7 +183,7 @@ export default function Directory({ departments, staff }: DirectoryProps) {
 										<p className="text-gray-600">{title}</p>
 										<a
 											href={`mailto:${email}`}
-											className="text-blue-500 hover:underline"
+											className="text-red-500 hover:underline"
 										>
 											{email}
 										</a>
