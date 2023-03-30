@@ -72,7 +72,7 @@ interface MobileSideBarLinkProps {
 function MobileSideBarLink({ name, link, links, isClick, sideBar, toggle, animate }: MobileSideBarLinkProps) { //should there be an option to not have a dropdown?
     return (
         <div>
-            <div className="flex mx-auto justify-between text-white text-xl">
+            <div className="flex mx-auto justify-between text-white text-xl pb-1">
                 <div className="w-full rounded-lg"><Link onClick={() => { sideBar(false), document.body.style.overflow = "" }} href={link}>{name}</Link>
                     {(Object.keys(links).length > 0) && <motion.div className="pl-6 bg-red-800 w-full rounded-md" initial={animate.exit} animate={isClick[name] ? "enter" : "exit"} variants={animate}>
                         <ul className="py-2 space-y-2">

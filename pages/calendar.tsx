@@ -42,8 +42,8 @@ const parseTime = (time: string) => {
 
 export default function Calendar({ events }: CalendarProps) {
 	return (
-		<div className="rounded-lg p-2 md:px-40 pb-10">
-			<h1 className="text-xl md:text-4xl font-bold text-center pb-3">
+		<div className="rounded-lg md:px-40 pb-10">
+			<h1 className="text-xl md:text-4xl font-bold text-center py-5">
 				Calendar
 			</h1>
 			<div className="flex flex-col gap-3 flex-wrap">
