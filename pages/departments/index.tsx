@@ -33,7 +33,7 @@ export default function index({ departments }: DepartmentsProps) {
 						}
 						key={i}
 					>
-						<div className="hover:shadow-md transition-all duration-300 hover:scale-[1.001] relative bg-black bg-opacity-10 backdrop-blur-lg rounded-lg p-5 text-center object-cover before:opacity-20">
+						<div className="hover:shadow-md transition-all duration-300 hover:scale-[1.001] relative bg-black border border-gray-300 bg-opacity-10 backdrop-blur-lg rounded-lg p-5 text-center object-cover before:opacity-20">
 							{d.attributes.image.data && (
 								<>
 									<img
@@ -42,7 +42,7 @@ export default function index({ departments }: DepartmentsProps) {
 									/>
 								</>
 							)}
-							<div className="absolute inset-0 backdrop-blur-sm bg-white bg-opacity-30 rounded-lg -z-10" />
+							<div className="absolute inset-0 backdrop-blur-sm bg-white bg-opacity-60 rounded-lg -z-10" />
 							<h1 className="text-black font-bold text-xl">
 								{d.attributes.name}
 							</h1>

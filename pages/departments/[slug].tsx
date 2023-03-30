@@ -61,7 +61,7 @@ export default function department({ department }: DepartmentsProps) {
 						className="absolute top-0 left-0 right-0 h-96 w-full object-cover -z-20"
 					/>
 					<div className="absolute top-0 left-0 right-0 h-96 w-full -z-20 bg-gradient-to-t backdrop-blur-sm from-white to-transparent" />
-					<div className="absolute top-0 left-0 right-0 h-96 w-full -z-10 opacity-30 bg-white" />
+					<div className="absolute top-0 left-0 right-0 h-96 w-full -z-10 opacity-60 bg-white" />
 				</>
 			)}
 			<h1 className="font-bold text-4xl text-center py-5">
