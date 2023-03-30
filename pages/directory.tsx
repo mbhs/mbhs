@@ -24,14 +24,12 @@ interface StaffDirectoryProps {
 
 export async function getStaticProps() {
 	let departments = await fetch(
-		`https://strapi.mbhs.edu/api/departments?sort=rank:ASC`
+		`https://strapi.mbhs.edu/api/departments?sort=rank:ASC&fields[0]=name&fields[1]=slug&fields[2]=overrideLink`
 	).then((res) => res.json());
 
 	let staff = await fetch(
-		`https://strapi.mbhs.edu/api/directory?populate=*&pagination[limit]=1000&sort=name:ASC`
+		`https://strapi.mbhs.edu/api/directory?populate[departments][fields]=name&populate=image&pagination[limit]=1000&sort=name:ASC&fields[0]=name&fields[1]=email&fields[2]=title`
 	).then((res) => res.json());
-
-	console.log(staff);
 
 	return {
 		props: {
@@ -88,7 +86,7 @@ export default function Directory({ departments, staff }: DirectoryProps) {
 						name="department-select"
 						value={selectedDepartment}
 						onChange={(e) => setSelectedDepartment(parseInt(e.target.value))}
-						className="block w-full bg-white border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+						className="block w-full bg-white border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 sm:text-sm"
 					>
 						<option value="">All departments</option>
 						{departments.map(({ attributes: { name }, id }, i) => (
@@ -108,7 +106,7 @@ export default function Directory({ departments, staff }: DirectoryProps) {
 						placeholder="Search staff by name"
 						value={searchTerm}
 						onChange={(e) => setSearchTerm(e.target.value)}
-						className="block w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+						className="block w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 sm:text-sm"
 					/>
 				</div>
 			</div>
@@ -161,6 +159,35 @@ export default function Directory({ departments, staff }: DirectoryProps) {
 					</div>
 				</div>
 			))}
+			{filteredStaff.filter((s) => s.attributes.departments.data.length === 0).length > 0 && !selectedDepartment &&  (
+				<div className="pb-8">
+					<h2 className="text-lg font-bold mb-2">Other</h2>
+					<div className="flex flex-wrap gap-5">
+						{filteredStaff
+							.filter((s) => s.attributes.departments.data.length === 0)
+							.map(({ attributes: { name, email, title, image } }, i) => (
+								<div className="bg-white border border-gray-200 rounded-lg shadow-md p-6 flex gap-5 items-center">
+									{image.data && (
+										<img
+											src={image?.data?.attributes.url}
+											className="h-20 rounded-full w-20 object-cover"
+										/>
+									)}
+									<div>
+										<h3 className="text-lg font-bold">{name}</h3>
+										<p className="text-gray-600">{title}</p>
+										<a
+											href={`mailto:${email}`}
+											className="text-red-500 hover:underline"
+										>
+											{email}
+										</a>
+									</div>
+								</div>
+							))}
+					</div>
+				</div>
+			)}
 		</div>
 	);
 }
