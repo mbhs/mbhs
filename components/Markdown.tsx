@@ -1,11 +1,12 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
+import Link from "next/link";
 
-function Link({ children, ...rest }: { children: React.ReactNode }) {
+function a({ children, ...rest }: { children: React.ReactNode }) {
 	return (
-		<a {...rest} className="text-red-600 hover:underline">
+		<Link href="" {...rest} className="text-red-600 hover:underline">
 			{children}
-		</a>
+		</Link>
 	);
 }
 
@@ -59,7 +60,7 @@ export default function Markdown({
 	return (
 		<ReactMarkdown
 			components={{
-				a: Link,
+				a,
 				img: Image,
 				ul: List,
 				h1,

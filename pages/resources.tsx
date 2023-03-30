@@ -40,12 +40,12 @@ export default function Resources({
 			<h1 className="text-xl sm:text-2xl md:text-4xl text-center font-bold pt-5 pb-3">
 				Resources
 			</h1>
-			<div className="w-full flex flex-col md:flex-row px-12 space-y-4 md:space-y-0 md:space-x-4 justify-between text-md sm:text-lg md:text-xl">
-				<div className="w-7/8 md:w-1/3 rounded-lg text-black text-center p-2">
-					<h2 className="text-lg sm:text-xl md:text-3xl font-bold md:pb-4">
+			<div className="w-full flex flex-col md:flex-row px-6 md:px-24 space-y-4 lg:space-y-0 lg:space-x-4 justify-between text-md lg:text-lg">
+				<div className="md:w-1/3 rounded-lg text-black text-center p-2">
+					<h2 className="text-lg sm:text-xl md:text-3xl font-bold pb-4">
 						Students
 					</h2>
-					<div className="flex flex-col justify-around gap-1 gap-x-1 md:gap-0 md:space-x-0 md:space-y-3 mb-2">
+					<div className="flex flex-col justify-around gap-3 mb-2">
 						{students.map(({ attributes: { name, link, description } }, i) => (
 							<Link
 								target={link.includes("http") ? "blank" : undefined}
@@ -65,10 +65,10 @@ export default function Resources({
 					</div>
 				</div>
 				<div className="w-7/8 md:w-1/3 rounded-lg text-black text-center p-2">
-					<h2 className="text-lg sm:text-xl md:text-3xl font-bold md:pb-4">
+					<h2 className="text-lg sm:text-xl md:text-3xl font-bold pb-4">
 						Staff
 					</h2>
-					<div className="flex flex-col justify-around gap-1 md:gap-0 md:space-x-0 md:space-y-3 mb-2">
+					<div className="flex flex-col justify-around gap-3 mb-2">
 						{staff.map(({ attributes: { name, link, description } }, i) => (
 							<Link
 								target={link.includes("http") ? "blank" : undefined}
@@ -88,10 +88,10 @@ export default function Resources({
 					</div>
 				</div>
 				<div className="w-7/8 md:w-1/3 rounded-lg text-black text-center p-2">
-					<h2 className="text-lg sm:text-xl md:text-3xl font-bold md:pb-4">
+					<h2 className="text-lg sm:text-xl md:text-3xl font-bold pb-4">
 						Parents
 					</h2>
-					<div className="flex flex-col justify-around gap-1 md:gap-0 md:space-x-0 md:space-y-3 mb-2">
+					<div className="flex flex-col justify-around gap-3 mb-2">
 						{parents.map(({ attributes: { name, link, description } }, i) => (
 							<Link
 								target={link.includes("http") ? "blank" : undefined}

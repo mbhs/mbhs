@@ -54,7 +54,10 @@ export default function Calendar({ events }: CalendarProps) {
 						},
 						i
 					) => (
-						<div className="bg-neutral-400 border border-neutral-300 shadow-sm hover:shadow-md flex gap-3 bg-opacity-10 hover:bg-opacity-20 w-full text-black backdrop-blur-lg rounded-lg transition-all duration-300 p-3">
+						<div
+							key={i}
+							className="bg-neutral-400 border border-neutral-300 shadow-sm hover:shadow-md flex gap-3 bg-opacity-10 hover:bg-opacity-20 w-full text-black backdrop-blur-lg rounded-lg transition-all duration-300 p-3"
+						>
 							<div className="flex flex-col justify-center items-center text-center font-semibold bg-red-600 text-white p-2 h-16 w-16 rounded-full">
 								<p className="text-md -mb-1">
 									{new Date(startDate).toLocaleString("default", {

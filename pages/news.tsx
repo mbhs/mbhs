@@ -31,6 +31,7 @@ function News({ news }: NewsProps) {
 						className={`bg-neutral-400 border border-neutral-300 shadow-sm hover:shadow-md flex bg-opacity-10 hover:bg-opacity-20 text-black backdrop-blur-md my-3 md:my-3 m-5 md:m-12 rounded-lg duration-300 transition-all ${
 							image.data ? "flex flex-col md:flex-row p-0" : "p-3"
 						}`}
+						key={i}
 					>
 						{image.data && (
 							<img
