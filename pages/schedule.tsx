@@ -65,7 +65,7 @@ export default function schedule({
 								href={url}
 								target="blank"
 								key={i}
-								className="font-extrabold bg-black dark:bg-neutral-100 dark:text-black text-white px-4 py-2 rounded-xl w-full md:w-max text-xs md:text-base"
+								className="font-extrabold bg-black dark:bg-neutral-300 dark:text-black text-white px-4 py-2 rounded-xl w-full md:w-max text-xs md:text-base"
 							>
 								{name}
 							</a>

@@ -18,6 +18,14 @@ function List({ children, ...rest }: { children: React.ReactNode }) {
 	);
 }
 
+function ol({ children, ...rest }: { children: React.ReactNode }) {
+	return (
+		<ol {...rest} className="list-decimal list-inside">
+			{children}
+		</ol>
+	);
+}
+
 function h1({ children, ...rest }: { children: React.ReactNode }) {
 	return (
 		<h1 {...rest} className="text-4xl font-bold py-2">
@@ -63,6 +71,7 @@ export default function Markdown({
 				a,
 				img: Image,
 				ul: List,
+				ol,
 				h1,
 				h2,
 				h3,

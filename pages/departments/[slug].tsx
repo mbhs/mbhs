@@ -60,8 +60,8 @@ export default function department({ department }: DepartmentsProps) {
 						src={department.attributes.image.data?.attributes.url}
 						className="absolute top-0 left-0 right-0 h-96 w-full object-cover -z-20"
 					/>
-					<div className="absolute top-0 left-0 right-0 h-96 w-full -z-20 bg-gradient-to-t backdrop-blur-sm from-white dark:from-neutral-900 to-transparent" />
-					<div className="absolute top-0 left-0 right-0 h-96 w-full -z-10 opacity-50 bg-white dark:bg-black" />
+					<div className="absolute top-0 left-0 right-0 h-96 w-full -z-20 bg-gradient-to-t dark:bg-gradient-to-t backdrop-blur-sm from-white dark:from-[#0a0a0a] to-transparent" />
+					<div className="absolute top-0 left-0 right-0 h-96 w-full -z-10 opacity-50 bg-white dark:bg-[#0a0a0a]" />
 				</>
 			)}
 			<h1 className="font-bold text-4xl text-center py-5 dark:text-white">
