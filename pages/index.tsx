@@ -131,15 +131,15 @@ export default function home({ events, news, meta }: IndexProps) {
 				</div>
 			)} */}
 
-			<div className="p-10 w-full sm:w-7/8 md:w-3/4 xl:w-8/12 2xl:w-7/12">
+			<div className="md:p-10 p-5 w-full sm:w-7/8 md:w-3/4 xl:w-8/12 2xl:w-7/12">
 				<h1 className="text-white font-bold text-center text-xl sm:text-left sm:text-3xl lg:text-4xl 2xl:text-5xl">
 					Montgomery Blair High School
 				</h1>
-				<h3 className="text-white text-xl pt-3">
+				<h3 className="text-white md:text-xl pt-3">
 					Principal {meta.attributes.principal}
 				</h3>
-				<h3 className="text-white text-xl">Home of the Blazers</h3>
-				<h3 className="text-white text-xl">Crescens Scientia</h3>
+				<h3 className="text-white md:text-xl">Home of the Blazers</h3>
+				<h3 className="text-white md:text-xl">Crescens Scientia</h3>
 				<div className="flex justify-center pt-10 gap-10">
 					<div className="flex flex-col items-center">
 						<Link href="/resources">
@@ -270,7 +270,7 @@ export default function home({ events, news, meta }: IndexProps) {
 						onPause={() => setPlaying(false)}
 						className="h-full w-full object-cover"
 					/>
-					
+
 					<div className="absolute inset-0 bg-black bg-opacity-80 md:bg-opacity-0 md:opacity-100 md:bg-gradient-to-r from-black to-transparent h-full" />
 				</div>
 			</div>

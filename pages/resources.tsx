@@ -40,7 +40,7 @@ export default function Resources({
 			<h1 className="text-xl sm:text-2xl md:text-4xl text-center font-bold pt-5 pb-3">
 				Resources
 			</h1>
-			<div className="w-full flex flex-col md:flex-row px-6 md:px-24 space-y-4 lg:space-y-0 lg:space-x-4 justify-between text-md lg:text-lg">
+			<div className="w-full flex flex-col md:flex-row px-5 md:px-12 lg:px-24 space-y-4 lg:space-y-0 lg:space-x-4 justify-between text-md lg:text-lg">
 				<div className="md:w-1/3 rounded-lg text-black text-center p-2">
 					<h2 className="text-lg sm:text-xl md:text-3xl font-bold pb-4">
 						Students
