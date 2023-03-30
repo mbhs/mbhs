@@ -20,7 +20,7 @@ export async function getStaticProps() {
 
 function News({ news }: NewsProps) {
 	return (
-		<div className="bg-white pb-10">
+		<div className="pb-10 dark:text-white">
 			<h1 className="text-xl sm:text-2xl md:text-4xl text-center font-bold pt-5">
 				News
 			</h1>
@@ -28,7 +28,7 @@ function News({ news }: NewsProps) {
 			<div className="sm:px-8 md:px-10 lg:px-16 xl:px-24">
 				{news.map(({ attributes: { title, description, image } }, i) => (
 					<div
-						className={`bg-neutral-400 border border-neutral-300 shadow-sm hover:shadow-md flex bg-opacity-10 hover:bg-opacity-20 text-black backdrop-blur-md my-3 md:my-3 m-5 md:m-12 rounded-lg duration-300 transition-all ${
+						className={`bg-neutral-400 border border-neutral-300 dark:border-neutral-700 dark:text-white shadow-sm hover:shadow-md flex bg-opacity-10 hover:bg-opacity-20 text-black backdrop-blur-md my-3 md:my-3 m-5 md:m-12 rounded-lg duration-300 transition-all ${
 							image.data ? "flex flex-col md:flex-row p-0" : "p-3"
 						}`}
 						key={i}

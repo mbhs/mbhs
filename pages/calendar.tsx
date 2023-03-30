@@ -42,7 +42,7 @@ const parseTime = (time: string) => {
 
 export default function Calendar({ events }: CalendarProps) {
 	return (
-		<div className="rounded-lg p-2 md:px-40 pb-10">
+		<div className="rounded-lg p-2 md:px-40 pb-10 dark:text-white">
 			<h1 className="text-xl md:text-4xl font-bold text-center pb-3">
 				Calendar
 			</h1>
@@ -56,7 +56,7 @@ export default function Calendar({ events }: CalendarProps) {
 					) => (
 						<div
 							key={i}
-							className="bg-neutral-400 border border-neutral-300 shadow-sm hover:shadow-md flex gap-3 bg-opacity-10 hover:bg-opacity-20 w-full text-black backdrop-blur-lg rounded-lg transition-all duration-300 p-3"
+							className="bg-neutral-400 border border-neutral-300 dark:border-neutral-700 shadow-sm hover:shadow-md flex gap-3 bg-opacity-10 hover:bg-opacity-20 w-full text-black backdrop-blur-lg rounded-lg transition-all duration-300 p-3"
 						>
 							<div className="flex flex-col justify-center items-center text-center font-semibold bg-red-600 text-white p-2 h-16 w-16 rounded-full">
 								<p className="text-md -mb-1">
@@ -72,7 +72,7 @@ export default function Calendar({ events }: CalendarProps) {
 									})}
 								</p>
 							</div>
-							<div className="flex-1">
+							<div className="flex-1 dark:text-white">
 								{title && <p className="font-bold text-xl">{title}</p>}
 								<p className="flex gap-1 items-center">
 									{startTime && (

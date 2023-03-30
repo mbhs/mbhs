@@ -53,18 +53,18 @@ interface DepartmentsProps {
 
 export default function department({ department }: DepartmentsProps) {
 	return (
-		<div className="px-5 pb-10 md:px-12 lg:px-24 xl:px-48 2xl:px-72 relative">
+		<div className="px-5 pb-10 md:px-12 lg:px-24 xl:px-48 2xl:px-72 relative dark:text-white">
 			{department.attributes.image.data && (
 				<>
 					<img
 						src={department.attributes.image.data?.attributes.url}
 						className="absolute top-0 left-0 right-0 h-96 w-full object-cover -z-20"
 					/>
-					<div className="absolute top-0 left-0 right-0 h-96 w-full -z-20 bg-gradient-to-t backdrop-blur-sm from-white to-transparent" />
-					<div className="absolute top-0 left-0 right-0 h-96 w-full -z-10 opacity-60 bg-white" />
+					<div className="absolute top-0 left-0 right-0 h-96 w-full -z-20 bg-gradient-to-t backdrop-blur-sm from-white dark:from-neutral-900 to-transparent" />
+					<div className="absolute top-0 left-0 right-0 h-96 w-full -z-10 opacity-50 bg-white dark:bg-black" />
 				</>
 			)}
-			<h1 className="font-bold text-4xl text-center py-5">
+			<h1 className="font-bold text-4xl text-center py-5 dark:text-white">
 				{department.attributes.name}
 			</h1>
 			<h2 className="font-bold text-2xl">Staff</h2>

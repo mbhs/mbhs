@@ -29,7 +29,7 @@ const selected = (val: boolean) => {
 	if (val) {
 		return "inline-block p-4 text-red-600 rounded-t-lg border-b-2 border-red-600 active cursor-pointer";
 	} else {
-		return "inline-block p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 cursor-pointer";
+		return "inline-block p-4 rounded-t-lg border-b-2 border-transparent dark:hover:text-neutral-300 hover:text-neutral-600 hover:border-neutral-300 dark:hover:border-neutral-600 cursor-pointer";
 	}
 };
 
@@ -47,7 +47,7 @@ export default function schedule({
 	}, [routes]);
 
 	return (
-		<div className="px-5 sm:px-12 md:px-24 lg:px-36 xl:px-48">
+		<div className="px-5 sm:px-12 md:px-24 lg:px-36 xl:px-48 dark:text-white">
 			<h1 className="text-xl md:text-4xl text-center font-bold py-5">
 				Bus Schedule & Routes + Drop Off Info
 			</h1>
@@ -65,7 +65,7 @@ export default function schedule({
 								href={url}
 								target="blank"
 								key={i}
-								className="font-extrabold bg-black text-white px-4 py-2 rounded-xl w-full md:w-max text-xs md:text-base"
+								className="font-extrabold bg-black dark:bg-neutral-100 dark:text-black text-white px-4 py-2 rounded-xl w-full md:w-max text-xs md:text-base"
 							>
 								{name}
 							</a>
@@ -73,7 +73,7 @@ export default function schedule({
 					)}
 				</div>
 				<img
-					className="w-full cursor-pointer md:w-96"
+					className="w-full cursor-pointer md:w-96 rounded-lg"
 					src={routes.attributes.image.data.attributes.url}
 					alt="drop off diagram"
 					onClick={() =>
@@ -85,7 +85,7 @@ export default function schedule({
 			<h1 className="text-xl md:text-4xl text-center font-bold py-5">
 				School Hours & Bell Schedule
 			</h1>
-			<div className="text-sm font-medium text-center text-gray-500 border-b border-gray-200">
+			<div className="text-sm font-medium text-center text-neutral-500 dark:text-white border-b dark:border-neutral-700 border-neutral-200">
 				<ul className="flex flex-wrap -mb-px">
 					{schedules.map(({ attributes: { name } }, i) => (
 						<li className="mr-2" key={i}>
@@ -100,9 +100,9 @@ export default function schedule({
 				</ul>
 			</div>
 
-			<div className="overflow-x-auto relative shadow-md rounded-lg my-5 bg-gray-200">
-				<table className="w-full text-sm text-left text-gray-500">
-					<thead className="text-xs text-gray-700 bg-gray-50">
+			<div className="overflow-x-auto relative shadow-md rounded-lg my-5 bg-neutral-200 dark:bg-neutral-800">
+				<table className="w-full text-sm text-left text-neutral-500">
+					<thead className="text-xs text-neutral-700 dark:text-neutral-200 bg-neutral-50 dark:bg-neutral-800">
 						<tr>
 							<th scope="col" className="py-3 px-6">
 								Period
@@ -119,10 +119,13 @@ export default function schedule({
 						{schedules
 							.find((x) => x.attributes.name == tab)
 							?.attributes.periods.map(({ name, startTime, endTime }, i) => (
-								<tr className="bg-white border-y hover:bg-gray-50" key={i}>
+								<tr
+									className="bg-white text-neutral-800 dark:text-neutral-300 dark:bg-neutral-900 dark:hover:bg-neutral-800 border-y dark:border-neutral-700 hover:bg-neutral-50"
+									key={i}
+								>
 									<th
 										scope="row"
-										className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap"
+										className="py-4 px-6 font-medium text-neutral-900 dark:text-neutral-200 whitespace-nowrap"
 									>
 										{name}
 									</th>

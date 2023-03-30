@@ -34,7 +34,7 @@ export default function About({ meta }: AboutProps) {
 
 	return (
 		<>
-			<div className="flex flex-col pb-10">
+			<div className="flex flex-col pb-10 dark:text-white">
 				<h1 className="text-xl md:text-4xl text-center font-bold py-5">
 					About
 				</h1>
@@ -43,8 +43,8 @@ export default function About({ meta }: AboutProps) {
 						src={meta.attributes.image.data?.attributes.url}
 						className="absolute top-0 left-0 right-0 h-96 w-full object-cover -z-20"
 					/>
-					<div className="absolute top-0 left-0 right-0 h-96 w-full -z-20 bg-gradient-to-t backdrop-blur-sm from-white to-transparent" />
-					<div className="absolute top-0 left-0 right-0 h-96 w-full -z-10 opacity-30 bg-white" />
+					<div className="absolute top-0 left-0 right-0 h-96 w-full -z-20 bg-gradient-to-t backdrop-blur-sm from-white dark:from-neutral-900 to-transparent" />
+					<div className="absolute top-0 left-0 right-0 h-96 w-full -z-10 opacity-50 bg-white dark:bg-black" />
 
 					<div>
 						<Markdown>{meta.attributes.text}</Markdown>

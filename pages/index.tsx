@@ -78,9 +78,10 @@ interface IndexProps {
 	events: Event[];
 	news: New[];
 	meta: HomePage;
+	dark: boolean;
 }
 
-export default function home({ events, news, meta }: IndexProps) {
+export default function home({ events, news, meta, dark }: IndexProps) {
 	const [sound, setSound] = React.useState<boolean>(false);
 	const videoRef = React.useRef<HTMLVideoElement>(null);
 	const [playing, setPlaying] = React.useState<boolean>(true);
@@ -98,56 +99,31 @@ export default function home({ events, news, meta }: IndexProps) {
 	return (
 		<div className="relative w-full min-h-screen">
 			{/* use gloabl styles so that the video is not covered by div background */}
-			<style jsx global>{`
-				body {
-					background-color: black;
-				}
-			`}</style>
-			{/* {maps && (
-				<div className="z-30 absolute backdrop-blur-lg h-screen w-full flex justify-center items-center">
-					<motion.div
-						initial={{ scale: 0.1, opacity: 0 }}
-						animate={{ scale: 1, opacity: 1 }}
-						exit={{ scale: 0.1, opacity: 0 }}
-						className="z-30 md:h-2/3 md:w-1/3 bg-white rounded-lg p-6"
-					>
-						<div className="flex justify-between pb-4">
-							<h1 className="text-red-600 text-2xl font-bold">Directions</h1>
-							<button
-								onClick={() => setMaps(false)}
-								className="bg-red-600 rounded-lg p-2 text-white"
-							>
-								<AiOutlineClose />
-							</button>
-						</div>
-						<iframe
-							src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3099.8565552833993!2d-77.01425218481354!3d39.01858557955217!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b7cf586f9b73d5%3A0xc227c473fffb50c7!2sMontgomery%20Blair%20High%20School!5e0!3m2!1sen!2sus!4v1677519194208!5m2!1sen!2sus"
-							allowFullScreen
-							loading="lazy"
-							referrerPolicy="no-referrer-when-downgrade"
-							className="rounded-lg border-0 w-full h-full"
-						></iframe>
-					</motion.div>
-				</div>
-			)} */}
+			{dark && (
+				<style jsx global>{`
+					body {
+						background-color: black;
+					}
+				`}</style>
+			)}
 
-			<div className="md:p-10 p-5 w-full sm:w-7/8 md:w-3/4 xl:w-8/12 2xl:w-7/12">
-				<h1 className="text-white font-bold text-center text-xl sm:text-left sm:text-3xl lg:text-4xl 2xl:text-5xl">
+			<div className="text-black dark:text-white md:p-10 p-5 w-full sm:w-7/8 md:w-3/4 xl:w-8/12 2xl:w-7/12">
+				<h1 className="font-bold text-center text-xl sm:text-left sm:text-3xl lg:text-4xl 2xl:text-5xl">
 					Montgomery Blair High School
 				</h1>
-				<h3 className="text-white md:text-xl pt-3">
+				<h3 className="md:text-xl pt-3">
 					Principal {meta.attributes.principal}
 				</h3>
-				<h3 className="text-white md:text-xl">Home of the Blazers</h3>
-				<h3 className="text-white md:text-xl">Crescens Scientia</h3>
-				<div className="flex justify-center pt-10 gap-10">
+				<h3 className="md:text-xl">Home of the Blazers</h3>
+				<h3 className="md:text-xl">Crescens Scientia</h3>
+				<div className="flex justify-center pt-10 gap-10 text-black dark:text-white">
 					<div className="flex flex-col items-center">
 						<Link href="/resources">
-							<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-white text-white hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-4">
+							<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-black dark:hover:bg-white text-white hover:text-red-500 dark:hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-4">
 								<HiOutlineDocumentText className="h-full w-full" />
 							</div>
 						</Link>
-						<p className="text-white font-semibold pt-2">Resources</p>
+						<p className="font-semibold pt-2">Resources</p>
 					</div>
 					{/* <div className="flex flex-col items-center">
 						<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-white text-white hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-4">
@@ -157,19 +133,19 @@ export default function home({ events, news, meta }: IndexProps) {
 					</div> */}
 					<div className="flex flex-col items-center">
 						<a target="blank" href="https://goo.gl/maps/M5DGpJECkjYnNpRK7">
-							<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-white text-white hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-4">
+							<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-black dark:hover:bg-white text-white hover:text-red-500 dark:hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-4">
 								<MdOutlineLocationOn className="h-full w-full" />
 							</div>
 						</a>
-						<p className="text-white font-semibold pt-2">Directions</p>
+						<p className="font-semibold pt-2">Directions</p>
 					</div>
 					<div className="flex flex-col items-center">
 						<Link href="/calendar">
-							<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-white text-white hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-4">
+							<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-black dark:hover:bg-white text-white hover:text-red-500 dark:hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-4">
 								<MdEvent className="h-full w-full" />
 							</div>
 						</Link>
-						<p className="text-white font-semibold pt-2">Calendar</p>
+						<p className="font-semibold pt-2">Calendar</p>
 					</div>
 				</div>
 				<div className="pt-6 flex flex-col items-center gap-3">
@@ -187,7 +163,7 @@ export default function home({ events, news, meta }: IndexProps) {
 							i
 						) => (
 							<Link href="/calendar" className="w-full" key={i}>
-								<div className="bg-white flex gap-3 bg-opacity-10 w-full text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-5 p-3">
+								<div className="bg-black dark:bg-white dark:bg-opacity-10 bg-opacity-20 flex gap-3 w-full text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-5 dark:hover:bg-opacity-5 p-3">
 									<div className="flex flex-col justify-center items-center text-center font-semibold bg-red-600 text-white p-2 h-16 w-16 rounded-full">
 										<p className="text-md -mb-1">
 											{new Date(startDate).toLocaleString("default", {
@@ -202,7 +178,7 @@ export default function home({ events, news, meta }: IndexProps) {
 											})}
 										</p>
 									</div>
-									<div className="flex-1">
+									<div className="flex-1 text-black dark:text-white">
 										{title && <p className="font-bold text-xl">{title}</p>}
 										<p className="flex gap-1 items-center">
 											{startTime && (
@@ -231,7 +207,7 @@ export default function home({ events, news, meta }: IndexProps) {
 					)}
 					{news.map(({ attributes: { title, description, image } }, i) => (
 						<div
-							className={`bg-white bg-opacity-10 w-full text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-5 ${
+							className={`bg-black dark:bg-white bg-opacity-20 dark:bg-opacity-10 w-full text-black dark:text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-5 ${
 								image.data ? "flex flex-col md:flex-row p-0 gap-0" : "p-3"
 							}`}
 							key={i}
@@ -258,7 +234,7 @@ export default function home({ events, news, meta }: IndexProps) {
 			</div>
 			<div className="-z-10 absolute right-0 top-0 h-5/6 animate-fadeIn">
 				<div className="relative h-full">
-					<div className="absolute inset-0 bg-black bg-opacity-80 md:bg-opacity-0 md:opacity-100 md:bg-gradient-to-t from-black to-transparent h-full"></div>
+					<div className="absolute inset-0 md:bg-opacity-0 md:opacity-100 md:bg-gradient-to-t from-white dark:from-black to-transparent h-full"></div>
 					<video
 						src={meta.attributes.video.data.attributes.url}
 						controls={false}
@@ -271,7 +247,7 @@ export default function home({ events, news, meta }: IndexProps) {
 						className="h-full w-full object-cover"
 					/>
 
-					<div className="absolute inset-0 bg-black bg-opacity-80 md:bg-opacity-0 md:opacity-100 md:bg-gradient-to-r from-black to-transparent h-full" />
+					<div className="absolute inset-0 md:bg-opacity-0 md:opacity-100 md:bg-gradient-to-r from-white dark:from-black to-transparent h-full" />
 				</div>
 			</div>
 			<div className="absolute right-0 top-0 h-5/6">

@@ -75,20 +75,17 @@ export default function Directory({ departments, staff }: DirectoryProps) {
 
 	return (
 		<div className="px-5 sm:px-6 md:px-12 lg:px-24 xl:px-24">
-			<h1 className="text-xl md:text-4xl text-center font-bold py-5">
+			<h1 className="text-xl md:text-4xl text-center font-bold py-5 dark:text-white">
 				Staff Directory
 			</h1>
 			<div className="flex gap-3 flex-wrap justify-between items-center py-5">
 				<div className="flex-1">
-					<label htmlFor="department-select" className="sr-only">
-						Select department
-					</label>
 					<select
 						id="department-select"
 						name="department-select"
 						value={selectedDepartment}
 						onChange={(e) => setSelectedDepartment(parseInt(e.target.value))}
-						className="block w-full bg-white border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 sm:text-sm"
+						className="block w-full bg-neutral-200 bg-opacity-20 dark:bg-neutral-900 dark:text-white border border-neutral-300 dark:border-neutral-700 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 sm:text-sm"
 					>
 						<option value="">All departments</option>
 						{departments.map(({ attributes: { name }, id }, i) => (
@@ -108,7 +105,7 @@ export default function Directory({ departments, staff }: DirectoryProps) {
 						placeholder="Search staff by name or title"
 						value={searchTerm}
 						onChange={(e) => setSearchTerm(e.target.value)}
-						className="block w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 sm:text-sm"
+						className="block w-full border bg-neutral-200 bg-opacity-20 dark:bg-neutral-900 dark:text-white border-neutral-300 dark:border-neutral-700 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 sm:text-sm"
 					/>
 				</div>
 			</div>
@@ -146,7 +143,10 @@ export default function Directory({ departments, staff }: DirectoryProps) {
 									s.attributes.departments.data.filter((d) => d.id === id)
 										.length > 0
 							).length > 0 && (
-								<h2 className="text-lg font-bold mb-2" id={name}>
+								<h2
+									className="text-lg font-bold mb-2 dark:text-white"
+									id={name}
+								>
 									{name}
 								</h2>
 							)}
@@ -159,7 +159,7 @@ export default function Directory({ departments, staff }: DirectoryProps) {
 												.length > 0
 									)
 									.map(({ attributes: { name, email, title, image } }, i) => (
-										<div className="bg-white border border-gray-200 rounded-lg shadow-md p-6 flex flex-wrap justify-center gap-5 items-center">
+										<div className="bg-white dark:bg-neutral-900 dark:text-white border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-md p-6 flex flex-wrap justify-center gap-5 items-center">
 											{image.data && (
 												<img
 													src={image?.data?.attributes.url}
@@ -168,7 +168,9 @@ export default function Directory({ departments, staff }: DirectoryProps) {
 											)}
 											<div>
 												<h3 className="text-lg font-bold">{name}</h3>
-												<p className="text-gray-600">{title}</p>
+												<p className="text-neutral-600 dark:text-neutral-300">
+													{title}
+												</p>
 												<a
 													href={`mailto:${email}`}
 													className="text-red-500 hover:underline"
@@ -186,12 +188,14 @@ export default function Directory({ departments, staff }: DirectoryProps) {
 					).length > 0 &&
 						!selectedDepartment && (
 							<div className="pb-8">
-								<h2 className="text-lg font-bold mb-2">Other</h2>
+								<h2 className="text-lg font-bold mb-2 dark:text-white">
+									Other
+								</h2>
 								<div className="flex flex-wrap gap-5">
 									{filteredStaff
 										.filter((s) => s.attributes.departments.data.length === 0)
 										.map(({ attributes: { name, email, title, image } }, i) => (
-											<div className="bg-white border border-gray-200 rounded-lg shadow-md p-6 flex gap-5 items-center">
+											<div className="bg-white dark:bg-neutral-900 dark:text-white border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-md p-6 flex gap-5 items-center">
 												{image.data && (
 													<img
 														src={image?.data?.attributes.url}
@@ -200,7 +204,9 @@ export default function Directory({ departments, staff }: DirectoryProps) {
 												)}
 												<div>
 													<h3 className="text-lg font-bold">{name}</h3>
-													<p className="text-gray-600">{title}</p>
+													<p className="text-neutral-600 dark:text-neutral-300">
+														{title}
+													</p>
 													<a
 														href={`mailto:${email}`}
 														className="text-red-500 hover:underline"
