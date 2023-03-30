@@ -3,9 +3,9 @@ import Link from "next/link";
 import { Resource } from "../lib/types";
 
 export async function getStaticProps() {
-	let student = await fetch(
-		"https://strapi.mbhs.edu/api/student-resources"
-	).then((res) => res.json());
+	let student = await fetch("https://strapi.mbhs.edu/api/student-resources").then(
+		(res) => res.json()
+	);
 
 	let staff = await fetch("https://strapi.mbhs.edu/api/staff-resources").then(
 		(res) => res.json()
