@@ -3,10 +3,12 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { SlClose } from "react-icons/sl";
-import { ImPlus, ImMinus } from "react-icons/im";
-import { NavLink, NavDropdownLink } from "../lib/types";
+//import { ImPlus, ImMinus } from "react-icons/im";
+//import { NavLink, NavDropdownLink } from "../lib/types";
 import { CiDark, CiLight } from "react-icons/ci";
 
+/*
+FOR DROPDOWN MENU
 interface NavProp {
 	//example strapi pull (we still need to figure out how to pull it from strapi though)
 	links: NavLink[];
@@ -19,7 +21,7 @@ let examplePull: NavProp = {
 			attributes: {
 				name: "Home",
 				link: "/",
-				links: [] /*[{ id: 1, attributes: { text: "Home", link: "/" } }]*/,
+				links: [], //[{ id: 1, attributes: { text: "Home", link: "/" } }],
 				image: { data: { attributes: { url: "/assets/drop-off-map.jpg" } } },
 			},
 		},
@@ -29,7 +31,7 @@ let examplePull: NavProp = {
 				name: "About",
 				link: "/about",
 				links:
-					[] /*[{ id: 1, attributes: { text: "About", link: "/about" } }]*/,
+					[], //[{ id: 1, attributes: { text: "About", link: "/about" } }],
 				image: { data: { attributes: { url: "/assets/MBHS_Entrance.jpg" } } },
 			},
 		},
@@ -39,7 +41,7 @@ let examplePull: NavProp = {
 				name: "Directory",
 				link: "/directory",
 				links:
-					[] /*[{ id: 1, attributes: { text: "Blair Staff Directory", link: "/directory" } }]*/,
+					[], //[{ id: 1, attributes: { text: "Blair Staff Directory", link: "/directory" } }],
 				image: { data: { attributes: { url: "/assets/drop-off-map.jpg" } } },
 			},
 		},
@@ -49,7 +51,7 @@ let examplePull: NavProp = {
 				name: "Departments",
 				link: "/departments",
 				links:
-					[] /*[{ id: 1, attributes: { text: "English", link: "/departments/english" } }, { id: 2, attributes: { text: "Career and Technology Education", link: "/departments/teched" } }]*/,
+					[], //[{ id: 1, attributes: { text: "English", link: "/departments/english" } }, { id: 2, attributes: { text: "Career and Technology Education", link: "/departments/teched" } }],
 				image: { data: { attributes: { url: "/assets/MBHS_Entrance.jpg" } } },
 			},
 		},
@@ -68,7 +70,7 @@ let examplePull: NavProp = {
 				name: "News",
 				link: "/news",
 				links:
-					[] /*[{ id: 1, attributes: { text: "TOP NEWS", link: "/news" } }]*/,
+					[], //[{ id: 1, attributes: { text: "TOP NEWS", link: "/news" } }],
 				image: { data: { attributes: { url: "/assets/drop-off-map.jpg" } } },
 			},
 		},
@@ -78,7 +80,7 @@ let examplePull: NavProp = {
 				name: "Calendar",
 				link: "/calendar",
 				links:
-					[] /*[{ id: 1, attributes: { text: "Calendar", link: "/calendar" } }]*/,
+					[], //[{ id: 1, attributes: { text: "Calendar", link: "/calendar" } }],
 				image: { data: { attributes: { url: "/assets/MBHS_Entrance.jpg" } } },
 			},
 		},
@@ -88,7 +90,7 @@ let examplePull: NavProp = {
 				name: "Schedule",
 				link: "/schedule",
 				links:
-					[] /*[{ id: 1, attributes: { text: "Regular Day", link: "/schedule#regular" } }, { id: 2, attributes: { text: "Innovation Day", link: "/schedule#innovation" } }, { id: 3, attributes: { text: "Early Release Day", link: "/schedule#early-release" } }, { id: 4, attributes: { text: "2-Hour Delay", link: "/schedule#2hrdelay" } }, { id: 5, attributes: { text: "All Period Day", link: "/schedule#all-period" } }]*/,
+					[], //[{ id: 1, attributes: { text: "Regular Day", link: "/schedule#regular" } }, { id: 2, attributes: { text: "Innovation Day", link: "/schedule#innovation" } }, { id: 3, attributes: { text: "Early Release Day", link: "/schedule#early-release" } }, { id: 4, attributes: { text: "2-Hour Delay", link: "/schedule#2hrdelay" } }, { id: 5, attributes: { text: "All Period Day", link: "/schedule#all-period" } }],
 				image: { data: { attributes: { url: "/assets/drop-off-map.jpg" } } },
 			},
 		},
@@ -155,8 +157,6 @@ function ImageDropdownNavLink({
 		</div>
 	);
 }
-
-//should there be one that just has text? would it be in the same place as the other dropdowns or direclty under the link like the summer/giving links on choate
 
 interface MobileSideBarLinkProps {
 	name: string;
@@ -237,6 +237,26 @@ function MobileSideBarLink({
 	);
 }
 
+*/
+
+interface NavLink {
+    name: string;
+    link: string;
+};
+
+let examplePull: NavLink[] = [
+    {name: "Home", link: "/"},
+    {name: "About", link: "/about"},
+    {name: "Directory", link: "/directory"},
+    {name: "Departments", link: "/departments"},
+    {name: "Resources", link: "/resources"},
+    {name: "News", link: "/news"},
+    {name: "Calendar", link: "/calendar"},
+    {name: "Schedule", link: "/schedule"},
+];
+
+
+
 export default function Nav({
 	setDark,
 	dark,
@@ -247,12 +267,14 @@ export default function Nav({
 	const [scrollPosition, setScrollPosition] = useState(0);
 	const [scrollDir, setScrollDir] = useState(0);
 	const [navbarClass, setNavbarClass] = useState(["hidden", "bg-red-700"]);
-	const [linkSelected, setLinkSelected] = useState<{ [name: string]: boolean }>(
-		{}
-	);
+	//const [linkSelected, setLinkSelected] = useState<{ [name: string]: boolean }>({});
 	const [mobileNav, setMobileNav] = useState(false);
 
-	const hiddenMask =
+	/*
+    
+    FOR DROPDOWN MENU
+    
+    const hiddenMask =
 		"linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 100%, rgba(0,0,0,1) 100%, rgba(0,0,0,1) 100%)";
 	const visibleMask =
 		"linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 100%)";
@@ -272,29 +294,6 @@ export default function Nav({
 			opacity: 0,
 			maskImage: hiddenMask,
 			WebkitMaskImage: hiddenMask,
-			transition: {
-				duration: 0.35,
-				delay: 0.1,
-			},
-			transitionEnd: {
-				display: "none",
-			},
-		},
-	};
-
-	const mobileSideBarAnimate = {
-		enter: {
-			opacity: 1,
-			x: 0,
-			display: "flex",
-			transition: {
-				duration: 0.35,
-				delay: 0.1,
-			},
-		},
-		exit: {
-			opacity: 0.1,
-			x: 400,
 			transition: {
 				duration: 0.35,
 				delay: 0.1,
@@ -345,7 +344,30 @@ export default function Nav({
 		copy[which] = state;
 		setLinkSelected((linkSelected) => ({ ...copy }));
 	};
+    */
 
+	const mobileSideBarAnimate = {
+		enter: {
+			opacity: 1,
+			x: 0,
+			display: "flex",
+			transition: {
+				duration: 0.35,
+				delay: 0.1,
+			},
+		},
+		exit: {
+			opacity: 0.1,
+			x: 400,
+			transition: {
+				duration: 0.35,
+				delay: 0.1,
+			},
+			transitionEnd: {
+				display: "none",
+			},
+		},
+	};
 	useEffect(() => {
 		const threshold = 15;
 		let lastScrollY = window.pageYOffset;
@@ -397,7 +419,7 @@ export default function Nav({
 				</Link>
 				<div className="hidden -mt-1 md:flex flex-col">
 					<div className="flex flex-row gap-1 md:gap-2">
-						{examplePull.links.map(
+						{/*examplePull.links.map(
 							({ attributes: { name, link, links, image } }, prop) => (
 								<ImageDropdownNavLink
 									key={name + "TopBar"}
@@ -410,7 +432,12 @@ export default function Nav({
 									animate={dropdownAnimate}
 								/>
 							)
-						)}
+                        )*/
+                        examplePull.map(
+							({ name, link }, prop) => (
+								<Link key={name + "TopBar"} href={link} className="block py-1 px-3 text-white">{name}</Link>
+							)
+                        )}
 						<button
 							className="p-2 rounded-lg bg-black bg-opacity-20 hover:bg-opacity-25 text-white"
 							onClick={() => setDark((prev: boolean) => !prev)}
@@ -437,13 +464,13 @@ export default function Nav({
 						className="fixed w-full h-full top-0 right-0"
 					>
 						<SlClose
-							className="text-white active:bg-red-700 scale-[2.0] fixed top-5 sm:top-6 right-8 transition-all duration-300 hover:scale-[2.5]"
+							className="text-white sm:flex active:bg-red-700 scale-[2.0] fixed top-5 sm:top-6 right-8 transition-all duration-300 hover:scale-[2.5]"
 							onClick={() => {
 								setMobileNav(false), (document.body.style.overflow = "");
 							}}
 						/>
 						<div
-							className="opacity-0 w-1/6"
+							className="opacity-0 w-1/6 sm:w-full"
 							onTouchStart={() => {
 								setMobileNav(false), (document.body.style.overflow = "");
 							}}
@@ -451,8 +478,8 @@ export default function Nav({
 								setMobileNav(false), (document.body.style.overflow = "");
 							}}
 						></div>
-						<div className="mt-16 sm:mt-20 pt-1 px-4 w-5/6 bg-red-700 overflow-auto text-white text-xl space-y-2">
-							{examplePull.links.map(
+						<div className="mt-16 sm:mt-20 pt-1 px-4 w-5/6 sm:w-96 bg-red-700 overflow-auto text-white text-xl space-y-2">
+							{/*examplePull.links.map(
 								({ attributes: { name, link, links } }, prop) => (
 									<MobileSideBarLink
 										key={name + "SideBar"}
@@ -465,7 +492,15 @@ export default function Nav({
 										animate={mobileLinkAnimate}
 									/>
 								)
-							)}
+                            )*/
+                            examplePull.map(
+								(  { name, link } , prop) => (
+                                    <div className="flex flex-col gap-y-1">
+                                        <Link key={name + "SideBar"} href={link}>{name}</Link>
+                                        <hr/>
+                                    </div>
+								)
+                            )}
 						</div>
 					</motion.div>
 				</div>
