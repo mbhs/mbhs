@@ -204,6 +204,14 @@ interface Staff {
 	};
 }
 
+interface Link {
+	id: number;
+	attributes: {
+		name: string;
+		link: string;
+	};
+}
+
 export type {
 	Event,
 	New,
@@ -219,4 +227,5 @@ export type {
 	Department,
 	Resource,
 	Staff,
+	Link
 };

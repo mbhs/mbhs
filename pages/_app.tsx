@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import Nav from "../components/Nav";
@@ -6,6 +6,16 @@ import Footer from "../components/Footer";
 
 export default function App({ Component, pageProps }: AppProps) {
 	const [dark, setDark] = useState(true);
+
+	useEffect(() => {
+		if (localStorage.getItem("theme") === "light") {
+			setDark(false);
+		}
+	}, []);
+
+	useEffect(() => {
+		localStorage.setItem("theme", dark ? "dark" : "light");
+	}, [dark]);
 
 	return (
 		<div

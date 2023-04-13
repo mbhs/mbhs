@@ -20,7 +20,8 @@ export async function getStaticProps() {
 	let today = new Date();
 
 	// generate a date for one week from now
-	var nextWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000)
+	let days = 14;
+	var nextWeek = new Date(today.getTime() + days * 24 * 60 * 60 * 1000)
 		.toLocaleDateString("en-GB")
 		.split("/")
 		.reverse()
@@ -163,7 +164,7 @@ export default function home({ events, news, meta, dark }: IndexProps) {
 							i
 						) => (
 							<Link href="/calendar" className="w-full" key={i}>
-								<div className="bg-black dark:bg-white dark:bg-opacity-10 bg-opacity-20 flex gap-3 w-full text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-5 dark:hover:bg-opacity-5 p-3">
+								<div className="bg-black dark:bg-white border border-neutral-400 dark:border-neutral-700 dark:bg-opacity-10 bg-opacity-20 dark:hover:bg-opacity-5 flex gap-3 w-full text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-10 p-3">
 									<div className="flex flex-col justify-center items-center text-center font-semibold bg-red-600 text-white p-2 h-16 w-16 rounded-full">
 										<p className="text-md -mb-1">
 											{new Date(startDate).toLocaleString("default", {
@@ -207,7 +208,7 @@ export default function home({ events, news, meta, dark }: IndexProps) {
 					)}
 					{news.map(({ attributes: { title, description, image } }, i) => (
 						<div
-							className={`bg-black dark:bg-white bg-opacity-20 dark:bg-opacity-10 w-full text-black dark:text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-5 ${
+							className={`bg-black dark:bg-white border border-neutral-400 dark:border-neutral-700 bg-opacity-20 dark:bg-opacity-10 dark:hover:bg-opacity-5 w-full text-black dark:text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-10 ${
 								image.data ? "flex flex-col md:flex-row p-0 gap-0" : "p-3"
 							}`}
 							key={i}

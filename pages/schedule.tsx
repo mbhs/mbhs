@@ -57,7 +57,7 @@ export default function schedule({
 				check back for any updates. Futher information about buses is availabe
 				in English and en español.
 			</p>
-			<div className="flex flex-wrap justify-between items-center py-5">
+			<div className="flex flex-wrap gap-5 justify-between items-center py-5">
 				<div className="flex flex-col gap-3">
 					{routes.attributes.routes.data.map(
 						({ attributes: { url, name } }, i) => (

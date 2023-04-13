@@ -6,6 +6,7 @@ import { SlClose } from "react-icons/sl";
 //import { ImPlus, ImMinus } from "react-icons/im";
 //import { NavLink, NavDropdownLink } from "../lib/types";
 import { CiDark, CiLight } from "react-icons/ci";
+import { Link as LinkType } from "../lib/types";
 
 /*
 FOR DROPDOWN MENU
@@ -240,22 +241,20 @@ function MobileSideBarLink({
 */
 
 interface NavLink {
-    name: string;
-    link: string;
-};
+	name: string;
+	link: string;
+}
 
 let examplePull: NavLink[] = [
-    {name: "Home", link: "/"},
-    {name: "About", link: "/about"},
-    {name: "Directory", link: "/directory"},
-    {name: "Departments", link: "/departments"},
-    {name: "Resources", link: "/resources"},
-    {name: "News", link: "/news"},
-    {name: "Calendar", link: "/calendar"},
-    {name: "Schedule", link: "/schedule"},
+	{ name: "Home", link: "/" },
+	{ name: "About", link: "/about" },
+	{ name: "Directory", link: "/directory" },
+	{ name: "Departments", link: "/departments" },
+	{ name: "Resources", link: "/resources" },
+	{ name: "News", link: "/news" },
+	{ name: "Calendar", link: "/calendar" },
+	{ name: "Schedule", link: "/schedule" },
 ];
-
-
 
 export default function Nav({
 	setDark,
@@ -269,6 +268,21 @@ export default function Nav({
 	const [navbarClass, setNavbarClass] = useState(["hidden", "bg-red-700"]);
 	//const [linkSelected, setLinkSelected] = useState<{ [name: string]: boolean }>({});
 	const [mobileNav, setMobileNav] = useState(false);
+	const [data, setData] = useState<LinkType[]>();
+
+	const fetchLinks = async () => {
+		// fetch data from strapi
+		let links: { data: LinkType[] } = await fetch(
+			"https://strapi.mbhs.edu/api/links"
+		).then((res) => res.json());
+
+		await setData(links.data);
+	};
+
+	useEffect(() => {
+		// fetch data from strapi
+		fetchLinks();
+	}, []);
 
 	/*
     
@@ -419,7 +433,8 @@ export default function Nav({
 				</Link>
 				<div className="hidden -mt-1 md:flex flex-col">
 					<div className="flex flex-row gap-1 md:gap-2">
-						{/*examplePull.links.map(
+						{
+							/*examplePull.links.map(
 							({ attributes: { name, link, links, image } }, prop) => (
 								<ImageDropdownNavLink
 									key={name + "TopBar"}
@@ -433,11 +448,26 @@ export default function Nav({
 								/>
 							)
                         )*/
-                        examplePull.map(
-							({ name, link }, prop) => (
-								<Link key={name + "TopBar"} href={link} className="block py-1 px-3 text-white">{name}</Link>
-							)
-                        )}
+							data?.map(({attributes: { name, link }}, i) => (
+								<motion.p
+									initial={{ opacity: 0 }}
+									animate={{ opacity: 1 }}
+									transition={{
+										duration: 0.3,
+										delay: i * 0.1,
+										ease: "linear",
+									}}
+								>
+									<Link
+										key={name + "TopBar"}
+										href={link}
+										className="block py-1 px-3 text-white"
+									>
+										{name}
+									</Link>
+								</motion.p>
+							))
+						}
 						<button
 							className="p-2 rounded-lg bg-black bg-opacity-20 hover:bg-opacity-25 text-white"
 							onClick={() => setDark((prev: boolean) => !prev)}
@@ -479,7 +509,8 @@ export default function Nav({
 							}}
 						></div>
 						<div className="mt-16 sm:mt-20 pt-1 px-4 w-5/6 sm:w-96 bg-red-700 overflow-auto text-white text-xl space-y-2">
-							{/*examplePull.links.map(
+							{
+								/*examplePull.links.map(
 								({ attributes: { name, link, links } }, prop) => (
 									<MobileSideBarLink
 										key={name + "SideBar"}
@@ -493,14 +524,15 @@ export default function Nav({
 									/>
 								)
                             )*/
-                            examplePull.map(
-								(  { name, link } , prop) => (
-                                    <div className="flex flex-col gap-y-1">
-                                        <Link key={name + "SideBar"} href={link}>{name}</Link>
-                                        <hr/>
-                                    </div>
-								)
-                            )}
+								data?.map(({attributes: { name, link }}, prop) => (
+									<div className="flex flex-col gap-y-1">
+										<Link key={name + "SideBar"} href={link}>
+											{name}
+										</Link>
+										<hr />
+									</div>
+								))
+							}
 						</div>
 					</motion.div>
 				</div>
