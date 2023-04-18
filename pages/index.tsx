@@ -54,6 +54,7 @@ export async function getStaticProps() {
 			news: news.data,
 			meta: meta.data,
 		},
+		revalidate: 60
 	};
 }
 
