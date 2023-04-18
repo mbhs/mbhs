@@ -14,6 +14,7 @@ export async function getStaticProps() {
 		props: {
 			meta: meta.data,
 		},
+		revalidate: 60,
 	};
 }
 

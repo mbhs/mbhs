@@ -15,6 +15,7 @@ export async function getStaticProps() {
 		props: {
 			news: news.data,
 		},
+		revalidate: 60
 	};
 }
 

@@ -44,6 +44,7 @@ export async function getStaticProps({ params }: GetStaticPropsContext) {
 		props: {
 			department: department,
 		},
+		revalidate: 60,
 	};
 }
 

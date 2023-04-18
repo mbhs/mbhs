@@ -22,6 +22,7 @@ export async function getStaticProps() {
 			schedules: events.data,
 			routes: routes.data,
 		},
+		revalidate: 60
 	};
 }
 

@@ -21,6 +21,7 @@ export async function getStaticProps() {
 			staff: staff.data,
 			parents: parent.data,
 		},
+		revalidate: 60
 	};
 }
 
