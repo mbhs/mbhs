@@ -428,7 +428,11 @@ export default function Nav({
 				<Link href="/" className="flex -mt-1 z-10 items-center">
 					{/*<img src="/assets/logo.png" className="h-8 m-3 sm:h-10" alt="Logo" />*/}
 					<span className="self-center mt-1 text-lg sm:text-xl font-semibold whitespace-nowrap text-white">
-						MBHS
+						<img
+							src="/assets/logo.svg"
+							className="text-white h-16 -mt-2 -ml-3"
+							alt="Logo"
+						/>
 					</span>
 				</Link>
 				<div className="hidden -mt-1 md:flex flex-col">
@@ -448,7 +452,7 @@ export default function Nav({
 								/>
 							)
                         )*/
-							data?.map(({attributes: { name, link }}, i) => (
+							data?.map(({ attributes: { name, link } }, i) => (
 								<motion.p
 									initial={{ opacity: 0 }}
 									animate={{ opacity: 1 }}
@@ -524,7 +528,7 @@ export default function Nav({
 									/>
 								)
                             )*/
-								data?.map(({attributes: { name, link }}, prop) => (
+								data?.map(({ attributes: { name, link } }, prop) => (
 									<div className="flex flex-col gap-y-1">
 										<Link key={name + "SideBar"} href={link}>
 											{name}
