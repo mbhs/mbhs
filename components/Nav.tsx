@@ -530,7 +530,7 @@ export default function Nav({
                             )*/
 								data?.map(({ attributes: { name, link } }, prop) => (
 									<div className="flex flex-col gap-y-1">
-										<Link key={name + "SideBar"} href={link}>
+										<Link key={name + "SideBar"} href={link} onClick={() => { setMobileNav(false), (document.body.style.overflow = "") }}>
 											{name}
 										</Link>
 										<hr />
