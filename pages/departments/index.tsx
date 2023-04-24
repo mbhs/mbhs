@@ -22,11 +22,11 @@ interface DepartmentsProps {
 
 export default function index({ departments }: DepartmentsProps) {
 	return (
-		<div className="pb-10 px-5 md:px-12 lg:px-24 xl:px-48 2xl:px-72">
+		<div className="pb-10 px-5 md:px-12 lg:px-24">
 			<h1 className="text-xl md:text-4xl font-bold text-center py-3 md:py-5 dark:text-white">
 				Departments
 			</h1>
-			<div className="flex flex-col gap-5">
+			<div className="flex flex-wrap justify-center gap-5">
 				{departments.map((d, i) => (
 					<Link
 						href={
@@ -36,7 +36,7 @@ export default function index({ departments }: DepartmentsProps) {
 						}
 						key={i}
 					>
-						<div className="light:hover:shadow-md transition-all duration-300 hover:scale-[1.001] relative bg-white border border-neutral-300 dark:border-neutral-700 bg-opacity-10 backdrop-blur-lg rounded-lg p-5 text-center object-cover before:opacity-20">
+						<div className="h-36 w-96 light:hover:shadow-md transition-all duration-300 hover:scale-[1.001] relative bg-white border border-neutral-300 dark:border-neutral-700 bg-opacity-10 backdrop-blur-lg rounded-lg p-5 text-center object-cover before:opacity-20">
 							{d.attributes.image.data && (
 								<>
 									<img
@@ -46,8 +46,8 @@ export default function index({ departments }: DepartmentsProps) {
 								</>
 							)}
 							<div className="absolute inset-0 backdrop-blur-sm bg-white bg-opacity-50 dark:bg-black dark:bg-opacity-50 rounded-lg -z-10" />
-							<h1 className="text-black dark:text-white font-bold text-xl">
-								{d.attributes.name}
+							<h1 className="text-black dark:text-white font-bold text-2xl flex items-center justify-center h-full w-full">
+								<p>{d.attributes.name}</p>
 							</h1>
 						</div>
 					</Link>

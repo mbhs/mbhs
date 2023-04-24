@@ -54,7 +54,7 @@ export async function getStaticProps() {
 			news: news.data,
 			meta: meta.data,
 		},
-		revalidate: 60
+		revalidate: 60,
 	};
 }
 
@@ -110,7 +110,7 @@ export default function home({ events, news, meta, dark }: IndexProps) {
 			)}
 
 			<div className="text-black dark:text-white md:p-10 p-5 w-full sm:w-7/8 md:w-3/4 xl:w-8/12 2xl:w-7/12">
-				<h1 className="font-bold text-center text-xl sm:text-left sm:text-3xl lg:text-4xl 2xl:text-5xl">
+				<h1 className="font-extrabold text-center text-xl sm:text-left sm:text-3xl lg:text-4xl 2xl:text-5xl">
 					Montgomery Blair High School
 				</h1>
 				<h3 className="md:text-xl pt-3">
