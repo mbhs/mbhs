@@ -240,20 +240,15 @@ function MobileSideBarLink({
 
 */
 
-interface NavLink {
-	name: string;
-	link: string;
-}
-
-let examplePull: NavLink[] = [
-	{ name: "Home", link: "/" },
-	{ name: "About", link: "/about" },
-	{ name: "Directory", link: "/directory" },
-	{ name: "Departments", link: "/departments" },
-	{ name: "Resources", link: "/resources" },
-	{ name: "News", link: "/news" },
-	{ name: "Calendar", link: "/calendar" },
-	{ name: "Schedule", link: "/schedule" },
+let examplePull: LinkType[] = [
+	{ id: 1, attributes: { name: "Home", link: "/" }},
+	{ id: 2, attributes: { name: "About", link: "/about" }},
+	{ id: 3, attributes: { name: "Directory", link: "/directory" }},
+	{ id: 4, attributes: { name: "Departments", link: "/departments" }},
+	{ id: 5, attributes: { name: "Resources", link: "/resources" }},
+	{ id: 6, attributes: { name: "News", link: "/news" }},
+	{ id: 7, attributes: { name: "Calendar", link: "/calendar" }},
+	{ id: 8, attributes: { name: "Schedule", link: "/schedule" }},
 ];
 
 export default function Nav({
@@ -272,11 +267,14 @@ export default function Nav({
 
 	const fetchLinks = async () => {
 		// fetch data from strapi
-		let links: { data: LinkType[] } = await fetch(
+		await fetch(
 			"https://strapi.mbhs.edu/api/links"
-		).then((res) => res.json());
+		).then((res) => res.json()).then((res) => {
+			setData(res.data);
+		}).catch(() => {
+			setData(examplePull)
+		})
 
-		await setData(links.data);
 	};
 
 	useEffect(() => {
