@@ -25,6 +25,7 @@ export default function App({ Component, pageProps }: AppProps) {
 			<Head>
 				<title>Montgomery Blair High School</title>
 				<meta name="description" content="Montgomery Blair High School" />
+				<link rel="icon" href="/assets/favicon.svg" />
 			</Head>
 			<>
 				{dark && (
