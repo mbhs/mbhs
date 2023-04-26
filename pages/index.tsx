@@ -35,7 +35,7 @@ export async function getStaticProps() {
 
 	console.log(todayStr, nextWeek);
 	let events = await fetch(
-		`https://strapi.mbhs.edu/api/events?filters[$or][0][endDate][$gte]=${todayStr}&filters[$or][1][endDate][$null]=true&filters[$and][2][startDate][$gte]=${todayStr}&filters[$and][3][startDate][$lte]=${nextWeek}&sort=startDate:ASC&filters[important]=true`
+		`https://strapi.mbhs.edu/api/events?filters[$or][0][endDate][$gte]=${todayStr}&filters[$or][1][$and][0][endDate][$null]=true&filters[$or][1][$and][1][startDate][$gte]=${todayStr}&filters[$and][3][startDate][$lte]=${nextWeek}&sort=startDate:ASC&filters[important]=true`
 	).then((res) => res.json());
 
 	console.log(events);

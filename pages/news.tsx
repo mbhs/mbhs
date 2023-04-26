@@ -1,4 +1,3 @@
-import NewsItem from "../components/NewsItem";
 import { New } from "../lib/types";
 import Markdown from "../components/Markdown";
 
