@@ -20,13 +20,13 @@ interface DepartmentsProps {
 	departments: Department[];
 }
 
-export default function index({ departments }: DepartmentsProps) {
+export default function Index({ departments }: DepartmentsProps) {
 	return (
 		<div className="pb-10 px-5 md:px-12 lg:px-24">
-			<h1 className="text-xl md:text-4xl font-bold text-center py-3 md:py-5 dark:text-white">
+			<h1 className="text-2xl md:text-4xl font-bold text-center py-3 md:py-5 dark:text-white">
 				Departments
 			</h1>
-			<div className="flex flex-wrap justify-center gap-5">
+			<div className="flex-col flex md:flex-row flex-wrap justify-center gap-5">
 				{departments.map((d, i) => (
 					<Link
 						href={
@@ -36,7 +36,7 @@ export default function index({ departments }: DepartmentsProps) {
 						}
 						key={i}
 					>
-						<div className="h-36 w-96 light:hover:shadow-md transition-all duration-300 hover:scale-[1.001] relative bg-white border border-neutral-300 dark:border-neutral-700 bg-opacity-10 backdrop-blur-lg rounded-lg p-5 text-center object-cover before:opacity-20">
+						<div className="h-36 w-full md:w-96 light:hover:shadow-md transition-all duration-300 hover:scale-[1.001] relative bg-white border border-neutral-300 dark:border-neutral-700 bg-opacity-10 backdrop-blur-lg rounded-lg p-5 text-center object-cover before:opacity-20">
 							{d.attributes.image.data && (
 								<>
 									<img

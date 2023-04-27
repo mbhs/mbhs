@@ -11,7 +11,7 @@ export async function getStaticProps() {
 		.split("/")
 		.reverse()
 		.join("-");
-		
+
 	let events = await fetch(
 		`https://strapi.mbhs.edu/api/events?filters[$or][0][endDate][$gte]=${today}&filters[$or][1][$and][0][endDate][$null]=true&filters[$or][1][$and][1][startDate][$gte]=${today}&sort=startDate:ASC`
 	).then((res) => res.json());
@@ -44,11 +44,11 @@ const parseTime = (time: string) => {
 
 export default function Calendar({ events }: CalendarProps) {
 	return (
-		<div className="rounded-lg p-5 md:px-40 pb-10 dark:text-white">
-			<h1 className="text-xl md:text-4xl font-bold text-center pb-3">
+		<div className="rounded-lg md:px-40 pb-10 dark:text-white">
+			<h1 className="text-2xl md:text-4xl font-bold text-center py-3 md:py-5">
 				Calendar
 			</h1>
-			<div className="flex flex-col gap-3 flex-wrap">
+			<div className="flex flex-col gap-3 px-5 sm:px-8 md:px-10 lg:px-16 xl:px-24">
 				{events.map(
 					(
 						{

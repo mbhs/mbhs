@@ -3,9 +3,9 @@ import Link from "next/link";
 import { Resource } from "../lib/types";
 
 export async function getStaticProps() {
-	let student = await fetch("https://strapi.mbhs.edu/api/student-resources").then(
-		(res) => res.json()
-	);
+	let student = await fetch(
+		"https://strapi.mbhs.edu/api/student-resources"
+	).then((res) => res.json());
 
 	let staff = await fetch("https://strapi.mbhs.edu/api/staff-resources").then(
 		(res) => res.json()
@@ -21,7 +21,7 @@ export async function getStaticProps() {
 			staff: staff.data,
 			parents: parent.data,
 		},
-		revalidate: 60
+		revalidate: 60,
 	};
 }
 
@@ -38,7 +38,7 @@ export default function Resources({
 }: ResourcesProps) {
 	return (
 		<div className="pb-10 dark:text-white">
-			<h1 className="text-xl sm:text-2xl md:text-4xl text-center font-bold pt-5 pb-3">
+			<h1 className="text-2xl sm:text-2xl md:text-4xl text-center font-bold md:py-5 py-3">
 				Resources
 			</h1>
 			<div className="w-full flex flex-col md:flex-row px-5 md:px-12 lg:px-24 space-y-4 lg:space-y-0 lg:space-x-4 justify-between text-md lg:text-lg">

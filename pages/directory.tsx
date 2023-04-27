@@ -75,10 +75,10 @@ export default function Directory({ departments, staff }: DirectoryProps) {
 
 	return (
 		<div className="px-5 sm:px-6 md:px-12 lg:px-24 xl:px-24">
-			<h1 className="text-xl md:text-4xl text-center font-bold py-5 dark:text-white">
+			<h1 className="text-2xl md:text-4xl text-center font-bold py-3 md:py-5 dark:text-white">
 				Staff Directory
 			</h1>
-			<div className="flex gap-3 flex-wrap justify-between items-center py-5">
+			<div className="flex gap-3 flex-wrap justify-between items-center pb-5 pt-3">
 				<div className="flex-1">
 					<select
 						id="department-select"

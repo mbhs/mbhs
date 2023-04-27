@@ -22,7 +22,7 @@ export async function getStaticProps() {
 			schedules: events.data,
 			routes: routes.data,
 		},
-		revalidate: 60
+		revalidate: 60,
 	};
 }
 
@@ -49,7 +49,7 @@ export default function schedule({
 
 	return (
 		<div className="px-5 sm:px-12 md:px-24 lg:px-36 xl:px-48 dark:text-white">
-			<h1 className="text-xl md:text-4xl text-center font-bold py-5">
+			<h1 className="text-2xl md:text-4xl text-center font-bold py-3 md:py-5">
 				Bus Schedule & Routes + Drop Off Info
 			</h1>
 			<p>

@@ -36,7 +36,7 @@ export default function About({ meta }: AboutProps) {
 	return (
 		<>
 			<div className="flex flex-col pb-10 dark:text-white">
-				<h1 className="text-xl md:text-4xl text-center font-bold py-5">
+				<h1 className="text-2xl md:text-4xl text-center font-bold py-3 md:py-5">
 					About
 				</h1>
 				<div className="flex flex-wrap w-full px-5 md:px-12 lg:px-24 xl:px-48 2xl:px-60">

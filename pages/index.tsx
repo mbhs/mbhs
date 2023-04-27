@@ -83,7 +83,7 @@ interface IndexProps {
 	dark: boolean;
 }
 
-export default function home({ events, news, meta, dark }: IndexProps) {
+export default function Home({ events, news, meta, dark }: IndexProps) {
 	const [sound, setSound] = React.useState<boolean>(false);
 	const videoRef = React.useRef<HTMLVideoElement>(null);
 	const [playing, setPlaying] = React.useState<boolean>(true);
@@ -110,7 +110,7 @@ export default function home({ events, news, meta, dark }: IndexProps) {
 			)}
 
 			<div className="text-black dark:text-white md:p-10 p-5 w-full sm:w-7/8 md:w-3/4 xl:w-8/12 2xl:w-7/12">
-				<h1 className="font-extrabold text-center text-xl sm:text-left sm:text-3xl lg:text-4xl 2xl:text-5xl">
+				<h1 className="font-extrabold text-center text-2xl sm:text-left sm:text-3xl lg:text-4xl 2xl:text-5xl">
 					Montgomery Blair High School
 				</h1>
 				<h3 className="md:text-xl pt-3">
@@ -118,7 +118,7 @@ export default function home({ events, news, meta, dark }: IndexProps) {
 				</h3>
 				<h3 className="md:text-xl">Home of the Blazers</h3>
 				<h3 className="md:text-xl">Crescens Scientia</h3>
-				<div className="flex justify-center pt-10 gap-10 text-black dark:text-white">
+				<div className="flex justify-center pt-6 md:pt-10 gap-10 text-black dark:text-white">
 					<div className="flex flex-col items-center">
 						<Link href="/resources">
 							<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-black dark:hover:bg-white text-white hover:text-red-500 dark:hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-4">
@@ -151,6 +151,27 @@ export default function home({ events, news, meta, dark }: IndexProps) {
 					</div>
 				</div>
 				<div className="pt-6 flex flex-col items-center gap-3">
+					{news
+						.filter(({ attributes: { rank } }) => rank <= 5)
+						.map(({ attributes: { title, description, image } }, i) => (
+							<div
+								className={`bg-black dark:bg-white border border-neutral-400 dark:border-neutral-700 bg-opacity-20 dark:bg-opacity-10 dark:hover:bg-opacity-5 w-full text-black dark:text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-10 ${
+									image.data ? "flex flex-col md:flex-row p-0 gap-0" : "p-3"
+								}`}
+								key={i}
+							>
+								{image.data && (
+									<img
+										src={image.data.attributes.url}
+										className="rounded-t-lg md:rounded-tr-none md:rounded-l-lg h-40 object-cover w-full md:w-80"
+									/>
+								)}
+								<div className={`${image.data && "p-3"}`}>
+									{title && <p className="font-bold text-xl pb-2">{title}</p>}
+									<Markdown>{description}</Markdown>
+								</div>
+							</div>
+						))}
 					{events.map(
 						(
 							{
@@ -207,25 +228,27 @@ export default function home({ events, news, meta, dark }: IndexProps) {
 							</Link>
 						)
 					)}
-					{news.map(({ attributes: { title, description, image } }, i) => (
-						<div
-							className={`bg-black dark:bg-white border border-neutral-400 dark:border-neutral-700 bg-opacity-20 dark:bg-opacity-10 dark:hover:bg-opacity-5 w-full text-black dark:text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-10 ${
-								image.data ? "flex flex-col md:flex-row p-0 gap-0" : "p-3"
-							}`}
-							key={i}
-						>
-							{image.data && (
-								<img
-									src={image.data.attributes.url}
-									className="rounded-t-lg md:rounded-tr-none md:rounded-l-lg h-40 object-cover w-full md:w-80"
-								/>
-							)}
-							<div className={`${image.data && "p-3"}`}>
-								{title && <p className="font-bold text-xl pb-2">{title}</p>}
-								<Markdown>{description}</Markdown>
+					{news
+						.filter(({ attributes: { rank } }) => rank > 5)
+						.map(({ attributes: { title, description, image } }, i) => (
+							<div
+								className={`bg-black dark:bg-white border border-neutral-400 dark:border-neutral-700 bg-opacity-20 dark:bg-opacity-10 dark:hover:bg-opacity-5 w-full text-black dark:text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-10 ${
+									image.data ? "flex flex-col md:flex-row p-0 gap-0" : "p-3"
+								}`}
+								key={i}
+							>
+								{image.data && (
+									<img
+										src={image.data.attributes.url}
+										className="rounded-t-lg md:rounded-tr-none md:rounded-l-lg h-40 object-cover w-full md:w-80"
+									/>
+								)}
+								<div className={`${image.data && "p-3"}`}>
+									{title && <p className="font-bold text-xl pb-2">{title}</p>}
+									<Markdown>{description}</Markdown>
+								</div>
 							</div>
-						</div>
-					))}
+						))}
 					{/* <Link
 						href="/news"
 						className="p-2 bg-opacity-10 text-white bg-white rounded-md font-bold max-w-max"
@@ -236,9 +259,13 @@ export default function home({ events, news, meta, dark }: IndexProps) {
 			</div>
 			<div className="-z-10 absolute right-0 top-0 h-5/6 animate-fadeIn">
 				<div className="relative h-full">
-					<div className="absolute inset-0 md:bg-opacity-0 md:opacity-100 md:bg-gradient-to-t from-white dark:from-black to-transparent h-full"></div>
+					<div className="absolute inset-0 bg-black opacity-100 md:bg-opacity-0 md:opacity-100 md:bg-gradient-to-t from-white dark:from-black to-transparent h-full"></div>
+
 					<video
-						src={meta.attributes.video.data.attributes.url}
+						src={meta.attributes.video.data.attributes.url.replace(
+							"http://",
+							"https://"
+						)}
 						controls={false}
 						autoPlay={true}
 						ref={videoRef}
@@ -246,7 +273,7 @@ export default function home({ events, news, meta, dark }: IndexProps) {
 						muted={!sound}
 						onPlay={() => setPlaying(true)}
 						onPause={() => setPlaying(false)}
-						className="h-full w-full object-cover"
+						className="h-full w-full object-cover hidden md:block"
 					/>
 
 					<div className="absolute inset-0 md:bg-opacity-0 md:opacity-100 md:bg-gradient-to-r from-white dark:from-black to-transparent h-full" />
