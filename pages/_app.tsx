@@ -3,6 +3,7 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
+import Head from "next/head";
 
 export default function App({ Component, pageProps }: AppProps) {
 	const [dark, setDark] = useState(true);
@@ -21,6 +22,11 @@ export default function App({ Component, pageProps }: AppProps) {
 		<div
 			className={`min-h-screen flex flex-col justify-between ${dark && "dark"}`}
 		>
+			<Head>
+				<title>Montgomery Blair High School</title>
+				<meta name="description" content="Montgomery Blair High School" />
+				<link rel="icon" href="/assets/favicon.svg" />
+			</Head>
 			<>
 				{dark && (
 					<style jsx global>{`

@@ -10,14 +10,14 @@ import { Link as LinkType } from "../lib/types";
 
 
 let examplePull: LinkType[] = [
-	{ id: 1, attributes: { name: "Home", link: "/" }},
-	{ id: 2, attributes: { name: "About", link: "/about" }},
-	{ id: 3, attributes: { name: "Directory", link: "/directory" }},
-	{ id: 4, attributes: { name: "Departments", link: "/departments" }},
-	{ id: 5, attributes: { name: "Resources", link: "/resources" }},
-	{ id: 6, attributes: { name: "News", link: "/news" }},
-	{ id: 7, attributes: { name: "Calendar", link: "/calendar" }},
-	{ id: 8, attributes: { name: "Schedule", link: "/schedule" }},
+	{ id: 1, attributes: { name: "Home", link: "/" } },
+	{ id: 2, attributes: { name: "About", link: "/about" } },
+	{ id: 3, attributes: { name: "Directory", link: "/directory" } },
+	{ id: 4, attributes: { name: "Departments", link: "/departments" } },
+	{ id: 5, attributes: { name: "Resources", link: "/resources" } },
+	{ id: 6, attributes: { name: "News", link: "/news" } },
+	{ id: 7, attributes: { name: "Calendar", link: "/calendar" } },
+	{ id: 8, attributes: { name: "Schedule", link: "/schedule" } },
 ];
 
 export default function Nav({
@@ -36,14 +36,14 @@ export default function Nav({
 
 	const fetchLinks = async () => {
 		// fetch data from strapi
-		await fetch(
-			"https://strapi.mbhs.edu/api/links"
-		).then((res) => res.json()).then((res) => {
-			setData(res.data);
-		}).catch(() => {
-			setData(examplePull)
-		})
-
+		await fetch("https://strapi.mbhs.edu/api/links")
+			.then((res) => res.json())
+			.then((res) => {
+				setData(res.data);
+			})
+			.catch(() => {
+				setData(examplePull);
+			});
 	};
 
 	useEffect(() => {
@@ -193,7 +193,14 @@ export default function Nav({
 							{
 								data?.map(({ attributes: { name, link } }, prop) => (
 									<div className="flex flex-col gap-y-1">
-										<Link key={name + "SideBar"} href={link} onClick={() => { setMobileNav(false), (document.body.style.overflow = "") }}>
+										<Link
+											key={name + "SideBar"}
+											href={link}
+											onClick={() => {
+												setMobileNav(false),
+													(document.body.style.overflow = "");
+											}}
+										>
 											{name}
 										</Link>
 										<hr />

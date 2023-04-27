@@ -11,15 +11,16 @@ export async function getStaticProps() {
 		.split("/")
 		.reverse()
 		.join("-");
+		
 	let events = await fetch(
-		`https://strapi.mbhs.edu/api/events?filters[$or][0][endDate][$gte]=${today}&filters[$or][1][endDate][$null]=true&filters[$and][2][startDate][$gte]=${today}&sort=startDate:ASC`
+		`https://strapi.mbhs.edu/api/events?filters[$or][0][endDate][$gte]=${today}&filters[$or][1][$and][0][endDate][$null]=true&filters[$or][1][$and][1][startDate][$gte]=${today}&sort=startDate:ASC`
 	).then((res) => res.json());
 
 	return {
 		props: {
 			events: events.data,
 		},
-		revalidate: 60
+		revalidate: 60,
 	};
 }
 
@@ -43,7 +44,7 @@ const parseTime = (time: string) => {
 
 export default function Calendar({ events }: CalendarProps) {
 	return (
-		<div className="rounded-lg p-2 md:px-40 pb-10 dark:text-white">
+		<div className="rounded-lg p-5 md:px-40 pb-10 dark:text-white">
 			<h1 className="text-xl md:text-4xl font-bold text-center pb-3">
 				Calendar
 			</h1>
