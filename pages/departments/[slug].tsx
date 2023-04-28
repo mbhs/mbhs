@@ -70,7 +70,7 @@ export default function department({ department }: DepartmentsProps) {
 			</h1>
 			<h2 className="font-bold text-2xl">Staff</h2>
 			{department.attributes.resource.data && (
-				<p className="flex gap-2 items-center">
+				<p className="flex flex-col md:flex-row gap-2 md:items-center break-words">
 					Resource Teacher:{" "}
 					{department.attributes.resource.data.attributes.image.data && (
 						<img
@@ -118,7 +118,9 @@ export default function department({ department }: DepartmentsProps) {
 					</li>
 				))}
 			</ul>
-			<Markdown>{department.attributes.content}</Markdown>
+			<div className="break-words">
+				<Markdown>{department.attributes.content}</Markdown>
+			</div>
 		</div>
 	);
 }
