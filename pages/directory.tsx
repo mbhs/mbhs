@@ -74,7 +74,7 @@ export default function Directory({ departments, staff }: DirectoryProps) {
 	}, [searchTerm]);
 
 	return (
-		<div className="px-5 sm:px-6 md:px-12 lg:px-24 xl:px-24">
+		<div className="w-full px-5 sm:px-6 md:px-12 lg:px-24 xl:px-24">
 			<h1 className="text-2xl md:text-4xl text-center font-bold py-3 md:py-5 dark:text-white">
 				Staff Directory
 			</h1>
@@ -109,7 +109,7 @@ export default function Directory({ departments, staff }: DirectoryProps) {
 					/>
 				</div>
 			</div>
-			<div className="flex gap-10">
+			<div className="w-full flex gap-10">
 				{/* <div className="min-w-max hidden xl:block sticky top-12 h-full px-3 py-4 overflow-y-auto bg-gray-200 rounded-lg border border-gray-300 bg-opacity-10">
 					<ul className="space-y-2 font-medium">
 						{departments.map(({ attributes: { name }, id }, i) => (
@@ -124,7 +124,7 @@ export default function Directory({ departments, staff }: DirectoryProps) {
 						))}
 					</ul>
 				</div> */}
-				<div>
+				<div className="w-full">
 					{filteredDepartments.map(({ attributes: { name }, id }, i) => (
 						<div
 							key={i}
@@ -151,7 +151,7 @@ export default function Directory({ departments, staff }: DirectoryProps) {
 								</h2>
 							)}
 
-							<div className="flex flex-wrap gap-5">
+							<div className="w-full flex flex-wrap flex-col md:flex-row gap-5">
 								{filteredStaff
 									.filter(
 										(s) =>
@@ -159,21 +159,23 @@ export default function Directory({ departments, staff }: DirectoryProps) {
 												.length > 0
 									)
 									.map(({ attributes: { name, email, title, image } }, i) => (
-										<div className="bg-white dark:bg-neutral-900 dark:text-white border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-md p-6 flex flex-wrap justify-center gap-5 items-center">
+										<div className="w-full md:w-auto bg-white dark:bg-neutral-900 dark:text-white border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-md p-6 flex flex-wrap justify-left gap-5 items-center">
 											{image.data && (
 												<img
 													src={image?.data?.attributes.url}
 													className="h-20 rounded-full w-20 object-cover"
 												/>
 											)}
-											<div>
-												<h3 className="text-lg font-bold">{name}</h3>
-												<p className="text-neutral-600 dark:text-neutral-300">
+											<div className="max-w-full">
+												<h3 className="text-lg font-bold break-words">
+													{name}
+												</h3>
+												<p className="text-neutral-600 dark:text-neutral-300 break-words">
 													{title}
 												</p>
 												<a
 													href={`mailto:${email}`}
-													className="text-red-500 hover:underline"
+													className="text-red-500 hover:underline break-words"
 												>
 													{email}
 												</a>
@@ -191,25 +193,27 @@ export default function Directory({ departments, staff }: DirectoryProps) {
 								<h2 className="text-lg font-bold mb-2 dark:text-white">
 									Other
 								</h2>
-								<div className="flex flex-wrap gap-5">
+								<div className="w-full flex flex-wrap flex-col md:flex-row gap-5">
 									{filteredStaff
 										.filter((s) => s.attributes.departments.data.length === 0)
 										.map(({ attributes: { name, email, title, image } }, i) => (
-											<div className="bg-white dark:bg-neutral-900 dark:text-white border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-md p-6 flex gap-5 items-center">
+											<div className="w-full md:w-auto bg-white dark:bg-neutral-900 dark:text-white border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-md p-6 flex gap-5 items-center">
 												{image.data && (
 													<img
 														src={image?.data?.attributes.url}
 														className="h-20 rounded-full w-20 object-cover"
 													/>
 												)}
-												<div>
-													<h3 className="text-lg font-bold">{name}</h3>
-													<p className="text-neutral-600 dark:text-neutral-300">
+												<div className="max-w-full">
+													<h3 className="text-lg font-bold break-words">
+														{name}
+													</h3>
+													<p className="text-neutral-600 dark:text-neutral-300 break-words">
 														{title}
 													</p>
 													<a
 														href={`mailto:${email}`}
-														className="text-red-500 hover:underline"
+														className="text-red-500 hover:underline break-words"
 													>
 														{email}
 													</a>
