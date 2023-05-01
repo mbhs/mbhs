@@ -282,7 +282,7 @@ export default function Home({ events, news, meta, dark }: IndexProps) {
 			<div className="absolute right-0 top-0 h-5/6">
 				<div className="relative h-full">
 					<button
-						className="fixed md:absolute z-50 bottom-5 right-5 md:right-16 h-8 w-8 bg-red-700 text-white transition-all duration-300 hover:bg-white hover:text-red-700 p-2 rounded-full"
+						className="hidden md:block absolute z-50 bottom-5 right-5 md:right-16 h-8 w-8 bg-red-700 text-white transition-all duration-300 hover:bg-white hover:text-red-700 p-2 rounded-full"
 						onClick={() => togglePlayPause()}
 					>
 						{playing ? <FaPause /> : <FaPlay />}

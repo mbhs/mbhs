@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Schedule, BusRoute } from "../lib/types";
+import { Schedule as ScheduleType, BusRoute } from "../lib/types";
 
 export async function getStaticProps() {
 	//gets all events that are ending today or later and sorts them by date
@@ -34,11 +34,11 @@ const selected = (val: boolean) => {
 	}
 };
 
-export default function schedule({
+export default function Schedule({
 	schedules,
 	routes,
 }: {
-	schedules: Schedule[];
+	schedules: ScheduleType[];
 	routes: BusRoute;
 }) {
 	const [tab, setTab] = useState<string>(schedules[0].attributes.name);
@@ -66,7 +66,7 @@ export default function schedule({
 								href={url}
 								target="blank"
 								key={i}
-								className="font-extrabold bg-black dark:bg-neutral-300 dark:text-black text-white px-4 py-2 rounded-xl w-full md:w-max text-xs md:text-base"
+								className="font-extrabold bg-black dark:bg-neutral-200 dark:text-black text-white px-4 py-2 rounded-xl w-full md:w-max text-sm md:text-base"
 							>
 								{name}
 							</a>

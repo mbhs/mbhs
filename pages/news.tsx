@@ -32,7 +32,7 @@ function News({ news }: NewsProps) {
 				News
 			</h1>
 
-			<div className="flex flex-col gap-5 px-5 sm:px-8 md:px-10 lg:px-16 xl:px-24">
+			<div className="flex flex-col gap-3 px-5 sm:px-8 md:px-10 lg:px-16 xl:px-24">
 				{news.map(({ attributes: { title, description, image } }, i) => (
 					<div
 						className={`bg-neutral-400 border border-neutral-300 dark:border-neutral-700 dark:text-white shadow-sm hover:shadow-md flex bg-opacity-10 hover:bg-opacity-20 text-black backdrop-blur-md rounded-lg duration-300 transition-all ${
@@ -47,7 +47,7 @@ function News({ news }: NewsProps) {
 							/>
 						)}
 						<div className={`${image.data ? "p-3" : ""}`}>
-							<h1 className="text-xl md:text-3xl">{title}</h1>
+						{title && <p className="font-bold text-xl pb-2">{title}</p>}
 							<Markdown>{description}</Markdown>
 						</div>
 					</div>
