@@ -36,6 +36,7 @@ export async function getStaticProps() {
 			departments: departments.data,
 			staff: staff.data,
 		},
+		revalidate: 60,
 	};
 }
 
