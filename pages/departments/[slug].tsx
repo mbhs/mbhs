@@ -65,7 +65,7 @@ export default function department({ department }: DepartmentsProps) {
 					<div className="absolute top-0 left-0 right-0 h-96 w-full -z-10 opacity-50 bg-white dark:bg-[#0a0a0a]" />
 				</>
 			)}
-			<h1 className="font-bold text-4xl text-center py-5 dark:text-white">
+			<h1 className="font-bold text-xl md:text-4xl text-center py-5 dark:text-white">
 				{department.attributes.name}
 			</h1>
 			<h2 className="font-bold text-2xl">Staff</h2>
