@@ -17,6 +17,7 @@ interface New {
 		title: string;
 		description: string;
 		rank: number;
+		link: string;
 		image: {
 			data: {
 				attributes: {

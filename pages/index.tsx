@@ -76,6 +76,15 @@ function trunc(text: string, max: number): string {
 	return text.substring(0, max - 1) + (text.length > max ? "&hellip;" : "");
 }
 
+function getEmbed(url: string) {
+	const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+	const match = url.match(regExp);
+
+	return `https://www.youtube.com/embed/${
+		match && match[2].length === 11 ? match[2] : null
+	}`;
+}
+
 interface IndexProps {
 	events: Event[];
 	news: New[];
@@ -153,20 +162,29 @@ export default function Home({ events, news, meta, dark }: IndexProps) {
 				<div className="pt-6 flex flex-col items-center gap-3">
 					{news
 						.filter(({ attributes: { rank } }) => rank <= 5)
-						.map(({ attributes: { title, description, image } }, i) => (
+						.map(({ attributes: { title, description, image, link } }, i) => (
 							<div
 								className={`bg-black dark:bg-white border border-neutral-400 dark:border-neutral-700 bg-opacity-20 dark:bg-opacity-10 dark:hover:bg-opacity-5 w-full text-black dark:text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-10 ${
-									image.data ? "flex flex-col md:flex-row p-0 gap-0" : "p-3"
+									image.data || link
+										? "flex flex-col md:flex-row p-0 gap-0"
+										: "p-3"
 								}`}
 								key={i}
 							>
-								{image.data && (
+								{link && (
+									<iframe
+										src={getEmbed(link)}
+										allowFullScreen
+										className="h-full w-auto md:flex-1 md:h-40 rounded-t-lg md:rounded-tr-none md:rounded-l-lg"
+									/>
+								)}
+								{image.data && !link && (
 									<img
 										src={image.data.attributes.url}
 										className="rounded-t-lg md:rounded-tr-none md:rounded-l-lg h-40 object-cover w-full md:w-80"
 									/>
 								)}
-								<div className={`${image.data && "p-3"}`}>
+								<div className={`${(image.data || link) && "p-3"}`}>
 									{title && <p className="font-bold text-xl pb-2">{title}</p>}
 									<Markdown>{description}</Markdown>
 								</div>
