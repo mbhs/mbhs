@@ -6,18 +6,19 @@ import { SlClose } from "react-icons/sl";
 //import { ImPlus, ImMinus } from "react-icons/im";
 //import { NavLink, NavDropdownLink } from "../lib/types";
 import { CiDark, CiLight } from "react-icons/ci";
+import { BiCaretDown } from "react-icons/bi";
 import { Link as LinkType } from "../lib/types";
 
 
 let examplePull: LinkType[] = [
-	{ id: 1, attributes: { name: "Home", link: "/" } },
-	{ id: 2, attributes: { name: "About", link: "/about" } },
-	{ id: 3, attributes: { name: "Directory", link: "/directory" } },
-	{ id: 4, attributes: { name: "Departments", link: "/departments" } },
-	{ id: 5, attributes: { name: "Resources", link: "/resources" } },
-	{ id: 6, attributes: { name: "News", link: "/news" } },
-	{ id: 7, attributes: { name: "Calendar", link: "/calendar" } },
-	{ id: 8, attributes: { name: "Schedule", link: "/schedule" } },
+	{ id: 1, attributes: { name: "Home", link: "/", quicklink: false } },
+	{ id: 2, attributes: { name: "About", link: "/about", quicklink: false } },
+	{ id: 3, attributes: { name: "Directory", link: "/directory", quicklink: false } },
+	{ id: 4, attributes: { name: "Departments", link: "/departments", quicklink: false } },
+	{ id: 5, attributes: { name: "Resources", link: "/resources", quicklink: false } },
+	{ id: 6, attributes: { name: "News", link: "/news", quicklink: false } },
+	{ id: 7, attributes: { name: "Calendar", link: "/calendar", quicklink: false } },
+	{ id: 8, attributes: { name: "Schedule", link: "/schedule", quicklink: false } },
 ];
 
 export default function Nav({
@@ -31,6 +32,7 @@ export default function Nav({
 	const [scrollDir, setScrollDir] = useState(0);
 	const [navbarClass, setNavbarClass] = useState(["hidden", "bg-red-700"]);
 	//const [linkSelected, setLinkSelected] = useState<{ [name: string]: boolean }>({});
+	const [dropdownOpen, setDropdownOpen] = useState(false);
 	const [mobileNav, setMobileNav] = useState(false);
 	const [data, setData] = useState<LinkType[]>();
 
@@ -108,6 +110,38 @@ export default function Nav({
 
 	//TODO: strapi pull links
 
+	const hiddenMask =
+		"linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 100%, rgba(0,0,0,1) 100%, rgba(0,0,0,1) 100%)";
+	const visibleMask =
+		"linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 100%)";
+
+	const dropdownAnimate = {
+		enter: {
+			opacity: 1,
+			y: 0,
+			maskImage: visibleMask,
+			WebkitMaskImage: visibleMask,
+			transition: {
+				duration: 0.35,
+				delay: 0.2,
+			},
+			display: "flex",
+		},
+		exit: {
+			opacity: 0,
+			y: -10,
+			maskImage: hiddenMask,
+			WebkitMaskImage: hiddenMask,
+			transition: {
+				duration: 0.35,
+				delay: 0.1,
+			},
+			transitionEnd: {
+				display: "none",
+			},
+		},
+	};
+
 	return (
 		<div className="w-full flex flex-col animate-fadeIn">
 			<div
@@ -129,7 +163,7 @@ export default function Nav({
 				<div className="hidden -mt-1 md:flex flex-col">
 					<div className="flex flex-row gap-1 md:gap-2">
 						{
-							data?.map(({ attributes: { name, link } }, i) => (
+							data?.filter(function(obj) {return !obj.attributes.quicklink}).map(({ attributes: { name, link } }, i) => (
 								<motion.p
 									initial={{ opacity: 0 }}
 									animate={{ opacity: 1 }}
@@ -149,6 +183,36 @@ export default function Nav({
 								</motion.p>
 							))
 						}
+						<motion.div
+							onClick={() => setDropdownOpen((prev) => !prev)}
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							transition={{
+								duration: 0.3,
+								delay: 1, //TODO: chang length of delay based on number of links
+								ease: "linear",
+							}}
+
+							className="bg-black bg-opacity-20 hover:bg-opacity-25 rounded-lg flex flex-row items-center px-3 cursor-default"
+						>
+							<p className="block py-1 pr-2 text-white">Quick Links</p>
+							<BiCaretDown className="text-white scale-[1.2]" />
+							{
+								<motion.div
+									className="absolute bg-white border-red-900 border-4 top-[60px] rounded-lg"
+									initial={dropdownAnimate.exit}
+									animate={dropdownOpen ? "enter" : "exit"} //toggle when clicked
+									variants={dropdownAnimate}
+								>
+									<div className="flex flex-col py-2 px-4 divide-y-2 divide-black">
+										{data?.filter(function qlink(obj) {return obj.attributes.quicklink}).map(({ attributes: { name, link, quicklink } }) => (
+											<Link href={link} key={name + "DropdownLink"} className="text-lg py-1">
+												{name}
+											</Link>
+										))}
+									</div>
+								</motion.div>}
+						</motion.div>
 						<button
 							className="p-2 rounded-lg bg-black bg-opacity-20 hover:bg-opacity-25 text-white"
 							onClick={() => setDark((prev: boolean) => !prev)}
@@ -159,9 +223,8 @@ export default function Nav({
 				</div>
 				<div className="flex md:hidden">
 					<GiHamburgerMenu
-						className={`text-white active:bg-red-700 scale-[2.0] mr-3 transition-all duration-300 hover:scale-[2.5] opacity-${
-							mobileNav ? 0 : 1
-						}`}
+						className={`text-white active:bg-red-700 scale-[2.0] mr-3 transition-all duration-300 hover:scale-[2.5] opacity-${mobileNav ? 0 : 1
+							}`}
 						onClick={() => {
 							setMobileNav(true),
 								setNavbarClass(["", "bg-red-700 fixed"]),

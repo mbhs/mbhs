@@ -210,6 +210,7 @@ interface Link {
 	attributes: {
 		name: string;
 		link: string;
+		quicklink: boolean;
 	};
 }
 
