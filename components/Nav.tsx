@@ -163,7 +163,7 @@ export default function Nav({
 				<div className="hidden -mt-1 md:flex flex-col">
 					<div className="flex flex-row gap-1 md:gap-2">
 						{
-							data?.filter(function(obj) {return !obj.attributes.quicklink}).map(({ attributes: { name, link } }, i) => (
+							data?.filter(function qlink(obj) {return !obj.attributes.quicklink}).map(({ attributes: { name, link } }, i) => (
 								<motion.p
 									initial={{ opacity: 0 }}
 									animate={{ opacity: 1 }}
