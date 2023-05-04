@@ -294,7 +294,7 @@ export default function Nav({
 							<p className="block py-1 pr-2 text-white">Quick Links</p>
 							<BiCaretDown className="text-white scale-[1.2]" />
 							<motion.div
-								className="absolute bg-white border-red-900 border-4 top-[60px] rounded-lg"
+								className="absolute bg-white border-red-900 border-4 top-[60px] right-10 rounded-lg"
 								initial={dropdownAnimate.exit}
 								animate={dropdownOpen ? "enter" : "exit"} //toggle when clicked
 								variants={dropdownAnimate}
