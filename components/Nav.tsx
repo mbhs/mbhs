@@ -135,7 +135,7 @@ export default function Nav({
 
 	const fetchLinks = async () => {
 		// fetch data from strapi
-		await fetch("https://strapi.mbhs.edu/api/links")
+		await fetch("https://strapi.mbhs.edu/api/links?filters&sort=order:ASC")
 			.then((res) => res.json())
 			.then((res) => {
 				setData(res.data);
@@ -289,12 +289,12 @@ export default function Nav({
 								ease: "linear",
 							}}
 
-							className="bg-black bg-opacity-20 hover:bg-opacity-25 rounded-lg flex flex-row items-center px-3 cursor-default text-left"
+							className="bg-black bg-opacity-20 hover:bg-opacity-25 rounded-lg flex flex-row items-center px-3 cursor-default text-left relative"
 						>
 							<p className="block py-1 pr-2 text-white">Quick Links</p>
 							<BiCaretDown className="text-white scale-[1.2]" />
 							<motion.div
-								className="absolute bg-white border-red-900 border-4 top-[60px] right-10 rounded-lg"
+								className="absolute -right-1/3 bg-white border-red-900 border-4 top-[40px] rounded-lg w-max"
 								initial={dropdownAnimate.exit}
 								animate={dropdownOpen ? "enter" : "exit"} //toggle when clicked
 								variants={dropdownAnimate}
