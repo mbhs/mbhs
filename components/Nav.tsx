@@ -10,16 +10,113 @@ import { BiCaretDown } from "react-icons/bi";
 import { Link as LinkType } from "../lib/types";
 
 
-let examplePull: LinkType[] = [
-	{ id: 1, attributes: { name: "Home", link: "/", quicklink: false } },
-	{ id: 2, attributes: { name: "About", link: "/about", quicklink: false } },
-	{ id: 3, attributes: { name: "Directory", link: "/directory", quicklink: false } },
-	{ id: 4, attributes: { name: "Departments", link: "/departments", quicklink: false } },
-	{ id: 5, attributes: { name: "Resources", link: "/resources", quicklink: false } },
-	{ id: 6, attributes: { name: "News", link: "/news", quicklink: false } },
-	{ id: 7, attributes: { name: "Calendar", link: "/calendar", quicklink: false } },
-	{ id: 8, attributes: { name: "Schedule", link: "/schedule", quicklink: false } },
-];
+let backupPull: LinkType[] = [ //updated 5/4/23
+	{
+		"id": 2,
+		"attributes": {
+			"name": "About",
+			"link": "/about",
+			"quicklink": false
+		}
+	},
+	{
+		"id": 8,
+		"attributes": {
+			"name": "Calendar",
+			"link": "/calendar",
+			"quicklink": false
+		}
+	},
+	{
+		"id": 10,
+		"attributes": {
+			"name": "Counseling",
+			"link": "https://sites.google.com/mcpsmd.net/mbhs-schoolcounseling-team/home",
+			"quicklink": false
+		}
+	},
+	{
+		"id": 4,
+		"attributes": {
+			"name": "Depts",
+			"link": "/departments",
+			"quicklink": false
+		}
+	},
+	{
+		"id": 3,
+		"attributes": {
+			"name": "Directory",
+			"link": "/directory",
+			"quicklink": false
+		}
+	},
+	{
+		"id": 7,
+		"attributes": {
+			"name": "News",
+			"link": "/news",
+			"quicklink": false
+		}
+	},
+	{
+		"id": 6,
+		"attributes": {
+			"name": "Resources",
+			"link": "/resources",
+			"quicklink": false
+		}
+	},
+	{
+		"id": 9,
+		"attributes": {
+			"name": "Schedule & Buses",
+			"link": "/schedule",
+			"quicklink": false
+		}
+	},
+	{
+		"id": 12,
+		"attributes": {
+			"name": "Alumni",
+			"link": "http://www.blairalumni.org/",
+			"quicklink": true
+		}
+	},
+	{
+		"id": 13,
+		"attributes": {
+			"name": "PTSA",
+			"link": "https://blairptsa.org/",
+			"quicklink": true
+		}
+	},
+	{
+		"id": 14,
+		"attributes": {
+			"name": "Athletics",
+			"link": "https://blairblazersathletics.com/",
+			"quicklink": true
+		}
+	},
+	{
+		"id": 15,
+		"attributes": {
+			"name": "Academies",
+			"link": "https://sites.google.com/a/mcpsmd.net/mbhs-academies",
+			"quicklink": true
+		}
+	},
+	{
+		"id": 16,
+		"attributes": {
+			"name": "Clubs",
+			"link": "https://sites.google.com/mcpsmd.net/mbhsclubs/home",
+
+			"quicklink": true
+		}
+	}
+]
 
 export default function Nav({
 	setDark,
@@ -44,7 +141,7 @@ export default function Nav({
 				setData(res.data);
 			})
 			.catch(() => {
-				setData(examplePull);
+				setData(backupPull);
 			});
 	};
 
@@ -144,14 +241,12 @@ export default function Nav({
 
 	return (
 		<div className="w-full flex flex-col animate-fadeIn">
-			<div
-				className={`${navbarClass[0]} h-16 sm:h-20 w-full bg-red-700 `}
-			></div>
+			<div className={`${navbarClass[0]} h-16 sm:h-20 w-full bg-red-700 `}>
+			</div>
 			<div
 				className={`h-16 sm:h-20 z-20 w-full ${navbarClass[1]} px-3 md:px-8 flex flex-wrap items-center justify-between mx-auto`}
 			>
 				<Link href="/" className="flex -mt-1 z-10 items-center">
-					{/*<img src="/assets/logo.png" className="h-8 m-3 sm:h-10" alt="Logo" />*/}
 					<span className="self-center mt-1 text-lg sm:text-xl font-semibold whitespace-nowrap text-white">
 						<img
 							src="/assets/logo.svg"
@@ -161,9 +256,9 @@ export default function Nav({
 					</span>
 				</Link>
 				<div className="hidden -mt-1 md:flex flex-col">
-					<div className="flex flex-row gap-1 md:gap-2">
+					<div className="flex flex-row md:gap-2">
 						{
-							data?.filter(function qlink(obj) {return !obj.attributes.quicklink}).map(({ attributes: { name, link } }, i) => (
+							data?.filter(function qlink(obj) { return !obj.attributes.quicklink }).map(({ attributes: { name, link } }, i) => (
 								<motion.p
 									initial={{ opacity: 0 }}
 									animate={{ opacity: 1 }}
@@ -176,15 +271,16 @@ export default function Nav({
 									<Link
 										key={name + "TopBar"}
 										href={link}
-										className="block py-1 px-3 text-white"
+										className="block py-1 px-2 text-white"
 									>
 										{name}
 									</Link>
 								</motion.p>
 							))
 						}
-						<motion.div
+						<motion.button
 							onClick={() => setDropdownOpen((prev) => !prev)}
+							onBlur={() => setDropdownOpen(false)}
 							initial={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
 							transition={{
@@ -197,22 +293,21 @@ export default function Nav({
 						>
 							<p className="block py-1 pr-2 text-white">Quick Links</p>
 							<BiCaretDown className="text-white scale-[1.2]" />
-							{
-								<motion.div
-									className="absolute bg-white border-red-900 border-4 top-[60px] rounded-lg"
-									initial={dropdownAnimate.exit}
-									animate={dropdownOpen ? "enter" : "exit"} //toggle when clicked
-									variants={dropdownAnimate}
-								>
-									<div className="flex flex-col py-2 px-4 divide-y-2 divide-black">
-										{data?.filter(function qlink(obj) {return obj.attributes.quicklink}).map(({ attributes: { name, link, quicklink } }) => (
-											<Link href={link} key={name + "DropdownLink"} className="text-lg py-1">
-												{name}
-											</Link>
-										))}
-									</div>
-								</motion.div>}
-						</motion.div>
+							<motion.div
+								className="absolute bg-white border-red-900 border-4 top-[60px] rounded-lg"
+								initial={dropdownAnimate.exit}
+								animate={dropdownOpen ? "enter" : "exit"} //toggle when clicked
+								variants={dropdownAnimate}
+							>
+								<div className="flex flex-col py-2 px-4 divide-y-2 divide-black">
+									{data?.filter(function qlink(obj) { return obj.attributes.quicklink }).map(({ attributes: { name, link, quicklink } }) => (
+										<Link href={link} key={name + "DropdownLink"} className="text-lg py-1">
+											{name}
+										</Link>
+									))}
+								</div>
+							</motion.div>
+						</motion.button>
 						<button
 							className="p-2 rounded-lg bg-black bg-opacity-20 hover:bg-opacity-25 text-white"
 							onClick={() => setDark((prev: boolean) => !prev)}
@@ -223,8 +318,7 @@ export default function Nav({
 				</div>
 				<div className="flex md:hidden">
 					<GiHamburgerMenu
-						className={`text-white active:bg-red-700 scale-[2.0] mr-3 transition-all duration-300 hover:scale-[2.5] opacity-${mobileNav ? 0 : 1
-							}`}
+						className={`text-white active:bg-red-700 scale-[2.0] mr-3 transition-all duration-300 hover:scale-[2.5] opacity-${mobileNav ? 0 : 1}`}
 						onClick={() => {
 							setMobileNav(true),
 								setNavbarClass(["", "bg-red-700 fixed"]),
