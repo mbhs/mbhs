@@ -196,6 +196,7 @@ interface Staff {
 		departments: {
 			data: Department[];
 		};
+		rank: number;
 		image: {
 			data: {
 				attributes: {

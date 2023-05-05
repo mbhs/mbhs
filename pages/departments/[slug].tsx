@@ -40,6 +40,22 @@ export async function getStaticProps({ params }: GetStaticPropsContext) {
 		}
 	});
 
+	// sort the staff by rank
+	department.attributes.staff.data.sort((a: Staff, b: Staff) => {
+		if (a.attributes.rank != null && b.attributes.rank == null) {
+			return -1;
+		} else if (a.attributes.rank == null && b.attributes.rank != null) {
+			return 1;
+		}
+		if (a.attributes.rank < b.attributes.rank) {
+			return -1;
+		} else if (a.attributes.rank > b.attributes.rank) {
+			return 1;
+		} else {
+			return 0;
+		}
+	});
+
 	return {
 		props: {
 			department: department,
