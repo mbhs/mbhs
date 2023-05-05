@@ -194,7 +194,7 @@ export default function Nav({
 	useEffect(() => {
 		if (mobileNav) {
 			setNavbarClass(["", "bg-red-700 fixed"]);
-		} else if (scrollPosition < 65) {
+		} else if (scrollPosition < 85) {
 			setNavbarClass(["hidden", "bg-red-700"]);
 		} else {
 			if (scrollDir > 0) {
