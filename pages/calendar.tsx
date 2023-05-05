@@ -100,7 +100,7 @@ export default function Calendar({ events }: CalendarProps) {
 											<AiOutlineClockCircle /> {parseTime(startTime)}
 										</>
 									)}
-									{endDate && (
+									{/*endDate && (
 										<>
 											<AiOutlineCalendar /> Ends{" "}
 											{new Date(endDate).toLocaleString("default", {
@@ -109,7 +109,7 @@ export default function Calendar({ events }: CalendarProps) {
 												day: "numeric",
 											})}
 										</>
-									)}
+									)*/}
 								</p>
 								{description && <Markdown>{description}</Markdown>}
 							</div>
