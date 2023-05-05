@@ -213,6 +213,7 @@ interface Link {
 		name: string;
 		link: string;
 		quicklink: boolean;
+		order: number | null;
 	};
 }
 

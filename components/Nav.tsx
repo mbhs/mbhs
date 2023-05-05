@@ -10,36 +10,13 @@ import { BiCaretDown } from "react-icons/bi";
 import { Link as LinkType } from "../lib/types";
 
 
-let backupPull: LinkType[] = [ //updated 5/4/23
+let backupPull: LinkType[] = [ //updated 5/5/2023
 	{
 		"id": 2,
 		"attributes": {
 			"name": "About",
 			"link": "/about",
-			"quicklink": false
-		}
-	},
-	{
-		"id": 8,
-		"attributes": {
-			"name": "Calendar",
-			"link": "/calendar",
-			"quicklink": false
-		}
-	},
-	{
-		"id": 10,
-		"attributes": {
-			"name": "Counseling",
-			"link": "https://sites.google.com/mcpsmd.net/mbhs-schoolcounseling-team/home",
-			"quicklink": false
-		}
-	},
-	{
-		"id": 4,
-		"attributes": {
-			"name": "Depts",
-			"link": "/departments",
+			"order": 1,
 			"quicklink": false
 		}
 	},
@@ -48,6 +25,34 @@ let backupPull: LinkType[] = [ //updated 5/4/23
 		"attributes": {
 			"name": "Directory",
 			"link": "/directory",
+			"order": 2,
+			"quicklink": false
+		}
+	},
+	{
+		"id": 8,
+		"attributes": {
+			"name": "Calendar",
+			"link": "/calendar",
+			"order": 3,
+			"quicklink": false
+		}
+	},
+	{
+		"id": 10,
+		"attributes": {
+			"name": "Counseling",
+			"link": "https://sites.google.com/mcpsmd.net/mbhs-schoolcounseling-team/home",
+			"order": 4,
+			"quicklink": false
+		}
+	},
+	{
+		"id": 4,
+		"attributes": {
+			"name": "Depts",
+			"link": "/departments",
+			"order": 5,
 			"quicklink": false
 		}
 	},
@@ -56,6 +61,7 @@ let backupPull: LinkType[] = [ //updated 5/4/23
 		"attributes": {
 			"name": "News",
 			"link": "/news",
+			"order": 6,
 			"quicklink": false
 		}
 	},
@@ -64,6 +70,7 @@ let backupPull: LinkType[] = [ //updated 5/4/23
 		"attributes": {
 			"name": "Resources",
 			"link": "/resources",
+			"order": 7,
 			"quicklink": false
 		}
 	},
@@ -72,14 +79,34 @@ let backupPull: LinkType[] = [ //updated 5/4/23
 		"attributes": {
 			"name": "Schedule & Buses",
 			"link": "/schedule",
+			"order": 8,
 			"quicklink": false
 		}
 	},
 	{
-		"id": 12,
+		"id": 16,
 		"attributes": {
-			"name": "Alumni",
-			"link": "http://www.blairalumni.org/",
+			"name": "Clubs",
+			"link": "https://sites.google.com/mcpsmd.net/mbhsclubs/home",
+			"order": null,
+			"quicklink": true
+		}
+	},
+	{
+		"id": 17,
+		"attributes": {
+			"name": "Silver Chips Online",
+			"link": "https://sco.mbhs.edu/",
+			"order": null,
+			"quicklink": true
+		}
+	},
+	{
+		"id": 18,
+		"attributes": {
+			"name": "BNC / Infoflow",
+			"link": "https://bnconline.net/",
+			"order": null,
 			"quicklink": true
 		}
 	},
@@ -88,6 +115,43 @@ let backupPull: LinkType[] = [ //updated 5/4/23
 		"attributes": {
 			"name": "PTSA",
 			"link": "https://blairptsa.org/",
+			"order": null,
+			"quicklink": true
+		}
+	},
+	{
+		"id": 20,
+		"attributes": {
+			"name": "Absence/Attendence Info",
+			"link": "https://minio.mbhs.edu/strapi/MBHS_Attendance_Policy_cb9c411332.pdf?updated_at=2023-05-04T17:53:30.858Z",
+			"order": null,
+			"quicklink": true
+		}
+	},
+	{
+		"id": 12,
+		"attributes": {
+			"name": "Alumni",
+			"link": "http://www.blairalumni.org/",
+			"order": null,
+			"quicklink": true
+		}
+	},
+	{
+		"id": 21,
+		"attributes": {
+			"name": "Media Center",
+			"link": "https://mbhs.montgomeryschoolsmd.libguides.com/homepage",
+			"order": null,
+			"quicklink": true
+		}
+	},
+	{
+		"id": 19,
+		"attributes": {
+			"name": "SSL Hours",
+			"link": "https://sites.google.com/mcpsmd.net/sslatmbhs/home?authuser=0",
+			"order": null,
 			"quicklink": true
 		}
 	},
@@ -96,6 +160,7 @@ let backupPull: LinkType[] = [ //updated 5/4/23
 		"attributes": {
 			"name": "Athletics",
 			"link": "https://blairblazersathletics.com/",
+			"order": null,
 			"quicklink": true
 		}
 	},
@@ -104,15 +169,7 @@ let backupPull: LinkType[] = [ //updated 5/4/23
 		"attributes": {
 			"name": "Academies",
 			"link": "https://sites.google.com/a/mcpsmd.net/mbhs-academies",
-			"quicklink": true
-		}
-	},
-	{
-		"id": 16,
-		"attributes": {
-			"name": "Clubs",
-			"link": "https://sites.google.com/mcpsmd.net/mbhsclubs/home",
-
+			"order": null,
 			"quicklink": true
 		}
 	}
@@ -141,7 +198,23 @@ export default function Nav({
 				setData(res.data);
 			})
 			.catch(() => {
-				setData(backupPull);
+				setData(backupPull.sort((a, b) => { //order by rank
+					if (a.attributes.order != null && b.attributes.order == null) {
+						return -1;
+					} else if (a.attributes.order == null && b.attributes.order != null) {
+						return 1;
+					} else if (a.attributes.order != null && b.attributes.order != null) {
+						if (a.attributes.order < b.attributes.order) {
+							return -1;
+						} else if (a.attributes.order > b.attributes.order) {
+							return 1;
+						} else {
+							return 0;
+						}
+					} else {
+						return 0;
+					}
+				}));
 			});
 	};
 
