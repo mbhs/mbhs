@@ -37,8 +37,7 @@ const parseTime = (time: string) => {
 	if (hours == 0) {
 		hours = 12;
 	}
-	return `${hours < 10 ? "0" + hours : hours}:${
-		minutes < 10 ? "0" + minutes : minutes
+	return `${hours < 10 ? "0" + hours : hours}:${minutes < 10 ? "0" + minutes : minutes
 	} ${ampm}`;
 };
 
@@ -60,19 +59,38 @@ export default function Calendar({ events }: CalendarProps) {
 							key={i}
 							className="bg-neutral-400 border border-neutral-300 dark:border-neutral-700 shadow-sm hover:shadow-md flex gap-3 bg-opacity-10 hover:bg-opacity-20 w-full text-black backdrop-blur-lg rounded-lg transition-all duration-300 p-3"
 						>
-							<div className="flex flex-col justify-center items-center text-center font-semibold bg-red-600 text-white p-2 h-16 w-16 rounded-full">
-								<p className="text-md -mb-1">
-									{new Date(startDate).toLocaleString("default", {
-										timeZone: "UTC",
-										month: "short",
-									})}
-								</p>
-								<p className="text-xl">
-									{new Date(startDate).toLocaleString("default", {
-										timeZone: "UTC",
-										day: "numeric",
-									})}
-								</p>
+							<div className={`flex justify-center items-center text-center font-semibold bg-red-600 text-white p-2 h-16 ${endDate ? "w-32" : "w-16"} rounded-full`}>
+								<div className="flex flex-col">
+									<p className="text-md -mb-1">
+										{new Date(startDate).toLocaleString("default", {
+											timeZone: "UTC",
+											month: "short",
+										})}
+									</p>
+									<p className="text-xl">
+										{new Date(startDate).toLocaleString("default", {
+											timeZone: "UTC",
+											day: "numeric",
+										})}
+									</p>
+								</div>
+								{endDate && <>
+								<p className="px-2 text-bold"> - </p>
+								<div className="flex flex-col">
+									<p className="text-md -mb-1">
+										{new Date(endDate).toLocaleString("default", {
+											timeZone: "UTC",
+											month: "short",
+										})}
+									</p>
+									<p className="text-xl">
+										{new Date(endDate).toLocaleString("default", {
+											timeZone: "UTC",
+											day: "numeric",
+										})}
+									</p>
+								</div>
+								</>}
 							</div>
 							<div className="flex-1 dark:text-white">
 								{title && <p className="font-bold text-xl">{title}</p>}
@@ -82,7 +100,7 @@ export default function Calendar({ events }: CalendarProps) {
 											<AiOutlineClockCircle /> {parseTime(startTime)}
 										</>
 									)}
-									{endDate && (
+									{/*endDate && (
 										<>
 											<AiOutlineCalendar /> Ends{" "}
 											{new Date(endDate).toLocaleString("default", {
@@ -91,7 +109,7 @@ export default function Calendar({ events }: CalendarProps) {
 												day: "numeric",
 											})}
 										</>
-									)}
+									)*/}
 								</p>
 								{description && <Markdown>{description}</Markdown>}
 							</div>
