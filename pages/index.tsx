@@ -275,7 +275,7 @@ export default function Home({ events, news, meta, dark }: IndexProps) {
 					</Link> */}
 				</div>
 			</div>
-			<div className="-z-10 absolute right-0 top-0 h-[85vh] animate-fadeIn">
+			<div className="-z-10 absolute right-0 top-0 h-[80vh] animate-fadeIn">
 				<div className="relative h-full">
 					<div className="absolute inset-0 bg-black opacity-100 md:bg-opacity-0 md:opacity-100 md:bg-gradient-to-t from-white dark:from-black to-transparent h-full"></div>
 
@@ -297,7 +297,7 @@ export default function Home({ events, news, meta, dark }: IndexProps) {
 					<div className="absolute inset-0 md:bg-opacity-0 md:opacity-100 md:bg-gradient-to-r from-white dark:from-black to-transparent h-full" />
 				</div>
 			</div>
-			<div className="absolute right-0 top-0 h-[85vh]">
+			<div className="absolute right-0 top-0 h-[80vh]">
 				<div className="relative h-full">
 					<button
 						className="hidden md:block absolute z-50 bottom-5 right-5 md:right-16 h-8 w-8 bg-red-700 text-white transition-all duration-300 hover:bg-white hover:text-red-700 p-2 rounded-full"
