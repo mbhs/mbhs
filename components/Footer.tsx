@@ -1,49 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { BsInstagram, BsTwitter, BsFacebook } from "react-icons/bs";
+import { Badge } from "../lib/types";
 
 export default function Footer() {
+	const [badges, setBadges] = useState<Badge[]>([]);
+
+	useEffect(() => {
+		let data = fetch(
+			"https://strapi.mbhs.edu/api/badges?sort=rank:ASC&populate=*"
+		)
+			.then((res) => res.json())
+			.then((d) => setBadges(d.data))
+			.catch(() => {
+				console.log("Error fetching badges! Strapi is probably down.");
+				setBadges([]);
+			});
+	}, []);
+
 	return (
 		<div className="bg-neutral-900 p-10 text-white flex flex-col gap-5 items-center mt-auto">
 			<div className="flex flex-wrap gap-5 items-center justify-center">
-				<a
-					href="https://www.montgomeryschoolsmd.org/departments/studentservices/wellbeing/index-new.aspx"
-					target="_blank"
-				>
-					<img
-						src="https://mbhs.edu/img/wellness-360.png"
-						alt="Blair Logo"
-						className="h-24"
-					/>
-				</a>
-				<a href="https://sites.google.com/mcpsmd.net/blazing-toward-equity-mbhs/home">
-					<img
-						src="https://mbhs.edu/img/Blazing%20Toward%20Equity%20Logo.png"
-						alt="Blair Logo"
-						className="h-24"
-					/>
-				</a>
-				<a href="https://www.acesmontgomery.org/">
-					<img
-						src="https://minio.mbhs.edu/strapi/aces_3659d87393.png?updated_at=2023-03-24T16:19:10.444Z"
-						alt="Blair Logo"
-						className="h-24"
-					/>
-				</a>
-				<a href="https://www.paypal.com/donate?token=o3dQ5Og74h_T4YDYb7Ul-PfwQeZX6qwJUiKypoR5S5EUeHiPiOo6yqjNMWMxm6nsfjXUYCNCcbgDdR3k&locale.x=US">
-					<img
-						src="https://minio.mbhs.edu/strapi/donate_efa113e76f.gif?updated_at=2023-03-24T16:21:40.948Z"
-						alt="Blair Logo"
-						className="h-16"
-					/>
-				</a>
-				<a href="https://ww2.montgomeryschoolsmd.org/digital-citizenship/index.html">
-					<img
-						src="https://mbhs.edu/img/digitalcitizenship.png"
-						alt="Blair Logo"
-						className="h-24 rounded-lg"
-					/>
-				</a>
+				{badges.map((badge, i) => (
+					<a href={badge.attributes.link} key={i}>
+						{badge.attributes.image && (
+							<img
+								src={badge.attributes.image.data.attributes.url}
+								alt={badge.attributes.name}
+								className="h-24 rounded-lg"
+							/>
+						)}
+					</a>
+				))}
 			</div>
 			<div>
 				<p>Follow us on Facebook, Instagram, and Twitter!</p>

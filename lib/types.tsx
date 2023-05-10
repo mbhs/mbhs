@@ -217,6 +217,21 @@ interface Link {
 	};
 }
 
+interface Badge {
+	id: number;
+	attributes: {
+		name: string;
+		link: string;
+		image: {
+			data: {
+				attributes: {
+					url: string;
+				};
+			};
+		};
+	};
+}
+
 export type {
 	Event,
 	New,
@@ -232,5 +247,6 @@ export type {
 	Department,
 	Resource,
 	Staff,
-	Link
+	Link,
+	Badge,
 };

@@ -84,7 +84,9 @@ export default function department({ department }: DepartmentsProps) {
 			<h1 className="font-bold text-xl md:text-4xl text-center py-5 dark:text-white">
 				{department.attributes.name}
 			</h1>
-			<h2 className="font-bold text-2xl">Staff</h2>
+			<Link href={`/directory#${department.attributes.name}`}>
+				<h2 className="font-bold text-2xl">Staff</h2>
+			</Link>
 			{department.attributes.resource.data && (
 				<p className="flex flex-col md:flex-row gap-2 md:items-center break-words">
 					Resource Teacher:{" "}
