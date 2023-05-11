@@ -50,7 +50,9 @@ export default function Footer() {
 			<p className="text-center">
 				Montgomery Blair High School <br />
 				51 University Blvd East, Silver Spring, MD 20901-2451
-				<br /> (240) 740-7200 <br /> These pages were created by the{" "}
+				<br /> (240) 740-7200 <br />
+				Maryland Tip Line: +1 (833) 632-7233 <br />
+				These pages were created by the{" "}
 				<a
 					href="https://github.com/mbhs"
 					className="text-red-600 hover:underline"
