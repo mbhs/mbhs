@@ -179,7 +179,7 @@ export default function Directory({ departments, staff }: DirectoryProps) {
 													</p>
 													<a
 														href={`mailto:${email}`}
-														className="text-red-500 hover:underline break-words"
+														className="text-red-500 hover:underline underline-offset-2 break-words"
 													>
 														{email}
 													</a>
@@ -218,7 +218,7 @@ export default function Directory({ departments, staff }: DirectoryProps) {
 													</p>
 													<a
 														href={`mailto:${email}`}
-														className="text-red-500 hover:underline break-words"
+														className="text-red-500 hover:underline underline-offset-2 break-words"
 													>
 														{email}
 													</a>

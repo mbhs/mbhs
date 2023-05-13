@@ -1,15 +1,17 @@
 import React from "react";
-import Typewriter from "typewriter-effect";
-import { HiOutlineDocumentText } from "react-icons/hi";
-import { BsNewspaper } from "react-icons/bs";
-import { MdOutlineLocationOn, MdEvent } from "react-icons/md";
 import {
 	AiOutlineSound,
 	AiFillSound,
-	AiOutlineClose,
 	AiOutlineClockCircle,
 	AiOutlineCalendar,
 } from "react-icons/ai";
+import {
+	BsFillPeopleFill,
+	BsCalendar2WeekFill,
+	BsFillVolumeUpFill,
+	BsFillVolumeMuteFill,
+} from "react-icons/bs";
+import { FaMapMarkerAlt } from "react-icons/fa";
 import { FaPlay, FaPause } from "react-icons/fa";
 import { Event, New, HomePage } from "../lib/types";
 import Markdown from "../components/Markdown";
@@ -130,8 +132,8 @@ export default function Home({ events, news, meta, dark }: IndexProps) {
 				<div className="flex justify-center pt-6 md:pt-10 gap-10 text-black dark:text-white">
 					<div className="flex flex-col items-center">
 						<Link href="/resources">
-							<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-black dark:hover:bg-white text-white hover:text-red-500 dark:hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-4">
-								<HiOutlineDocumentText className="h-full w-full" />
+							<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-neutral-800 dark:hover:bg-white text-white hover:text-red-500 dark:hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-[18px]">
+								<BsFillPeopleFill className="h-full w-full" />
 							</div>
 						</Link>
 						<p className="font-semibold pt-2">Resources</p>
@@ -144,16 +146,16 @@ export default function Home({ events, news, meta, dark }: IndexProps) {
 					</div> */}
 					<div className="flex flex-col items-center">
 						<a target="blank" href="https://goo.gl/maps/M5DGpJECkjYnNpRK7">
-							<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-black dark:hover:bg-white text-white hover:text-red-500 dark:hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-4">
-								<MdOutlineLocationOn className="h-full w-full" />
+							<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-neutral-800 dark:hover:bg-white text-white hover:text-red-500 dark:hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-[18px]">
+								<FaMapMarkerAlt className="h-full w-full" />
 							</div>
 						</a>
 						<p className="font-semibold pt-2">Directions</p>
 					</div>
 					<div className="flex flex-col items-center">
 						<Link href="/calendar">
-							<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-black dark:hover:bg-white text-white hover:text-red-500 dark:hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-4">
-								<MdEvent className="h-full w-full" />
+							<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-neutral-800 dark:hover:bg-white text-white hover:text-red-500 dark:hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-[18px]">
+								<BsCalendar2WeekFill className="h-full w-full" />
 							</div>
 						</Link>
 						<p className="font-semibold pt-2">Calendar</p>
@@ -164,7 +166,7 @@ export default function Home({ events, news, meta, dark }: IndexProps) {
 						.filter(({ attributes: { rank } }) => rank <= 5)
 						.map(({ attributes: { title, description, image, link } }, i) => (
 							<div
-								className={`bg-black dark:bg-white border border-neutral-400 dark:border-neutral-700 bg-opacity-20 dark:bg-opacity-10 dark:hover:bg-opacity-5 w-full text-black dark:text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-10 ${
+								className={`bg-black dark:bg-white border border-neutral-400 dark:border-neutral-700 bg-opacity-10 dark:bg-opacity-10 dark:hover:bg-opacity-5 w-full text-black dark:text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-10 ${
 									image.data || link
 										? "flex flex-col md:flex-row p-0 gap-0"
 										: "p-3"
@@ -204,7 +206,7 @@ export default function Home({ events, news, meta, dark }: IndexProps) {
 							i
 						) => (
 							<Link href="/calendar" className="w-full" key={i}>
-								<div className="bg-black dark:bg-white border border-neutral-400 dark:border-neutral-700 dark:bg-opacity-10 bg-opacity-20 dark:hover:bg-opacity-5 flex gap-3 w-full text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-10 p-3">
+								<div className="bg-black dark:bg-white border border-neutral-400 dark:border-neutral-700 dark:bg-opacity-10 bg-opacity-10 dark:hover:bg-opacity-5 flex gap-3 w-full text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-10 p-3">
 									<div className="flex flex-col justify-center items-center text-center font-semibold bg-red-600 text-white p-2 h-16 w-16 rounded-full">
 										<p className="text-md -mb-1">
 											{new Date(startDate).toLocaleString("default", {
@@ -250,7 +252,7 @@ export default function Home({ events, news, meta, dark }: IndexProps) {
 						.filter(({ attributes: { rank } }) => rank > 5)
 						.map(({ attributes: { title, description, image } }, i) => (
 							<div
-								className={`bg-black dark:bg-white border border-neutral-400 dark:border-neutral-700 bg-opacity-20 dark:bg-opacity-10 dark:hover:bg-opacity-5 w-full text-black dark:text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-10 ${
+								className={`bg-black dark:bg-white border border-neutral-400 dark:border-neutral-700 bg-opacity-10 dark:bg-opacity-10 dark:hover:bg-opacity-5 w-full text-black dark:text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-10 ${
 									image.data ? "flex flex-col md:flex-row p-0 gap-0" : "p-3"
 								}`}
 								key={i}
@@ -300,18 +302,18 @@ export default function Home({ events, news, meta, dark }: IndexProps) {
 			<div className="absolute right-0 top-0 h-[80vh]">
 				<div className="relative h-full">
 					<button
-						className="hidden md:block absolute z-50 bottom-5 right-5 md:right-16 h-8 w-8 bg-red-700 text-white transition-all duration-300 hover:bg-white hover:text-red-700 p-2 rounded-full"
+						className="hidden md:block absolute z-50 bottom-5 right-5 md:right-16 h-8 w-8 bg-red-700 text-white transition-all duration-300 hover:bg-neutral-800 dark:hover:bg-white hover:text-red-700 p-2 rounded-full"
 						onClick={() => togglePlayPause()}
 					>
 						{playing ? <FaPause /> : <FaPlay />}
 					</button>
 					{meta.attributes.caption && (
-						<div className="w-max absolute top-5 right-5 p-3 bg-black text-white bg-opacity-50 backdrop-blur-md rounded-lg">
+						<div className="hidden md:block w-max absolute top-5 right-5 p-3 bg-black text-white bg-opacity-50 backdrop-blur-md rounded-lg">
 							<Markdown>{meta.attributes.caption}</Markdown>
 						</div>
 					)}
 					<button
-						className="hidden md:block absolute z-50 bottom-5 right-5 h-8 w-8 bg-red-700 text-white transition-all duration-300 hover:bg-white hover:text-red-700 p-2 rounded-full"
+						className="hidden md:block absolute z-50 bottom-5 right-5 h-8 w-8 bg-red-700 text-white transition-all duration-300 hover:bg-neutral-800 dark:hover:bg-white hover:text-red-700 p-2 rounded-full"
 						onClick={() => setSound(!sound)}
 					>
 						{sound ? <AiOutlineSound /> : <AiFillSound />}

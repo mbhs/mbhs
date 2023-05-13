@@ -29,7 +29,7 @@ export default function Index({ departments }: DepartmentsProps) {
 			<p className="dark:text-white text-black text-center font-semibold pb-5">
 				View the{" "}
 				<a
-					className="text-red-600 hover:underline"
+					className="text-red-500 hover:underline underline-offset-2"
 					href="https://sites.google.com/a/mcpsmd.net/mbhs-academies"
 				>
 					Academies

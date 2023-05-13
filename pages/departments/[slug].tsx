@@ -102,7 +102,7 @@ export default function department({ department }: DepartmentsProps) {
 					<span>
 						{department.attributes.resource.data.attributes.name} (
 						<Link
-							className="text-red-500 hover:underline"
+							className="text-red-500 hover:underline underline-offset-2"
 							href={`mailto:${department.attributes.resource.data.attributes.email}`}
 						>
 							{department.attributes.resource.data.attributes.email}
@@ -126,7 +126,7 @@ export default function department({ department }: DepartmentsProps) {
 						<span>
 							{s.attributes.name} (
 							<Link
-								className="text-red-500 hover:underline"
+								className="text-red-500 hover:underline underline-offset-2"
 								href={`mailto:${s.attributes.email}`}
 							>
 								{s.attributes.email}

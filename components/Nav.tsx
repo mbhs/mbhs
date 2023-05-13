@@ -6,174 +6,175 @@ import { SlClose } from "react-icons/sl";
 //import { ImPlus, ImMinus } from "react-icons/im";
 //import { NavLink, NavDropdownLink } from "../lib/types";
 import { CiDark, CiLight } from "react-icons/ci";
+import { BsFillSunFill, BsFillMoonFill } from "react-icons/bs";
 import { BiCaretDown } from "react-icons/bi";
 import { Link as LinkType } from "../lib/types";
 
-
-let backupPull: LinkType[] = [ //updated 5/5/2023
+let backupPull: LinkType[] = [
+	//updated 5/5/2023
 	{
-		"id": 2,
-		"attributes": {
-			"name": "About",
-			"link": "/about",
-			"order": 1,
-			"quicklink": false
-		}
+		id: 2,
+		attributes: {
+			name: "About",
+			link: "/about",
+			order: 1,
+			quicklink: false,
+		},
 	},
 	{
-		"id": 3,
-		"attributes": {
-			"name": "Directory",
-			"link": "/directory",
-			"order": 2,
-			"quicklink": false
-		}
+		id: 3,
+		attributes: {
+			name: "Directory",
+			link: "/directory",
+			order: 2,
+			quicklink: false,
+		},
 	},
 	{
-		"id": 8,
-		"attributes": {
-			"name": "Calendar",
-			"link": "/calendar",
-			"order": 3,
-			"quicklink": false
-		}
+		id: 8,
+		attributes: {
+			name: "Calendar",
+			link: "/calendar",
+			order: 3,
+			quicklink: false,
+		},
 	},
 	{
-		"id": 10,
-		"attributes": {
-			"name": "Counseling",
-			"link": "https://sites.google.com/mcpsmd.net/mbhs-schoolcounseling-team/home",
-			"order": 4,
-			"quicklink": false
-		}
+		id: 10,
+		attributes: {
+			name: "Counseling",
+			link: "https://sites.google.com/mcpsmd.net/mbhs-schoolcounseling-team/home",
+			order: 4,
+			quicklink: false,
+		},
 	},
 	{
-		"id": 4,
-		"attributes": {
-			"name": "Depts",
-			"link": "/departments",
-			"order": 5,
-			"quicklink": false
-		}
+		id: 4,
+		attributes: {
+			name: "Depts",
+			link: "/departments",
+			order: 5,
+			quicklink: false,
+		},
 	},
 	{
-		"id": 7,
-		"attributes": {
-			"name": "News",
-			"link": "/news",
-			"order": 6,
-			"quicklink": false
-		}
+		id: 7,
+		attributes: {
+			name: "News",
+			link: "/news",
+			order: 6,
+			quicklink: false,
+		},
 	},
 	{
-		"id": 6,
-		"attributes": {
-			"name": "Resources",
-			"link": "/resources",
-			"order": 7,
-			"quicklink": false
-		}
+		id: 6,
+		attributes: {
+			name: "Resources",
+			link: "/resources",
+			order: 7,
+			quicklink: false,
+		},
 	},
 	{
-		"id": 9,
-		"attributes": {
-			"name": "Schedule & Buses",
-			"link": "/schedule",
-			"order": 8,
-			"quicklink": false
-		}
+		id: 9,
+		attributes: {
+			name: "Schedule & Buses",
+			link: "/schedule",
+			order: 8,
+			quicklink: false,
+		},
 	},
 	{
-		"id": 16,
-		"attributes": {
-			"name": "Clubs",
-			"link": "https://sites.google.com/mcpsmd.net/mbhsclubs/home",
-			"order": null,
-			"quicklink": true
-		}
+		id: 16,
+		attributes: {
+			name: "Clubs",
+			link: "https://sites.google.com/mcpsmd.net/mbhsclubs/home",
+			order: null,
+			quicklink: true,
+		},
 	},
 	{
-		"id": 17,
-		"attributes": {
-			"name": "Silver Chips Online",
-			"link": "https://sco.mbhs.edu/",
-			"order": null,
-			"quicklink": true
-		}
+		id: 17,
+		attributes: {
+			name: "Silver Chips Online",
+			link: "https://sco.mbhs.edu/",
+			order: null,
+			quicklink: true,
+		},
 	},
 	{
-		"id": 18,
-		"attributes": {
-			"name": "BNC / Infoflow",
-			"link": "https://bnconline.net/",
-			"order": null,
-			"quicklink": true
-		}
+		id: 18,
+		attributes: {
+			name: "BNC / Infoflow",
+			link: "https://bnconline.net/",
+			order: null,
+			quicklink: true,
+		},
 	},
 	{
-		"id": 13,
-		"attributes": {
-			"name": "PTSA",
-			"link": "https://blairptsa.org/",
-			"order": null,
-			"quicklink": true
-		}
+		id: 13,
+		attributes: {
+			name: "PTSA",
+			link: "https://blairptsa.org/",
+			order: null,
+			quicklink: true,
+		},
 	},
 	{
-		"id": 20,
-		"attributes": {
-			"name": "Absence/Attendence Info",
-			"link": "https://minio.mbhs.edu/strapi/MBHS_Attendance_Policy_cb9c411332.pdf?updated_at=2023-05-04T17:53:30.858Z",
-			"order": null,
-			"quicklink": true
-		}
+		id: 20,
+		attributes: {
+			name: "Absence/Attendence Info",
+			link: "https://minio.mbhs.edu/strapi/MBHS_Attendance_Policy_cb9c411332.pdf?updated_at=2023-05-04T17:53:30.858Z",
+			order: null,
+			quicklink: true,
+		},
 	},
 	{
-		"id": 12,
-		"attributes": {
-			"name": "Alumni",
-			"link": "http://www.blairalumni.org/",
-			"order": null,
-			"quicklink": true
-		}
+		id: 12,
+		attributes: {
+			name: "Alumni",
+			link: "http://www.blairalumni.org/",
+			order: null,
+			quicklink: true,
+		},
 	},
 	{
-		"id": 21,
-		"attributes": {
-			"name": "Media Center",
-			"link": "https://mbhs.montgomeryschoolsmd.libguides.com/homepage",
-			"order": null,
-			"quicklink": true
-		}
+		id: 21,
+		attributes: {
+			name: "Media Center",
+			link: "https://mbhs.montgomeryschoolsmd.libguides.com/homepage",
+			order: null,
+			quicklink: true,
+		},
 	},
 	{
-		"id": 19,
-		"attributes": {
-			"name": "SSL Hours",
-			"link": "https://sites.google.com/mcpsmd.net/sslatmbhs/home?authuser=0",
-			"order": null,
-			"quicklink": true
-		}
+		id: 19,
+		attributes: {
+			name: "SSL Hours",
+			link: "https://sites.google.com/mcpsmd.net/sslatmbhs/home?authuser=0",
+			order: null,
+			quicklink: true,
+		},
 	},
 	{
-		"id": 14,
-		"attributes": {
-			"name": "Athletics",
-			"link": "https://blairblazersathletics.com/",
-			"order": null,
-			"quicklink": true
-		}
+		id: 14,
+		attributes: {
+			name: "Athletics",
+			link: "https://blairblazersathletics.com/",
+			order: null,
+			quicklink: true,
+		},
 	},
 	{
-		"id": 15,
-		"attributes": {
-			"name": "Academies",
-			"link": "https://sites.google.com/a/mcpsmd.net/mbhs-academies",
-			"order": null,
-			"quicklink": true
-		}
-	}
-]
+		id: 15,
+		attributes: {
+			name: "Academies",
+			link: "https://sites.google.com/a/mcpsmd.net/mbhs-academies",
+			order: null,
+			quicklink: true,
+		},
+	},
+];
 
 export default function Nav({
 	setDark,
@@ -198,23 +199,32 @@ export default function Nav({
 				setData(res.data);
 			})
 			.catch(() => {
-				setData(backupPull.sort((a, b) => { //order by rank
-					if (a.attributes.order != null && b.attributes.order == null) {
-						return -1;
-					} else if (a.attributes.order == null && b.attributes.order != null) {
-						return 1;
-					} else if (a.attributes.order != null && b.attributes.order != null) {
-						if (a.attributes.order < b.attributes.order) {
+				setData(
+					backupPull.sort((a, b) => {
+						//order by rank
+						if (a.attributes.order != null && b.attributes.order == null) {
 							return -1;
-						} else if (a.attributes.order > b.attributes.order) {
+						} else if (
+							a.attributes.order == null &&
+							b.attributes.order != null
+						) {
 							return 1;
+						} else if (
+							a.attributes.order != null &&
+							b.attributes.order != null
+						) {
+							if (a.attributes.order < b.attributes.order) {
+								return -1;
+							} else if (a.attributes.order > b.attributes.order) {
+								return 1;
+							} else {
+								return 0;
+							}
 						} else {
 							return 0;
 						}
-					} else {
-						return 0;
-					}
-				}));
+					})
+				);
 			});
 	};
 
@@ -314,8 +324,9 @@ export default function Nav({
 
 	return (
 		<div className="w-full flex flex-col animate-fadeIn">
-			<div className={`${navbarClass[0]} h-16 sm:h-20 w-full bg-red-700 `}>
-			</div>
+			<div
+				className={`${navbarClass[0]} h-16 sm:h-20 w-full bg-red-700 `}
+			></div>
 			<div
 				className={`h-16 sm:h-20 z-20 w-full ${navbarClass[1]} px-3 md:px-8 flex flex-wrap items-center justify-between mx-auto`}
 			>
@@ -330,8 +341,11 @@ export default function Nav({
 				</Link>
 				<div className="hidden -mt-1 md:flex flex-col">
 					<div className="flex flex-row md:gap-2">
-						{
-							data?.filter(function qlink(obj) { return !obj.attributes.quicklink }).map(({ attributes: { name, link } }, i) => (
+						{data
+							?.filter(function qlink(obj) {
+								return !obj.attributes.quicklink;
+							})
+							.map(({ attributes: { name, link } }, i) => (
 								<motion.p
 									initial={{ opacity: 0 }}
 									animate={{ opacity: 1 }}
@@ -344,13 +358,12 @@ export default function Nav({
 									<Link
 										key={name + "TopBar"}
 										href={link}
-										className="block py-1 px-2 text-white"
+										className="block py-1 px-2 text-white hover:underline hover:font-semibold underline-offset-[6px] transition-all duration-300 ease-in-out"
 									>
 										{name}
 									</Link>
 								</motion.p>
-							))
-						}
+							))}
 						<motion.button
 							onClick={() => setDropdownOpen((prev) => !prev)}
 							onBlur={() => setDropdownOpen(false)}
@@ -361,8 +374,7 @@ export default function Nav({
 								delay: 1, //TODO: chang length of delay based on number of links
 								ease: "linear",
 							}}
-
-							className="bg-black bg-opacity-20 hover:bg-opacity-25 rounded-lg flex flex-row items-center px-3 cursor-default text-left relative"
+							className="bg-black bg-opacity-20 hover:bg-opacity-25 rounded-lg flex flex-row items-center px-3 cursor-default text-left relative cursor-pointer"
 						>
 							<p className="block py-1 pr-2 text-white">Quick Links</p>
 							<BiCaretDown className="text-white scale-[1.2]" />
@@ -373,11 +385,19 @@ export default function Nav({
 								variants={dropdownAnimate}
 							>
 								<div className="flex flex-col py-2 px-4 divide-y-2 divide-black">
-									{data?.filter(function qlink(obj) { return obj.attributes.quicklink }).map(({ attributes: { name, link, quicklink } }) => (
-										<Link href={link} key={name + "DropdownLink"} className="text-lg py-1">
-											{name}
-										</Link>
-									))}
+									{data
+										?.filter(function qlink(obj) {
+											return obj.attributes.quicklink;
+										})
+										.map(({ attributes: { name, link, quicklink } }) => (
+											<Link
+												href={link}
+												key={name + "DropdownLink"}
+												className="text-lg py-1"
+											>
+												{name}
+											</Link>
+										))}
 								</div>
 							</motion.div>
 						</motion.button>
@@ -385,13 +405,15 @@ export default function Nav({
 							className="p-2 rounded-lg bg-black bg-opacity-20 hover:bg-opacity-25 text-white"
 							onClick={() => setDark((prev: boolean) => !prev)}
 						>
-							{dark ? <CiLight /> : <CiDark />}
+							{dark ? <BsFillSunFill /> : <BsFillMoonFill />}
 						</button>
 					</div>
 				</div>
 				<div className="flex md:hidden">
 					<GiHamburgerMenu
-						className={`text-white active:bg-red-700 scale-[2.0] mr-3 transition-all duration-300 hover:scale-[2.5] opacity-${mobileNav ? 0 : 1}`}
+						className={`text-white active:bg-red-700 scale-[2.0] mr-3 transition-all duration-300 hover:scale-[2.5] opacity-${
+							mobileNav ? 0 : 1
+						}`}
 						onClick={() => {
 							setMobileNav(true),
 								setNavbarClass(["", "bg-red-700 fixed"]),
@@ -420,23 +442,20 @@ export default function Nav({
 							}}
 						></div>
 						<div className="mt-16 sm:mt-20 pt-1 px-4 w-5/6 sm:w-96 bg-red-700 overflow-auto text-white text-xl space-y-2">
-							{
-								data?.map(({ attributes: { name, link } }, prop) => (
-									<div className="flex flex-col gap-y-1">
-										<Link
-											key={name + "SideBar"}
-											href={link}
-											onClick={() => {
-												setMobileNav(false),
-													(document.body.style.overflow = "");
-											}}
-										>
-											{name}
-										</Link>
-										<hr />
-									</div>
-								))
-							}
+							{data?.map(({ attributes: { name, link } }, prop) => (
+								<div className="flex flex-col gap-y-1">
+									<Link
+										key={name + "SideBar"}
+										href={link}
+										onClick={() => {
+											setMobileNav(false), (document.body.style.overflow = "");
+										}}
+									>
+										{name}
+									</Link>
+									<hr />
+								</div>
+							))}
 						</div>
 					</motion.div>
 				</div>

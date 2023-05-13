@@ -4,7 +4,11 @@ import Link from "next/link";
 
 function a({ children, ...rest }: { children: React.ReactNode }) {
 	return (
-		<Link href="" {...rest} className="text-red-600 hover:underline">
+		<Link
+			href=""
+			{...rest}
+			className="text-red-500 hover:underline underline-offset-2"
+		>
 			{children}
 		</Link>
 	);
