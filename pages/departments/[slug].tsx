@@ -84,9 +84,18 @@ export default function department({ department }: DepartmentsProps) {
 			<h1 className="font-bold text-xl md:text-4xl text-center py-5 dark:text-white">
 				{department.attributes.name}
 			</h1>
-			<Link href={`/directory#${department.attributes.name}`}>
-				<h2 className="font-bold text-2xl">Staff</h2>
-			</Link>
+
+			{department.attributes.phone && (
+				<p>
+					Phone:{" "}
+					<a
+						href={`tel:${department.attributes.phone}`}
+						className="hover:underline underline-offset-2"
+					>
+						{department.attributes.phone}
+					</a>
+				</p>
+			)}
 			{department.attributes.resource.data && (
 				<p className="flex flex-col md:flex-row gap-2 md:items-center break-words">
 					Resource Teacher:{" "}
@@ -96,7 +105,7 @@ export default function department({ department }: DepartmentsProps) {
 								department.attributes.resource.data.attributes.image.data
 									.attributes.url
 							}
-							className="h-6 w-6 rounded-full inline-block"
+							className="h-6 w-6 rounded-full inline-block object-cover"
 						/>
 					)}
 					<span>
@@ -111,10 +120,14 @@ export default function department({ department }: DepartmentsProps) {
 					</span>
 				</p>
 			)}
-			{department.attributes.phone && (
-				<p>Phone: {department.attributes.phone}</p>
-			)}
-			<ul className="list-disc list-inside py-5">
+
+			<Link href={`/directory#${department.attributes.name}`}>
+				<h2 className="pt-3 font-bold text-2xl hover:underline underline-offset-2">
+					Staff
+				</h2>
+			</Link>
+
+			<ul className="list-disc list-inside py-3">
 				{department.attributes.staff.data.map((s) => (
 					<li className="">
 						{s.attributes.image.data && (

@@ -86,7 +86,7 @@ export default function Directory({ departments, staff }: DirectoryProps) {
 						name="department-select"
 						value={selectedDepartment}
 						onChange={(e) => setSelectedDepartment(parseInt(e.target.value))}
-						className="block w-full bg-neutral-200 bg-opacity-20 dark:bg-neutral-900 dark:text-white border border-neutral-300 dark:border-neutral-700 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 sm:text-sm"
+						className="block w-full bg-neutral-200 bg-opacity-20 dark:bg-neutral-900 dark:text-white border border-neutral-300 dark:border-neutral-700 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-red-600 sm:text-sm"
 					>
 						<option value="">All departments</option>
 						{departments.map(({ attributes: { name }, id }, i) => (
@@ -106,7 +106,7 @@ export default function Directory({ departments, staff }: DirectoryProps) {
 						placeholder="Search staff by name or title"
 						value={searchTerm}
 						onChange={(e) => setSearchTerm(e.target.value)}
-						className="block w-full border bg-neutral-200 bg-opacity-20 dark:bg-neutral-900 dark:text-white border-neutral-300 dark:border-neutral-700 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 sm:text-sm"
+						className="block w-full border bg-neutral-200 bg-opacity-20 dark:bg-neutral-900 dark:text-white border-neutral-300 dark:border-neutral-700 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-red-600 sm:text-sm"
 					/>
 				</div>
 			</div>
@@ -149,9 +149,21 @@ export default function Directory({ departments, staff }: DirectoryProps) {
 										className="text-lg font-bold mb-2 dark:text-white"
 										id={name}
 									>
-										<Link href={overrideLink || `/departments/${slug}`}>
-											{name} {phone && `- ${phone}`}
+										<Link
+											href={overrideLink || `/departments/${slug}`}
+											className="hover:underline underline-offset-2"
+										>
+											{name}
 										</Link>
+										{phone && ` - `}
+										{phone && (
+											<a
+												href={`tel:${phone}`}
+												className="hover:underline underline-offset-2"
+											>
+												{phone}
+											</a>
+										)}
 									</h2>
 								)}
 
