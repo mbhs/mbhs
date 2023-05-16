@@ -74,10 +74,6 @@ const parseTime = (time: string) => {
 	} ${ampm}`;
 };
 
-function trunc(text: string, max: number): string {
-	return text.substring(0, max - 1) + (text.length > max ? "&hellip;" : "");
-}
-
 function getEmbed(url: string) {
 	const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
 	const match = url.match(regExp);
@@ -241,7 +237,7 @@ export default function Home({ events, news, meta, dark }: IndexProps) {
 											)}
 										</p>
 										{description && (
-											<Markdown>{trunc(description, 90)}</Markdown>
+											<Markdown>{description}</Markdown>
 										)}
 									</div>
 								</div>
