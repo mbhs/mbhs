@@ -74,10 +74,6 @@ const parseTime = (time: string) => {
 	} ${ampm}`;
 };
 
-function trunc(text: string, max: number): string {
-	return text.substring(0, max - 1) + (text.length > max ? "&hellip;" : "");
-}
-
 function getEmbed(url: string) {
 	const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
 	const match = url.match(regExp);
@@ -207,42 +203,48 @@ export default function Home({ events, news, meta, dark }: IndexProps) {
 						) => (
 							<Link href="/calendar" className="w-full" key={i}>
 								<div className="bg-black dark:bg-white border border-neutral-400 dark:border-neutral-700 dark:bg-opacity-10 bg-opacity-10 dark:hover:bg-opacity-5 flex gap-3 w-full text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-10 p-3">
-									<div className="flex flex-col justify-center items-center text-center font-semibold bg-red-600 text-white p-2 h-16 w-16 rounded-full">
-										<p className="text-md -mb-1">
-											{new Date(startDate).toLocaleString("default", {
-												timeZone: "UTC",
-												month: "short",
-											})}
-										</p>
-										<p className="text-xl">
-											{new Date(startDate).toLocaleString("default", {
-												timeZone: "UTC",
-												day: "numeric",
-											})}
-										</p>
+									<div
+										className={`flex justify-center items-center text-center font-semibold bg-red-600 text-white p-2 w-16
+										 h-16 rounded-full`}
+									>
+										<div>
+											<p className="text-md -mb-1">
+												{new Date(startDate).toLocaleString("default", {
+													timeZone: "UTC",
+													month: "short",
+												})}
+											</p>
+											<p className="text-xl">
+												{new Date(startDate).toLocaleString("default", {
+													timeZone: "UTC",
+													day: "numeric",
+												})}
+											</p>
+										</div>
 									</div>
+
 									<div className="flex-1 text-black dark:text-white">
-										{title && <p className="font-bold text-xl">{title}</p>}
+										<div className="flex">
+											{title && <p className="font-bold text-xl">{title}</p>}{" "}
+										</div>
 										<p className="flex gap-1 items-center">
-											{startTime && (
-												<>
-													<AiOutlineClockCircle /> {parseTime(startTime)}
-												</>
-											)}
 											{endDate && (
-												<>
+												<span className="bg-red-600 rounded-full px-2 font-bold flex gap-1 items-center">
 													<AiOutlineCalendar /> Ends{" "}
 													{new Date(endDate).toLocaleString("default", {
 														timeZone: "UTC",
 														month: "short",
 														day: "numeric",
 													})}
+												</span>
+											)}
+											{startTime && (
+												<>
+													<AiOutlineClockCircle /> {parseTime(startTime)}
 												</>
 											)}
 										</p>
-										{description && (
-											<Markdown>{trunc(description, 90)}</Markdown>
-										)}
+										{description && <Markdown>{description}</Markdown>}
 									</div>
 								</div>
 							</Link>
