@@ -193,6 +193,7 @@ interface Staff {
 		name: string;
 		email: string;
 		title: string;
+		phone: string;
 		departments: {
 			data: Department[];
 		};
@@ -232,6 +233,21 @@ interface Badge {
 	};
 }
 
+interface Admin {
+	id: number;
+	attributes: {
+		admin: {
+			data: Staff[];
+		};
+		resources: {
+			data: Staff[];
+		};
+		other: {
+			data: Staff[];
+		};
+	};
+}
+
 export type {
 	Event,
 	New,
@@ -249,4 +265,5 @@ export type {
 	Staff,
 	Link,
 	Badge,
+	Admin,
 };
