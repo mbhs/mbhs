@@ -11,6 +11,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 		`https://strapi.mbhs.edu/api/departments?sort=rank:ASC`
 	).then((res) => res.json());
 
+	// remove the Adminstration department
+	departments.data = departments.data.filter(
+		(d: Department) => d.attributes.name !== "Administration"
+	);
+
 	return {
 		paths: departments.data.map((d: Department) => ({
 			params: { slug: d.attributes.slug },
