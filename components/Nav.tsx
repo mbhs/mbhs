@@ -11,169 +11,187 @@ import { BiCaretDown } from "react-icons/bi";
 import { Link as LinkType } from "../lib/types";
 
 let backupPull: LinkType[] = [
-	//updated 5/5/2023
+	//updated on 5/17/2023
 	{
-		id: 2,
-		attributes: {
-			name: "About",
-			link: "/about",
-			order: 1,
-			quicklink: false,
-		},
+		"id": 23,
+		"attributes": {
+			"name": "Admin",
+			"link": "/departments/admin",
+			"order": 1,
+			"quicklink": false
+		}
 	},
 	{
-		id: 3,
-		attributes: {
-			name: "Directory",
-			link: "/directory",
-			order: 2,
-			quicklink: false,
-		},
+		"id": 2,
+		"attributes": {
+			"name": "About",
+			"link": "/about",
+			"order": 2,
+			"quicklink": true
+		}
 	},
 	{
-		id: 8,
-		attributes: {
-			name: "Calendar",
-			link: "/calendar",
-			order: 3,
-			quicklink: false,
-		},
+		"id": 3,
+		"attributes": {
+			"name": "Directory",
+			"link": "/directory",
+			"order": 2,
+			"quicklink": false
+		}
 	},
 	{
-		id: 10,
-		attributes: {
-			name: "Counseling",
-			link: "https://sites.google.com/mcpsmd.net/mbhs-schoolcounseling-team/home",
-			order: 4,
-			quicklink: false,
-		},
+		"id": 8,
+		"attributes": {
+			"name": "Calendar",
+			"link": "/calendar",
+			"order": 3,
+			"quicklink": false
+		}
 	},
 	{
-		id: 4,
-		attributes: {
-			name: "Depts",
-			link: "/departments",
-			order: 5,
-			quicklink: false,
-		},
+		"id": 10,
+		"attributes": {
+			"name": "Counseling",
+			"link": "https://sites.google.com/mcpsmd.net/mbhs-schoolcounseling-team/home",
+			"order": 4,
+			"quicklink": false
+		}
 	},
 	{
-		id: 7,
-		attributes: {
-			name: "News",
-			link: "/news",
-			order: 6,
-			quicklink: false,
-		},
+		"id": 4,
+		"attributes": {
+			"name": "Depts",
+			"link": "/departments",
+			"order": 5,
+			"quicklink": false
+		}
 	},
 	{
-		id: 6,
-		attributes: {
-			name: "Resources",
-			link: "/resources",
-			order: 7,
-			quicklink: false,
-		},
+		"id": 7,
+		"attributes": {
+			"name": "News",
+			"link": "/news",
+			"order": 6,
+			"quicklink": false
+		}
 	},
 	{
-		id: 9,
-		attributes: {
-			name: "Schedule & Buses",
-			link: "/schedule",
-			order: 8,
-			quicklink: false,
-		},
+		"id": 6,
+		"attributes": {
+			"name": "Resources",
+			"link": "/resources",
+			"order": 7,
+			"quicklink": false
+		}
 	},
 	{
-		id: 16,
-		attributes: {
-			name: "Clubs",
-			link: "https://sites.google.com/mcpsmd.net/mbhsclubs/home",
-			order: null,
-			quicklink: true,
-		},
+		"id": 9,
+		"attributes": {
+			"name": "Schedule & Buses",
+			"link": "/schedule",
+			"order": 8,
+			"quicklink": false
+		}
 	},
 	{
-		id: 17,
-		attributes: {
-			name: "Silver Chips Online",
-			link: "https://sco.mbhs.edu/",
-			order: null,
-			quicklink: true,
-		},
+		"id": 20,
+		"attributes": {
+			"name": "Absence/Attendence Info",
+			"link": "https://minio.mbhs.edu/strapi/MBHS_Attendance_Policy_cb9c411332.pdf?updated_at=2023-05-04T17:53:30.858Z",
+			"order": null,
+			"quicklink": true
+		}
 	},
 	{
-		id: 18,
-		attributes: {
-			name: "BNC / Infoflow",
-			link: "https://bnconline.net/",
-			order: null,
-			quicklink: true,
-		},
+		"id": 15,
+		"attributes": {
+			"name": "Academies",
+			"link": "https://sites.google.com/a/mcpsmd.net/mbhs-academies",
+			"order": null,
+			"quicklink": true
+		}
 	},
 	{
-		id: 13,
-		attributes: {
-			name: "PTSA",
-			link: "https://blairptsa.org/",
-			order: null,
-			quicklink: true,
-		},
+		"id": 12,
+		"attributes": {
+			"name": "Alumni",
+			"link": "http://www.blairalumni.org/",
+			"order": null,
+			"quicklink": true
+		}
 	},
 	{
-		id: 20,
-		attributes: {
-			name: "Absence/Attendence Info",
-			link: "https://minio.mbhs.edu/strapi/MBHS_Attendance_Policy_cb9c411332.pdf?updated_at=2023-05-04T17:53:30.858Z",
-			order: null,
-			quicklink: true,
-		},
+		"id": 14,
+		"attributes": {
+			"name": "Athletics",
+			"link": "https://blairblazersathletics.com/",
+			"order": null,
+			"quicklink": true
+		}
 	},
 	{
-		id: 12,
-		attributes: {
-			name: "Alumni",
-			link: "http://www.blairalumni.org/",
-			order: null,
-			quicklink: true,
-		},
+		"id": 18,
+		"attributes": {
+			"name": "BNC / Infoflow",
+			"link": "https://bnconline.net/",
+			"order": null,
+			"quicklink": true
+		}
 	},
 	{
-		id: 21,
-		attributes: {
-			name: "Media Center",
-			link: "https://mbhs.montgomeryschoolsmd.libguides.com/homepage",
-			order: null,
-			quicklink: true,
-		},
+		"id": 16,
+		"attributes": {
+			"name": "Clubs",
+			"link": "https://sites.google.com/mcpsmd.net/mbhsclubs/home",
+			"order": null,
+			"quicklink": true
+		}
 	},
 	{
-		id: 19,
-		attributes: {
-			name: "SSL Hours",
-			link: "https://sites.google.com/mcpsmd.net/sslatmbhs/home?authuser=0",
-			order: null,
-			quicklink: true,
-		},
+		"id": 21,
+		"attributes": {
+			"name": "Media Center",
+			"link": "https://mbhs.montgomeryschoolsmd.libguides.com/homepage",
+			"order": null,
+			"quicklink": true
+		}
 	},
 	{
-		id: 14,
-		attributes: {
-			name: "Athletics",
-			link: "https://blairblazersathletics.com/",
-			order: null,
-			quicklink: true,
-		},
+		"id": 13,
+		"attributes": {
+			"name": "PTSA",
+			"link": "https://blairptsa.org/",
+			"order": null,
+			"quicklink": true
+		}
 	},
 	{
-		id: 15,
-		attributes: {
-			name: "Academies",
-			link: "https://sites.google.com/a/mcpsmd.net/mbhs-academies",
-			order: null,
-			quicklink: true,
-		},
+		"id": 22,
+		"attributes": {
+			"name": "Robotics Team",
+			"link": "https://robot.mbhs.edu/",
+			"order": null,
+			"quicklink": true
+		}
 	},
+	{
+		"id": 19,
+		"attributes": {
+			"name": "SSL Hours",
+			"link": "https://sites.google.com/mcpsmd.net/sslatmbhs/home?authuser=0",
+			"order": null,
+			"quicklink": true
+		}
+	},
+	{
+		"id": 17,
+		"attributes": {
+			"name": "Silver Chips Online",
+			"link": "https://sco.mbhs.edu/",
+			"order": null,
+			"quicklink": true
+		}
+	}
 ];
 
 export default function Nav({
@@ -193,7 +211,7 @@ export default function Nav({
 
 	const fetchLinks = async () => {
 		// fetch data from strapi
-		await fetch("https://strapi.mbhs.edu/api/links?filters&sort=order:ASC")
+		await fetch("https://strapi.mbhs.edu/api/links?filters&sort=order:ASC&sort=name:ASC")
 			.then((res) => res.json())
 			.then((res) => {
 				setData(res.data);
@@ -201,6 +219,15 @@ export default function Nav({
 			.catch(() => {
 				setData(
 					backupPull.sort((a, b) => {
+						//order alphabetically
+						if (a.attributes.name < b.attributes.name) {
+							return -1;
+						} else if (a.attributes.name > b.attributes.name) {
+							return 1;
+						} else {
+							return 0;
+						}
+					}).sort((a, b) => {
 						//order by rank
 						if (a.attributes.order != null && b.attributes.order == null) {
 							return -1;
@@ -374,7 +401,7 @@ export default function Nav({
 								delay: 1, //TODO: chang length of delay based on number of links
 								ease: "linear",
 							}}
-							className="bg-black bg-opacity-20 hover:bg-opacity-25 rounded-lg flex flex-row items-center px-3 cursor-default text-left relative cursor-pointer"
+							className="bg-black bg-opacity-20 hover:bg-opacity-25 rounded-lg flex flex-row items-center px-3 cursor-pointer text-left relative"
 						>
 							<p className="block py-1 pr-2 text-white">Quick Links</p>
 							<BiCaretDown className="text-white scale-[1.2]" />
@@ -411,9 +438,8 @@ export default function Nav({
 				</div>
 				<div className="flex md:hidden">
 					<GiHamburgerMenu
-						className={`text-white active:bg-red-700 scale-[2.0] mr-3 transition-all duration-300 hover:scale-[2.5] opacity-${
-							mobileNav ? 0 : 1
-						}`}
+						className={`text-white active:bg-red-700 scale-[2.0] mr-3 transition-all duration-300 hover:scale-[2.5] opacity-${mobileNav ? 0 : 1
+							}`}
 						onClick={() => {
 							setMobileNav(true),
 								setNavbarClass(["", "bg-red-700 fixed"]),
