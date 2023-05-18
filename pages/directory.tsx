@@ -184,7 +184,7 @@ export default function Directory({ departments, staff }: DirectoryProps) {
 													.length > 0
 										)
 										.map(({ attributes: { name, email, title, image } }, i) => (
-											<div className="w-full md:w-auto bg-white dark:bg-neutral-900 dark:text-white border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-md p-6 flex flex-wrap justify-left gap-5 items-center">
+											<div className="w-full md:w-auto bg-neutral-100 dark:bg-neutral-900 dark:text-white border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-md p-6 flex flex-wrap justify-left gap-5 items-center">
 												{image.data && (
 													<img
 														src={image?.data?.attributes.url}
@@ -223,7 +223,7 @@ export default function Directory({ departments, staff }: DirectoryProps) {
 									{filteredStaff
 										.filter((s) => s.attributes.departments.data.length === 0)
 										.map(({ attributes: { name, email, title, image } }, i) => (
-											<div className="w-full md:w-auto bg-white dark:bg-neutral-900 dark:text-white border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-md p-6 flex gap-5 items-center">
+											<div className="w-full md:w-auto bg-neutral-100 dark:bg-neutral-900 dark:text-white border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-md p-6 flex gap-5 items-center">
 												{image.data && (
 													<img
 														src={image?.data?.attributes.url}

@@ -229,7 +229,7 @@ export default function Home({ events, news, meta, dark }: IndexProps) {
 										</div>
 										<p className="flex gap-1 items-center">
 											{endDate && (
-												<span className="bg-red-600 rounded-full px-2 font-bold flex gap-1 items-center">
+												<span className="bg-red-600 rounded-full px-2 font-bold flex gap-1 items-center text-white">
 													<AiOutlineCalendar /> Ends{" "}
 													{new Date(endDate).toLocaleString("default", {
 														timeZone: "UTC",

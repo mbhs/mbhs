@@ -56,12 +56,12 @@ export default function Admin({ admin }: AdminProps) {
 				{admin.attributes.admin.data.map((s, i) => (
 					<div
 						key={i}
-						className="dark:text-white border border-neutral-300 rounded-lg p-3 bg-neutral-900 dark:border-neutral-700 flex flex-col items-center w-72 mt-20 text-center"
+						className="dark:text-white border border-neutral-300 rounded-lg p-3 bg-neutral-100 dark:bg-neutral-900 dark:border-neutral-700 flex flex-col items-center w-72 mt-20 text-center"
 					>
 						{s.attributes.image.data && (
 							<img
 								src={s.attributes.image.data.attributes.url}
-								className="h-36 w-36 -mt-[84px] object-cover rounded-full inline-block mr-2"
+								className="h-36 w-36 -mt-[84px] object-cover rounded-full inline-block mr-2 shadow-lg hover:scale-105 transition-all duration-300 origin-bottom"
 							/>
 						)}
 						<h1 className="pt-5 font-bold text-lg">{s.attributes.name}</h1>
@@ -90,12 +90,12 @@ export default function Admin({ admin }: AdminProps) {
 				{admin.attributes.resources.data.map((s, i) => (
 					<div
 						key={i}
-						className="dark:text-white border border-neutral-300 rounded-lg p-3 bg-neutral-900 dark:border-neutral-700 flex flex-col items-center w-72 mt-20 text-center"
+						className="dark:text-white border border-neutral-300 rounded-lg p-3 bg-neutral-100 dark:bg-neutral-900 dark:border-neutral-700 flex flex-col items-center w-72 mt-20 text-center"
 					>
 						{s.attributes.image.data && (
 							<img
 								src={s.attributes.image.data.attributes.url}
-								className="h-36 w-36 -mt-[84px] object-cover rounded-full inline-block mr-2"
+								className="h-36 w-36 -mt-[84px] object-cover rounded-full inline-block mr-2 shadow-lg hover:scale-105 transition-all duration-300 origin-bottom"
 							/>
 						)}
 						<h1 className="pt-5 font-bold text-lg">{s.attributes.name}</h1>
@@ -124,12 +124,12 @@ export default function Admin({ admin }: AdminProps) {
 				{admin.attributes.other.data.map((s, i) => (
 					<div
 						key={i}
-						className="dark:text-white border border-neutral-300 rounded-lg p-3 bg-neutral-900 dark:border-neutral-700 flex flex-col items-center w-72 mt-20 text-center"
+						className="dark:text-white border border-neutral-300 rounded-lg p-3 bg-neutral-100 dark:bg-neutral-900 dark:border-neutral-700 flex flex-col items-center w-72 mt-20 text-center"
 					>
 						{s.attributes.image.data && (
 							<img
 								src={s.attributes.image.data.attributes.url}
-								className="h-36 w-36 -mt-[84px] object-cover rounded-full inline-block mr-2"
+								className="h-36 w-36 -mt-[84px] object-cover rounded-full inline-block mr-2 shadow-lg hover:scale-105 transition-all duration-300 origin-bottom"
 							/>
 						)}
 						<h1 className="pt-5 font-bold text-lg">{s.attributes.name}</h1>
