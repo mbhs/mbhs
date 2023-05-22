@@ -154,27 +154,27 @@ export default function Directory({ departments, staff }: DirectoryProps) {
 										s.attributes.departments.data.filter((d) => d.id === id)
 											.length > 0
 								).length > 0 && (
-										<h2
-											className="text-lg font-bold mt-5 mb-2 dark:text-white"
-											id={name}
+									<h2
+										className="text-lg font-bold mb-2 dark:text-white"
+										id={name}
+									>
+										<Link
+											href={overrideLink || `/departments/${slug}`}
+											className="hover:underline underline-offset-2"
 										>
-											<Link
-												href={overrideLink || `/departments/${slug}`}
+											{name}
+										</Link>
+										{phone && ` - `}
+										{phone && (
+											<a
+												href={`tel:${phone}`}
 												className="hover:underline underline-offset-2"
 											>
-												{name}
-											</Link>
-											{phone && ` - `}
-											{phone && (
-												<a
-													href={`tel:${phone}`}
-													className="hover:underline underline-offset-2"
-												>
-													{phone}
-												</a>
-											)}
-										</h2>
-									)}
+												{phone}
+											</a>
+										)}
+									</h2>
+								)}
 
 								<div className="w-full flex flex-wrap flex-col md:flex-row gap-5">
 									{filteredStaff
@@ -183,33 +183,28 @@ export default function Directory({ departments, staff }: DirectoryProps) {
 												s.attributes.departments.data.filter((d) => d.id === id)
 													.length > 0
 										)
-										.map(({ attributes: { name, email, title, image, phone } }, i) => (
-											<div
-												key={i}
-												className="dark:text-white border border-neutral-300 rounded-lg p-3 bg-neutral-100 dark:bg-neutral-900 dark:border-neutral-700 flex flex-col items-center w-72 mt-20 text-center"
-											>
+										.map(({ attributes: { name, email, title, image } }, i) => (
+											<div className="w-full md:w-auto bg-neutral-100 dark:bg-neutral-900 dark:text-white border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-md p-6 flex flex-wrap justify-left gap-5 items-center">
 												{image.data && (
 													<img
-														src={image.data?.attributes.url}
-														className="h-36 w-36 -mt-[84px] object-cover rounded-full inline-block mr-2 shadow-lg hover:scale-105 transition-all duration-300 origin-bottom"
+														src={image?.data?.attributes.url}
+														className="h-20 rounded-full w-20 object-cover"
 													/>
 												)}
-												<h1 className="pt-5 font-bold text-lg">{name}</h1>
-												<p>{title}</p>
-												{phone && (
+												<div className="max-w-full">
+													<h3 className="text-lg font-bold break-words">
+														{name}
+													</h3>
+													<p className="text-neutral-600 dark:text-neutral-300 break-words">
+														{title}
+													</p>
 													<a
-														className=" hover:underline underline-offset-2"
-														href={`tel:${phone}`}
+														href={`mailto:${email}`}
+														className="text-red-500 hover:underline underline-offset-2 break-words"
 													>
-														<p>{phone}</p>
+														{email}
 													</a>
-												)}
-												<a
-													className="text-red-500 hover:underline underline-offset-2 w-full"
-													href={`mailto:${email}`}
-												>
-													<p className="break-words">{email}</p>
-												</a>
+												</div>
 											</div>
 										))}
 								</div>
