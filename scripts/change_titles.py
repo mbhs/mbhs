@@ -22,14 +22,18 @@ def update_titles():
             staff["attributes"]["title"] = "Resource Teacher"
         if "paraeducator" in staff["attributes"]["title"].lower():
             staff["attributes"]["title"] = "Paraeducator"
-        staff["attributes"]["title"] = staff["attributes"]["title"] + " "
-        staff["attributes"]["title"] = staff["attributes"]["title"].replace("Asst", "Assistant").replace(" VI ", "").replace(" IV ", "").replace(" II ", "").replace(" I ", "").replace(" V ", "").replace("Sh 1", "").replace("Sh 2", "").replace("10 mo", "").replace("10 month", "").replace("10 Month", "").replace("11 Mo", "").replace("12 Month", "").replace("12 month", "")
-    # for staff in current_staff:
-    #     print(staff)
+        staff["attributes"]["title"] += " "
+        staff["attributes"]["title"] = staff["attributes"]["title"].replace("Asst", "Assistant").replace(" VI ", " ").replace(" IV ", " ").replace(" II ", " ").replace(" I ", " ").replace(" V ", " ").replace("Sh 1", "").replace("Sh 2", "").replace("10 month", "").replace("10 mo", "").replace("10 Month", "").replace("11 Mo", "").replace("12 Month", "").replace("12 month", "")
+        staff['attributes']['title'] = staff['attributes']['title'].replace("  ", " ").strip()
+
     for staff in current_staff:
-        res = requests.update(f"https://strapi.mbhs.edu/api/directory/{staff['id']}", headers={
+        print(staff["attributes"]["title"])
+    for staff in current_staff:
+         print(staff)
+    for staff in current_staff:
+        res = requests.put(f"https://strapi.mbhs.edu/api/directory/{staff['id']}", headers={
           "Authorization": f"Bearer {config('STRAPI_API_KEY')}",
-        }, json={"data": {"attributes": {"title": staff["attributes"]["title"]}}})
+        }, json={"data": {"title": staff["attributes"]["title"]}})
     
     res.raise_for_status()
     print(res)
