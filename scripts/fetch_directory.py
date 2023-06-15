@@ -7,11 +7,13 @@ from decouple import config
 # dotenv.load_dotenv()
 
 def get_current_staff():
-    current_staff = requests.get('https://strapi.mbhs.edu/api/directory').json().get('data')
-    print(current_staff)
+    current_staff = requests.get('https://strapi.mbhs.edu/api/directory?pagination[limit]=1000').json().get('data')
+    current_staff = [i['attributes']['name'] for i in current_staff]
+    #print(current_staff)
     print(f'Found {len(current_staff)} current staff members')
+    return current_staff
 
-def parse_staff_directory_to_json(html_content, json_file_path):
+def parse_staff_directory_to_json(html_content, current_staff):
 
     # Parse the HTML using BeautifulSoup
     soup = BeautifulSoup(html_content, 'html.parser')
@@ -46,14 +48,32 @@ def parse_staff_directory_to_json(html_content, json_file_path):
                 })
 
 
-    print(staff_info_json)
+    #print(staff_info_json)
+    new_staff = []
     for i in staff_info_json:
-      res = requests.post('https://strapi.mbhs.edu/api/directory', headers={
-        'Authorization': f'Bearer {config("STRAPI_API_KEY")}',
-      }, json={'data': i})
+      # find staff i in current staff and delete from current staff
+      if i['name'] in current_staff:
+        current_staff.remove(i['name'])
+      else:
+         new_staff.append(i['name'])
+      
+      # res = requests.post('https://strapi.mbhs.edu/api/directory', headers={
+      #   'Authorization': f'Bearer {config("STRAPI_API_KEY")}',
+      # }, json={'data': i})
+      
+    
+    #res.raise_for_status()
+    #print(res)
 
-    res.raise_for_status()
-    print(res)
+    # print the staff in current staff not found in mcps
+    print("The following staff are no longer found in the MCPS Directory (please remove from the MBHS directory):")
+    for i in range(len(current_staff)):
+      print(f'{i+1}: {current_staff[i]}')
+
+    # print the staff in mcps not found in current staff
+    print("The following staff are new to the MCPS Directory and have been added to the MBHS directory:")
+    for i in range(len(new_staff)):
+      print(f'{i+1}: {new_staff[i]}')
 
     # Save the extracted data to a JSON file
     # with open(json_file_path, 'w') as jsonfile:
@@ -61,9 +81,7 @@ def parse_staff_directory_to_json(html_content, json_file_path):
 
 # Specify the path to the input HTML file and the output JSON file
 html = requests.get('https://ww2.montgomeryschoolsmd.org/directory/directory_Boxschool.aspx?processlevel=04757').text
-json_file_path = 'teachers.json'
 
 # Execute the function to parse the HTML and save the data to JSON
-parse_staff_directory_to_json(html, json_file_path)
-#get_current_staff()
-print(config("STRAPI_API_KEY"))
+current_staff = get_current_staff()
+parse_staff_directory_to_json(html, current_staff)
