@@ -66,7 +66,7 @@ export default function Schedule({
 								href={url}
 								target="blank"
 								key={i}
-								className="font-extrabold bg-black dark:bg-neutral-200 dark:text-black text-white px-4 py-2 rounded-xl w-full md:w-max text-sm md:text-base"
+								className="font-extrabold bg-black transition-colors hover:bg-red-600 dark:hover:bg-red-600 dark:bg-neutral-200 dark:text-black text-white px-4 py-2 rounded-xl w-full md:w-max text-sm md:text-base"
 							>
 								{name}
 							</a>
