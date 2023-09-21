@@ -233,6 +233,15 @@ interface Badge {
 	};
 }
 
+interface Page {
+	id: number;
+	attributes: {
+		slug: string;
+		title: string;
+		content: string;
+	};
+}
+
 interface Admin {
 	id: number;
 	attributes: {
