@@ -37,7 +37,7 @@ export default function About({ meta }: AboutProps) {
 		<>
 			<div className="flex flex-col pb-10 dark:text-white">
 				<h1 className="text-2xl md:text-4xl text-center font-bold py-3 md:py-5">
-					About
+					About Blair
 				</h1>
 				<div className="flex flex-wrap w-full px-5 md:px-12 lg:px-24 xl:px-48 2xl:px-60">
 					<img
@@ -46,11 +46,15 @@ export default function About({ meta }: AboutProps) {
 					/>
 					<div className="absolute top-0 left-0 right-0 h-96 w-full -z-20 bg-gradient-to-t backdrop-blur-sm from-white dark:from-neutral-900 to-transparent" />
 					<div className="absolute top-0 left-0 right-0 h-96 w-full -z-10 opacity-50 bg-white dark:bg-black" />
-
+					
 					<div>
 						<Markdown>{meta.attributes.text}</Markdown>
 					</div>
-				</div>
+					{/*
+					<div>
+						<img src = {meta.attributes.image.data?.attributes.url} />
+					</div>
+	*/}				</div>
 			</div>
 			{/* in-page navigation
             <div className="fixed top-40 mx-10 p-4 flex flex-col bg-slate-300 rounded-lg">
