@@ -395,8 +395,8 @@ export default function Nav({
 							))}
 						<motion.button
 							onClick={() => {setDropdownOpen((prev) => !prev), quickLinkButton.current?.focus()}}
+							onBlur={() => {setDropdownOpen(false), quickLinkButton.current?.blur()}}
 							ref={quickLinkButton}
-							onBlur={() => setDropdownOpen(false)}
 							initial={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
 							transition={{
