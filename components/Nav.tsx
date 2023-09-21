@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -209,6 +209,8 @@ export default function Nav({
 	const [mobileNav, setMobileNav] = useState(false);
 	const [data, setData] = useState<LinkType[]>();
 
+	const quickLinkButton = useRef<HTMLButtonElement>(null);
+
 	const fetchLinks = async () => {
 		// fetch data from strapi
 		await fetch("https://strapi.mbhs.edu/api/links?filters&sort=order:ASC&sort=name:ASC")
@@ -392,7 +394,8 @@ export default function Nav({
 								</motion.p>
 							))}
 						<motion.button
-							onClick={() => setDropdownOpen((prev) => !prev)}
+							onClick={() => {setDropdownOpen((prev) => !prev), quickLinkButton.current?.focus()}}
+							ref={quickLinkButton}
 							onBlur={() => setDropdownOpen(false)}
 							initial={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
