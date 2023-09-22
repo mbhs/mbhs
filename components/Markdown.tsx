@@ -48,9 +48,10 @@ function h2({ children, ...rest }: { children: React.ReactNode }) {
 
 function h3({ children, ...rest }: { children: React.ReactNode }) {
 	return (
-		<h3 {...rest} className="text-xl font-bold py-2">
+		<h3 {...rest} className="text-xl font-bold py-2" id="directions">
 			{children}
 		</h3>
+		
 	);
 }
 
