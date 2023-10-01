@@ -32,7 +32,7 @@ function ol({ children, ...rest }: { children: React.ReactNode }) {
 
 function h1({ children, ...rest }: { children: React.ReactNode }) {
 	return (
-		<h1 {...rest} className="text-4xl font-bold py-2">
+		<h1 {...rest} className="text-4xl font-bold py-2" id={children?.toString().trim().toLowerCase().replaceAll(/[^\w\s]/gi, "").replaceAll(" ", "-")}>
 			{children}
 		</h1>
 	);
@@ -40,7 +40,7 @@ function h1({ children, ...rest }: { children: React.ReactNode }) {
 
 function h2({ children, ...rest }: { children: React.ReactNode }) {
 	return (
-		<h2 {...rest} className="text-2xl font-bold py-2">
+		<h2 {...rest} className="text-2xl font-bold py-2" id={children?.toString().trim().toLowerCase().replaceAll(/[^\w\s]/gi, "").replaceAll(" ", "-")}>
 			{children}
 		</h2>
 	);
@@ -48,9 +48,10 @@ function h2({ children, ...rest }: { children: React.ReactNode }) {
 
 function h3({ children, ...rest }: { children: React.ReactNode }) {
 	return (
-		<h3 {...rest} className="text-xl font-bold py-2">
+		<h3 {...rest} className="text-xl font-bold py-2" id={children?.toString().trim().toLowerCase().replaceAll(/[^\w\s]/gi, "").replaceAll(" ", "-")}>
 			{children}
 		</h3>
+		
 	);
 }
 
