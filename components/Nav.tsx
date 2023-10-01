@@ -404,17 +404,17 @@ export default function Nav({
 								delay: 1, //TODO: chang length of delay based on number of links
 								ease: "linear",
 							}}
-							className="bg-black bg-opacity-20 hover:bg-opacity-25 rounded-lg flex flex-row items-center px-3 cursor-pointer text-left relative"
+							className="bg-black bg-opacity-20 hover:bg-opacity-25 rounded-lg flex flex-row items-center px-3 cursor-pointer text-left relative outline-none"
 						>
 							<p className="block py-1 pr-2 text-white">Quick Links</p>
 							<BiCaretDown className="text-white scale-[1.2]" />
 							<motion.div
-								className="absolute -right-1/3 bg-white border-red-900 border-4 top-[40px] rounded-lg w-max"
+								className="absolute -right-1/3 bg-white border-red-900 border-4 top-[40px] rounded-lg w-max outline-none"
 								initial={dropdownAnimate.exit}
 								animate={dropdownOpen ? "enter" : "exit"} //toggle when clicked
 								variants={dropdownAnimate}
 							>
-								<div className="flex flex-col py-2 px-4 divide-y-2 divide-black">
+								<div className="flex flex-col py-2 px-4 divide-y-2 divide-black outline-none">
 									{data
 										?.filter(function qlink(obj) {
 											return obj.attributes.quicklink;
