@@ -359,7 +359,7 @@ export default function Nav({
 			<div
 				className={`h-16 sm:h-20 z-20 w-full ${navbarClass[1]} px-3 md:px-8 flex flex-wrap items-center justify-between mx-auto`}
 			>
-				<Link href="/" className="flex -mt-1 z-10 items-center">
+				<Link href="/" className="flex -mt-1 z-10 items-center" onClick={() => setMobileNav(false)}>
 					<span className="self-center mt-1 text-lg sm:text-xl font-semibold whitespace-nowrap text-white">
 						<img
 							src="/assets/logo.svg"
