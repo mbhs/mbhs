@@ -27,16 +27,17 @@ def update_titles():
         staff['attributes']['title'] = staff['attributes']['title'].replace("  ", " ").strip()
 
     for staff in current_staff:
-        print(staff["attributes"]["title"])
-    for staff in current_staff:
-         print(staff)
-    for staff in current_staff:
-        res = requests.put(f"https://strapi.mbhs.edu/api/directory/{staff['id']}", headers={
-          "Authorization": f"Bearer {config('STRAPI_API_KEY')}",
-        }, json={"data": {"title": staff["attributes"]["title"]}})
-    
-    res.raise_for_status()
-    print(res)
+        try:
+            res = requests.put(f"https://strapi.mbhs.edu/api/directory/{staff['id']}", headers={
+            "Authorization": f"Bearer {config('STRAPI_API_KEY')}",
+            }, json={"data": {"title": staff["attributes"]["title"]}})
 
+            print(f'Updating {staff["attributes"]["name"]}...')
+
+            if res.status_code != 200:
+                print(res.raise_for_status())
+        except:
+            print(f"Error updating {staff['attributes']['name']}")
+            pass
     
 update_titles()

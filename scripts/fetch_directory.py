@@ -2,18 +2,22 @@ import json
 from bs4 import BeautifulSoup
 import requests
 from decouple import config
+import copy
 
 # Load environment variables
 # dotenv.load_dotenv()
 
 def get_current_staff():
     current_staff = requests.get('https://strapi.mbhs.edu/api/directory?pagination[limit]=1000').json().get('data')
+    staff_to_id = {}
+    for i in current_staff:
+      staff_to_id[i['attributes']['name']] = i['id']
     current_staff = [i['attributes']['name'] for i in current_staff]
     #print(current_staff)
     print(f'Found {len(current_staff)} current staff members')
-    return current_staff
+    return current_staff, staff_to_id
 
-def parse_staff_directory_to_json(html_content, current_staff):
+def parse_staff_directory_to_json(html_content, current_staff, staff_to_id):
 
     # Parse the HTML using BeautifulSoup
     soup = BeautifulSoup(html_content, 'html.parser')
@@ -50,25 +54,56 @@ def parse_staff_directory_to_json(html_content, current_staff):
 
     #print(staff_info_json)
     new_staff = []
+    lost_staff = current_staff.copy()
     for i in staff_info_json:
       # find staff i in current staff and delete from current staff
       if i['name'] in current_staff:
-        current_staff.remove(i['name'])
+        try:
+          lost_staff.remove(i['name'])
+
+          res = requests.put(f'https://strapi.mbhs.edu/api/directory/{staff_to_id[i["name"]]}', headers={
+             'Authorization': f'Bearer {config("STRAPI_API_KEY")}',
+          }, json={'data': i})
+
+          if res.status_code != 200:
+            print(res.raise_for_status())
+          print(f'Updating {i["name"]}...')
+        except:
+           pass
       else:
-         new_staff.append(i['name'])
-      
-      # res = requests.post('https://strapi.mbhs.edu/api/directory', headers={
-      #   'Authorization': f'Bearer {config("STRAPI_API_KEY")}',
-      # }, json={'data': i})
-      
+        new_staff.append(i['name'])
+        try:
+          res = requests.post('https://strapi.mbhs.edu/api/directory', headers={
+            'Authorization': f'Bearer {config("STRAPI_API_KEY")}',
+          }, json={'data': i})
+
+          if res.status_code != 200:
+              print(res.raise_for_status())
+              print(f'Adding {i["name"]}...')
+        except:
+          print(f'Failed to add {i["name"]}')
+          print("Manual intervention required: conflict detected ")
+          pass
     
-    #res.raise_for_status()
-    #print(res)
+    for i in range(len(lost_staff)):
+      id = staff_to_id[lost_staff[i]]
+      try:
+        res = requests.put(f"https://strapi.mbhs.edu/api/directory/{id}", headers={
+          "Authorization": f'Bearer {config("STRAPI_API_KEY")}',
+          }, json={"data": {"publishedAt": None}})
+        
+        print(f'Unpublishing {lost_staff[i]}...')
+
+        if res.status_code != 200:
+          print(res.raise_for_status())
+      except:
+        print(f"Error unpublishing {lost_staff[i]}")
+        pass
 
     # print the staff in current staff not found in mcps
-    print("The following staff are no longer found in the MCPS Directory (please remove from the MBHS directory):")
-    for i in range(len(current_staff)):
-      print(f'{i+1}: {current_staff[i]}')
+    print("The following staff are no longer found in the MCPS Directory and have been automatically unpublished:")
+    for i in range(len(lost_staff)):
+      print(f'{i+1}: {lost_staff[i]}')
 
     # print the staff in mcps not found in current staff
     print("The following staff are new to the MCPS Directory and have been added to the MBHS directory:")
@@ -83,5 +118,5 @@ def parse_staff_directory_to_json(html_content, current_staff):
 html = requests.get('https://ww2.montgomeryschoolsmd.org/directory/directory_Boxschool.aspx?processlevel=04757').text
 
 # Execute the function to parse the HTML and save the data to JSON
-current_staff = get_current_staff()
-parse_staff_directory_to_json(html, current_staff)
+current_staff, staff_to_id = get_current_staff()
+parse_staff_directory_to_json(html, current_staff, staff_to_id)
