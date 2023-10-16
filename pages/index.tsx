@@ -69,16 +69,18 @@ const parseTime = (time: string) => {
 	if (hours == 0) {
 		hours = 12;
 	}
-	return `${hours < 10 ? "0" + hours : hours}:${minutes < 10 ? "0" + minutes : minutes
-		} ${ampm}`;
+	return `${hours < 10 ? "0" + hours : hours}:${
+		minutes < 10 ? "0" + minutes : minutes
+	} ${ampm}`;
 };
 
 function getEmbed(url: string) {
 	const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
 	const match = url.match(regExp);
 
-	return `https://www.youtube.com/embed/${match && match[2].length === 11 ? match[2] : null
-		}`;
+	return `https://www.youtube.com/embed/${
+		match && match[2].length === 11 ? match[2] : null
+	}`;
 }
 
 interface IndexProps {
@@ -122,7 +124,7 @@ export default function Home({ events, news, meta, dark }: IndexProps) {
 					Principal {meta.attributes.principal}
 				</h3>
 				<h3 className="md:text-xl">Home of the Blazers</h3>
-				<h3 className="md:text-xl">Crescens Scientia</h3>
+				<h3 className="md:text-xl italic">Crescens Scientia</h3>
 				<div className="flex justify-center pt-6 md:pt-10 gap-10 text-black dark:text-white">
 					<div className="flex flex-col items-center">
 						<Link href="/resources">
@@ -160,10 +162,11 @@ export default function Home({ events, news, meta, dark }: IndexProps) {
 						.filter(({ attributes: { rank } }) => rank <= 5)
 						.map(({ attributes: { title, description, image, link } }, i) => (
 							<div
-								className={`bg-black dark:bg-white border border-neutral-400 dark:border-neutral-700 bg-opacity-10 dark:bg-opacity-10 dark:hover:bg-opacity-5 w-full text-black dark:text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-10 ${image.data || link
+								className={`bg-black dark:bg-white border border-neutral-400 dark:border-neutral-700 bg-opacity-10 dark:bg-opacity-10 dark:hover:bg-opacity-5 w-full text-black dark:text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-10 ${
+									image.data || link
 										? "flex flex-col md:flex-row p-0 gap-0"
 										: "p-3"
-									}`}
+								}`}
 								key={i}
 							>
 								{link && (
@@ -201,7 +204,9 @@ export default function Home({ events, news, meta, dark }: IndexProps) {
 							<Link href="/calendar" className="w-full" key={i}>
 								<div className="bg-black dark:bg-white border border-neutral-400 dark:border-neutral-700 dark:bg-opacity-10 bg-opacity-10 dark:hover:bg-opacity-5 flex gap-3 w-full text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-10 p-3">
 									<div
-										className={`flex justify-center items-center text-center font-semibold bg-red-600 text-white p-2 ${endDate ? "w-32" : "w-16"}
+										className={`flex justify-center items-center text-center font-semibold bg-red-600 text-white p-2 ${
+											endDate ? "w-32" : "w-16"
+										}
 										 h-16 rounded-full`}
 									>
 										<div>
@@ -218,23 +223,25 @@ export default function Home({ events, news, meta, dark }: IndexProps) {
 												})}
 											</p>
 										</div>
-										{endDate && <>
-											<p className="px-2 text-bold"> - </p>
-											<div className="flex flex-col">
-												<p className="text-md -mb-1">
-													{new Date(endDate).toLocaleString("default", {
-														timeZone: "UTC",
-														month: "short",
-													})}
-												</p>
-												<p className="text-xl">
-													{new Date(endDate).toLocaleString("default", {
-														timeZone: "UTC",
-														day: "numeric",
-													})}
-												</p>
-											</div>
-										</>}
+										{endDate && (
+											<>
+												<p className="px-2 text-bold"> - </p>
+												<div className="flex flex-col">
+													<p className="text-md -mb-1">
+														{new Date(endDate).toLocaleString("default", {
+															timeZone: "UTC",
+															month: "short",
+														})}
+													</p>
+													<p className="text-xl">
+														{new Date(endDate).toLocaleString("default", {
+															timeZone: "UTC",
+															day: "numeric",
+														})}
+													</p>
+												</div>
+											</>
+										)}
 									</div>
 
 									<div className="flex-1 text-black dark:text-white">
@@ -258,8 +265,9 @@ export default function Home({ events, news, meta, dark }: IndexProps) {
 						.filter(({ attributes: { rank } }) => rank > 5)
 						.map(({ attributes: { title, description, image } }, i) => (
 							<div
-								className={`bg-black dark:bg-white border border-neutral-400 dark:border-neutral-700 bg-opacity-10 dark:bg-opacity-10 dark:hover:bg-opacity-5 w-full text-black dark:text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-10 ${image.data ? "flex flex-col md:flex-row p-0 gap-0" : "p-3"
-									}`}
+								className={`bg-black dark:bg-white border border-neutral-400 dark:border-neutral-700 bg-opacity-10 dark:bg-opacity-10 dark:hover:bg-opacity-5 w-full text-black dark:text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-10 ${
+									image.data ? "flex flex-col md:flex-row p-0 gap-0" : "p-3"
+								}`}
 								key={i}
 							>
 								{image.data && (
