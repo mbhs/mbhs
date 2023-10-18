@@ -40,6 +40,12 @@ export async function getStaticProps() {
 		`https://strapi.mbhs.edu/api/events?filters[$or][0][endDate][$gte]=${todayStr}&filters[$or][1][$and][0][endDate][$null]=true&filters[$or][1][$and][1][startDate][$gte]=${todayStr}&filters[$and][3][startDate][$lte]=${nextWeek}&sort=startDate:ASC&filters[important]=true`
 	).then((res) => res.json());
 
+	if (events!.meta.pagination.total < 3) {
+		events = await fetch(
+			`https://strapi.mbhs.edu/api/events?filters[startDate][$gte]=${todayStr}&sort=startDate:ASC&filters[important]=true&pagination[pageSize]=3`
+		).then((res) => res.json());
+	}
+
 	console.log(events);
 
 	let news = await fetch(
