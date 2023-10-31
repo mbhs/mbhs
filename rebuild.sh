@@ -4,7 +4,7 @@ old=$(docker ps -a -q  --filter ancestor=mbhs)
 
 #docker rm $(docker stop $(docker ps -a -q  --filter ancestor=mbhs))
 
-docker build . -t mbhs
+docker build . -t mbhs --no-cache
 
 docker stop $old
 
