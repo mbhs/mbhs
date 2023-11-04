@@ -207,64 +207,62 @@ export default function Home({ events, news, meta, dark }: IndexProps) {
 							},
 							i
 						) => (
-							<Link href="/calendar" className="w-full" key={i}>
-								<div className="bg-black dark:bg-white border border-neutral-400 dark:border-neutral-700 dark:bg-opacity-10 bg-opacity-10 dark:hover:bg-opacity-5 flex gap-3 w-full text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-10 p-3">
-									<div
-										className={`flex justify-center items-center text-center font-semibold bg-red-600 text-white p-2 ${
-											endDate ? "w-32" : "w-16"
-										}
+							<div className="bg-black dark:bg-white border border-neutral-400 dark:border-neutral-700 dark:bg-opacity-10 bg-opacity-10 dark:hover:bg-opacity-5 flex gap-3 w-full text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-10 p-3">
+								<div
+									className={`flex justify-center items-center text-center font-semibold bg-red-600 text-white p-2 ${
+										endDate ? "w-32" : "w-16"
+									}
 										 h-16 rounded-full`}
-									>
-										<div>
-											<p className="text-md -mb-1">
-												{new Date(startDate).toLocaleString("default", {
-													timeZone: "UTC",
-													month: "short",
-												})}
-											</p>
-											<p className="text-xl">
-												{new Date(startDate).toLocaleString("default", {
-													timeZone: "UTC",
-													day: "numeric",
-												})}
-											</p>
-										</div>
-										{endDate && (
+								>
+									<div>
+										<p className="text-md -mb-1">
+											{new Date(startDate).toLocaleString("default", {
+												timeZone: "UTC",
+												month: "short",
+											})}
+										</p>
+										<p className="text-xl">
+											{new Date(startDate).toLocaleString("default", {
+												timeZone: "UTC",
+												day: "numeric",
+											})}
+										</p>
+									</div>
+									{endDate && (
+										<>
+											<p className="px-2 text-bold"> - </p>
+											<div className="flex flex-col">
+												<p className="text-md -mb-1">
+													{new Date(endDate).toLocaleString("default", {
+														timeZone: "UTC",
+														month: "short",
+													})}
+												</p>
+												<p className="text-xl">
+													{new Date(endDate).toLocaleString("default", {
+														timeZone: "UTC",
+														day: "numeric",
+													})}
+												</p>
+											</div>
+										</>
+									)}
+								</div>
+
+								<div className="flex-1 text-black dark:text-white">
+									<div className="flex">
+										{title && <p className="font-bold text-xl">{title}</p>}{" "}
+									</div>
+									<p className="flex gap-1 items-center">
+										{startTime && (
 											<>
-												<p className="px-2 text-bold"> - </p>
-												<div className="flex flex-col">
-													<p className="text-md -mb-1">
-														{new Date(endDate).toLocaleString("default", {
-															timeZone: "UTC",
-															month: "short",
-														})}
-													</p>
-													<p className="text-xl">
-														{new Date(endDate).toLocaleString("default", {
-															timeZone: "UTC",
-															day: "numeric",
-														})}
-													</p>
-												</div>
+												<AiOutlineClockCircle /> {parseTime(startTime)}
 											</>
 										)}
-									</div>
-
-									<div className="flex-1 text-black dark:text-white">
-										<div className="flex">
-											{title && <p className="font-bold text-xl">{title}</p>}{" "}
-										</div>
-										<p className="flex gap-1 items-center">
-											{startTime && (
-												<>
-													<AiOutlineClockCircle /> {parseTime(startTime)}
-												</>
-											)}
-										</p>
-										{description && <Markdown>{description}</Markdown>}
-									</div>
+									</p>
+									{description && <Markdown>{description}</Markdown>}
 								</div>
-							</Link>
+							</div>
 						)
 					)}
 					{news

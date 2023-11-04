@@ -33,7 +33,13 @@ export default function Footer() {
 					</a>
 				))}
 			</div>
-			<div>
+			<div className="text-center">
+				<a
+					className="text-red-500 hover:underline underline-offset-2"
+					href="https://minio.mbhs.edu/strapi/MBHS_SIP_SMARTIE_Goals_for_Website_8b8b992cf0.pdf?updated_at=2023-11-04T18:26:43.573Z"
+				>
+					School Improvement Plan (SIP)
+				</a>
 				<p>Follow us on Facebook, Instagram, and Twitter!</p>
 				<div className="flex gap-3 justify-center pt-2">
 					<a href="https://www.facebook.com/pages/Montgomery-Blair-High-School/1631578030396596">
