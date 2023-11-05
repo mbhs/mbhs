@@ -434,7 +434,7 @@ export default function Nav({
 											return obj.attributes.quicklink;
 										})
 										.map(({ attributes: { name, link, quicklink } }, i) => (
-											<Link href={link} key={i} className="text-lg py-1">
+											<Link href={link} key={i} className="text-lg py-1 hover:opacity-70">
 												{name}
 											</Link>
 										))}
