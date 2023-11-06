@@ -87,7 +87,7 @@ export default function Admin({ admin }: AdminProps) {
 				))}
 			</div>
 			<h2 className="text-bold text-2xl dark:text-white font-bold pt-5 text-center">
-				Resource Teachers
+				Resource Teachers and other School Leaders
 			</h2>
 			<div className="flex gap-5 flex-wrap justify-center">
 				{admin.attributes.resources.data.map((s, i) => (
@@ -122,7 +122,7 @@ export default function Admin({ admin }: AdminProps) {
 					</div>
 				))}
 			</div>
-			<h2 className="text-bold text-2xl dark:text-white font-bold pt-5 text-center">
+			{/* <h2 className="text-bold text-2xl dark:text-white font-bold pt-5 text-center">
 				Other School Leaders
 			</h2>
 			<div className="flex gap-5 flex-wrap justify-center">
@@ -157,7 +157,7 @@ export default function Admin({ admin }: AdminProps) {
 						</a>
 					</div>
 				))}
-			</div>
+			</div> */}
 		</div>
 	);
 }
