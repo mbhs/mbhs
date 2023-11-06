@@ -47,6 +47,8 @@ export default function Calendar({ events }: CalendarProps) {
 			<h1 className="text-2xl md:text-4xl font-bold text-center py-3 md:py-5">
 				Calendar
 			</h1>
+			<p className="text-center">A schedule of <a className="text-red-500 hover:underline underline-offset-2" href="https://old.mbhs.edu/newsevents/Announcements/Calendar%202023-2024.pdf">odd/even days</a> is available here</p>
+			<br/>
 			<div className="flex flex-col gap-3 px-5 sm:px-8 md:px-10 lg:px-16 xl:px-24">
 				{events.map(
 					(
