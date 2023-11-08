@@ -55,7 +55,7 @@ export default function Schedule({
 			<p>
 				Bus schedules are often updated slightly during the first weeks of
 				school, and occasionally during the rest of the school year. Please
-				check back for any updates. Futher information about buses is availabe
+				check back for any updates. Further information about buses is availabe
 				in English and en español.
 			</p>
 			<div className="flex flex-wrap gap-5 justify-between items-center py-5">
