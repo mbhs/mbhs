@@ -184,6 +184,10 @@ interface Resource {
 		name: string;
 		link: string;
 		description: string;
+		rank: number;
+		student: boolean;
+		parent: boolean;
+		staff: boolean;
 	};
 }
 
