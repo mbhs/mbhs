@@ -261,6 +261,16 @@ interface Admin {
 	};
 }
 
+interface Day {
+	id: number;
+	attributes: {
+		title: string;
+		date: string;
+		endDate: string;
+		type: string;
+	}
+}
+
 export type {
 	Event,
 	New,
@@ -279,4 +289,5 @@ export type {
 	Link,
 	Badge,
 	Admin,
+	Day,
 };

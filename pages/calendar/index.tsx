@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import { Event } from "../lib/types";
-import Markdown from "../components/Markdown";
+import { Event } from "../../lib/types";
+import Markdown from "../../components/Markdown";
 import { AiOutlineClockCircle, AiOutlineCalendar } from "react-icons/ai";
 
 export async function getStaticProps() {
