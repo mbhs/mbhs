@@ -61,7 +61,7 @@ export default function Home({store}: EvenOddProps) {
 
     const stored = store
 
-    function previousDay(date: Date) { //Assume all no-school/all-period/other days are entered in strapi (skip over them here)
+    function previousDay(date: Date): Date { //Assume all no-school/all-period/other days are entered in strapi (skip over them here)
         let day;
         if (date.getDay() === 1) {
             day = new Date(date.getFullYear(), date.getMonth(), date.getDate() - 3)
