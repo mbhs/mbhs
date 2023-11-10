@@ -52,44 +52,56 @@ function getEvenOdd(date: Date, stored: {[key: string]: number}, levels = 365): 
 
 const CalendarContainer = styled.div`
 .react-calendar { 
-    width: 400px;
+    width: 500px;
+    height: 500px;
     max-width: 100%;
+    max-height: 100%;
     background-color: #fff;
     color: #222;
     border-radius: 8px;
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    border-color: rgba(0,0,0,0);
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.125em;
    }
    .react-calendar__navigation button {
-    color: #eb4848;
+    color: #fff;
     min-width: 44px;
-    background: none;
+    background: rgb(220, 38, 38);
     font-size: 22px;
-    border-radius: 8px;
+   }
+   .react-calendar__navigation__prev-button {
+    border-radius: 8px 0 0 8px;
+   }
+   .react-calendar__navigation__next-button {
+    border-radius: 0 8px 8px 0;
    }
    .react-calendar__navigation button:enabled:hover,
    .react-calendar__navigation button:enabled:focus {
-    background-color: #e8e8ea;
-    border-radius: 8px;
+    background-color: #f8d8da;
+    color: rgb(220, 38, 38);
    }
-   .react-calendar__navigation button[disabled] {
-    background-color: #f0f0f0;
-    border-radius: 8px;
-   }
+
    abbr[title] {
     text-decoration: none;
+    color: #000;
     border-radius: 8px;
    }
-   /* .react-calendar__month-view__days__day--weekend {
-    color: #d10000;
-    border-radius: 8px;
-   } */
+   .react-calendar__month-view__days__day {
+    background: rgb(220, 38, 38);
+    border-radius: 100%;
+    color: #fff;
+    min-heigh: 30px;
+    min-width: 30px;
+   }
+   .react-calendar__month-view__days__day--weekend {
+    color: #a4a4a4;
+    border-radius: 100%;
+   }
    .react-calendar__tile:enabled:hover,
    .react-calendar__tile:enabled:focus {
     background: #e8e8ea;
     color: #eb4848;
-    border-radius: 8px;
+    border-radius: 100%;
    }
    .react-calendar__tile--now {
     background: #eb484833;
@@ -179,7 +191,7 @@ export default function Home({dates}: EvenOddProps) {
     return (
         <>
             <CalendarContainer className="self-center my-5">
-                <Calendar tileContent={eo} prev2Label={null} next2Label={null}/>
+                <Calendar tileContent={eo} prev2Label={null} next2Label={null} calendarType="US"/>
             </CalendarContainer>
             {/*<button onClick={exportJSON}>Export JSON</button>*/}
         </>
