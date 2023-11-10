@@ -38,10 +38,10 @@ export async function getStaticProps() {
 
     days.data.forEach((day: Day) => { 
         let date = new Date(day.attributes.date)
-        let newdate = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1)
+        let newdate = new Date(date.getFullYear(), date.getMonth(), date.getDate())
         if (day.attributes.endDate != null) {
             let endDate = new Date(day.attributes.endDate)
-            let newendDate = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate() + 1)
+            let newendDate = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate())
             for (let i = newdate; i < newendDate; i.setDate(i.getDate() + 1)) {
                 stored[i.toDateString()] = dayType[day.attributes.type];
             }
