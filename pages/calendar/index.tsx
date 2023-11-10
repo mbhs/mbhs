@@ -45,7 +45,7 @@ const changeSeason = (theMonth: string) => {
 	const seasons = {
 		spring:["Mar","Apr","May"],
 		summer:["Jun","Jul","Aug"],
-		fall:["Sep","Nov","Dec"],
+		fall:["Sep","Oct","Nov"],
 		winter:["Dec","Jan","Feb"]
 	};
 	seasons.spring.includes(theMonth) ? theSeason = "bg-green-600" : theSeason;
