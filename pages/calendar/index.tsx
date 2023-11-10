@@ -40,7 +40,20 @@ const parseTime = (time: string) => {
 	return `${hours < 10 ? "0" + hours : hours}:${minutes < 10 ? "0" + minutes : minutes
 	} ${ampm}`;
 };
-
+const changeSeason = (theMonth: string) => {
+	let theSeason;
+	const seasons = {
+		spring:["Mar","Apr","May"],
+		summer:["Jun","Jul","Aug"],
+		fall:["Sep","Nov","Dec"],
+		winter:["Dec","Jan","Feb"]
+	};
+	seasons.spring.includes(theMonth) ? theSeason = "bg-green-600" : theSeason;
+	seasons.summer.includes(theMonth) ? theSeason = "bg-yellow-600" : theSeason;
+	seasons.fall.includes(theMonth) ? theSeason = "bg-red-600" : theSeason;
+	seasons.winter.includes(theMonth) ? theSeason = "bg-blue-600" : theSeason;
+	return theSeason;
+};
 export default function Calendar({ events }: CalendarProps) {
 	return (
 		<div className="rounded-lg md:px-40 pb-10 dark:text-white">
@@ -61,7 +74,7 @@ export default function Calendar({ events }: CalendarProps) {
 							key={i}
 							className="bg-neutral-400 border border-neutral-300 dark:border-neutral-700 shadow-sm hover:shadow-md flex gap-3 bg-opacity-10 hover:bg-opacity-20 w-full text-black backdrop-blur-lg rounded-lg transition-all duration-300 p-3"
 						>
-							<div className={`flex justify-center items-center text-center font-semibold bg-red-600 text-white p-2 h-16 ${endDate ? "w-32" : "w-16"} rounded-full`}>
+							<div className={`flex justify-center items-center text-center font-semibold ${changeSeason(new Date(startDate).toLocaleString("default", {timeZone: "UTC",month: "short",}))} text-white p-2 h-16 ${endDate ? "w-32" : "w-16"} rounded-full`}>
 								<div className="flex flex-col">
 									<p className="text-md -mb-1">
 										{new Date(startDate).toLocaleString("default", {
