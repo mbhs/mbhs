@@ -1,13 +1,8 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 import { Day } from '../../lib/types'
+import styles from '../../styles/calendar.module.css'
 
-
-const inter = Inter({ subsets: ['latin'] })
 
 const dayType: {[key: string]: number} = {
     "even": 0,
@@ -101,7 +96,7 @@ export default function Home({store}: EvenOddProps) {
         return null
     }
 
-    function exportJSON() {
+    /*function exportJSON() {
         getEvenOdd(new Date(2023, 5, 16))
         const json = JSON.stringify(stored)
         const blob = new Blob([json], {type: "application/json"});
@@ -110,12 +105,12 @@ export default function Home({store}: EvenOddProps) {
         a.download = "data.json";
         a.href = url;
         a.click();
-    }
+    } */
 
     return (
         <>
-            <Calendar tileContent={eo} className="my-5 self-center bg-black"></Calendar>
-            <button onClick={exportJSON}>Export JSON</button>
+            <Calendar tileContent={eo} className={styles["react-calendar"]}></Calendar>
+            {/*<button onClick={exportJSON}>Export JSON</button>*/}
         </>
     )
 }
