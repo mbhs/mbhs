@@ -1,8 +1,5 @@
 import Calendar from 'react-calendar'
-import 'react-calendar/dist/Calendar.css';
 import { Day } from '../../lib/types'
-import styles from '../../styles/calendar.module.css'
-
 
 const dayType: {[key: string]: number} = {
     "even": 0,
@@ -18,20 +15,47 @@ interface CalendarProps {
 }
 
 interface EvenOddProps {
-    store: {
+    dates: {
         [key: string]: number;
     }
 }
 
+function previousDay(date: Date, stored: {[key: string]: number}): Date { //Assume all no-school/all-period/other days are entered in strapi (skip over them here)
+    let day;
+    if (date.getDay() === 1) {
+        day = new Date(date.getFullYear(), date.getMonth(), date.getDate() - 3)
+    } else {
+        day = new Date(date.getFullYear(), date.getMonth(), date.getDate() - 1)
+    }
+    const today = stored[day.toDateString()]
+    if (today != null) {
+        if (today == dayType["no-school"] || today == dayType["all-period"] || today == dayType["other"]) {
+            return previousDay(day, stored)
+        }
+    }
+    return day
+}
+
+function getEvenOdd(date: Date, stored: {[key: string]: number}, levels = 365): number { 
+    // if stored value exists, return it
+    if (stored[date.toDateString()] != null) return stored[date.toDateString()]
+    // return the opposite of the previous even/odd day
+    let previous = previousDay(date, stored)
+    let prev = -1;
+    if (levels > 0) prev = getEvenOdd(previous, stored, levels-1)
+    let today = +!prev
+    stored[date.toDateString()] = today
+    return today
+}
 
 export async function getStaticProps() {
     let days = await fetch(
-		`https://strapi.mbhs.edu/api/days?filters&sort=date:ASC`
-	).then((res) => res.json());
+        `https://strapi.mbhs.edu/api/days?filters&sort=date:ASC`
+        ).then((res) => res.json());
+        
+        const stored: {[key: string]: number} = {}
 
-    const stored: {[key: string]: number} = {}
-
-    days.data.forEach((day: Day) => { 
+        days.data.forEach((day: Day) => { 
         let date = new Date(day.attributes.date)
         let newdate = new Date(date.getFullYear(), date.getMonth(), date.getDate())
         if (day.attributes.endDate != null) {
@@ -46,51 +70,21 @@ export async function getStaticProps() {
 
     return {
         props: {
-            store: stored
+            dates: stored
         },
         revalidate: 60,
     }
 }
 
-export default function Home({store}: EvenOddProps) {
-
-    const stored = store
-
-    function previousDay(date: Date): Date { //Assume all no-school/all-period/other days are entered in strapi (skip over them here)
-        let day;
-        if (date.getDay() === 1) {
-            day = new Date(date.getFullYear(), date.getMonth(), date.getDate() - 3)
-        } else {
-            day = new Date(date.getFullYear(), date.getMonth(), date.getDate() - 1)
-        }
-        const today = stored[day.toDateString()]
-        if (today != null) {
-            if (today == dayType["no-school"] || today == dayType["all-period"] || today == dayType["other"]) {
-                return previousDay(day)
-            }
-        }
-        return day
-    }
-
-    function getEvenOdd(date: Date, levels = 100) { 
-        // if stored value exists, return it
-        if (stored[date.toDateString()] != null) return stored[date.toDateString()]
-        // return the opposite of the previous even/odd day
-        let previous = previousDay(date)
-        let prev = -1;
-        if (levels > 0) prev = getEvenOdd(previous, levels-1)
-        let today = +!prev
-        stored[date.toDateString()] = today
-        return today
-    }
+export default function Home({dates}: EvenOddProps) {
 
     function eo({ date, view }: CalendarProps) {
         if (view === "month") {
             if (date.getDay() === 0 || date.getDay() === 6) return null
-            if (getEvenOdd(date) == 0) return <p>even</p>
-            else if (getEvenOdd(date) == 1) return <p>odd</p>
-            else if (getEvenOdd(date) == 2) return <p>no school</p>
-            else if (getEvenOdd(date) == 3) return <p>all period</p>
+            if (getEvenOdd(date, dates) == 0) return <p>even</p>
+            else if (getEvenOdd(date, dates) == 1) return <p>odd</p>
+            else if (getEvenOdd(date, dates) == 2) return <p>no school</p>
+            else if (getEvenOdd(date, dates) == 3) return <p>all period</p>
             else return <p></p> //eventually make the prop an actual prop and put the title here
         }
         return null
@@ -109,7 +103,7 @@ export default function Home({store}: EvenOddProps) {
 
     return (
         <>
-            <Calendar tileContent={eo} className={styles["react-calendar"]}></Calendar>
+            <Calendar tileContent={eo} value={new Date()} />
             {/*<button onClick={exportJSON}>Export JSON</button>*/}
         </>
     )
