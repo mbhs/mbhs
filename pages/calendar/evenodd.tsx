@@ -1,4 +1,6 @@
 import Calendar from 'react-calendar'
+import styled from 'styled-components'
+import 'react-calendar/dist/Calendar.css'
 import { Day } from '../../lib/types'
 
 const dayType: {[key: string]: number} = {
@@ -47,6 +49,79 @@ function getEvenOdd(date: Date, stored: {[key: string]: number}, levels = 365): 
     stored[date.toDateString()] = today
     return today
 }
+
+const CalendarContainer = styled.div`
+.react-calendar { 
+    width: 400px;
+    max-width: 100%;
+    background-color: #fff;
+    color: #222;
+    border-radius: 8px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.125em;
+   }
+   .react-calendar__navigation button {
+    color: #eb4848;
+    min-width: 44px;
+    background: none;
+    font-size: 22px;
+    border-radius: 8px;
+   }
+   .react-calendar__navigation button:enabled:hover,
+   .react-calendar__navigation button:enabled:focus {
+    background-color: #e8e8ea;
+    border-radius: 8px;
+   }
+   .react-calendar__navigation button[disabled] {
+    background-color: #f0f0f0;
+    border-radius: 8px;
+   }
+   abbr[title] {
+    text-decoration: none;
+    border-radius: 8px;
+   }
+   /* .react-calendar__month-view__days__day--weekend {
+    color: #d10000;
+    border-radius: 8px;
+   } */
+   .react-calendar__tile:enabled:hover,
+   .react-calendar__tile:enabled:focus {
+    background: #e8e8ea;
+    color: #eb4848;
+    border-radius: 8px;
+   }
+   .react-calendar__tile--now {
+    background: #eb484833;
+    border-radius: 8px;
+    font-weight: bold;
+    color: #eb4848;
+   }
+   .react-calendar__tile--now:enabled:hover,
+   .react-calendar__tile--now:enabled:focus {
+    background: #eb484833;
+    border-radius: 8px;
+    font-weight: bold;
+    color: #eb4848;
+   }
+   .react-calendar__tile--hasActive:enabled:hover,
+   .react-calendar__tile--hasActive:enabled:focus {
+    background: #e8e8ea;
+   }
+   .react-calendar__tile--active {
+    background: #eb4848;
+    border-radius: 8px;
+    font-weight: bold;
+    color: white;
+   }
+   .react-calendar__tile--active:enabled:hover,
+   .react-calendar__tile--active:enabled:focus {
+    background: #eb4848;
+    color: white;
+    border-radius: 8px;
+   }
+`;
+
 
 export async function getStaticProps() {
     let days = await fetch(
@@ -103,7 +178,9 @@ export default function Home({dates}: EvenOddProps) {
 
     return (
         <>
-            <Calendar tileContent={eo} value={new Date()} />
+            <CalendarContainer className="self-center my-5">
+                <Calendar tileContent={eo} prev2Label={null} next2Label={null}/>
+            </CalendarContainer>
             {/*<button onClick={exportJSON}>Export JSON</button>*/}
         </>
     )
