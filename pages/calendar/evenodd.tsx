@@ -38,7 +38,7 @@ function previousDay(date: Date, stored: {[key: string]: number}): Date { //Assu
     return day
 }
 
-function getEvenOdd(date: Date, stored: {[key: string]: number}, levels = 365): number { 
+/* function getEvenOdd(date: Date, stored: {[key: string]: number}, levels = 365): number { 
     // if stored value exists, return it
     if (stored[date.toDateString()] != null) return stored[date.toDateString()]
     // return the opposite of the previous even/odd day
@@ -48,7 +48,8 @@ function getEvenOdd(date: Date, stored: {[key: string]: number}, levels = 365): 
     let today = +!prev
     stored[date.toDateString()] = today
     return today
-}
+} */
+
 
 const CalendarContainer = styled.div`
 .react-calendar { 
@@ -135,25 +136,34 @@ const CalendarContainer = styled.div`
 `;
 
 
+
 export async function getStaticProps() {
     let days = await fetch(
-        `https://strapi.mbhs.edu/api/days?filters&sort=date:ASC`
-        ).then((res) => res.json());
-        
-        const stored: {[key: string]: number} = {}
+        "https://strapi.mbhs.edu/api/evenodd?populate=*"
+    ).then((res) => res.json());
 
-        days.data.forEach((day: Day) => { 
-        let date = new Date(day.attributes.date)
-        let newdate = new Date(date.getFullYear(), date.getMonth(), date.getDate())
-        if (day.attributes.endDate != null) {
-            let endDate = new Date(day.attributes.endDate)
-            let newendDate = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate())
-            for (let i = newdate; i < newendDate; i.setDate(i.getDate() + 1)) {
-                stored[i.toDateString()] = dayType[day.attributes.type];
+    const stored: {[key: string]: number} = {}
+
+    stored[(new Date(days.data.attributes.startDate)).toDateString()] = dayType[days.data.attributes.startDateType];
+    stored[(new Date(days.data.attributes.endDate)).toDateString()] = dayType[days.data.attributes.endDateType];
+        
+    days.data.attributes.days.forEach((day: Day) => { 
+        let date = new Date(day.date)
+        if (day.endDate != null) {
+            let endDate = new Date(day.endDate)
+            for (let i = date; i < endDate; i.setDate(i.getDate() + 1)) {
+                stored[i.toDateString()] = dayType[day.type];
             }
         }
-        stored[newdate.toDateString()] = dayType[day.attributes.type];
+        stored[date.toDateString()] = dayType[day.type];
     })
+    
+    for (let i = new Date(days.data.attributes.startDate); i < new Date(days.data.attributes.endDate); i.setDate(i.getDate() + 1)) {
+        if (stored[i.toDateString()] == null) {
+            let prev = stored[(previousDay(i, stored)).toDateString()]
+            stored[i.toDateString()] = +!prev
+        }
+    }
 
     return {
         props: {
@@ -168,10 +178,10 @@ export default function Home({dates}: EvenOddProps) {
     function eo({ date, view }: CalendarProps) {
         if (view === "month") {
             if (date.getDay() === 0 || date.getDay() === 6) return null
-            if (getEvenOdd(date, dates) == 0) return <p>even</p>
-            else if (getEvenOdd(date, dates) == 1) return <p>odd</p>
-            else if (getEvenOdd(date, dates) == 2) return <p>no school</p>
-            else if (getEvenOdd(date, dates) == 3) return <p>all period</p>
+            if (dates[date.toDateString()] == 0) return <p>even</p>
+            else if (dates[date.toDateString()] == 1) return <p>odd</p>
+            else if (dates[date.toDateString()] == 2) return <p>no school</p>
+            else if (dates[date.toDateString()] == 3) return <p>all period</p>
             else return <p></p> //eventually make the prop an actual prop and put the title here
         }
         return null

@@ -261,14 +261,29 @@ interface Admin {
 	};
 }
 
-interface Day {
+/* interface Day {
 	id: number;
 	attributes: {
-		title: string;
-		date: string;
+		startDate: string;
+		startDateType: string;
 		endDate: string;
-		type: string;
+		endDateType: string;
+		days: {
+			id: number;
+			title: string;
+			date: string;
+			endDate: string;
+			type: string;
+		}[];
 	}
+} */
+
+interface Day {
+	id: number;
+	type: string;
+	title: string;
+	date: string;
+	endDate: string;
 }
 
 export type {
