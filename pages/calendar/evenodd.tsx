@@ -11,6 +11,14 @@ const dayType: { [key: string]: number } = {
     "other": 4
 }
 
+const reverseDayType: { [key: number]: string } = {
+    0: "even",
+    1: "odd",
+    2: "no-school",
+    3: "all-period",
+    4: "other"
+}
+
 interface CalendarProps {
     date: Date;
     view: string;
@@ -36,6 +44,22 @@ function previousDay(date: Date, stored: { [key: string]: number }): Date { //As
         }
     }
     return day
+}
+
+function getEvenOdd(stored: { [key: string]: number }): string {
+    let today = new Date((new Date()).toLocaleString("en-US", { timeZone: "America/New_York" }));
+    if (today.getDay() === 0) {
+        return "Monday: " + reverseDayType[stored[new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1).toDateString()]]
+    } else if (today.getDay() === 6) {
+        return "Monday: " + reverseDayType[stored[new Date(today.getFullYear(), today.getMonth(), today.getDate() + 2).toDateString()]]
+    } else {
+        if (today.getHours() <= 16) {
+            return "Today: " + reverseDayType[stored[today.toDateString()]]
+        } else {
+            return "Tomorrow: " + reverseDayType[stored[new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1).toDateString()]]
+        }
+    }
+    return today.toString();
 }
 
 /* function getEvenOdd(date: Date, stored: {[key: string]: number}, levels = 365): number { 
@@ -327,6 +351,7 @@ export default function Home({ dates }: EvenOddProps) {
                 <CalendarContainer2 className="md:my-16 scale-[85%] text-xs md:text-base md:scale-100">
                     <Calendar tileContent={eo} prev2Label={null} next2Label={null} calendarType="gregory" />
                 </CalendarContainer2>
+                <p className="text-black dark:text-white">{getEvenOdd(dates)}</p>
             </div>
             {/*<button onClick={exportJSON}>Export JSON</button>*/}
         </>
