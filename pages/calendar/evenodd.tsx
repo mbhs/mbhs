@@ -197,7 +197,10 @@ const CalendarContainer2 = styled.div`
 abbr[title] {
     text-decoration: none;
     border-radius: 8px;
-
+    font-weight: bold;
+}
+abbr {
+    font-weight: 900;
 }
 /* .react-calendar__month-view__days__day--weekend {
     color: #d10000;
