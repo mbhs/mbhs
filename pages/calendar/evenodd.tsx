@@ -347,11 +347,11 @@ export default function Home({ dates }: EvenOddProps) {
 
     return (
         <>
-            <div className="self-center w-full md:w-fit h-[450px] md:h-[650px]">
-                <CalendarContainer2 className="md:my-16 scale-[85%] text-xs md:text-base md:scale-100">
+            <div className="self-center w-full md:w-fit h-fit">
+                <CalendarContainer2 className="my-2 md:my-16 scale-[85%] text-xs md:text-base md:scale-100">
                     <Calendar tileContent={eo} prev2Label={null} next2Label={null} calendarType="gregory" />
                 </CalendarContainer2>
-                <p className="text-black dark:text-white">{getEvenOdd(dates)}</p>
+                <p className="text-black dark:text-white pb-8">{getEvenOdd(dates)}</p>
             </div>
             {/*<button onClick={exportJSON}>Export JSON</button>*/}
         </>
