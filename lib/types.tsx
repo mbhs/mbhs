@@ -261,7 +261,7 @@ interface Admin {
 	};
 }
 
-/* interface Day {
+interface Days { //multiple days (the whole content-type)
 	id: number;
 	attributes: {
 		startDate: string;
@@ -276,9 +276,9 @@ interface Admin {
 			type: string;
 		}[];
 	}
-} */
+}
 
-interface Day {
+interface Day { //one day (the component)
 	id: number;
 	type: string;
 	title: string;
@@ -304,5 +304,6 @@ export type {
 	Link,
 	Badge,
 	Admin,
+	Days,
 	Day,
 };

@@ -1,22 +1,25 @@
 import Calendar from 'react-calendar'
 import styled from 'styled-components'
 import 'react-calendar/dist/Calendar.css'
-import { Day } from '../../lib/types'
+import { Days, Day } from '../../lib/types'
 
-const dayType: { [key: string]: number } = {
+//This, and several other types/functions are exported because they might be used in other files.
+export const dayType: { [key: string]: number } = {
     "even": 0,
     "odd": 1,
     "no-school": 2,
     "all-period": 3,
-    "other": 4
+    "special-schedule": 4,
+    "summer": 5
 }
 
-const reverseDayType: { [key: number]: string } = {
+export const reverseDayType: { [key: number]: string } = {
     0: "even",
     1: "odd",
     2: "no-school",
     3: "all-period",
-    4: "other"
+    4: "special-schedule",
+    5: "summer"
 }
 
 interface CalendarProps {
@@ -30,7 +33,7 @@ interface EvenOddProps {
     }
 }
 
-function previousDay(date: Date, stored: { [key: string]: number }): Date { //Assume all no-school/all-period/other days are entered in strapi (skip over them here)
+export function previousDay(date: Date, stored: { [key: string]: number }): Date { //Assume all no-school/all-period/other days are entered in strapi (skip over them here)
     let day;
     if (date.getDay() === 1) {
         day = new Date(date.getFullYear(), date.getMonth(), date.getDate() - 3)
@@ -46,7 +49,7 @@ function previousDay(date: Date, stored: { [key: string]: number }): Date { //As
     return day
 }
 
-function nextDay(date: Date, stored: { [key: string]: number }): {date: Date, type: number} { //Assume stored is filled out for all school days
+export function nextDay(date: Date, stored: { [key: string]: number }): {date: Date, type: number} { //Assume stored is filled out for all school days
     let day;
     if (date.getDay() === 5) {
         day = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 3)
@@ -62,18 +65,62 @@ function nextDay(date: Date, stored: { [key: string]: number }): {date: Date, ty
     return {date: day, type: stored[day.toDateString()]}
 }
 
-function getEvenOdd(stored: { [key: string]: number }): string {
+export function getEvenOdd(stored: { [key: string]: number }): string {
     let today = new Date((new Date()).toLocaleString("en-US", { timeZone: "America/New_York" }));
-    if (today.getHours() >= 15 && today.getMinutes() > 30) {
-        return nextDay(today, stored).date.toDateString() + ": " + reverseDayType[nextDay(today, stored).type]
+    if (today.getHours() + (today.getMinutes())/60 >= 15.5) {
+        const next = nextDay(today, stored)
+        /*if (next.type === dayType["even"]) { // for more specific formatting
+
+        } else if (next.type === dayType["odd"]) {
+
+        } else if (next.type === dayType["all-period"]) {
+
+        } */
+        if (next.type === dayType["summer"]) return "Have a great summer!"
+        return nextDay(today, stored).date.toDateString() + " will be an " + reverseDayType[next.type].toUpperCase() + " day"
     } else {
-        return "Today: " + reverseDayType[stored[today.toDateString()]]
+        return "Today is an " + reverseDayType[stored[today.toDateString()]]
     }
     return "error"
 }
 
+export function makeDates(days: Days): { [key: string]: number } {
+    const stored: { [key: string]: number } = {}
+    
+    let startDate = new Date(days.attributes.startDate)
+    let utcStartDate = new Date(startDate.getTime() + startDate.getTimezoneOffset() * 60000)
+    stored[utcStartDate.toDateString()] = dayType[days.attributes.startDateType];
+    if (days.attributes.endDateType != null) {
+        let endDate = new Date(days.attributes.endDate)
+        let utcEndDate = new Date(endDate.getTime() + endDate.getTimezoneOffset() * 60000)
+        stored[utcEndDate.toDateString()] = dayType[days.attributes.endDateType];
+    }
+
+    days.attributes.days.forEach((day: Day) => {
+        let date = new Date(day.date)
+        let utcDate = new Date(date.getTime() + date.getTimezoneOffset() * 60000)
+        stored[utcDate.toDateString()] = dayType[day.type];
+        if (day.endDate != null) {
+            let endDate = new Date(day.endDate)
+            let utcEndDate = new Date(endDate.getTime() + endDate.getTimezoneOffset() * 60000)
+            for (let i = utcDate; i <= utcEndDate; i.setDate(i.getDate() + 1)) {
+                stored[i.toDateString()] = dayType[day.type];
+            }
+        }
+    })
+
+    for (let i = new Date(days.attributes.startDate); i <= new Date(days.attributes.endDate); i.setDate(i.getDate() + 1)) {
+        if (stored[i.toDateString()] == null) { //if current day has no stored value
+            let prev = stored[(previousDay(i, stored)).toDateString()] //previous even/odd day
+            stored[i.toDateString()] = +!prev //set opposite
+        }
+    }
+
+    return stored
+}
+
 //trying to make circles for each day (not working)
-const CalendarContainer = styled.div`
+const CalendarContainerCircles = styled.div`
 .react-calendar { 
     width: 500px;
     max-width: 100%;
@@ -178,7 +225,7 @@ abbr[title] {
 `;
 
 //better format than original unstyled calendar
-const CalendarContainer2 = styled.div`
+const CalendarContainer = styled.div`
 .react-calendar { 
     width: 600px;
     //height: 550px;
@@ -248,10 +295,9 @@ abbr {
     border-radius: 8px;
 }
 .react-calendar__tile--now {
-    background: #eb484833;
+    background: #fff;
     border-radius: 8px;
-    font-weight: bold;
-    color: #eb4848;
+    color: #000;
 }
 .react-calendar__tile--now:enabled:hover,
 .react-calendar__tile--now:enabled:focus {
@@ -284,29 +330,7 @@ export async function getStaticProps() {
         "https://strapi.mbhs.edu/api/evenodd?populate=*"
     ).then((res) => res.json());
 
-    const stored: { [key: string]: number } = {}
-
-    stored[(new Date(days!.data.attributes.startDate)).toDateString()] = dayType[days!.data.attributes.startDateType];
-    if (days!.data.attributes.endDateType != null)
-        stored[(new Date(days!.data.attributes.endDate)).toDateString()] = dayType[days!.data.attributes.endDateType];
-
-    days!.data.attributes.days.forEach((day: Day) => {
-        let date = new Date(day.date)
-        if (day.endDate != null) {
-            let endDate = new Date(day.endDate)
-            for (let i = date; i < endDate; i.setDate(i.getDate() + 1)) {
-                stored[i.toDateString()] = dayType[day.type];
-            }
-        }
-        stored[date.toDateString()] = dayType[day.type];
-    })
-
-    for (let i = new Date(days!.data.attributes.startDate); i < new Date(days!.data.attributes.endDate); i.setDate(i.getDate() + 1)) {
-        if (stored[i.toDateString()] == null) { //if current day has no stored value
-            let prev = stored[(previousDay(i, stored)).toDateString()] //previous even/odd day
-            stored[i.toDateString()] = +!prev //set opposite
-        }
-    }
+    const stored: { [key: string]: number } = makeDates(days!.data)
 
     return {
         props: {
@@ -326,7 +350,7 @@ export default function Home({ dates }: EvenOddProps) {
             else if (dates[date.toDateString()] == dayType["odd"]) return <p>ODD</p>
             else if (dates[date.toDateString()] == dayType["no-school"]) return <p>NO SCHOOL</p>
             else if (dates[date.toDateString()] == dayType["all-period"]) return <p>ALL PERIOD</p>
-            else if (dates[date.toDateString()] == dayType["other"]) return <p>OTHER</p>
+            else if (dates[date.toDateString()] == dayType["special-schedule"]) return <p>OTHER</p>
             else return <p></p>
         }
         return null
@@ -345,13 +369,13 @@ export default function Home({ dates }: EvenOddProps) {
 
     return (
         <>
-            <div className="self-center w-full px-auto md:px-0 md:w-fit h-fit">
-                <div className="p-2 mt-8 -mb-6 bg-red-600 text-white w-fit rounded-lg">
+            <div className="self-center w-full md:w-fit h-fit px-auto md:px-0">
+                <div className="ml-8 md:ml-0 p-2 mt-8 -mb-2 md:-mb-6 bg-red-600 text-white w-fit rounded-lg">
                     <p className="">{getEvenOdd(dates)}</p>
                 </div>
-                <CalendarContainer2 className="my-2 md:my-16 scale-[85%] text-xs md:text-base md:scale-100">
-                    <Calendar tileContent={eo} prev2Label={null} next2Label={null} calendarType="gregory" />
-                </CalendarContainer2>
+                <CalendarContainer className="my-2 md:my-16 scale-[85%] text-xs md:text-base md:scale-100">
+                    <Calendar tileContent={eo} value={new Date((new Date()).toLocaleString("en-US", { timeZone: "America/New_York" }))} prev2Label={null} next2Label={null} calendarType="gregory" />
+                </CalendarContainer>
             </div>
             {/*<button onClick={exportJSON}>Export JSON</button>*/}
         </>

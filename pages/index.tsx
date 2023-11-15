@@ -16,6 +16,7 @@ import { FaPlay, FaPause } from "react-icons/fa";
 import { Event, New, HomePage } from "../lib/types";
 import Markdown from "../components/Markdown";
 import Link from "next/link";
+import { makeDates, getEvenOdd } from "./calendar/evenodd";
 
 export async function getStaticProps() {
 	//gets all events that are ending today or later and sorts them by date
@@ -56,11 +57,18 @@ export async function getStaticProps() {
 		"https://strapi.mbhs.edu/api/home-page?populate=*"
 	).then((res) => res.json());
 
+	let scheduleDays = await fetch(
+        "https://strapi.mbhs.edu/api/evenodd?populate=*"
+    ).then((res) => res.json());
+
+    const stored: { [key: string]: number } = makeDates(scheduleDays!.data)
+
 	return {
 		props: {
 			events: events.data,
 			news: news.data,
 			meta: meta.data,
+			dates: stored,
 		},
 		revalidate: 60,
 	};
@@ -93,10 +101,11 @@ interface IndexProps {
 	events: Event[];
 	news: New[];
 	meta: HomePage;
+	dates: { [key: string]: number };
 	dark: boolean;
 }
 
-export default function Home({ events, news, meta, dark }: IndexProps) {
+export default function Home({ events, news, meta, dates, dark }: IndexProps) {
 	const [sound, setSound] = React.useState<boolean>(false);
 	const videoRef = React.useRef<HTMLVideoElement>(null);
 	const [playing, setPlaying] = React.useState<boolean>(true);
@@ -131,7 +140,12 @@ export default function Home({ events, news, meta, dark }: IndexProps) {
 				</h3>
 				<h3 className="md:text-xl">Home of the Blazers</h3>
 				<h3 className="md:text-xl italic">Crescens Scientia</h3>
-				<div className="flex justify-center pt-6 md:pt-10 gap-10 text-black dark:text-white">
+				<div className="flex justify-center pt-4 md:pt-8 gap-10 text-black dark:text-white">
+					<div className="bg-red-600 rounded-lg p-2">
+						<p>{getEvenOdd(dates)}</p>
+					</div>
+				</div>
+				<div className="flex justify-center pt-2 md:pt-4 gap-10 text-black dark:text-white">
 					<div className="flex flex-col items-center">
 						<Link href="/resources">
 							<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-neutral-800 dark:hover:bg-white text-white hover:text-red-500 dark:hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-[18px]">
