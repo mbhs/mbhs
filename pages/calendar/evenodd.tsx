@@ -39,40 +39,38 @@ function previousDay(date: Date, stored: { [key: string]: number }): Date { //As
     }
     const today = stored[day.toDateString()]
     if (today != null) {
-        if (today == dayType["no-school"] || today == dayType["all-period"] || today == dayType["other"]) {
+        if (today != dayType["odd"] && today != dayType["even"]) {
             return previousDay(day, stored)
         }
     }
     return day
 }
 
-function getEvenOdd(stored: { [key: string]: number }): string {
-    let today = new Date((new Date()).toLocaleString("en-US", { timeZone: "America/New_York" }));
-    if (today.getDay() === 0) {
-        return "Monday: " + reverseDayType[stored[new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1).toDateString()]]
-    } else if (today.getDay() === 6) {
-        return "Monday: " + reverseDayType[stored[new Date(today.getFullYear(), today.getMonth(), today.getDate() + 2).toDateString()]]
+function nextDay(date: Date, stored: { [key: string]: number }): {date: Date, type: number} { //Assume stored is filled out for all school days
+    let day;
+    if (date.getDay() === 5) {
+        day = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 3)
     } else {
-        if (today.getHours() <= 16) {
-            return "Today: " + reverseDayType[stored[today.toDateString()]]
-        } else {
-            return "Tomorrow: " + reverseDayType[stored[new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1).toDateString()]]
+        day = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1)
+    }
+    const today = stored[day.toDateString()]
+    if (today != null) {
+        if (today != dayType["odd"] && today != dayType["even"]) {
+            return nextDay(day, stored)
         }
     }
-    return today.toString();
+    return {date: day, type: stored[day.toDateString()]}
 }
 
-/* function getEvenOdd(date: Date, stored: {[key: string]: number}, levels = 365): number { 
-    // if stored value exists, return it
-    if (stored[date.toDateString()] != null) return stored[date.toDateString()]
-    // return the opposite of the previous even/odd day
-    let previous = previousDay(date, stored)
-    let prev = -1;
-    if (levels > 0) prev = getEvenOdd(previous, stored, levels-1)
-    let today = +!prev
-    stored[date.toDateString()] = today
-    return today
-} */
+function getEvenOdd(stored: { [key: string]: number }): string {
+    let today = new Date((new Date()).toLocaleString("en-US", { timeZone: "America/New_York" }));
+    if (today.getHours() >= 15 && today.getMinutes() > 30) {
+        return nextDay(today, stored).date.toDateString() + ": " + reverseDayType[nextDay(today, stored).type]
+    } else {
+        return "Today: " + reverseDayType[stored[today.toDateString()]]
+    }
+    return "error"
+}
 
 //trying to make circles for each day (not working)
 const CalendarContainer = styled.div`
@@ -182,7 +180,7 @@ abbr[title] {
 //better format than original unstyled calendar
 const CalendarContainer2 = styled.div`
 .react-calendar { 
-    width: 500px;
+    width: 600px;
     //height: 550px;
     max-width: 100%;
     background-color: #fff;
@@ -347,11 +345,13 @@ export default function Home({ dates }: EvenOddProps) {
 
     return (
         <>
-            <div className="self-center w-full md:w-fit h-fit">
+            <div className="self-center w-full px-auto md:px-0 md:w-fit h-fit">
+                <div className="p-2 mt-8 -mb-6 bg-red-600 text-white w-fit rounded-lg">
+                    <p className="">{getEvenOdd(dates)}</p>
+                </div>
                 <CalendarContainer2 className="my-2 md:my-16 scale-[85%] text-xs md:text-base md:scale-100">
                     <Calendar tileContent={eo} prev2Label={null} next2Label={null} calendarType="gregory" />
                 </CalendarContainer2>
-                <p className="text-black dark:text-white pb-8">{getEvenOdd(dates)}</p>
             </div>
             {/*<button onClick={exportJSON}>Export JSON</button>*/}
         </>
