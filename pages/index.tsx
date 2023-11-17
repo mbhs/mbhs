@@ -16,6 +16,7 @@ import { FaPlay, FaPause } from "react-icons/fa";
 import { Event, New, HomePage } from "../lib/types";
 import Markdown from "../components/Markdown";
 import Link from "next/link";
+import { TbMapPin } from "react-icons/tb";
 
 export async function getStaticProps() {
 	//gets all events that are ending today or later and sorts them by date
@@ -203,6 +204,7 @@ export default function Home({ events, news, meta, dark }: IndexProps) {
 									startDate,
 									endDate,
 									startTime,
+									location,
 								},
 							},
 							i
@@ -257,6 +259,11 @@ export default function Home({ events, news, meta, dark }: IndexProps) {
 										{startTime && (
 											<>
 												<AiOutlineClockCircle /> {parseTime(startTime)}
+											</>
+										)}
+										{location && (
+											<>
+												<TbMapPin /> {location}
 											</>
 										)}
 									</p>
