@@ -327,7 +327,7 @@ export default function Home({ events, news, meta, dark }: IndexProps) {
 					<div className="absolute inset-0 md:bg-opacity-0 md:opacity-100 md:bg-gradient-to-r from-white dark:from-black to-transparent h-full" />
 				</div>
 			</div>
-			{/* {!sco && (
+			{!sco && (
 				<motion.div
 					layoutId="bigdiv"
 					className="flex gap-2 items-center w-max absolute top-5 right-0 p-3 bg-red-600 text-white bg-opacity-50 backdrop-blur-md rounded-l-lg"
@@ -338,8 +338,8 @@ export default function Home({ events, news, meta, dark }: IndexProps) {
 					/>{" "}
 					<motion.span layoutId="title" layout="preserve-aspect">Silver Chips Online</motion.span>
 				</motion.div>
-			)} */}
-			{/* {sco && (
+			)}
+			{sco && (
 				<motion.div
 					layoutId="bigdiv"
 					className="w-max absolute top-5 right-0 p-3 bg-red-700 text-white bg-opacity-90 backdrop-blur-md rounded-l-lg"
@@ -384,7 +384,7 @@ export default function Home({ events, news, meta, dark }: IndexProps) {
 						</div>
 					</div>
 				</motion.div>
-			)} */}
+			)}
 			<div className="absolute right-0 top-0 h-[80vh]">
 				<div className="relative h-full">
 					<button
