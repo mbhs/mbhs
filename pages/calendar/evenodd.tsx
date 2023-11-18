@@ -22,12 +22,12 @@ export const reverseDayType: { [key: number]: string } = {
     5: "summer"
 }
 
-interface CalendarProps {
+export interface CalendarProps {
     date: Date;
     view: string;
 }
 
-interface EvenOddProps {
+export interface EvenOddProps {
     dates: {
         [key: string]: number;
     }
@@ -117,6 +117,14 @@ export function makeDates(days: Days): { [key: string]: number } {
     }
 
     return stored
+}
+
+export function returnCalendar(eo: any) {
+    return (
+        <CalendarContainer className="self-center mb-8 scale-[85%] text-xs md:text-base md:scale-100">
+            <Calendar tileContent={eo} value={new Date((new Date()).toLocaleString("en-US", { timeZone: "America/New_York" }))} prev2Label={null} next2Label={null} calendarType="gregory" />
+        </CalendarContainer>
+    )
 }
 
 //trying to make circles for each day (not working)
@@ -225,7 +233,7 @@ abbr[title] {
 `;
 
 //better format than original unstyled calendar
-const CalendarContainer = styled.div`
+export const CalendarContainer = styled.div`
 .react-calendar { 
     width: 600px;
     //height: 550px;
