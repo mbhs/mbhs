@@ -327,7 +327,7 @@ abbr {
 
 export async function getStaticProps() {
     let days = await fetch(
-        "https://strapi.mbhs.edu/api/evenodd?populate=*"
+        "https://strapi.mbhs.edu/api/evenodd?pagination[pageSize]=3&populate=*"
     ).then((res) => res.json());
 
     const stored: { [key: string]: number } = makeDates(days!.data)
@@ -369,9 +369,9 @@ export default function Home({ dates }: EvenOddProps) {
 
     return (
         <>
-            <div className="self-center w-full md:w-fit h-fit px-auto md:px-0">
-                <div className="ml-8 md:ml-0 p-2 mt-8 -mb-2 md:-mb-6 bg-red-600 text-white w-fit rounded-lg">
-                    <p className="">{getEvenOdd(dates)}</p>
+            <div className="self-center w-full md:w-fit h-fit">
+                <div className="w-full ml-8 md:ml-0 p-2 mt-8 -mb-4 md:-mb-8 text-black dark:text-white font-extrabold">
+                    <p className="text-center">{getEvenOdd(dates)}</p>
                 </div>
                 <CalendarContainer className="my-2 md:my-16 scale-[85%] text-xs md:text-base md:scale-100">
                     <Calendar tileContent={eo} value={new Date((new Date()).toLocaleString("en-US", { timeZone: "America/New_York" }))} prev2Label={null} next2Label={null} calendarType="gregory" />

@@ -141,9 +141,7 @@ export default function Home({ events, news, meta, dates, dark }: IndexProps) {
 				<h3 className="md:text-xl">Home of the Blazers</h3>
 				<h3 className="md:text-xl italic">Crescens Scientia</h3>
 				<div className="flex justify-center pt-4 md:pt-8 gap-10 text-black dark:text-white">
-					<div className="bg-red-600 rounded-lg p-2">
-						<p>{getEvenOdd(dates)}</p>
-					</div>
+					<p className="font-extrabold">{getEvenOdd(dates)}</p>
 				</div>
 				<div className="flex justify-center pt-2 md:pt-4 gap-10 text-black dark:text-white">
 					<div className="flex flex-col items-center">
@@ -176,6 +174,9 @@ export default function Home({ events, news, meta, dates, dark }: IndexProps) {
 						</Link>
 						<p className="font-semibold pt-2">Calendar</p>
 					</div>
+				</div>
+				<div className="flex justify-center pt-2 md:pt-4 gap-10 text-black dark:text-white">
+					<p className="font-extrabold">{getEvenOdd(dates)}</p>
 				</div>
 				<div className="pt-6 flex flex-col items-center gap-3">
 					{news
