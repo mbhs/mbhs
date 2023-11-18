@@ -7,6 +7,7 @@ interface Event {
 		endDate: string;
 		startTime: string;
 		endTime?: string;
+		location?: string;
 	};
 }
 
