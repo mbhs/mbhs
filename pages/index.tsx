@@ -60,11 +60,16 @@ export async function getStaticProps() {
 		"https://strapi.mbhs.edu/api/home-page?populate=*"
 	).then((res) => res.json());
 
+	let scoMeta = await fetch("https://silverchips.mbhs.edu/mbhssite").then(
+		(res) => res.json()
+	);
+
 	return {
 		props: {
 			events: events.data,
 			news: news.data,
 			meta: meta.data,
+			scoMeta: scoMeta.data,
 		},
 		revalidate: 60,
 	};
@@ -93,14 +98,28 @@ function getEmbed(url: string) {
 	}`;
 }
 
+interface SCO {
+	title: string;
+	description: string;
+	image: string;
+	link: string;
+}
+
 interface IndexProps {
 	events: Event[];
 	news: New[];
 	meta: HomePage;
+	scoMeta: SCO[];
 	dark: boolean;
 }
 
-export default function Home({ events, news, meta, dark }: IndexProps) {
+export default function Home({
+	events,
+	news,
+	meta,
+	scoMeta,
+	dark,
+}: IndexProps) {
 	const [sound, setSound] = React.useState<boolean>(false);
 	const videoRef = React.useRef<HTMLVideoElement>(null);
 	const [playing, setPlaying] = React.useState<boolean>(true);
@@ -330,19 +349,19 @@ export default function Home({ events, news, meta, dark }: IndexProps) {
 			{!sco && (
 				<motion.div
 					layoutId="bigdiv"
-					className="flex gap-2 items-center w-max absolute top-5 right-0 p-3 bg-red-600 text-white bg-opacity-50 backdrop-blur-md rounded-l-lg"
+					onClick={() => setSCO(true)}
+					className="cursor-pointer flex gap-2 items-center w-max absolute md:top-5 top-16 right-0 p-3 bg-red-600 text-white bg-opacity-50 backdrop-blur-md rounded-l-lg"
 				>
-					<FaChevronLeft
-						onClick={() => setSCO(true)}
-						className="cursor-pointer"
-					/>{" "}
-					<motion.span layoutId="title" layout="preserve-aspect">Silver Chips Online</motion.span>
+					<FaChevronLeft />{" "}
+					<motion.span layoutId="title" layout="preserve-aspect">
+						Silver Chips Online
+					</motion.span>
 				</motion.div>
 			)}
 			{sco && (
 				<motion.div
 					layoutId="bigdiv"
-					className="w-max absolute top-5 right-0 p-3 bg-red-700 text-white bg-opacity-90 backdrop-blur-md rounded-l-lg"
+					className="w-max absolute md:top-5 top-16 right-0 p-3 bg-red-700 text-white bg-opacity-90 backdrop-blur-md rounded-l-lg"
 				>
 					<motion.span
 						layoutId="title"
@@ -356,32 +375,22 @@ export default function Home({ events, news, meta, dark }: IndexProps) {
 						Silver Chips Online
 					</motion.span>
 					<div className="flex flex-col items-center pt-3 gap-3">
-						<div className="relative">
-							<div className="cursor-pointer flex items-center gap-2 justify-center h-full w-full absolute hover:bg-black rounded-lg z-10 opacity-0 hover:opacity-30 duration-300 transition-all">
-								<FaRegEye className="w-6 h-6" /> Read More
-							</div>
-							<img
-								className="border-2 border-black w-96 h-36 rounded-lg object-cover"
-								src="https://silverchips.mbhs.edu/uploads/images/2023/10/06/UniversityBlvd_Photo.heic.jpg"
-							/>
-							<p className="bottom-0 text-sm p-3 rounded-b-lg bg-black backdrop-blur-md bg-opacity-50 absolute">
-								Behind the Boulevard: A look into the upcoming University
-								Boulevard Corridor Plan
-							</p>
-						</div>
-						<div className="relative">
-							<div className="cursor-pointer flex items-center gap-2 justify-center h-full w-full absolute hover:bg-black rounded-lg z-10 opacity-0 hover:opacity-30 duration-300 transition-all">
-								<FaRegEye className="w-6 h-6" /> Read More
-							</div>
-							<img
-								className="border-2 border-black w-96 h-36 rounded-lg object-cover"
-								src="https://silverchips.mbhs.edu/uploads/images/2023/10/06/UniversityBlvd_Photo.heic.jpg"
-							/>
-							<p className="bottom-0 text-sm p-3 rounded-b-lg bg-black backdrop-blur-md bg-opacity-50 absolute">
-								Behind the Boulevard: A look into the upcoming University
-								Boulevard Corridor Plan
-							</p>
-						</div>
+						{scoMeta.map((s: SCO) => (
+							<Link href={s.link}>
+								<div className="relative">
+									<div className="cursor-pointer flex items-center gap-2 justify-center h-full w-full absolute hover:bg-black rounded-lg z-10 opacity-0 hover:opacity-30 duration-300 transition-all">
+										<FaRegEye className="w-6 h-6" /> Read More
+									</div>
+									<img
+										className="border-2 border-black w-96 h-36 rounded-lg object-cover"
+										src={s.image}
+									/>
+									<p className="bottom-0 border-2 border-black text-sm p-3 left-0 right-0 text-center rounded-b-lg bg-black backdrop-blur-md bg-opacity-50 absolute">
+										{s.title}
+									</p>
+								</div>
+							</Link>
+						))}
 					</div>
 				</motion.div>
 			)}
