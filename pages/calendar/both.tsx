@@ -81,9 +81,9 @@ export default function Calendar({ events, dates }: CalendarProps) {
 			</h1>
 			<p className="text-center">A PDF of schedule for the school year <a className="text-red-500 hover:underline underline-offset-2" href="https://old.mbhs.edu/newsevents/Announcements/Calendar%202023-2024.pdf">is available here</a></p>
 			<br/>
-            <div className="w-full ml-8 md:ml-0 pt-2 pb-4 text-black dark:text-white font-extrabold">
+            {/*<div className="w-full ml-8 md:ml-0 pt-2 pb-4 text-black dark:text-white font-extrabold">
                 <p className="text-center">{getEvenOdd(dates)}</p>
-            </div>
+            </div> */}
             <div className="flex flex-col">
                 {returnCalendar(eo)}
             </div>
