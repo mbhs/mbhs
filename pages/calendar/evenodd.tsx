@@ -81,7 +81,7 @@ export function getEvenOdd(stored: { [key: string]: number }): string {
                 nextDay(today, stored).date.toLocaleDateString("en-US", {month: "long"}) + " " + nextDay(today, stored).date.getDate() +
                 " will be an " + reverseDayType[next.type].toUpperCase() + " day"
     } else {
-        return "Today is an " + reverseDayType[stored[today.toDateString()]] + " day"
+        return "Today is an " + reverseDayType[stored[today.toDateString()]].toUpperCase() + " day"
     }
     return "error"
 }
