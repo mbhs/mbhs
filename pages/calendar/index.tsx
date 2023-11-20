@@ -44,16 +44,16 @@ const parseTime = (time: string) => {
 };
 const changeSeason = (theMonth: string) => {
 	let theSeason = "bg-red-600";
-	// const seasons = {
-	// 	spring:["Mar","Apr","May"],
-	// 	summer:["Jun","Jul","Aug"],
-	// 	fall:["Sep","Oct","Nov"],
-	// 	winter:["Dec","Jan","Feb"]
-	// };
-	// seasons.spring.includes(theMonth) ? theSeason = "bg-green-600" : theSeason;
-	// seasons.summer.includes(theMonth) ? theSeason = "bg-yellow-600" : theSeason;
-	// seasons.fall.includes(theMonth) ? theSeason = "bg-red-600" : theSeason;
-	// seasons.winter.includes(theMonth) ? theSeason = "bg-blue-600" : theSeason;
+	const seasons = {
+		spring:["Mar","Apr","May"],
+		summer:["Jun","Jul","Aug"],
+		fall:["Sep","Oct","Nov"],
+		winter:["Dec","Jan","Feb"]
+	};
+	seasons.spring.includes(theMonth) ? theSeason = "bg-green-600" : theSeason;
+	seasons.summer.includes(theMonth) ? theSeason = "bg-yellow-600" : theSeason;
+	seasons.fall.includes(theMonth) ? theSeason = "bg-red-600" : theSeason;
+	seasons.winter.includes(theMonth) ? theSeason = "bg-blue-600" : theSeason;
 	return theSeason;
 };
 export default function Calendar({ events }: CalendarProps) {
