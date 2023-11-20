@@ -423,12 +423,12 @@ export default function Nav({
 							<p className="block py-1 pr-2 text-white">Quick Links</p>
 							<BiCaretDown className="text-white scale-[1.2]" />
 							<motion.div
-								className="absolute -right-1/3 bg-white border-red-900 border-4 top-[40px] rounded-lg w-max outline-none"
+								className="absolute -right-1/3 bg-white dark:bg-black dark:text-white border-red-900 border-4 top-[40px] rounded-lg w-max outline-none"
 								initial={dropdownAnimate.exit}
 								animate={dropdownOpen ? "enter" : "exit"} //toggle when clicked
 								variants={dropdownAnimate}
 							>
-								<div className="flex flex-col py-2 px-4 divide-y-2 divide-black outline-none">
+								<div className="flex flex-col py-2 px-4 divide-y-2 divide-black dark:divide-white outline-none">
 									{data
 										?.filter(function qlink(obj) {
 											return obj.attributes.quicklink;
