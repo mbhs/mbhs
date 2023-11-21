@@ -20,6 +20,8 @@ import { TbMapPin } from "react-icons/tb";
 import { FaRegEye, FaChevronLeft } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { motion } from "framer-motion";
+import { BsInstagram } from "react-icons/bs";
+import { FiYoutube } from "react-icons/fi";
 
 export async function getStaticProps() {
 	//gets all events that are ending today or later and sorts them by date
@@ -366,13 +368,26 @@ export default function Home({
 					<motion.span
 						layoutId="title"
 						layout="preserve-aspect"
-						className="font-bold flex items-center gap-2"
+						className="font-bold flex items-center justify-between"
 					>
-						<IoClose
-							className="h-5 w-5 cursor-pointer"
-							onClick={() => setSCO(false)}
-						/>{" "}
-						Silver Chips Online
+						<div className="flex items-center justify-center gap-2">
+							<IoClose
+								className="h-6 w-6 cursor-pointer"
+								onClick={() => setSCO(false)}
+							/>{" "}
+							<Link href="https://silverchips.mbhs.edu">
+								Silver Chips Online
+							</Link>
+						</div>
+
+						<div className="flex items-center justify-center gap-2">
+							<Link href="https://www.instagram.com/silverchips_online">
+								<BsInstagram className="h-5 w-5" />
+							</Link>
+							<Link href="https://www.youtube.com/@SilverChipsOnline">
+								<FiYoutube className="h-5 w-5" />
+							</Link>
+						</div>
 					</motion.span>
 					<div className="w-full flex flex-col items-center pt-3 gap-3">
 						{scoMeta.map((s: SCO) => (
