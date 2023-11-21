@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Event } from "../../lib/types";
 import Markdown from "../../components/Markdown";
 import { AiOutlineClockCircle, AiOutlineCalendar } from "react-icons/ai";
+import { TbMapPin } from "react-icons/tb";
 
 export async function getStaticProps() {
 	//gets all events that are ending today or later and sorts them by date
@@ -13,7 +14,7 @@ export async function getStaticProps() {
 		.join("-");
 
 	let events = await fetch(
-		`https://strapi.mbhs.edu/api/events?filters[$or][0][endDate][$gte]=${today}&filters[$or][1][$and][0][endDate][$null]=true&filters[$or][1][$and][1][startDate][$gte]=${today}&sort=startDate:ASC&sort=startTime:ASC`
+		`https://strapi.mbhs.edu/api/events?filters[$or][0][endDate][$gte]=${today}&filters[$or][1][$and][0][endDate][$null]=true&filters[$or][1][$and][1][startDate][$gte]=${today}&pagination[pageSize]=1000&sort=startDate:ASC&sort=startTime:ASC`
 	).then((res) => res.json());
 
 	return {
@@ -37,21 +38,22 @@ const parseTime = (time: string) => {
 	if (hours == 0) {
 		hours = 12;
 	}
-	return `${hours < 10 ? "0" + hours : hours}:${minutes < 10 ? "0" + minutes : minutes
+	return `${hours < 10 ? "0" + hours : hours}:${
+		minutes < 10 ? "0" + minutes : minutes
 	} ${ampm}`;
 };
 const changeSeason = (theMonth: string) => {
-	let theSeason;
-	const seasons = {
-		spring:["Mar","Apr","May"],
-		summer:["Jun","Jul","Aug"],
-		fall:["Sep","Oct","Nov"],
-		winter:["Dec","Jan","Feb"]
-	};
-	seasons.spring.includes(theMonth) ? theSeason = "bg-green-600" : theSeason;
-	seasons.summer.includes(theMonth) ? theSeason = "bg-yellow-600" : theSeason;
-	seasons.fall.includes(theMonth) ? theSeason = "bg-red-600" : theSeason;
-	seasons.winter.includes(theMonth) ? theSeason = "bg-blue-600" : theSeason;
+	let theSeason = "bg-red-600";
+	// const seasons = {
+	// 	spring:["Mar","Apr","May"],
+	// 	summer:["Jun","Jul","Aug"],
+	// 	fall:["Sep","Oct","Nov"],
+	// 	winter:["Dec","Jan","Feb"]
+	// };
+	// seasons.spring.includes(theMonth) ? theSeason = "bg-green-600" : theSeason;
+	// seasons.summer.includes(theMonth) ? theSeason = "bg-yellow-600" : theSeason;
+	// seasons.fall.includes(theMonth) ? theSeason = "bg-red-600" : theSeason;
+	// seasons.winter.includes(theMonth) ? theSeason = "bg-blue-600" : theSeason;
 	return theSeason;
 };
 export default function Calendar({ events }: CalendarProps) {
@@ -67,7 +69,14 @@ export default function Calendar({ events }: CalendarProps) {
 				{events.map(
 					(
 						{
-							attributes: { title, description, startDate, endDate, startTime },
+							attributes: {
+								title,
+								description,
+								startDate,
+								endDate,
+								startTime,
+								location,
+							},
 						},
 						i
 					) => (
@@ -75,7 +84,16 @@ export default function Calendar({ events }: CalendarProps) {
 							key={i}
 							className="bg-neutral-400 border border-neutral-300 dark:border-neutral-700 shadow-sm hover:shadow-md flex gap-3 bg-opacity-10 hover:bg-opacity-20 w-full text-black backdrop-blur-lg rounded-lg transition-all duration-300 p-3"
 						>
-							<div className={`flex justify-center items-center text-center font-semibold ${changeSeason(new Date(startDate).toLocaleString("default", {timeZone: "UTC",month: "short",}))} text-white p-2 h-16 ${endDate ? "w-32" : "w-16"} rounded-full`}>
+							<div
+								className={`flex justify-center items-center text-center font-semibold ${changeSeason(
+									new Date(startDate).toLocaleString("default", {
+										timeZone: "UTC",
+										month: "short",
+									})
+								)} text-white p-2 h-16 ${
+									endDate ? "w-32" : "w-16"
+								} rounded-full`}
+							>
 								<div className="flex flex-col">
 									<p className="text-md -mb-1">
 										{new Date(startDate).toLocaleString("default", {
@@ -90,23 +108,25 @@ export default function Calendar({ events }: CalendarProps) {
 										})}
 									</p>
 								</div>
-								{endDate && <>
-								<p className="px-2 text-bold"> - </p>
-								<div className="flex flex-col">
-									<p className="text-md -mb-1">
-										{new Date(endDate).toLocaleString("default", {
-											timeZone: "UTC",
-											month: "short",
-										})}
-									</p>
-									<p className="text-xl">
-										{new Date(endDate).toLocaleString("default", {
-											timeZone: "UTC",
-											day: "numeric",
-										})}
-									</p>
-								</div>
-								</>}
+								{endDate && (
+									<>
+										<p className="px-2 text-bold"> - </p>
+										<div className="flex flex-col">
+											<p className="text-md -mb-1">
+												{new Date(endDate).toLocaleString("default", {
+													timeZone: "UTC",
+													month: "short",
+												})}
+											</p>
+											<p className="text-xl">
+												{new Date(endDate).toLocaleString("default", {
+													timeZone: "UTC",
+													day: "numeric",
+												})}
+											</p>
+										</div>
+									</>
+								)}
 							</div>
 							<div className="flex-1 dark:text-white">
 								{title && <p className="font-bold text-xl">{title}</p>}
@@ -114,6 +134,12 @@ export default function Calendar({ events }: CalendarProps) {
 									{startTime && (
 										<>
 											<AiOutlineClockCircle /> {parseTime(startTime)}
+										</>
+									)}
+
+									{location && (
+										<>
+											<TbMapPin /> {location}
 										</>
 									)}
 									{/*endDate && (

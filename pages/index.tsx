@@ -17,6 +17,10 @@ import { Event, New, HomePage } from "../lib/types";
 import Markdown from "../components/Markdown";
 import Link from "next/link";
 import { makeDates, getEvenOdd } from "./calendar/evenodd";
+import { TbMapPin } from "react-icons/tb";
+import { FaRegEye, FaChevronLeft } from "react-icons/fa";
+import { IoClose } from "react-icons/io5";
+import { motion } from "framer-motion";
 
 export async function getStaticProps() {
 	//gets all events that are ending today or later and sorts them by date
@@ -109,6 +113,7 @@ export default function Home({ events, news, meta, dates, dark }: IndexProps) {
 	const [sound, setSound] = React.useState<boolean>(false);
 	const videoRef = React.useRef<HTMLVideoElement>(null);
 	const [playing, setPlaying] = React.useState<boolean>(true);
+	const [sco, setSCO] = React.useState<boolean>(false);
 
 	const togglePlayPause = () => {
 		if (playing) {
@@ -218,6 +223,7 @@ export default function Home({ events, news, meta, dates, dark }: IndexProps) {
 									startDate,
 									endDate,
 									startTime,
+									location,
 								},
 							},
 							i
@@ -272,6 +278,11 @@ export default function Home({ events, news, meta, dates, dark }: IndexProps) {
 										{startTime && (
 											<>
 												<AiOutlineClockCircle /> {parseTime(startTime)}
+											</>
+										)}
+										{location && (
+											<>
+												<TbMapPin /> {location}
 											</>
 										)}
 									</p>
@@ -331,10 +342,68 @@ export default function Home({ events, news, meta, dates, dark }: IndexProps) {
 					<div className="absolute inset-0 md:bg-opacity-0 md:opacity-100 md:bg-gradient-to-r from-white dark:from-black to-transparent h-full" />
 				</div>
 			</div>
+			{/* {!sco && (
+				<motion.div
+					layoutId="bigdiv"
+					className="flex gap-2 items-center w-max absolute top-5 right-0 p-3 bg-red-600 text-white bg-opacity-50 backdrop-blur-md rounded-l-lg"
+				>
+					<FaChevronLeft
+						onClick={() => setSCO(true)}
+						className="cursor-pointer"
+					/>{" "}
+					<motion.span layoutId="title" layout="preserve-aspect">Silver Chips Online</motion.span>
+				</motion.div>
+			)} */}
+			{/* {sco && (
+				<motion.div
+					layoutId="bigdiv"
+					className="w-max absolute top-5 right-0 p-3 bg-red-700 text-white bg-opacity-90 backdrop-blur-md rounded-l-lg"
+				>
+					<motion.span
+						layoutId="title"
+						layout="preserve-aspect"
+						className="font-bold flex items-center gap-2"
+					>
+						<IoClose
+							className="h-5 w-5 cursor-pointer"
+							onClick={() => setSCO(false)}
+						/>{" "}
+						Silver Chips Online
+					</motion.span>
+					<div className="flex flex-col items-center pt-3 gap-3">
+						<div className="relative">
+							<div className="cursor-pointer flex items-center gap-2 justify-center h-full w-full absolute hover:bg-black rounded-lg z-10 opacity-0 hover:opacity-30 duration-300 transition-all">
+								<FaRegEye className="w-6 h-6" /> Read More
+							</div>
+							<img
+								className="border-2 border-black w-96 h-36 rounded-lg object-cover"
+								src="https://silverchips.mbhs.edu/uploads/images/2023/10/06/UniversityBlvd_Photo.heic.jpg"
+							/>
+							<p className="bottom-0 text-sm p-3 rounded-b-lg bg-black backdrop-blur-md bg-opacity-50 absolute">
+								Behind the Boulevard: A look into the upcoming University
+								Boulevard Corridor Plan
+							</p>
+						</div>
+						<div className="relative">
+							<div className="cursor-pointer flex items-center gap-2 justify-center h-full w-full absolute hover:bg-black rounded-lg z-10 opacity-0 hover:opacity-30 duration-300 transition-all">
+								<FaRegEye className="w-6 h-6" /> Read More
+							</div>
+							<img
+								className="border-2 border-black w-96 h-36 rounded-lg object-cover"
+								src="https://silverchips.mbhs.edu/uploads/images/2023/10/06/UniversityBlvd_Photo.heic.jpg"
+							/>
+							<p className="bottom-0 text-sm p-3 rounded-b-lg bg-black backdrop-blur-md bg-opacity-50 absolute">
+								Behind the Boulevard: A look into the upcoming University
+								Boulevard Corridor Plan
+							</p>
+						</div>
+					</div>
+				</motion.div>
+			)} */}
 			<div className="absolute right-0 top-0 h-[80vh]">
 				<div className="relative h-full">
 					<button
-						className="hidden md:block absolute z-50 bottom-5 right-5 md:right-16 h-8 w-8 bg-red-700 text-white transition-all duration-300 hover:bg-neutral-800 dark:hover:bg-white hover:text-red-700 p-2 rounded-full"
+						className="hidden md:block absolute bottom-5 right-5 md:right-16 h-8 w-8 bg-red-700 text-white transition-all duration-300 hover:bg-neutral-800 dark:hover:bg-white hover:text-red-700 p-2 rounded-full"
 						onClick={() => togglePlayPause()}
 					>
 						{playing ? <FaPause /> : <FaPlay />}
@@ -345,7 +414,7 @@ export default function Home({ events, news, meta, dates, dark }: IndexProps) {
 						</div>
 					)}
 					<button
-						className="hidden md:block absolute z-50 bottom-5 right-5 h-8 w-8 bg-red-700 text-white transition-all duration-300 hover:bg-neutral-800 dark:hover:bg-white hover:text-red-700 p-2 rounded-full"
+						className="hidden md:block absolute bottom-5 right-5 h-8 w-8 bg-red-700 text-white transition-all duration-300 hover:bg-neutral-800 dark:hover:bg-white hover:text-red-700 p-2 rounded-full"
 						onClick={() => setSound(!sound)}
 					>
 						{sound ? <AiOutlineSound /> : <AiFillSound />}
