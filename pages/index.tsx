@@ -21,6 +21,7 @@ import { TbMapPin } from "react-icons/tb";
 import { FaRegEye, FaChevronLeft } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { motion } from "framer-motion";
+import { MdLunchDining } from "react-icons/md";
 
 export async function getStaticProps() {
 	//gets all events that are ending today or later and sorts them by date
@@ -148,42 +149,44 @@ export default function Home({ events, news, meta, dates, dark }: IndexProps) {
 				{ /* <div className="flex justify-center pt-4 md:pt-8 gap-10 text-black dark:text-white">
 					<p className="font-extrabold">{getEvenOdd(dates)}</p>
 				</div> */ }
-				<div className="flex justify-center pt-2 md:pt-4 gap-10 text-black dark:text-white">
+				<div className="flex justify-start circles:justify-center pt-4 gap-10 text-black dark:text-white overflow-y-hidden overflow-x-auto circles:overflow-visible whitespace-nowrap">
 					<div className="flex flex-col items-center">
 						<Link href="/resources">
-							<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-neutral-800 dark:hover:bg-white text-white hover:text-red-500 dark:hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-[18px]">
+							<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-neutral-800 dark:hover:bg-white text-white hover:text-red-500 dark:hover:text-red-600 origin-bottom cursor-pointer w-12 h-12 p-[14px] md:w-16 md:h-16 md:p-[18px]">
 								<BsFillPeopleFill className="h-full w-full" />
 							</div>
 						</Link>
-						<p className="font-semibold pt-2">Resources</p>
+						<p className="font-semibold pt-2 md:text-base text-xs">Resources</p>
 					</div>
-					{/* <div className="flex flex-col items-center">
-						<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-white text-white hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-4">
-							<BsNewspaper className="h-full w-full" />
-						</div>
-						<p className="text-white font-semibold pt-2">News</p>
-					</div> */}
 					<div className="flex flex-col items-center">
 						<a target="blank" href="https://goo.gl/maps/M5DGpJECkjYnNpRK7">
-							<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-neutral-800 dark:hover:bg-white text-white hover:text-red-500 dark:hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-[18px]">
+							<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-neutral-800 dark:hover:bg-white text-white hover:text-red-500 dark:hover:text-red-600 origin-bottom cursor-pointer w-12 h-12 p-[14px] md:w-16 md:h-16 md:p-[18px]">
 								<FaMapMarkerAlt className="h-full w-full" />
 							</div>
 						</a>
-						<p className="font-semibold pt-2">Directions</p>
+						<p className="font-semibold pt-2 md:text-base text-xs">Directions</p>
 					</div>
 					<div className="flex flex-col items-center">
 						<Link href="/calendar">
-							<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-neutral-800 dark:hover:bg-white text-white hover:text-red-500 dark:hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-[18px]">
+							<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-neutral-800 dark:hover:bg-white text-white hover:text-red-500 dark:hover:text-red-600 origin-bottom cursor-pointer w-12 h-12 p-[14px] md:w-16 md:h-16 md:p-[18px]">
 								<BsCalendar2WeekFill className="h-full w-full" />
 							</div>
 						</Link>
-						<p className="font-semibold pt-2">Calendar</p>
+						<p className="font-semibold pt-2 md:text-base text-xs">Calendar</p>
+					</div>
+					<div className="flex flex-col items-center">
+						<Link href="https://lunch.mbhs.edu">
+							<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-neutral-800 dark:hover:bg-white text-white hover:text-red-500 dark:hover:text-red-600 origin-bottom cursor-pointer w-12 h-12 p-[14px] md:w-16 md:h-16 md:p-[18px]">
+								<MdLunchDining className="h-full w-full" />
+							</div>
+						</Link>
+						<p className="font-semibold pt-2 md:text-base text-xs">Lunch</p>
 					</div>
 				</div>
-				<div className="flex justify-center pt-4 md:pt-6 gap-10 text-black dark:text-white">
+				{/* <div className="flex justify-center pt-4 gap-10 text-black dark:text-white">
 					<p className="font-extrabold">{getEvenOdd(dates)}</p>
-				</div>
-				<div className="pt-6 flex flex-col items-center gap-3">
+				</div> */}
+				<div className="pt-4 flex flex-col items-center gap-3">
 					{news
 						.filter(({ attributes: { rank } }) => rank <= 5)
 						.map(({ attributes: { title, description, image, link } }, i) => (
