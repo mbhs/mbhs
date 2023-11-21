@@ -10,7 +10,7 @@ docker build . -t mbhs --no-cache
 
 docker stop $old_container
 
-docker run -d -p 3000:3000 mbhs --restart unless-stopped
+docker run -d -p 3000:3000 mbhs #--restart unless-stopped
 
 docker rm $old_container
 
