@@ -364,7 +364,7 @@ export default function Home({
 					<div className="absolute inset-0 md:bg-opacity-0 md:opacity-100 md:bg-gradient-to-r from-white dark:from-black to-transparent h-full" />
 				</div>
 			</div>
-			{!sco && (
+			{/* {!sco && (
 				<motion.div
 					layoutId="bigdiv"
 					onClick={() => setSCO(true)}
@@ -424,7 +424,7 @@ export default function Home({
 						))}
 					</div>
 				</motion.div>
-			)}
+			)} */}
 			<div className="absolute right-0 top-0 h-[80vh]">
 				<div className="relative h-full">
 					<button
