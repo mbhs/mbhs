@@ -26,6 +26,7 @@ export default function App({ Component, pageProps }: AppProps) {
 				<title>Montgomery Blair High School</title>
 				<meta name="description" content="Montgomery Blair High School" />
 				<link rel="icon" href="/assets/favicon.svg" />
+				<script defer data-domain="mbhs.edu" src="https://plausible.mbhs.edu/js/plausible.js"></script>
 			</Head>
 			<>
 				{dark && (

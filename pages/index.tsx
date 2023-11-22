@@ -16,6 +16,7 @@ import { FaPlay, FaPause } from "react-icons/fa";
 import { Event, New, HomePage } from "../lib/types";
 import Markdown from "../components/Markdown";
 import Link from "next/link";
+import { makeDates, getEvenOdd } from "./calendar/evenodd";
 import { TbMapPin } from "react-icons/tb";
 import { FaRegEye, FaChevronLeft } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
@@ -62,6 +63,12 @@ export async function getStaticProps() {
 		"https://strapi.mbhs.edu/api/home-page?populate=*"
 	).then((res) => res.json());
 
+	let scheduleDays = await fetch(
+        "https://strapi.mbhs.edu/api/evenodd?populate=*"
+    ).then((res) => res.json());
+
+  const stored: { [key: string]: number } = makeDates(scheduleDays!.data)
+  
 	let scoMeta = await fetch("https://silverchips.mbhs.edu/mbhssite").then(
 		(res) => res.json()
 	);
@@ -71,6 +78,7 @@ export async function getStaticProps() {
 			events: events.data,
 			news: news.data,
 			meta: meta.data,
+			dates: stored,
 			scoMeta: scoMeta.data,
 		},
 		revalidate: 60,
@@ -111,7 +119,8 @@ interface IndexProps {
 	events: Event[];
 	news: New[];
 	meta: HomePage;
-	scoMeta: SCO[];
+	dates: { [key: string]: number };
+  scoMeta: SCO[];
 	dark: boolean;
 }
 
@@ -119,6 +128,7 @@ export default function Home({
 	events,
 	news,
 	meta,
+  dates,
 	scoMeta,
 	dark,
 }: IndexProps) {
@@ -157,7 +167,10 @@ export default function Home({
 				</h3>
 				<h3 className="md:text-xl">Home of the Blazers</h3>
 				<h3 className="md:text-xl italic">Crescens Scientia</h3>
-				<div className="flex justify-center pt-6 md:pt-10 gap-10 text-black dark:text-white">
+				{ /* <div className="flex justify-center pt-4 md:pt-8 gap-10 text-black dark:text-white">
+					<p className="font-extrabold">{getEvenOdd(dates)}</p>
+				</div> */ }
+				<div className="flex justify-center pt-2 md:pt-4 gap-10 text-black dark:text-white">
 					<div className="flex flex-col items-center">
 						<Link href="/resources">
 							<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-neutral-800 dark:hover:bg-white text-white hover:text-red-500 dark:hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-[18px]">
@@ -188,6 +201,9 @@ export default function Home({
 						</Link>
 						<p className="font-semibold pt-2">Calendar</p>
 					</div>
+				</div>
+				<div className="flex justify-center pt-4 md:pt-6 gap-10 text-black dark:text-white">
+					<p className="font-extrabold">{getEvenOdd(dates)}</p>
 				</div>
 				<div className="pt-6 flex flex-col items-center gap-3">
 					{news

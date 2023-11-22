@@ -376,8 +376,8 @@ export default function Nav({
 						/>
 					</span>
 				</Link>
-				<div className="hidden -mt-1 md:flex flex-col">
-					<div className="flex flex-row md:gap-2">
+				<div className="hidden -mt-1 lg:flex flex-col">
+					<div className="flex flex-row lg:gap-2">
 						{data
 							?.filter(function qlink(obj) {
 								return !obj.attributes.quicklink;
@@ -449,7 +449,7 @@ export default function Nav({
 						</button>
 					</div>
 				</div>
-				<div className="flex md:hidden">
+				<div className="flex lg:hidden">
 					<GiHamburgerMenu
 						className={`text-white active:bg-red-700 scale-[2.0] mr-3 transition-all duration-300 hover:scale-[2.5] opacity-${
 							mobileNav ? 0 : 1
