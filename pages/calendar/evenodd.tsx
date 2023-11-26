@@ -51,7 +51,7 @@ export function previousDay(date: Date, stored: { [key: string]: number }): Date
 
 export function nextDay(date: Date, stored: { [key: string]: number }): {date: Date, type: number} { //Assume stored is filled out for all school days
     let day;
-    if (date.getDay() === 5) {
+    if (date.getDay() === 5 || date.getDay() === 6) {
         day = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 3)
     } else {
         day = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1)
