@@ -18,6 +18,17 @@ export async function getStaticProps() {
 		}
 	});
 
+	// sort the resource teachers alphabetically
+	admin.data.attributes.resources.data.sort((a, b) => {
+		if (a.attributes.name < b.attributes.name) {
+			return -1;
+		} else if (a.attributes.name > b.attributes.name) {
+			return 1;
+		} else {
+			return 0;
+		}
+	});
+
 	// sort the staff by rank
 	admin.data.attributes.admin.data.sort((a, b) => {
 		if (a.attributes.rank != null && b.attributes.rank == null) {
