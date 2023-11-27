@@ -240,7 +240,7 @@ export default function department({ department }: DepartmentsProps) {
 					</Link>
 				</h2>
 
-				<ul className="list-disc list-inside py-3">
+				<ul className="ml-3 py-3">
 					{department.attributes.staff.data.map((s, i) => (
 						<li>
 							<motion.div
