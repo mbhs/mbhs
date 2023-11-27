@@ -3,6 +3,7 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
+import Snow from "../components/Snow";
 import Head from "next/head";
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -36,6 +37,7 @@ export default function App({ Component, pageProps }: AppProps) {
 						}
 					`}</style>
 				)}
+				<Snow />
 				<Nav setDark={setDark} dark={dark} />
 				<Component {...pageProps} dark={dark} />
 			</>
