@@ -5,9 +5,9 @@ export default function Snow() {
 
   useEffect(() => {
     const svg = svgRef.current;
-    const numParticles = 50;
+    const numParticles = 100;
     //const colors = ['rgb(255,255,255)', 'rgb(255,255,255)', 'rgb(255,255,255)'];
-
+    const startSnow = () => {
     for (let i = 0; i < numParticles; i++) {
       const particle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
       //const color = colors[Math.floor(Math.random() * colors.length)];
@@ -29,9 +29,12 @@ export default function Snow() {
       );
       svg?.appendChild(particle);
     }
-  }, []);
+  };
+  const timeout = setTimeout(startSnow, 0);
 
+  return () => clearTimeout(timeout);
+}, []);
   return (
-    <svg ref={svgRef} width="100vw" height="100vh" style={{ overflow: 'hidden'}} className="fixed top-0 left-0 bg-transparent" />
+    <svg ref={svgRef} width="100vw" height="100vh" style={{ overflow: 'hidden'}} className="fixed top-0 left-0 bg-transparent animate-fadeIn" />
   );
 }
