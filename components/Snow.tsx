@@ -35,6 +35,6 @@ export default function Snow() {
   return () => clearTimeout(timeout);
 }, []);
   return (
-    <svg ref={svgRef} width="100vw" height="100vh" style={{ overflow: 'hidden'}} className="fixed top-0 left-0 bg-transparent animate-fadeIn" />
+    <svg ref={svgRef} width="100vw" height="100vh" style={{ overflow: 'hidden' , pointerEvents: 'none'}} className="fixed top-0 left-0 bg-transparent animate-fadeIn" />
   );
 }

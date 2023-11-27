@@ -37,11 +37,12 @@ export default function App({ Component, pageProps }: AppProps) {
 						}
 					`}</style>
 				)}
-				<Snow />
+				
 				<Nav setDark={setDark} dark={dark} />
 				<Component {...pageProps} dark={dark} />
 			</>
 			<Footer />
+			<Snow />
 		</div>
 	);
 }
