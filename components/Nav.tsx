@@ -9,6 +9,7 @@ import { CiDark, CiLight } from "react-icons/ci";
 import { BsFillSunFill, BsFillMoonFill } from "react-icons/bs";
 import { BiCaretDown } from "react-icons/bi";
 import { Link as LinkType } from "../lib/types";
+import Hamburger from "hamburger-react";
 
 let backupPull: LinkType[] = [
 	//updated on 5/17/2023
@@ -434,7 +435,11 @@ export default function Nav({
 											return obj.attributes.quicklink;
 										})
 										.map(({ attributes: { name, link, quicklink } }, i) => (
-											<Link href={link} key={i} className="text-lg py-1 hover:opacity-70">
+											<Link
+												href={link}
+												key={i}
+												className="text-lg py-1 hover:opacity-70"
+											>
 												{name}
 											</Link>
 										))}
@@ -450,28 +455,18 @@ export default function Nav({
 					</div>
 				</div>
 				<div className="flex lg:hidden">
-					<GiHamburgerMenu
-						className={`text-white active:bg-red-700 scale-[2.0] mr-3 transition-all duration-300 hover:scale-[2.5] opacity-${
-							mobileNav ? 0 : 1
-						}`}
-						onClick={() => {
-							setMobileNav(true),
-								setNavbarClass(["", "bg-red-700 fixed"]),
-								(document.body.style.overflow = "hidden");
-						}}
-					/>
+					<div className="text-white z-50">
+						<Hamburger
+							toggled={mobileNav}
+							toggle={() => setMobileNav((prev) => !prev)}
+						/>
+					</div>
 					<motion.div
 						initial={mobileSideBarAnimate.exit}
 						animate={mobileNav ? "enter" : "exit"}
 						variants={mobileSideBarAnimate}
 						className="fixed w-full h-full top-0 right-0"
 					>
-						<SlClose
-							className="text-white sm:flex active:bg-red-700 scale-[2.0] fixed top-5 sm:top-6 right-8 transition-all duration-300 hover:scale-[2.5]"
-							onClick={() => {
-								setMobileNav(false), (document.body.style.overflow = "");
-							}}
-						/>
 						<div
 							className="opacity-0 w-1/6 sm:w-full"
 							onTouchStart={() => {
