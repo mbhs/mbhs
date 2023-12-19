@@ -7,16 +7,21 @@ import Head from "next/head";
 
 export default function App({ Component, pageProps }: AppProps) {
 	const [dark, setDark] = useState(true);
+	const [lang, setLang] = useState("en");
 
 	useEffect(() => {
 		if (localStorage.getItem("theme") === "light") {
 			setDark(false);
 		}
+		if (localStorage.getItem("lang")) {
+			setLang(localStorage.getItem("lang") || "en");
+		}
 	}, []);
 
 	useEffect(() => {
 		localStorage.setItem("theme", dark ? "dark" : "light");
-	}, [dark]);
+		localStorage.setItem("lang", lang);
+	}, [dark, lang]);
 
 	return (
 		<div
@@ -36,7 +41,7 @@ export default function App({ Component, pageProps }: AppProps) {
 						}
 					`}</style>
 				)}
-				<Nav setDark={setDark} dark={dark} />
+				<Nav setDark={setDark} dark={dark} lang={lang} setLang={setLang}/>
 				<Component {...pageProps} dark={dark} />
 			</>
 			<Footer />

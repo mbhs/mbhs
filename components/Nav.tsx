@@ -10,6 +10,7 @@ import { BsFillSunFill, BsFillMoonFill } from "react-icons/bs";
 import { BiCaretDown } from "react-icons/bi";
 import { Link as LinkType } from "../lib/types";
 import Hamburger from "hamburger-react";
+import { useRouter } from "next/router";
 
 let backupPull: LinkType[] = [
 	//updated on 5/17/2023
@@ -198,9 +199,13 @@ let backupPull: LinkType[] = [
 export default function Nav({
 	setDark,
 	dark,
+	setLang,
+	lang,
 }: {
 	setDark: React.Dispatch<React.SetStateAction<boolean>>;
 	dark: boolean;
+	setLang: React.Dispatch<React.SetStateAction<string>>;
+	lang: string;
 }) {
 	const [scrollPosition, setScrollPosition] = useState(0);
 	const [scrollDir, setScrollDir] = useState(0);
@@ -211,6 +216,8 @@ export default function Nav({
 	const [data, setData] = useState<LinkType[]>();
 
 	const quickLinkButton = useRef<HTMLButtonElement>(null);
+
+	const { push, pathname } = useRouter();
 
 	const fetchLinks = async () => {
 		// fetch data from strapi
@@ -451,6 +458,12 @@ export default function Nav({
 							onClick={() => setDark((prev: boolean) => !prev)}
 						>
 							{dark ? <BsFillSunFill /> : <BsFillMoonFill />}
+						</button>
+						<button
+							className="p-2 rounded-lg bg-black bg-opacity-20 hover:bg-opacity-25 text-white"
+							onClick={() => {setLang((lang === "en" ? "es" : "en")), push(pathname.replace(pathname.includes("/en/") ? "/en/" : "/es/", pathname.includes("/en/") ? "/es/" : "/en/"))}}
+						>
+							{(lang === "en" ? "es" : "en")}
 						</button>
 					</div>
 				</div>
