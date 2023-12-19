@@ -1,7 +1,7 @@
 import Calendar from 'react-calendar'
 import styled from 'styled-components'
 import 'react-calendar/dist/Calendar.css'
-import { Days, Day } from '../../lib/types'
+import { Days, Day } from '../../../lib/types'
 
 //This, and several other types/functions are exported because they might be used in other files.
 export const dayType: { [key: string]: number } = {

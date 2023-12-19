@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
-import { AboutPage } from "../lib/types";
-import Markdown from "../components/Markdown";
+import { AboutPage } from "../../lib/types";
+import Markdown from "../../components/Markdown";
 import ReactMarkdown from "react-markdown";
 
 export async function getStaticProps() {

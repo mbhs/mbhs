@@ -1,6 +1,6 @@
 import React from "react";
-import { Department } from "../../lib/types";
-import Markdown from "../../components/Markdown";
+import { Department } from "../../../lib/types";
+import Markdown from "../../../components/Markdown";
 import Link from "next/link";
 
 export async function getStaticProps() {

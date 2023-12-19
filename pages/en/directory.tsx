@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Staff, Department } from "../lib/types";
+import { Staff, Department } from "../../lib/types";
 import Link from "next/link";
 
 interface StaffMember {

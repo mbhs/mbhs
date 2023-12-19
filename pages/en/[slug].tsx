@@ -1,7 +1,7 @@
 import React from "react";
-import { Page } from "../lib/types";
+import { Page } from "../../lib/types";
 import { GetStaticPaths, GetStaticPropsContext } from "next";
-import Markdown from "../components/Markdown";
+import Markdown from "../../components/Markdown";
 
 export const getStaticPaths: GetStaticPaths = async () => {
 	//gets all pages

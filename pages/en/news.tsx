@@ -1,5 +1,5 @@
-import { New } from "../lib/types";
-import Markdown from "../components/Markdown";
+import { New } from "../../lib/types";
+import Markdown from "../../components/Markdown";
 
 interface NewsProps {
 	news: New[];

@@ -13,8 +13,8 @@ import {
 } from "react-icons/bs";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { FaPlay, FaPause } from "react-icons/fa";
-import { Event, New, HomePage } from "../lib/types";
-import Markdown from "../components/Markdown";
+import { Event, New, HomePage } from "../../lib/types";
+import Markdown from "../../components/Markdown";
 import Link from "next/link";
 import { makeDates, getEvenOdd } from "./calendar/evenodd";
 import { TbMapPin } from "react-icons/tb";

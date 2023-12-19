@@ -1,7 +1,7 @@
 import { GetStaticPropsContext } from "next";
 import React from "react";
-import { Department, Staff } from "../../lib/types";
-import Markdown from "../../components/Markdown";
+import { Department, Staff } from "../../../lib/types";
+import Markdown from "../../../components/Markdown";
 import { GetStaticPaths } from "next";
 import Link from "next/link";
 import { motion } from "framer-motion";

@@ -1,5 +1,5 @@
 import React from "react";
-import { Admin as AdminType } from "../../lib/types";
+import { Admin as AdminType } from "../../../lib/types";
 
 export async function getStaticProps() {
 	//get the admin department

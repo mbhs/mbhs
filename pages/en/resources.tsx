@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { Resource } from "../lib/types";
+import { Resource } from "../../lib/types";
 
 export async function getStaticProps() {
 	let student = await fetch("https://strapi.mbhs.edu/api/resources?filters[student]=[$true]&sort=rank:ASC&sort=name:ASC").then(

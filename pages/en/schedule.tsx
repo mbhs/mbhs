@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Schedule as ScheduleType, BusRoute } from "../lib/types";
+import { Schedule as ScheduleType, BusRoute } from "../../lib/types";
 
 export async function getStaticProps() {
 	//gets all events that are ending today or later and sorts them by date
