@@ -10,7 +10,7 @@ import { BsFillSunFill, BsFillMoonFill } from "react-icons/bs";
 import { BiCaretDown } from "react-icons/bi";
 import { Link as LinkType } from "../lib/types";
 import Hamburger from "hamburger-react";
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
 
 let backupPull: LinkType[] = [
 	//updated on 5/17/2023
@@ -372,7 +372,7 @@ export default function Nav({
 				className={`h-16 sm:h-20 z-20 w-full ${navbarClass[1]} px-3 md:px-8 flex flex-wrap items-center justify-between mx-auto`}
 			>
 				<Link
-					href="/"
+					href={`/${lang}`}
 					className="flex -mt-1 z-10 items-center"
 					onClick={() => setMobileNav(false)}
 				>
@@ -403,7 +403,7 @@ export default function Nav({
 								>
 									<Link
 										key={name + "TopBar"}
-										href={link}
+										href={link.startsWith("/") ? `/${lang}`+link : link}
 										className="block py-1 px-2 text-white hover:underline underline-offset-[6px] transition-all duration-300 ease-in-out"
 									>
 										{name}
@@ -443,7 +443,7 @@ export default function Nav({
 										})
 										.map(({ attributes: { name, link, quicklink } }, i) => (
 											<Link
-												href={link}
+											href={link.startsWith("/") ? `/${lang}`+link : link}
 												key={i}
 												className="text-lg py-1 hover:opacity-70"
 											>
@@ -494,7 +494,7 @@ export default function Nav({
 								<div className="flex flex-col gap-y-1">
 									<Link
 										key={i}
-										href={link}
+										href={link.startsWith("/") ? `/${lang}`+link : link}
 										onClick={() => {
 											setMobileNav(false), (document.body.style.overflow = "");
 										}}

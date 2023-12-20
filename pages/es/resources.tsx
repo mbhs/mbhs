@@ -3,15 +3,15 @@ import Link from "next/link";
 import { Resource } from "../../lib/types";
 
 export async function getStaticProps() {
-	let student = await fetch("https://strapi.mbhs.edu/api/resources?filters[student]=[$true]&sort=rank:ASC&sort=name:ASC").then(
+	let student = await fetch("https://strapi.mbhs.edu/api/resources?filters[student]=[$true]&sort=rank:ASC&sort=name:ASC&locale=es").then(
 		(res) => res.json()
 	);
 
-	let staff = await fetch("https://strapi.mbhs.edu/api/resources?filters[staff]=[$true]&sort=rank:ASC&sort=name:ASC").then(
+	let staff = await fetch("https://strapi.mbhs.edu/api/resources?filters[staff]=[$true]&sort=rank:ASC&sort=name:ASC&locale=es").then(
 		(res) => res.json()
 	);
 
-	let parent = await fetch("https://strapi.mbhs.edu/api/resources?filters[parent]=[$true]&sort=rank:ASC&sort=name:ASC").then(
+	let parent = await fetch("https://strapi.mbhs.edu/api/resources?filters[parent]=[$true]&sort=rank:ASC&sort=name:ASC&locale=es").then(
 		(res) => res.json()
 	);
 

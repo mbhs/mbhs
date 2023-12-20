@@ -4,7 +4,7 @@ import { Admin as AdminType } from "../../../lib/types";
 export async function getStaticProps() {
 	//get the admin department
 	let admin: { data: AdminType } = await fetch(
-		`https://strapi.mbhs.edu/api/admin?populate[0]=admin.image&populate[1]=resources.image&populate[2]=other.image`
+		`https://strapi.mbhs.edu/api/admin?populate[0]=admin.image&populate[1]=resources.image&populate[2]=other.image&locale=es`
 	).then((res) => res.json());
 
 	// sort the staff alphabetically

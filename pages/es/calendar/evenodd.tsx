@@ -355,7 +355,7 @@ abbr {
 
 export async function getStaticProps() {
     let days = await fetch(
-        "https://strapi.mbhs.edu/api/evenodd?pagination[pageSize]=3&populate=*"
+        "https://strapi.mbhs.edu/api/evenodd?pagination[pageSize]=3&populate=*&locale=es"
     ).then((res) => res.json());
 
     const stored: { [key: string]: number } = makeDates(days!.data)

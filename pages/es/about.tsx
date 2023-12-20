@@ -7,7 +7,7 @@ import ReactMarkdown from "react-markdown";
 
 export async function getStaticProps() {
 	let meta = await fetch(
-		"https://strapi.mbhs.edu/api/about-page?populate=*"
+		"https://strapi.mbhs.edu/api/about-page?populate=*&locale=es"
 	).then((res) => res.json());
 
 	return {

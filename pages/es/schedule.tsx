@@ -10,11 +10,11 @@ export async function getStaticProps() {
 		.join("-");
 
 	let events = await fetch(
-		`https://strapi.mbhs.edu/api/schedules?sort=rank:ASC`
+		`https://strapi.mbhs.edu/api/schedules?sort=rank:ASC&locale=es`
 	).then((res) => res.json());
 
 	let routes = await fetch(
-		`https://strapi.mbhs.edu/api/bus-route?populate=*`
+		`https://strapi.mbhs.edu/api/bus-route?populate=*&locale=es`
 	).then((res) => res.json());
 
 	return {

@@ -6,7 +6,7 @@ import Link from "next/link";
 export async function getStaticProps() {
 	//gets all departments
 	let departments = await fetch(
-		`https://strapi.mbhs.edu/api/departments?sort=rank:ASC&sort=name:ASC&populate=*&filters[page][$eq]=true&fields[0]=name&fields[1]=slug&fields[2]=overrideLink`
+		`https://strapi.mbhs.edu/api/departments?sort=rank:ASC&sort=name:ASC&populate=*&filters[page][$eq]=true&fields[0]=name&fields[1]=slug&fields[2]=overrideLink&locale=es`
 	).then((res) => res.json());
 	return {
 		props: {

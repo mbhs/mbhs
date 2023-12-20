@@ -15,11 +15,11 @@ export async function getStaticProps() {
 		.join("-");
 
 	let events = await fetch(
-		`https://strapi.mbhs.edu/api/events?filters[$or][0][endDate][$gte]=${today}&filters[$or][1][$and][0][endDate][$null]=true&filters[$or][1][$and][1][startDate][$gte]=${today}&sort=startDate:ASC&sort=startTime:ASC`
+		`https://strapi.mbhs.edu/api/events?filters[$or][0][endDate][$gte]=${today}&filters[$or][1][$and][0][endDate][$null]=true&filters[$or][1][$and][1][startDate][$gte]=${today}&sort=startDate:ASC&sort=startTime:ASC&locale=es`
 	).then((res) => res.json());
 
     let scheduleDays = await fetch(
-        "https://strapi.mbhs.edu/api/evenodd?populate=*"
+        "https://strapi.mbhs.edu/api/evenodd?populate=*&locale=es"
     ).then((res) => res.json());
 
     const stored: { [key: string]: number } = makeDates(scheduleDays!.data)

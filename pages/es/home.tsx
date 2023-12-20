@@ -44,27 +44,27 @@ export async function getStaticProps() {
 
 	console.log(todayStr, nextWeek);
 	let events = await fetch(
-		`https://strapi.mbhs.edu/api/events?filters[$or][0][endDate][$gte]=${todayStr}&filters[$or][1][$and][0][endDate][$null]=true&filters[$or][1][$and][1][startDate][$gte]=${todayStr}&filters[$and][3][startDate][$lte]=${nextWeek}&sort=startDate:ASC&sort=startTime:ASC&filters[important]=true`
+		`https://strapi.mbhs.edu/api/events?filters[$or][0][endDate][$gte]=${todayStr}&filters[$or][1][$and][0][endDate][$null]=true&filters[$or][1][$and][1][startDate][$gte]=${todayStr}&filters[$and][3][startDate][$lte]=${nextWeek}&sort=startDate:ASC&sort=startTime:ASC&filters[important]=true&locale=es`
 	).then((res) => res.json());
 
 	if (events!.meta.pagination.total < 3) {
 		events = await fetch(
-			`https://strapi.mbhs.edu/api/events?filters[startDate][$gte]=${todayStr}&sort=startDate:ASC&sort=startTime:ASC&filters[important]=true&pagination[pageSize]=3`
+			`https://strapi.mbhs.edu/api/events?filters[startDate][$gte]=${todayStr}&sort=startDate:ASC&sort=startTime:ASC&filters[important]=true&pagination[pageSize]=3&locale=es`
 		).then((res) => res.json());
 	}
 
 	console.log(events);
 
 	let news = await fetch(
-		`https://strapi.mbhs.edu/api/news?filters[$and][0][removeOn][$gte]=${todayStr}&filters[$and][1][$or][0][publishOn][$lte]=${todayStr}&filters[$and][1][$or][1][publishOn][$null]=true&populate=*&sort=rank:ASC`
+		`https://strapi.mbhs.edu/api/news?filters[$and][0][removeOn][$gte]=${todayStr}&filters[$and][1][$or][0][publishOn][$lte]=${todayStr}&filters[$and][1][$or][1][publishOn][$null]=true&populate=*&sort=rank:ASC&locale=es`
 	).then((res) => res.json());
 
 	let meta = await fetch(
-		"https://strapi.mbhs.edu/api/home-page?populate=*"
+		"https://strapi.mbhs.edu/api/home-page?populate=*&locale=es"
 	).then((res) => res.json());
 
 	let scheduleDays = await fetch(
-        "https://strapi.mbhs.edu/api/evenodd?populate=*"
+        "https://strapi.mbhs.edu/api/evenodd?populate=*&locale=es"
     ).then((res) => res.json());
 
   const stored: { [key: string]: number } = makeDates(scheduleDays!.data)
