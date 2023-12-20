@@ -4,6 +4,7 @@ import { Event } from "../../../lib/types";
 import Markdown from "../../../components/Markdown";
 import { AiOutlineClockCircle, AiOutlineCalendar } from "react-icons/ai";
 import { TbMapPin } from "react-icons/tb";
+import { useRouter } from "next/router";
 
 export async function getStaticProps() {
 	//gets all events that are ending today or later and sorts them by date
@@ -57,12 +58,13 @@ const changeSeason = (theMonth: string) => {
 	return theSeason;
 };
 export default function Calendar({ events }: CalendarProps) {
+	const { pathname } = useRouter();
 	return (
 		<div className="rounded-lg md:px-40 pb-10 dark:text-white">
 			<h1 className="text-2xl md:text-4xl font-bold text-center py-3 md:py-5">
 				Calendar
 			</h1>
-			<p className="text-center">A schedule of <a className="text-red-500 hover:underline underline-offset-2" href="/calendar/evenodd">odd/even days</a> is available here.</p>
+			<p className="text-center">A schedule of <a className="text-red-500 hover:underline underline-offset-2" href={`${pathname}/evenodd`}>odd/even days</a> is available here.</p>
 			<p className="text-center">A more detailed PDF of the school year schedule is <a className="text-red-500 hover:underline underline-offset-2" href="https://old.mbhs.edu/newsevents/Announcements/Calendar%202023-2024.pdf">available here</a>.</p>
 			<br/>
 			<div className="flex flex-col gap-3 px-5 sm:px-8 md:px-10 lg:px-16 xl:px-24">
