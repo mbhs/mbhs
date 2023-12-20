@@ -460,8 +460,8 @@ export default function Nav({
 							{dark ? <BsFillSunFill /> : <BsFillMoonFill />}
 						</button>
 						<button
-							className="px-2 rounded-lg bg-black bg-opacity-20 hover:bg-opacity-25 text-white"
-							onClick={() => {setLang((lang === "en" ? "es" : "en")), push(pathname.replace(pathname.includes("/en/") ? "/en/" : "/es/", pathname.includes("/en/") ? "/es/" : "/en/"))}}
+							className="p-2 rounded-lg bg-black bg-opacity-20 hover:bg-opacity-25 text-white"
+							onClick={() => {setLang((lang === "en" ? "es" : "en")), push(pathname.replace(pathname.startsWith("/en") ? "/en" : "/es", pathname.startsWith("/en") ? "/es" : "/en"))}}
 						>
 							{(lang === "en" ? "es" : "en")}
 						</button>
