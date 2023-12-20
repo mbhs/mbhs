@@ -17,9 +17,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 	};
 };
 
-export async function getStaticProps({ params }: GetStaticPropsContext) {
+export async function getStaticProps({ params, locale }: GetStaticPropsContext) {
 	//gets all pages
-	let pages = await fetch(`https://strapi.mbhs.edu/api/pages`).then((res) =>
+	let pages = await fetch(`https://strapi.mbhs.edu/api/pages?locale=${locale}`).then((res) =>
 		res.json()
 	);
 

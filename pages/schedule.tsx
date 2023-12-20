@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Schedule as ScheduleType, BusRoute } from "../lib/types";
+import { GetStaticPropsContext } from "next";
 
-export async function getStaticProps() {
+export async function getStaticProps({ locale }: GetStaticPropsContext) {
 	//gets all events that are ending today or later and sorts them by date
 	let today = new Date()
 		.toLocaleDateString("en-GB")
@@ -10,11 +11,11 @@ export async function getStaticProps() {
 		.join("-");
 
 	let events = await fetch(
-		`https://strapi.mbhs.edu/api/schedules?sort=rank:ASC`
+		`https://strapi.mbhs.edu/api/schedules?sort=rank:ASC&locale=${locale}`
 	).then((res) => res.json());
 
 	let routes = await fetch(
-		`https://strapi.mbhs.edu/api/bus-route?populate=*`
+		`https://strapi.mbhs.edu/api/bus-route?populate=*&locale=${locale}`
 	).then((res) => res.json());
 
 	return {

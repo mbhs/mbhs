@@ -1,11 +1,12 @@
 import { New } from "../lib/types";
 import Markdown from "../components/Markdown";
+import { GetStaticPropsContext } from "next";
 
 interface NewsProps {
 	news: New[];
 }
 
-export async function getStaticProps() {
+export async function getStaticProps({ locale }: GetStaticPropsContext) {
 	let today = new Date();
 	let todayStr = today
 		.toLocaleDateString("en-GB")
@@ -14,7 +15,7 @@ export async function getStaticProps() {
 		.join("-");
 
 	let news = await fetch(
-		`https://strapi.mbhs.edu/api/news?filters[$and][0][removeOn][$gte]=${todayStr}&filters[$and][1][$or][0][publishOn][$lte]=${todayStr}&filters[$and][1][$or][1][publishOn][$null]=true&populate=*&sort=rank:ASC`
+		`https://strapi.mbhs.edu/api/news?filters[$and][0][removeOn][$gte]=${todayStr}&filters[$and][1][$or][0][publishOn][$lte]=${todayStr}&filters[$and][1][$or][1][publishOn][$null]=true&populate=*&sort=rank:ASC&locale=${locale}`
 	).then((res) => res.json());
 
 	return {

@@ -4,8 +4,9 @@ import { Event } from "../../lib/types";
 import Markdown from "../../components/Markdown";
 import { AiOutlineClockCircle, AiOutlineCalendar } from "react-icons/ai";
 import { TbMapPin } from "react-icons/tb";
+import { GetStaticPropsContext } from "next";
 
-export async function getStaticProps() {
+export async function getStaticProps({ locale }: GetStaticPropsContext) {
 	//gets all events that are ending today or later and sorts them by date
 	let today = new Date()
 		.toLocaleDateString("en-GB")
@@ -14,7 +15,7 @@ export async function getStaticProps() {
 		.join("-");
 
 	let events = await fetch(
-		`https://strapi.mbhs.edu/api/events?filters[$or][0][endDate][$gte]=${today}&filters[$or][1][$and][0][endDate][$null]=true&filters[$or][1][$and][1][startDate][$gte]=${today}&pagination[pageSize]=1000&sort=startDate:ASC&sort=startTime:ASC`
+		`https://strapi.mbhs.edu/api/events?filters[$or][0][endDate][$gte]=${today}&filters[$or][1][$and][0][endDate][$null]=true&filters[$or][1][$and][1][startDate][$gte]=${today}&pagination[pageSize]=1000&sort=startDate:ASC&sort=startTime:ASC&locale=${locale}`
 	).then((res) => res.json());
 
 	return {

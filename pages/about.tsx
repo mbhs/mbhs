@@ -4,10 +4,11 @@ import { Carousel } from "react-responsive-carousel";
 import { AboutPage } from "../lib/types";
 import Markdown from "../components/Markdown";
 import ReactMarkdown from "react-markdown";
+import { GetStaticPropsContext } from "next";
 
-export async function getStaticProps() {
+export async function getStaticProps({ locale }: GetStaticPropsContext) {
 	let meta = await fetch(
-		"https://strapi.mbhs.edu/api/about-page?populate=*"
+		`https://strapi.mbhs.edu/api/about-page?populate=*&locale=${locale}`
 	).then((res) => res.json());
 
 	return {

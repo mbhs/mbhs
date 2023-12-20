@@ -2,11 +2,12 @@ import React from "react";
 import { Department } from "../../lib/types";
 import Markdown from "../../components/Markdown";
 import Link from "next/link";
+import { GetStaticPropsContext } from "next";
 
-export async function getStaticProps() {
+export async function getStaticProps({ locale }: GetStaticPropsContext) {
 	//gets all departments
 	let departments = await fetch(
-		`https://strapi.mbhs.edu/api/departments?sort=rank:ASC&sort=name:ASC&populate=*&filters[page][$eq]=true&fields[0]=name&fields[1]=slug&fields[2]=overrideLink`
+		`https://strapi.mbhs.edu/api/departments?sort=rank:ASC&sort=name:ASC&populate=*&filters[page][$eq]=true&fields[0]=name&fields[1]=slug&fields[2]=overrideLink&locale=${locale}`
 	).then((res) => res.json());
 	return {
 		props: {
