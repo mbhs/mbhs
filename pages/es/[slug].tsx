@@ -5,7 +5,7 @@ import Markdown from "../../components/Markdown";
 
 export const getStaticPaths: GetStaticPaths = async () => {
 	//gets all pages
-	let pages = await fetch(`https://strapi.mbhs.edu/api/pages&locale=es`).then((res) =>
+	let pages = await fetch(`https://strapi.mbhs.edu/api/pages?locale=es`).then((res) =>
 		res.json()
 	);
 
@@ -19,7 +19,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export async function getStaticProps({ params }: GetStaticPropsContext) {
 	//gets all pages
-	let pages = await fetch(`https://strapi.mbhs.edu/api/pages&locale=es`).then((res) =>
+	let pages = await fetch(`https://strapi.mbhs.edu/api/pages?locale=es`).then((res) =>
 		res.json()
 	);
 

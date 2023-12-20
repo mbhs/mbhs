@@ -10,7 +10,7 @@ import { IoClose } from "react-icons/io5";
 export const getStaticPaths: GetStaticPaths = async () => {
 	//gets all departments
 	let departments = await fetch(
-		`https://strapi.mbhs.edu/api/departments?sort=rank:ASC`
+		`https://strapi.mbhs.edu/api/departments?sort=rank:ASC&locale=es`
 	).then((res) => res.json());
 
 	// remove the Adminstration department
