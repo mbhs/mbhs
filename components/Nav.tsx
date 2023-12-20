@@ -372,7 +372,7 @@ export default function Nav({
 				className={`h-16 sm:h-20 z-20 w-full ${navbarClass[1]} px-3 md:px-8 flex flex-wrap items-center justify-between mx-auto`}
 			>
 				<Link
-					href={`/${lang}/home`}
+					href={`/${lang}`}
 					className="flex -mt-1 z-10 items-center"
 					onClick={() => setMobileNav(false)}
 				>
@@ -460,7 +460,7 @@ export default function Nav({
 							{dark ? <BsFillSunFill /> : <BsFillMoonFill />}
 						</button>
 						<button
-							className="p-2 rounded-lg bg-black bg-opacity-20 hover:bg-opacity-25 text-white"
+							className="px-2 rounded-lg bg-black bg-opacity-20 hover:bg-opacity-25 text-white"
 							onClick={() => {setLang((lang === "en" ? "es" : "en")), push(pathname.replace(pathname.includes("/en/") ? "/en/" : "/es/", pathname.includes("/en/") ? "/es/" : "/en/"))}}
 						>
 							{(lang === "en" ? "es" : "en")}

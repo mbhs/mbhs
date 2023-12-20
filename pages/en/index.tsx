@@ -44,27 +44,27 @@ export async function getStaticProps() {
 
 	console.log(todayStr, nextWeek);
 	let events = await fetch(
-		`https://strapi.mbhs.edu/api/events?filters[$or][0][endDate][$gte]=${todayStr}&filters[$or][1][$and][0][endDate][$null]=true&filters[$or][1][$and][1][startDate][$gte]=${todayStr}&filters[$and][3][startDate][$lte]=${nextWeek}&sort=startDate:ASC&sort=startTime:ASC&filters[important]=true&locale=es`
+		`https://strapi.mbhs.edu/api/events?filters[$or][0][endDate][$gte]=${todayStr}&filters[$or][1][$and][0][endDate][$null]=true&filters[$or][1][$and][1][startDate][$gte]=${todayStr}&filters[$and][3][startDate][$lte]=${nextWeek}&sort=startDate:ASC&sort=startTime:ASC&filters[important]=true`
 	).then((res) => res.json());
 
 	if (events!.meta.pagination.total < 3) {
 		events = await fetch(
-			`https://strapi.mbhs.edu/api/events?filters[startDate][$gte]=${todayStr}&sort=startDate:ASC&sort=startTime:ASC&filters[important]=true&pagination[pageSize]=3&locale=es`
+			`https://strapi.mbhs.edu/api/events?filters[startDate][$gte]=${todayStr}&sort=startDate:ASC&sort=startTime:ASC&filters[important]=true&pagination[pageSize]=3`
 		).then((res) => res.json());
 	}
 
 	console.log(events);
 
 	let news = await fetch(
-		`https://strapi.mbhs.edu/api/news?filters[$and][0][removeOn][$gte]=${todayStr}&filters[$and][1][$or][0][publishOn][$lte]=${todayStr}&filters[$and][1][$or][1][publishOn][$null]=true&populate=*&sort=rank:ASC&locale=es`
+		`https://strapi.mbhs.edu/api/news?filters[$and][0][removeOn][$gte]=${todayStr}&filters[$and][1][$or][0][publishOn][$lte]=${todayStr}&filters[$and][1][$or][1][publishOn][$null]=true&populate=*&sort=rank:ASC`
 	).then((res) => res.json());
 
 	let meta = await fetch(
-		"https://strapi.mbhs.edu/api/home-page?populate=*&locale=es"
+		"https://strapi.mbhs.edu/api/home-page?populate=*"
 	).then((res) => res.json());
 
 	let scheduleDays = await fetch(
-        "https://strapi.mbhs.edu/api/evenodd?populate=*&locale=es"
+        "https://strapi.mbhs.edu/api/evenodd?populate=*"
     ).then((res) => res.json());
 
   const stored: { [key: string]: number } = makeDates(scheduleDays!.data)
@@ -120,17 +120,19 @@ interface IndexProps {
 	news: New[];
 	meta: HomePage;
 	dates: { [key: string]: number };
-  scoMeta: SCO[];
+    scoMeta: SCO[];
 	dark: boolean;
+	lang: string;
 }
 
 export default function Home({
 	events,
 	news,
 	meta,
-  dates,
+    dates,
 	scoMeta,
 	dark,
+	lang,
 }: IndexProps) {
 	const [sound, setSound] = React.useState<boolean>(false);
 	const videoRef = React.useRef<HTMLVideoElement>(null);
@@ -172,7 +174,7 @@ export default function Home({
 				</div> */ }
 				<div className="flex justify-center pt-2 md:pt-4 gap-10 text-black dark:text-white">
 					<div className="flex flex-col items-center">
-						<Link href="/resources">
+						<Link href={`/${lang}/resources`}>
 							<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-neutral-800 dark:hover:bg-white text-white hover:text-red-500 dark:hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-[18px]">
 								<BsFillPeopleFill className="h-full w-full" />
 							</div>
@@ -194,7 +196,7 @@ export default function Home({
 						<p className="font-semibold pt-2">Directions</p>
 					</div>
 					<div className="flex flex-col items-center">
-						<Link href="/calendar">
+						<Link href={`/${lang}/calendar`}>
 							<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-neutral-800 dark:hover:bg-white text-white hover:text-red-500 dark:hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-[18px]">
 								<BsCalendar2WeekFill className="h-full w-full" />
 							</div>

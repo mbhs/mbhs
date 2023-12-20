@@ -42,7 +42,7 @@ export default function App({ Component, pageProps }: AppProps) {
 					`}</style>
 				)}
 				<Nav setDark={setDark} dark={dark} lang={lang} setLang={setLang}/>
-				<Component {...pageProps} dark={dark} />
+				<Component {...pageProps} dark={dark} lang={lang} />
 			</>
 			<Footer />
 		</div>
