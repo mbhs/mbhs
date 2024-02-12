@@ -7,21 +7,35 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { IoClose } from "react-icons/io5";
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
 	//gets all departments
-	let departments = await fetch(
-		`https://strapi.mbhs.edu/api/departments?sort=rank:ASC`
-	).then((res) => res.json());
+	let testDepartments: {[locale: string]: Department[]} = {}
+	for (const locale in locales) {
+		let departments = await fetch(
+			`https://strapi.mbhs.edu/api/departments?sort=rank:ASC&locale=${locale}`
+		).then((res) => res.json());
+	
+		// remove the Adminstration department
+		departments.data = departments.data.filter(
+			(d: Department) => d.attributes.name !== "Administration"
+		);
+		testDepartments[locale] = departments.data
+	}
 
-	// remove the Adminstration department
-	departments.data = departments.data.filter(
-		(d: Department) => d.attributes.name !== "Administration"
-	);
+	interface path {params: {slug: string}; locale: string};
+	let paths: path[] = []
+
+	for (const locale in locales) {
+		testDepartments[locale].forEach((d: Department) => {
+			paths.push({
+				params: {slug: d.attributes.slug},
+				locale: locale,
+			})
+		})
+	}
 
 	return {
-		paths: departments.data.map((d: Department) => ({
-			params: { slug: d.attributes.slug },
-		})),
+		paths: paths,
 		fallback: false,
 	};
 };
