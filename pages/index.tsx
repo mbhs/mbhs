@@ -165,7 +165,7 @@ export default function Home({
 	const [sco, setSCO] = React.useState<boolean>(false);
 
 	const { width, ref } = useObserveElementWidth<HTMLDivElement>();
-	const scroll = width && width < 330;
+	const scroll = width === 0 ? false : width < 330;
 	const circlesRef = React.useRef<HTMLDivElement>(null);
 
 	const togglePlayPause = () => {
