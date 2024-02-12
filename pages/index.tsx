@@ -21,6 +21,8 @@ import { TbMapPin } from "react-icons/tb";
 import { FaRegEye, FaChevronLeft } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { motion } from "framer-motion";
+import { BsInstagram } from "react-icons/bs";
+import { FiYoutube } from "react-icons/fi";
 import { MdLunchDining } from "react-icons/md";
 
 export async function getStaticProps() {
@@ -66,7 +68,11 @@ export async function getStaticProps() {
         "https://strapi.mbhs.edu/api/evenodd?populate=*"
     ).then((res) => res.json());
 
-    const stored: { [key: string]: number } = makeDates(scheduleDays!.data)
+  const stored: { [key: string]: number } = makeDates(scheduleDays!.data)
+  
+	let scoMeta = await fetch("https://silverchips.mbhs.edu/mbhssite").then(
+		(res) => res.json()
+	);
 
 	return {
 		props: {
@@ -74,6 +80,7 @@ export async function getStaticProps() {
 			news: news.data,
 			meta: meta.data,
 			dates: stored,
+			scoMeta: scoMeta.data,
 		},
 		revalidate: 60,
 	};
@@ -102,15 +109,30 @@ function getEmbed(url: string) {
 	}`;
 }
 
+interface SCO {
+	title: string;
+	description: string;
+	image: string;
+	link: string;
+}
+
 interface IndexProps {
 	events: Event[];
 	news: New[];
 	meta: HomePage;
 	dates: { [key: string]: number };
+  scoMeta: SCO[];
 	dark: boolean;
 }
 
-export default function Home({ events, news, meta, dates, dark }: IndexProps) {
+export default function Home({
+	events,
+	news,
+	meta,
+  dates,
+	scoMeta,
+	dark,
+}: IndexProps) {
 	const [sound, setSound] = React.useState<boolean>(false);
 	const videoRef = React.useRef<HTMLVideoElement>(null);
 	const [playing, setPlaying] = React.useState<boolean>(true);
@@ -345,64 +367,67 @@ export default function Home({ events, news, meta, dates, dark }: IndexProps) {
 					<div className="absolute inset-0 md:bg-opacity-0 md:opacity-100 md:bg-gradient-to-r from-white dark:from-black to-transparent h-full" />
 				</div>
 			</div>
-			{/* {!sco && (
+			{!sco && (
 				<motion.div
 					layoutId="bigdiv"
-					className="flex gap-2 items-center w-max absolute top-5 right-0 p-3 bg-red-600 text-white bg-opacity-50 backdrop-blur-md rounded-l-lg"
+					onClick={() => setSCO(true)}
+					className="cursor-pointer hidden gap-2 items-center w-max absolute md:top-5 scobl:top-16 top-32 scoh:flex right-0 p-3 bg-red-600 text-white bg-opacity-50 backdrop-blur-md rounded-l-lg"
 				>
-					<FaChevronLeft
-						onClick={() => setSCO(true)}
-						className="cursor-pointer"
-					/>{" "}
-					<motion.span layoutId="title" layout="preserve-aspect">Silver Chips Online</motion.span>
+					<FaChevronLeft />{" "}
+					<motion.span layoutId="title" layout="preserve-aspect">
+						Silver Chips Online
+					</motion.span>
 				</motion.div>
-			)} */}
-			{/* {sco && (
+			)}
+			{sco && (
 				<motion.div
 					layoutId="bigdiv"
-					className="w-max absolute top-5 right-0 p-3 bg-red-700 text-white bg-opacity-90 backdrop-blur-md rounded-l-lg"
+					className="w-full overflow-hidden md:w-max absolute left-0 md:left-auto md:top-5 top-16 right-0 p-3 bg-red-700 text-white bg-opacity-90 backdrop-blur-md rounded-l-lg"
 				>
 					<motion.span
 						layoutId="title"
 						layout="preserve-aspect"
-						className="font-bold flex items-center gap-2"
+						className="font-bold flex items-center justify-between"
 					>
-						<IoClose
-							className="h-5 w-5 cursor-pointer"
-							onClick={() => setSCO(false)}
-						/>{" "}
-						Silver Chips Online
+						<div className="flex items-center justify-center gap-2">
+							<IoClose
+								className="h-6 w-6 cursor-pointer"
+								onClick={() => setSCO(false)}
+							/>{" "}
+							<Link href="https://silverchips.mbhs.edu">
+								Silver Chips Online
+							</Link>
+						</div>
+
+						<div className="flex items-center justify-center gap-2">
+							<Link href="https://www.instagram.com/silverchips_online">
+								<BsInstagram className="h-5 w-5" />
+							</Link>
+							<Link href="https://www.youtube.com/@SilverChipsOnline">
+								<FiYoutube className="h-5 w-5" />
+							</Link>
+						</div>
 					</motion.span>
-					<div className="flex flex-col items-center pt-3 gap-3">
-						<div className="relative">
-							<div className="cursor-pointer flex items-center gap-2 justify-center h-full w-full absolute hover:bg-black rounded-lg z-10 opacity-0 hover:opacity-30 duration-300 transition-all">
-								<FaRegEye className="w-6 h-6" /> Read More
-							</div>
-							<img
-								className="border-2 border-black w-96 h-36 rounded-lg object-cover"
-								src="https://silverchips.mbhs.edu/uploads/images/2023/10/06/UniversityBlvd_Photo.heic.jpg"
-							/>
-							<p className="bottom-0 text-sm p-3 rounded-b-lg bg-black backdrop-blur-md bg-opacity-50 absolute">
-								Behind the Boulevard: A look into the upcoming University
-								Boulevard Corridor Plan
-							</p>
-						</div>
-						<div className="relative">
-							<div className="cursor-pointer flex items-center gap-2 justify-center h-full w-full absolute hover:bg-black rounded-lg z-10 opacity-0 hover:opacity-30 duration-300 transition-all">
-								<FaRegEye className="w-6 h-6" /> Read More
-							</div>
-							<img
-								className="border-2 border-black w-96 h-36 rounded-lg object-cover"
-								src="https://silverchips.mbhs.edu/uploads/images/2023/10/06/UniversityBlvd_Photo.heic.jpg"
-							/>
-							<p className="bottom-0 text-sm p-3 rounded-b-lg bg-black backdrop-blur-md bg-opacity-50 absolute">
-								Behind the Boulevard: A look into the upcoming University
-								Boulevard Corridor Plan
-							</p>
-						</div>
+					<div className="w-full flex flex-col items-center pt-3 gap-3">
+						{scoMeta.map((s: SCO) => (
+							<Link href={s.link} className="w-full">
+								<div className="relative">
+									<div className="cursor-pointer flex items-center gap-2 justify-center h-full w-full absolute hover:bg-black rounded-lg z-10 opacity-0 hover:opacity-30 duration-300 transition-all">
+										<FaRegEye className="w-6 h-6" /> Read More
+									</div>
+									<img
+										className="border-2 border-black w-full md:w-96 h-36 rounded-lg object-cover"
+										src={s.image}
+									/>
+									<p className="absolute bottom-0 border-2 border-black text-sm p-3 left-0 right-0 text-center rounded-b-lg bg-black backdrop-blur-md bg-opacity-50">
+										{s.title}
+									</p>
+								</div>
+							</Link>
+						))}
 					</div>
 				</motion.div>
-			)} */}
+			)}
 			<div className="absolute right-0 top-0 h-[80vh]">
 				<div className="relative h-full">
 					<button

@@ -10,7 +10,7 @@ export const dayType: { [key: string]: number } = {
     "no-school": 2,
     "all-period": 3,
     "special-schedule": 4,
-    "summer": 5
+    "weekend": 5,
 }
 
 export const reverseDayType: { [key: number]: string } = {
@@ -19,7 +19,7 @@ export const reverseDayType: { [key: number]: string } = {
     2: "no-school",
     3: "all-period",
     4: "special-schedule",
-    5: "summer"
+    5: "weekend",
 }
 
 export interface CalendarProps {
@@ -51,14 +51,17 @@ export function previousDay(date: Date, stored: { [key: string]: number }): Date
 
 export function nextDay(date: Date, stored: { [key: string]: number }): {date: Date, type: number} { //Assume stored is filled out for all school days
     let day;
-    if (date.getDay() === 5) {
+    if (date.getDay() === 5) { // Friday to Monday
         day = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 3)
-    } else {
+    }
+    else if (date.getDay() === 6) { // Saturday to Monday
+        day = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 2)
+    } else { // To next day
         day = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1)
     }
-    const today = stored[day.toDateString()]
-    if (today != null) {
-        if (today != dayType["odd"] && today != dayType["even"]) {
+    const tomorrowType = stored[day.toDateString()]
+    if (tomorrowType != null) {
+        if (tomorrowType === dayType["no-school"]) { // skip no-school days
             return nextDay(day, stored)
         }
     }
@@ -66,24 +69,37 @@ export function nextDay(date: Date, stored: { [key: string]: number }): {date: D
 }
 
 export function getEvenOdd(stored: { [key: string]: number }): string {
-    let today = new Date((new Date()).toLocaleString("en-US", { timeZone: "America/New_York" }));
-    if (today.getHours() + (today.getMinutes())/60 >= 15.5) {
-        const next = nextDay(today, stored)
-        /*if (next.type === dayType["even"]) { // for more specific formatting
+    const today: {date: Date, type: number} = {
+        date: new Date((new Date()).toLocaleString("en-US", { timeZone: "America/New_York" })), 
+        type: stored[(new Date((new Date()).toLocaleString("en-US", { timeZone: "America/New_York" }))).toDateString()]
+    };
+    const next = nextDay(today.date, stored);
 
-        } else if (next.type === dayType["odd"]) {
+    let day: {date: Date, type: number};
 
-        } else if (next.type === dayType["all-period"]) {
-
-        } */
-        if (next.type === dayType["summer"]) return "Have a great summer!"
-        return nextDay(today, stored).date.toLocaleDateString("en-US", {weekday: "long"}) + ", " + 
-                nextDay(today, stored).date.toLocaleDateString("en-US", {month: "long"}) + " " + nextDay(today, stored).date.getDate() +
-                " will be an " + reverseDayType[next.type].toUpperCase() + " day"
+    if (today.date.getDay() === 0 || today.date.getDay() === 6 || today.type === dayType["no-school"] || today.date.getHours() + (today.date.getMinutes())/60 >= 15.5) { //if weekend or after school or no school
+        day = nextDay(today.date, stored)
     } else {
-        return "Today is an " + reverseDayType[stored[today.toDateString()]].toUpperCase() + " day"
+        day = today
     }
-    return "error"
+
+    if (stored[today.date.toDateString()] == null) { //summer
+        if (stored[(new Date(today.date.getFullYear(), today.date.getMonth(), today.date.getDate() + 1)).toDateString()] != null)
+            return "Tomorrow is an " + reverseDayType[stored[(new Date(today.date.getFullYear(), today.date.getMonth(), today.date.getDate() + 1)).toDateString()]].toUpperCase() + " day"
+        return "Have a great summer!"
+    }
+    
+    if (day == today) { //today is an even/odd day and not after school
+        return "Today is an " + reverseDayType[today.type].toUpperCase() + " day"
+    }
+    
+    if (new Date(today.date.getFullYear(), today.date.getMonth(), today.date.getDate() + 1).toJSON() == day.date.toJSON()) { //next day is tomorrow
+        return "Tomorrow is an " + reverseDayType[day.type].toUpperCase() + " day"
+    }
+
+    return next.date.toLocaleDateString("en-US", {weekday: "long"}) + ", " + 
+        next.date.toLocaleDateString("en-US", {month: "long"}) + " " + next.date.getDate() +
+        " will be an " + reverseDayType[next.type].toUpperCase() + " day"
 }
 
 export function makeDates(days: Days): { [key: string]: number } {
@@ -91,10 +107,12 @@ export function makeDates(days: Days): { [key: string]: number } {
     
     let startDate = new Date(days.attributes.startDate)
     let utcStartDate = new Date(startDate.getTime() + startDate.getTimezoneOffset() * 60000)
+
     stored[utcStartDate.toDateString()] = dayType[days.attributes.startDateType];
+
+    let endDate = new Date(days.attributes.endDate)
+    let utcEndDate = new Date(endDate.getTime() + endDate.getTimezoneOffset() * 60000)
     if (days.attributes.endDateType != null) {
-        let endDate = new Date(days.attributes.endDate)
-        let utcEndDate = new Date(endDate.getTime() + endDate.getTimezoneOffset() * 60000)
         stored[utcEndDate.toDateString()] = dayType[days.attributes.endDateType];
     }
 
@@ -111,7 +129,8 @@ export function makeDates(days: Days): { [key: string]: number } {
         }
     })
 
-    for (let i = new Date(days.attributes.startDate); i <= new Date(days.attributes.endDate); i.setDate(i.getDate() + 1)) {
+    for (let i = utcStartDate; i <= utcEndDate; i.setDate(i.getDate() + 1)) {
+        if (i.getDay() === 0 || i.getDay() === 6) stored[i.toDateString()] = dayType["weekend"] //skip weekends
         if (stored[i.toDateString()] == null) { //if current day has no stored value
             let prev = stored[(previousDay(i, stored)).toDateString()] //previous even/odd day
             stored[i.toDateString()] = +!prev //set opposite
