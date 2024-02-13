@@ -37,7 +37,7 @@ export default function About({ meta }: AboutProps) {
 		<>
 			<div className="flex flex-col pb-10 dark:text-white">
 				<h1 className="text-2xl md:text-4xl text-center font-bold py-3 md:py-5">
-					About Blair
+					Acerca de Blair
 				</h1>
 				<div className="flex flex-wrap w-full px-5 md:px-12 lg:px-24 xl:px-48 2xl:px-60">
 					<img
