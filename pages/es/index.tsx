@@ -165,9 +165,9 @@ export default function Home({
 					Montgomery Blair High School
 				</h1>
 				<h3 className="md:text-xl pt-3">
-					Principal {meta.attributes.principal}
+					Directora {meta.attributes.principal}
 				</h3>
-				<h3 className="md:text-xl">Home of the Blazers</h3>
+				<h3 className="md:text-xl">El Hogar de los Blazers</h3>
 				<h3 className="md:text-xl italic">Crescens Scientia</h3>
 				{ /* <div className="flex justify-center pt-4 md:pt-8 gap-10 text-black dark:text-white">
 					<p className="font-extrabold">{getEvenOdd(dates)}</p>
