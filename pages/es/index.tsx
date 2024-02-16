@@ -179,7 +179,7 @@ export default function Home({
 								<BsFillPeopleFill className="h-full w-full" />
 							</div>
 						</Link>
-						<p className="font-semibold pt-2">Resources</p>
+						<p className="font-semibold pt-2">Recursos</p>
 					</div>
 					{/* <div className="flex flex-col items-center">
 						<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-white text-white hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-4">
@@ -193,7 +193,7 @@ export default function Home({
 								<FaMapMarkerAlt className="h-full w-full" />
 							</div>
 						</a>
-						<p className="font-semibold pt-2">Directions</p>
+						<p className="font-semibold pt-2">Indicaciones</p>
 					</div>
 					<div className="flex flex-col items-center">
 						<Link href={`/${lang}/calendar`}>
@@ -201,7 +201,7 @@ export default function Home({
 								<BsCalendar2WeekFill className="h-full w-full" />
 							</div>
 						</Link>
-						<p className="font-semibold pt-2">Calendar</p>
+						<p className="font-semibold pt-2">Calendario</p>
 					</div>
 				</div>
 				<div className="flex justify-center pt-4 md:pt-6 gap-10 text-black dark:text-white">
