@@ -39,7 +39,7 @@ export default function Resources({
 	return (
 		<div className="pb-10 dark:text-white">
 			<h1 className="text-2xl sm:text-2xl md:text-4xl text-center font-bold md:py-5 py-3">
-				Resources
+				Recursos
 			</h1>
 			<div className="w-full flex flex-col md:flex-row px-5 md:px-12 lg:px-24 space-y-4 lg:space-y-0 lg:space-x-4 justify-between text-md lg:text-lg">
 				<div className="md:w-1/3 rounded-lg text-black dark:text-white text-center p-2">

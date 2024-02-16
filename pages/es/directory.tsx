@@ -77,15 +77,15 @@ export default function Directory({ departments, staff }: DirectoryProps) {
 	return (
 		<div className="w-full px-5 sm:px-6 md:px-12 lg:px-24 xl:px-24">
 			<h1 className="text-2xl md:text-4xl text-center font-bold py-3 md:py-5 dark:text-white">
-				Staff Directory
+				Directorio de personal
 			</h1>
 			<p className="dark:text-white">
-				View the{" "}
+				Vea el{" "}
 				<a
 					href="https://ww2.montgomeryschoolsmd.org/directory/directory_Boxschool.aspx?processlevel=04757"
 					className="text-red-500 hover:underline underline-offset-2"
 				>
-					MCPS Directory
+					Directorio de MCPS
 				</a>
 			</p>
 			<div className="flex gap-3 flex-wrap justify-between items-center pb-5 pt-3">

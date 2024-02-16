@@ -38,7 +38,7 @@ function News({ news }: NewsProps) {
 	return (
 		<div className="pb-10 dark:text-white">
 			<h1 className="text-2xl md:text-4xl text-center font-bold py-3 md:py-5">
-				News
+				Noticias
 			</h1>
 
 			<div className="flex flex-col gap-3 px-5 sm:px-8 md:px-10 lg:px-16 xl:px-24">
