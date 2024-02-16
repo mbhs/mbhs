@@ -5,14 +5,25 @@ import Markdown from "../components/Markdown";
 
 export const getStaticPaths: GetStaticPaths = async () => {
 	//gets all pages
-	let pages = await fetch(`https://strapi.mbhs.edu/api/pages`).then((res) =>
+	let pagesEN = await fetch(`https://strapi.mbhs.edu/api/pages?locale=en`).then((res) =>
 		res.json()
 	);
 
+	let pagesES = await fetch(`https://strapi.mbhs.edu/api/pages?locale=es`).then((res) =>
+		res.json()
+	);
+
+	let paths = pagesEN.data.map((p: Page) => ({
+		params: { slug: p.attributes.slug },
+		locale: "en",
+	}))
+	.concat(pagesES.data.map((p: Page) => ({
+		params: { slug: p.attributes.slug },
+		locale: "es",
+	})));
+
 	return {
-		paths: pages.data.map((p: Page) => ({
-			params: { slug: p.attributes.slug },
-		})),
+		paths,
 		fallback: false,
 	};
 };

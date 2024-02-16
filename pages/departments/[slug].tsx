@@ -7,35 +7,36 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { IoClose } from "react-icons/io5";
 
-export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
+export const getStaticPaths: GetStaticPaths = async () => {
 	//gets all departments
-	let testDepartments: {[locale: string]: Department[]} = {}
-	for (const locale in locales) {
-		let departments = await fetch(
-			`https://strapi.mbhs.edu/api/departments?sort=rank:ASC&locale=${locale}`
-		).then((res) => res.json());
-	
-		// remove the Adminstration department
-		departments.data = departments.data.filter(
-			(d: Department) => d.attributes.name !== "Administration"
-		);
-		testDepartments[locale] = departments.data
-	}
+	let departmentsEN = await fetch(
+		`https://strapi.mbhs.edu/api/departments?sort=rank:ASC&locale=en`
+	).then((res) => res.json());
 
-	interface path {params: {slug: string}; locale: string};
-	let paths: path[] = []
+	let departmentsES = await fetch(
+		`https://strapi.mbhs.edu/api/departments?sort=rank:ASC&locale=es`
+	).then((res) => res.json());
 
-	for (const locale in locales) {
-		testDepartments[locale].forEach((d: Department) => {
-			paths.push({
-				params: {slug: d.attributes.slug},
-				locale: locale,
-			})
-		})
-	}
+	// remove the Adminstration department
+	departmentsEN.data = departmentsEN.data.filter(
+		(d: Department) => d.attributes.name !== "Administration"
+	);
+
+	departmentsES.data = departmentsES.data.filter(
+		(d: Department) => d.attributes.name !== "Administration"
+	);
+
+	let paths = departmentsEN.data.map((d: Department) => ({
+		params: { slug: d.attributes.slug },
+		locale: "en",
+	}))
+	.concat(departmentsES.data.map((d: Department) => ({
+		params: { slug: d.attributes.slug },
+		locale: "es",
+	})));
 
 	return {
-		paths: paths,
+		paths,
 		fallback: false,
 	};
 };

@@ -215,6 +215,7 @@ export default function Nav({
 	const quickLinkButton = useRef<HTMLButtonElement>(null);
 
 	let { locale, pathname } = useRouter();
+	const router = useRouter();
 
 	const fetchLinks = async () => {
 		// fetch data from strapi
@@ -456,7 +457,7 @@ export default function Nav({
 						>
 							{dark ? <BsFillSunFill /> : <BsFillMoonFill />}
 						</button>
-						<Link className="px-2 py-auto rounded-lg bg-black bg-opacity-20 hover:bg-opacity-25 text-white" href={pathname} locale={locale === "en" ? "es" : "en"}>
+						<Link className="px-2 py-auto rounded-lg bg-black bg-opacity-20 hover:bg-opacity-25 text-white" href={router.asPath} locale={locale === "en" ? "es" : "en"}>
 							{locale === "en" ? "es" : "en"}
 						</Link>
 					</div>
