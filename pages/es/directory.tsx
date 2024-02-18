@@ -97,7 +97,7 @@ export default function Directory({ departments, staff }: DirectoryProps) {
 						onChange={(e) => setSelectedDepartment(parseInt(e.target.value))}
 						className="block w-full bg-neutral-200 bg-opacity-20 dark:bg-neutral-900 dark:text-white border border-neutral-300 dark:border-neutral-700 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-red-600 sm:text-sm"
 					>
-						<option value="">All departments</option>
+						<option value="">Todos los Departamentos</option>
 						{departments.map(({ attributes: { name }, id }, i) => (
 							<option key={i} value={id}>
 								{name}
@@ -107,7 +107,7 @@ export default function Directory({ departments, staff }: DirectoryProps) {
 				</div>
 				<div className="w-full md:w-1/2 lg:w-2/3 flex items-center">
 					<label htmlFor="search-input" className="sr-only">
-						Search staff by name or title
+						Buscar personal por nombre o título
 					</label>
 					<input
 						id="search-input"

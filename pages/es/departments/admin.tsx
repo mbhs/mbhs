@@ -61,7 +61,7 @@ export default function Admin({ admin }: AdminProps) {
 	return (
 		<div className="pb-10 px-5 md:px-12 lg:px-24">
 			<h1 className="text-2xl md:text-4xl font-bold text-center py-3 md:py-5 md:pb-3 dark:text-white">
-				Administration
+				Administración
 			</h1>
 			<div className="flex gap-5 flex-wrap justify-center">
 				{admin.attributes.admin.data.map((s, i) => (

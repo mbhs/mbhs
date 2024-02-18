@@ -24,15 +24,15 @@ export default function Index({ departments }: DepartmentsProps) {
 	return (
 		<div className="pb-10 px-5 md:px-12 lg:px-24">
 			<h1 className="text-2xl md:text-4xl font-bold text-center py-3 md:py-5 md:pb-3 dark:text-white">
-				Departments
+				Departamentos	
 			</h1>
 			<p className="dark:text-white text-black text-center font-semibold pb-5">
-				View the{" "}
+				Vea las{" "}
 				<a
 					className="text-red-500 hover:underline underline-offset-2"
 					href="https://sites.google.com/a/mcpsmd.net/mbhs-academies"
 				>
-					Academies
+					Academias
 				</a>{" "}
 			</p>
 			<div className="flex-col flex md:flex-row flex-wrap justify-center gap-5">
