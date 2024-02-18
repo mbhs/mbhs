@@ -11,7 +11,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 	let paths = pagesEN.data.map((p: Page) => ({
 		params: { slug: p.attributes.slug },
-		locale: "en",
+		//locale: "en",
 	}))
 
 	if (process.env.I18N) {
