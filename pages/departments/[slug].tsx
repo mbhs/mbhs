@@ -23,7 +23,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 		//locale: "en",
 	}))
 
-	if (process.env.NO_I18N) {
+	if (!process.env.NO_I18N) {
 		let departmentsES = await fetch(
 			`https://strapi.mbhs.edu/api/departments?sort=rank:ASC&locale=es`
 		).then((res) => res.json());

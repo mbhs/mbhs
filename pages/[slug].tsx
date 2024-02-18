@@ -14,7 +14,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 		//locale: "en",
 	}))
 
-	if (process.env.NO_I18N) {
+	if (!process.env.NO_I18N) {
 		let pagesES = await fetch(`https://strapi.mbhs.edu/api/pages?locale=es`).then((res) =>
 			res.json()
 		);
