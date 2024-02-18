@@ -47,8 +47,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export async function getStaticProps({ params, locale }: GetStaticPropsContext) {
 	//gets all departments
 	let departments = await fetch(
-		`https://strapi.mbhs.edu/api/departments?populate[0]=image&[populate][1]=resource.image&populate[2]=staff.image&pagination[pageSize]=1000&locale=${locale}`
+		`https://strapi.mbhs.edu/api/departments?populate[0]=image&[populate][1]=resource.image&populate[2]=staff.image&pagination[pageSize]=1000`
 	).then((res) => res.json());
+
+	if (process.env.I18N) {
+		departments = await fetch(
+			`https://strapi.mbhs.edu/api/departments?populate[0]=image&[populate][1]=resource.image&populate[2]=staff.image&pagination[pageSize]=1000&locale=${locale}`
+		).then((res) => res.json());
+	}
 
 	let department = departments.data.find(
 		(d: Department) => d.attributes.slug === params?.slug

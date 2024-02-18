@@ -33,9 +33,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export async function getStaticProps({ params, locale }: GetStaticPropsContext) {
 	//gets all pages
-	let pages = await fetch(`https://strapi.mbhs.edu/api/pages?locale=${locale}`).then((res) =>
+	let pages = await fetch(`https://strapi.mbhs.edu/api/pages`).then((res) =>
 		res.json()
 	);
+	if (process.env.I18N) {
+		pages = await fetch(`https://strapi.mbhs.edu/api/pages?locale=${locale}`).then((res) =>
+			res.json()
+		);
+	}
 
 	let page = pages.data.find((p: Page) => p.attributes.slug === params?.slug);
 
