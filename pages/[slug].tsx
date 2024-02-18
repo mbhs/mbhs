@@ -9,18 +9,21 @@ export const getStaticPaths: GetStaticPaths = async () => {
 		res.json()
 	);
 
-	let pagesES = await fetch(`https://strapi.mbhs.edu/api/pages?locale=es`).then((res) =>
-		res.json()
-	);
-
 	let paths = pagesEN.data.map((p: Page) => ({
 		params: { slug: p.attributes.slug },
 		locale: "en",
 	}))
-	.concat(pagesES.data.map((p: Page) => ({
-		params: { slug: p.attributes.slug },
-		locale: "es",
-	})));
+
+	if (process.env.I18N) {
+		let pagesES = await fetch(`https://strapi.mbhs.edu/api/pages?locale=es`).then((res) =>
+			res.json()
+		);
+
+		paths = paths.concat(pagesES.data.map((p: Page) => ({
+			params: { slug: p.attributes.slug },
+			locale: "es",
+		})));
+	}
 
 	return {
 		paths,

@@ -457,9 +457,9 @@ export default function Nav({
 						>
 							{dark ? <BsFillSunFill /> : <BsFillMoonFill />}
 						</button>
-						<Link className="px-2 py-auto rounded-lg bg-black bg-opacity-20 hover:bg-opacity-25 text-white" href={router.asPath} locale={locale === "en" ? "es" : "en"}>
+						{process.env.I18N && <Link className="px-2 py-auto rounded-lg bg-black bg-opacity-20 hover:bg-opacity-25 text-white" href={router.asPath} locale={locale === "en" ? "es" : "en"}>
 							{locale === "en" ? "es" : "en"}
-						</Link>
+						</Link>}
 					</div>
 				</div>
 				<div className="flex lg:hidden">

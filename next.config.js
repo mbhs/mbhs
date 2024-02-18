@@ -6,6 +6,10 @@ const nextConfig = {
 		locales: ['en', 'es'],
 		defaultLocale: 'en',
 	},
+	/*i18n: process.env.I18N ? {
+		locales: ['en', 'es'],
+		defaultLocale: 'en',
+	} : undefined, */
 };
 
 module.exports = nextConfig;

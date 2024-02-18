@@ -13,27 +13,30 @@ export const getStaticPaths: GetStaticPaths = async () => {
 		`https://strapi.mbhs.edu/api/departments?sort=rank:ASC&locale=en`
 	).then((res) => res.json());
 
-	let departmentsES = await fetch(
-		`https://strapi.mbhs.edu/api/departments?sort=rank:ASC&locale=es`
-	).then((res) => res.json());
-
 	// remove the Adminstration department
 	departmentsEN.data = departmentsEN.data.filter(
 		(d: Department) => d.attributes.name !== "Administration"
 	);
 
-	departmentsES.data = departmentsES.data.filter(
-		(d: Department) => d.attributes.name !== "Administration"
-	);
-
 	let paths = departmentsEN.data.map((d: Department) => ({
 		params: { slug: d.attributes.slug },
-		locale: "en",
+		//locale: "en",
 	}))
-	.concat(departmentsES.data.map((d: Department) => ({
-		params: { slug: d.attributes.slug },
-		locale: "es",
-	})));
+
+	if (process.env.I18N) {
+		let departmentsES = await fetch(
+			`https://strapi.mbhs.edu/api/departments?sort=rank:ASC&locale=es`
+		).then((res) => res.json());
+
+		departmentsES.data = departmentsES.data.filter(
+			(d: Department) => d.attributes.name !== "Administration"
+		);
+
+		paths = paths.concat(departmentsES.data.map((d: Department) => ({
+			params: { slug: d.attributes.slug },
+			locale: "es",
+		})));
+	}
 
 	return {
 		paths,
