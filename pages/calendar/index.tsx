@@ -14,8 +14,9 @@ export async function getStaticProps({ locale }: GetStaticPropsContext) {
 		.reverse()
 		.join("-");
 
-	let events = await fetch(process.env.I18N ? `https://strapi.mbhs.edu/api/events?filters[$or][0][endDate][$gte]=${today}&filters[$or][1][$and][0][endDate][$null]=true&filters[$or][1][$and][1][startDate][$gte]=${today}&pagination[pageSize]=1000&sort=startDate:ASC&sort=startTime:ASC&locale=${locale}` :
-		`https://strapi.mbhs.edu/api/events?filters[$or][0][endDate][$gte]=${today}&filters[$or][1][$and][0][endDate][$null]=true&filters[$or][1][$and][1][startDate][$gte]=${today}&pagination[pageSize]=1000&sort=startDate:ASC&sort=startTime:ASC`
+	let events = await fetch(process.env.NO_I18N ? 
+		`https://strapi.mbhs.edu/api/events?filters[$or][0][endDate][$gte]=${today}&filters[$or][1][$and][0][endDate][$null]=true&filters[$or][1][$and][1][startDate][$gte]=${today}&pagination[pageSize]=1000&sort=startDate:ASC&sort=startTime:ASC` :
+		`https://strapi.mbhs.edu/api/events?filters[$or][0][endDate][$gte]=${today}&filters[$or][1][$and][0][endDate][$null]=true&filters[$or][1][$and][1][startDate][$gte]=${today}&pagination[pageSize]=1000&sort=startDate:ASC&sort=startTime:ASC&locale=${locale}`
 	).then((res) => res.json());
 
 	return {

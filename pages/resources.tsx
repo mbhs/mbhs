@@ -4,18 +4,21 @@ import { Resource } from "../lib/types";
 import { GetStaticPropsContext } from "next";
 
 export async function getStaticProps({ locale }: GetStaticPropsContext) {
-	let student = await fetch(process.env.I18N ? `https://strapi.mbhs.edu/api/resources?filters[student]=[$true]&sort=rank:ASC&sort=name:ASC&locale=${locale}` :
-			`https://strapi.mbhs.edu/api/resources?filters[student]=[$true]&sort=rank:ASC&sort=name:ASC`
+	let student = await fetch(process.env.NO_I18N ? 
+			`https://strapi.mbhs.edu/api/resources?filters[student]=[$true]&sort=rank:ASC&sort=name:ASC` :
+			`https://strapi.mbhs.edu/api/resources?filters[student]=[$true]&sort=rank:ASC&sort=name:ASC&locale=${locale}`
 		).then((res) => res.json()
 	);
 
-	let staff = await fetch(process.env.I18N ? `https://strapi.mbhs.edu/api/resources?filters[staff]=[$true]&sort=rank:ASC&sort=name:ASC&locale=${locale}` :
-			`https://strapi.mbhs.edu/api/resources?filters[staff]=[$true]&sort=rank:ASC&sort=name:ASC`
+	let staff = await fetch(process.env.NO_I18N ? 
+		`https://strapi.mbhs.edu/api/resources?filters[staff]=[$true]&sort=rank:ASC&sort=name:ASC` :
+		`https://strapi.mbhs.edu/api/resources?filters[staff]=[$true]&sort=rank:ASC&sort=name:ASC&locale=${locale}`
 		).then((res) => res.json()
 	);
 
-	let parent = await fetch(process.env.I18N ? `https://strapi.mbhs.edu/api/resources?filters[parent]=[$true]&sort=rank:ASC&sort=name:ASC&locale=${locale}` :
-			`https://strapi.mbhs.edu/api/resources?filters[parent]=[$true]&sort=rank:ASC&sort=name:ASC`
+	let parent = await fetch(process.env.NO_I18N ? 
+		`https://strapi.mbhs.edu/api/resources?filters[parent]=[$true]&sort=rank:ASC&sort=name:ASC` :
+		`https://strapi.mbhs.edu/api/resources?filters[parent]=[$true]&sort=rank:ASC&sort=name:ASC&locale=${locale}`
 		).then((res) => res.json()
 	);
 

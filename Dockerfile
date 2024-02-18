@@ -1,7 +1,6 @@
 FROM node:18-alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
-ENV I18N=true
 
 COPY package.json package-lock.json ./
 COPY next.config.js ./next.config.js
