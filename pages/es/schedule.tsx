@@ -50,10 +50,13 @@ export default function Schedule({
 	return (
 		<div className="px-5 sm:px-12 md:px-24 lg:px-36 xl:px-48 dark:text-white">
 			<h1 className="text-2xl md:text-4xl text-center font-bold py-3 md:py-5">
-				Horarios de autobuses y Rutas + Dejar Informaci�n
+				Horarios de autobuses y Rutas + Dejar Informaci�n
 			</h1>
 			<p>
-				Los horarios de los autobuses a menudo se actualizan ligeramente durante las primeras semanas de clases y, ocasionalmente, durante el resto del año escolar. Vuelva a consultar las actualizaciones. Más información sobre los autobuses está disponible en inglés y en español.
+			Bus schedules are often updated slightly during the first weeks of
+				school, and occasionally during the rest of the school year. Please
+				check back for any updates. Further information about buses is availabe
+				in English and en español.
 			</p>
 			<div className="flex flex-wrap gap-5 justify-between items-center py-5">
 				<div className="flex flex-col gap-3">
