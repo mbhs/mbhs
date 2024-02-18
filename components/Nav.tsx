@@ -218,6 +218,7 @@ export default function Nav({
 	const quickLinkButton = useRef<HTMLButtonElement>(null);
 
 	const { push, pathname } = useRouter();
+	let router = useRouter();
 
 	const fetchLinks = async () => {
 		// fetch data from strapi
@@ -461,7 +462,7 @@ export default function Nav({
 						</button>
 						<button
 							className="px-2 rounded-lg bg-black bg-opacity-20 hover:bg-opacity-25 text-white"
-							onClick={() => {setLang((lang === "en" ? "es" : "en")), push(pathname.replace(pathname.startsWith("/en") ? "/en" : "/es", pathname.startsWith("/en") ? "/es" : "/en"))}}
+							onClick={() => {setLang((lang === "en" ? "es" : "en")), push(router.asPath.replace(router.asPath.startsWith("/en") ? "/en" : "/es", router.asPath.startsWith("/en") ? "/es" : "/en"))}}
 						>
 							{(lang === "en" ? "es" : "en")}
 						</button>

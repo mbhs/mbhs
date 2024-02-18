@@ -18,9 +18,10 @@ export async function getStaticProps() {
 
 interface DepartmentsProps {
 	departments: Department[];
+	lang: string;
 }
 
-export default function Index({ departments }: DepartmentsProps) {
+export default function Index({ departments, lang }: DepartmentsProps) {
 	return (
 		<div className="pb-10 px-5 md:px-12 lg:px-24">
 			<h1 className="text-2xl md:text-4xl font-bold text-center py-3 md:py-5 md:pb-3 dark:text-white">
@@ -41,7 +42,7 @@ export default function Index({ departments }: DepartmentsProps) {
 						href={
 							d.attributes.overrideLink
 								? d.attributes.overrideLink
-								: `/departments/${d.attributes.slug}`
+								: `/${lang}/departments/${d.attributes.slug}`
 						}
 						key={i}
 					>
