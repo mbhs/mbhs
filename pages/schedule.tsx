@@ -10,12 +10,12 @@ export async function getStaticProps({ locale }: GetStaticPropsContext) {
 		.reverse()
 		.join("-");
 
-	let events = await fetch(
-		`https://strapi.mbhs.edu/api/schedules?sort=rank:ASC&locale=${locale}`
+	let events = await fetch(process.env.I18N ? `https://strapi.mbhs.edu/api/schedules?sort=rank:ASC&locale=${locale}` :
+		`https://strapi.mbhs.edu/api/schedules?sort=rank:ASC`
 	).then((res) => res.json());
 
-	let routes = await fetch(
-		`https://strapi.mbhs.edu/api/bus-route?populate=*&locale=${locale}`
+	let routes = await fetch(process.env.I18N ? `https://strapi.mbhs.edu/api/bus-route?populate=*&locale=${locale}` :
+		`https://strapi.mbhs.edu/api/bus-route?populate=*`
 	).then((res) => res.json());
 
 	return {

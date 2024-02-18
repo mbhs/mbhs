@@ -14,8 +14,8 @@ export async function getStaticProps({ locale }: GetStaticPropsContext) {
 		.reverse()
 		.join("-");
 
-	let news = await fetch(
-		`https://strapi.mbhs.edu/api/news?filters[$and][0][removeOn][$gte]=${todayStr}&filters[$and][1][$or][0][publishOn][$lte]=${todayStr}&filters[$and][1][$or][1][publishOn][$null]=true&populate=*&sort=rank:ASC&locale=${locale}`
+	let news = await fetch(process.env.I18N ? `https://strapi.mbhs.edu/api/news?filters[$and][0][removeOn][$gte]=${todayStr}&filters[$and][1][$or][0][publishOn][$lte]=${todayStr}&filters[$and][1][$or][1][publishOn][$null]=true&populate=*&sort=rank:ASC&locale=${locale}` :
+		`https://strapi.mbhs.edu/api/news?filters[$and][0][removeOn][$gte]=${todayStr}&filters[$and][1][$or][0][publishOn][$lte]=${todayStr}&filters[$and][1][$or][1][publishOn][$null]=true&populate=*&sort=rank:ASC`
 	).then((res) => res.json());
 
 	return {

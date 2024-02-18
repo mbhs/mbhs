@@ -45,20 +45,20 @@ export async function getStaticProps({ locale }: { locale: string }) {
 		.join("-");
 
 	console.log(todayStr, nextWeek);
-	let events = await fetch(
-		`https://strapi.mbhs.edu/api/events?filters[$or][0][endDate][$gte]=${todayStr}&filters[$or][1][$and][0][endDate][$null]=true&filters[$or][1][$and][1][startDate][$gte]=${todayStr}&filters[$and][3][startDate][$lte]=${nextWeek}&sort=startDate:ASC&sort=startTime:ASC&filters[important]=true&locale=${locale}`
+	let events = await fetch(process.env.I18N ? `https://strapi.mbhs.edu/api/events?filters[$or][0][endDate][$gte]=${todayStr}&filters[$or][1][$and][0][endDate][$null]=true&filters[$or][1][$and][1][startDate][$gte]=${todayStr}&filters[$and][3][startDate][$lte]=${nextWeek}&sort=startDate:ASC&sort=startTime:ASC&filters[important]=true&locale=${locale}` :
+		`https://strapi.mbhs.edu/api/events?filters[$or][0][endDate][$gte]=${todayStr}&filters[$or][1][$and][0][endDate][$null]=true&filters[$or][1][$and][1][startDate][$gte]=${todayStr}&filters[$and][3][startDate][$lte]=${nextWeek}&sort=startDate:ASC&sort=startTime:ASC&filters[important]=true`
 	).then((res) => res.json());
 
 	if (events!.meta.pagination.total < 3) {
-		events = await fetch(
-			`https://strapi.mbhs.edu/api/events?filters[startDate][$gte]=${todayStr}&sort=startDate:ASC&sort=startTime:ASC&filters[important]=true&pagination[pageSize]=3&locale=${locale}`
+		events = await fetch(process.env.I18N ? `https://strapi.mbhs.edu/api/events?filters[startDate][$gte]=${todayStr}&sort=startDate:ASC&sort=startTime:ASC&filters[important]=true&pagination[pageSize]=3&locale=${locale}` :
+			`https://strapi.mbhs.edu/api/events?filters[startDate][$gte]=${todayStr}&sort=startDate:ASC&sort=startTime:ASC&filters[important]=true&pagination[pageSize]=3`
 		).then((res) => res.json());
 	}
 
 	console.log(events);
 
-	let news = await fetch(
-		`https://strapi.mbhs.edu/api/news?filters[$and][0][removeOn][$gte]=${todayStr}&filters[$and][1][$or][0][publishOn][$lte]=${todayStr}&filters[$and][1][$or][1][publishOn][$null]=true&populate=*&sort=rank:ASC&locale=${locale}`
+	let news = await fetch(process.env.I18N ? `https://strapi.mbhs.edu/api/news?filters[$and][0][removeOn][$gte]=${todayStr}&filters[$and][1][$or][0][publishOn][$lte]=${todayStr}&filters[$and][1][$or][1][publishOn][$null]=true&populate=*&sort=rank:ASC&locale=${locale}` :
+		`https://strapi.mbhs.edu/api/news?filters[$and][0][removeOn][$gte]=${todayStr}&filters[$and][1][$or][0][publishOn][$lte]=${todayStr}&filters[$and][1][$or][1][publishOn][$null]=true&populate=*&sort=rank:ASC`
 	).then((res) => res.json());
 
 	let meta = await fetch(

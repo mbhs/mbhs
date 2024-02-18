@@ -24,12 +24,12 @@ interface StaffDirectoryProps {
 }
 
 export async function getStaticProps({ locale }: GetStaticPropsContext) {
-	let departments = await fetch(
-		`https://strapi.mbhs.edu/api/departments?sort=rank:ASC&sort=name:ASC&fields[0]=name&fields[1]=slug&fields[2]=overrideLink&fields[3]=phone&pagination[pageSize]=1000&locale=${locale}`
+	let departments = await fetch(process.env.I18N ? `https://strapi.mbhs.edu/api/departments?sort=rank:ASC&sort=name:ASC&fields[0]=name&fields[1]=slug&fields[2]=overrideLink&fields[3]=phone&pagination[pageSize]=1000&locale=${locale}` :
+		`https://strapi.mbhs.edu/api/departments?sort=rank:ASC&sort=name:ASC&fields[0]=name&fields[1]=slug&fields[2]=overrideLink&fields[3]=phone&pagination[pageSize]=1000`
 	).then((res) => res.json());
 
-	let staff = await fetch(
-		`https://strapi.mbhs.edu/api/directory?populate[departments][fields]=name&populate=image&pagination[limit]=1000&sort=rank:ASC&sort=name:ASC&fields[0]=name&fields[1]=email&fields[2]=title&locale=${locale}`
+	let staff = await fetch( process.env.I18N ? `https://strapi.mbhs.edu/api/directory?populate[departments][fields]=name&populate=image&pagination[limit]=1000&sort=rank:ASC&sort=name:ASC&fields[0]=name&fields[1]=email&fields[2]=title&locale=${locale}` :
+		`https://strapi.mbhs.edu/api/directory?populate[departments][fields]=name&populate=image&pagination[limit]=1000&sort=rank:ASC&sort=name:ASC&fields[0]=name&fields[1]=email&fields[2]=title`
 	).then((res) => res.json());
 
 	return {
