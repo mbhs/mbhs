@@ -14,7 +14,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 		//locale: "en",
 	}))
 
-	if (!process.env.NO_I18N) {
+	if (process.env.NO_I18N !== "1") {
 		let pagesES = await fetch(`https://strapi.mbhs.edu/api/pages?locale=es`).then((res) =>
 			res.json()
 		);
@@ -33,7 +33,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export async function getStaticProps({ params, locale }: GetStaticPropsContext) {
 	//gets all pages
-	let pages = await fetch(process.env.NO_I18N ? 
+	let pages = await fetch(process.env.NO_I18N === "1" ? 
 				`https://strapi.mbhs.edu/api/pages` :
 				`https://strapi.mbhs.edu/api/pages?locale=${locale}`
 			).then((res) =>

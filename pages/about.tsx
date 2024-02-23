@@ -7,7 +7,7 @@ import ReactMarkdown from "react-markdown";
 import { GetStaticPropsContext } from "next";
 
 export async function getStaticProps({ locale }: GetStaticPropsContext) {
-	let meta = await fetch(process.env.NO_I18N ? 
+	let meta = await fetch(process.env.NO_I18N === "1" ? 
 		`https://strapi.mbhs.edu/api/about-page?populate=*` :
 		`https://strapi.mbhs.edu/api/about-page?populate=*&locale=${locale}`
 	).then((res) => res.json());

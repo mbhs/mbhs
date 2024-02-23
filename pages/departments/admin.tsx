@@ -4,7 +4,7 @@ import { GetStaticPropsContext } from "next";
 
 export async function getStaticProps({ locale }: GetStaticPropsContext) {
 	//get the admin department
-	let admin: { data: AdminType } = await fetch(process.env.NO_I18N ? 
+	let admin: { data: AdminType } = await fetch(process.env.NO_I18N === "1" ? 
 		`https://strapi.mbhs.edu/api/admin?populate[0]=admin.image&populate[1]=resources.image&populate[2]=other.image` :
 		`https://strapi.mbhs.edu/api/admin?populate[0]=admin.image&populate[1]=resources.image&populate[2]=other.image&locale=${locale}`
 	).then((res) => res.json());
