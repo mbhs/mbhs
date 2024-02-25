@@ -220,7 +220,7 @@ export default function Nav({
 	const fetchLinks = async () => {
 		// fetch data from strapi
 		await fetch(
-			"https://strapi.mbhs.edu/api/links?filters&sort=order:ASC&sort=name:ASC"
+			"https://strapi.mbhs.edu/api/links?filters&sort=order:ASC&sort=name:ASC&locale=${locale}"
 		)
 			.then((res) => res.json())
 			.then((res) => {
