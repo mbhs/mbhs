@@ -1,6 +1,7 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import Link from "next/link";
+import rehypeRaw from "rehype-raw";
 
 function a({ children, ...rest }: { children: React.ReactNode }) {
 	return (
@@ -32,7 +33,16 @@ function ol({ children, ...rest }: { children: React.ReactNode }) {
 
 function h1({ children, ...rest }: { children: React.ReactNode }) {
 	return (
-		<h1 {...rest} className="text-4xl font-bold py-2" id={children?.toString().trim().toLowerCase().replaceAll(/[^\w\s]/gi, "").replaceAll(" ", "-")}>
+		<h1
+			{...rest}
+			className="text-4xl font-bold py-2"
+			id={children
+				?.toString()
+				.trim()
+				.toLowerCase()
+				.replaceAll(/[^\w\s]/gi, "")
+				.replaceAll(" ", "-")}
+		>
 			{children}
 		</h1>
 	);
@@ -40,7 +50,16 @@ function h1({ children, ...rest }: { children: React.ReactNode }) {
 
 function h2({ children, ...rest }: { children: React.ReactNode }) {
 	return (
-		<h2 {...rest} className="text-2xl font-bold py-2" id={children?.toString().trim().toLowerCase().replaceAll(/[^\w\s]/gi, "").replaceAll(" ", "-")}>
+		<h2
+			{...rest}
+			className="text-2xl font-bold py-2"
+			id={children
+				?.toString()
+				.trim()
+				.toLowerCase()
+				.replaceAll(/[^\w\s]/gi, "")
+				.replaceAll(" ", "-")}
+		>
 			{children}
 		</h2>
 	);
@@ -48,10 +67,18 @@ function h2({ children, ...rest }: { children: React.ReactNode }) {
 
 function h3({ children, ...rest }: { children: React.ReactNode }) {
 	return (
-		<h3 {...rest} className="text-xl font-bold py-2" id={children?.toString().trim().toLowerCase().replaceAll(/[^\w\s]/gi, "").replaceAll(" ", "-")}>
+		<h3
+			{...rest}
+			className="text-xl font-bold py-2"
+			id={children
+				?.toString()
+				.trim()
+				.toLowerCase()
+				.replaceAll(/[^\w\s]/gi, "")
+				.replaceAll(" ", "-")}
+		>
 			{children}
 		</h3>
-		
 	);
 }
 
@@ -61,6 +88,10 @@ function Image({ children, ...rest }: { children: React.ReactNode }) {
 			{children}
 		</img>
 	);
+}
+
+function p({ children, ...rest }: { children: React.ReactNode }) {
+	return <p {...rest}>{children}</p>;
 }
 
 export default function Markdown({
@@ -80,7 +111,9 @@ export default function Markdown({
 				h1,
 				h2,
 				h3,
+				p: p,
 			}}
+			rehypePlugins={[rehypeRaw] as any}
 			{...rest}
 		>
 			{children}
