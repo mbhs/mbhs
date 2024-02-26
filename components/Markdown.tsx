@@ -90,10 +90,6 @@ function Image({ children, ...rest }: { children: React.ReactNode }) {
 	);
 }
 
-function p({ children, ...rest }: { children: React.ReactNode }) {
-	return <p {...rest}>{children}</p>;
-}
-
 export default function Markdown({
 	children,
 	...rest
@@ -111,7 +107,6 @@ export default function Markdown({
 				h1,
 				h2,
 				h3,
-				p: p,
 			}}
 			rehypePlugins={[rehypeRaw] as any}
 			{...rest}
