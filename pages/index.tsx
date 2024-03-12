@@ -11,6 +11,9 @@ import {
 	BsFillVolumeUpFill,
 	BsFillVolumeMuteFill,
 } from "react-icons/bs";
+import{
+	GiAchievement
+} from "react-icons/gi";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { FaPlay, FaPause } from "react-icons/fa";
 import { Event, New, HomePage } from "../lib/types";
@@ -205,6 +208,14 @@ export default function Home({
 							</div>
 						</Link>
 						<p className="font-semibold pt-2">Calendar</p>
+					</div>
+					<div className="flex flex-col items-center">
+						<Link href="/achievements">
+							<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-neutral-800 dark:hover:bg-white text-white hover:text-red-500 dark:hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-[18px]">
+								<GiAchievement className="h-full w-full" />
+							</div>
+						</Link>
+						<p className="font-semibold pt-2">Achievements</p>
 					</div>
 				</div>
 				<div className="flex justify-center pt-4 md:pt-6 gap-10 text-black dark:text-white">
