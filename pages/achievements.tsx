@@ -36,7 +36,7 @@ function getEmbed(url: string) {
 	}`;
 }
 
-function News({ news }: NewsProps) {
+function Brags({ brags }: AchievementsProps) {
 	return (
 		<div className="pb-10 dark:text-white">
 			<h1 className="text-2xl md:text-4xl text-center font-bold py-3 md:py-5">
@@ -44,7 +44,7 @@ function News({ news }: NewsProps) {
 			</h1>
 
 			<div className="flex flex-col gap-3 px-5 sm:px-8 md:px-10 lg:px-16 xl:px-24">
-				{news.map(({ attributes: { title, description, image, link } }, i) => (
+				{brags.map(({ attributes: { title, description, image, link } }, i) => (
 					<div
 						className={`bg-neutral-400 border border-neutral-300 dark:border-neutral-700 dark:text-white shadow-sm hover:shadow-md flex bg-opacity-10 hover:bg-opacity-20 text-black backdrop-blur-md rounded-lg duration-300 transition-all ${
 							image.data || link ? "flex flex-col md:flex-row p-0" : "p-3"
@@ -75,4 +75,4 @@ function News({ news }: NewsProps) {
 	);
 }
 
-export default News;
+export default Brags;
