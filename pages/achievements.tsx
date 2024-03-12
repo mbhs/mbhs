@@ -2,8 +2,8 @@ import { New } from "../lib/types";
 import Markdown from "../components/Markdown";
 import { GetStaticPropsContext } from "next";
 
-interface AchievementsProps {
-	brags: New[];
+interface NewsProps {
+	news: New[];
 }
 
 export async function getStaticProps({ locale }: GetStaticPropsContext) {
@@ -14,14 +14,14 @@ export async function getStaticProps({ locale }: GetStaticPropsContext) {
 		.reverse()
 		.join("-");
 
-	let brags = await fetch(process.env.NO_I18N === "1" ? 
-		`https://strapi.mbhs.edu/api/brags?filters[$and][0][removeOn][$gte]=${todayStr}&filters[$and][1][$or][0][publishOn][$lte]=${todayStr}&filters[$and][1][$or][1][publishOn][$null]=true&populate=*&sort=rank:ASC` :
-		`https://strapi.mbhs.edu/api/brags?filters[$and][0][removeOn][$gte]=${todayStr}&filters[$and][1][$or][0][publishOn][$lte]=${todayStr}&filters[$and][1][$or][1][publishOn][$null]=true&populate=*&sort=rank:ASC&locale=${locale}`
+	let news = await fetch(process.env.NO_I18N === "1" ? 
+		`https://strapi.mbhs.edu/api/achievements?filters[$and][0][removeOn][$gte]=${todayStr}&filters[$and][1][$or][0][publishOn][$lte]=${todayStr}&filters[$and][1][$or][1][publishOn][$null]=true&populate=*&sort=rank:ASC` :
+		`https://strapi.mbhs.edu/api/achievements?filters[$and][0][removeOn][$gte]=${todayStr}&filters[$and][1][$or][0][publishOn][$lte]=${todayStr}&filters[$and][1][$or][1][publishOn][$null]=true&populate=*&sort=rank:ASC&locale=${locale}`
 	).then((res) => res.json());
 
 	return {
 		props: {
-			brags: brags.data,
+			news: news.data,
 		},
 		revalidate: 60,
 	};
@@ -36,7 +36,7 @@ function getEmbed(url: string) {
 	}`;
 }
 
-function Brags({ brags }: AchievementsProps) {
+function News({ news }: NewsProps) {
 	return (
 		<div className="pb-10 dark:text-white">
 			<h1 className="text-2xl md:text-4xl text-center font-bold py-3 md:py-5">
@@ -44,7 +44,7 @@ function Brags({ brags }: AchievementsProps) {
 			</h1>
 
 			<div className="flex flex-col gap-3 px-5 sm:px-8 md:px-10 lg:px-16 xl:px-24">
-				{brags.map(({ attributes: { title, description, image, link } }, i) => (
+				{news.map(({ attributes: { title, description, image, link } }, i) => (
 					<div
 						className={`bg-neutral-400 border border-neutral-300 dark:border-neutral-700 dark:text-white shadow-sm hover:shadow-md flex bg-opacity-10 hover:bg-opacity-20 text-black backdrop-blur-md rounded-lg duration-300 transition-all ${
 							image.data || link ? "flex flex-col md:flex-row p-0" : "p-3"
@@ -75,4 +75,4 @@ function Brags({ brags }: AchievementsProps) {
 	);
 }
 
-export default Brags;
+export default News;
