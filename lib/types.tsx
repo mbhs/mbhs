@@ -109,6 +109,12 @@ interface HomePage {
 		title: string;
 		principal: string;
 		caption: string;
+		text: string;
+		text2: string;
+		Resources: string;
+		Directions: string;
+		Calendar: string;
+		Achievements: string;
 		video: {
 			data: {
 				attributes: {
