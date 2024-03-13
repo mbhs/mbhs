@@ -194,7 +194,7 @@ export default function Home({
 					Montgomery Blair High School
 				</h1>
 				<h3 className="md:text-xl pt-3">
-					Principal {meta.attributes.principal}
+					{meta.attributes.principal}
 				</h3>
 				<h3 className="md:text-xl">Home of the Blazers</h3>
 				<h3 className="md:text-xl italic">Crescens Scientia</h3>
