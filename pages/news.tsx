@@ -5,7 +5,6 @@ import { GetStaticPropsContext } from "next";
 interface NewsProps {
 	news: New[];
 }
-
 export async function getStaticProps({ locale }: GetStaticPropsContext) {
 	let today = new Date();
 	let todayStr = today
@@ -13,7 +12,7 @@ export async function getStaticProps({ locale }: GetStaticPropsContext) {
 		.split("/")
 		.reverse()
 		.join("-");
-
+	
 	let news = await fetch(process.env.NO_I18N === "1" ? 
 		`https://strapi.mbhs.edu/api/news?filters[$and][0][removeOn][$gte]=${todayStr}&filters[$and][1][$or][0][publishOn][$lte]=${todayStr}&filters[$and][1][$or][1][publishOn][$null]=true&populate=*&sort=rank:ASC` :
 		`https://strapi.mbhs.edu/api/news?filters[$and][0][removeOn][$gte]=${todayStr}&filters[$and][1][$or][0][publishOn][$lte]=${todayStr}&filters[$and][1][$or][1][publishOn][$null]=true&populate=*&sort=rank:ASC&locale=${locale}`
@@ -26,7 +25,6 @@ export async function getStaticProps({ locale }: GetStaticPropsContext) {
 		revalidate: 60,
 	};
 }
-
 function getEmbed(url: string) {
 	const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
 	const match = url.match(regExp);
@@ -35,8 +33,7 @@ function getEmbed(url: string) {
 		match && match[2].length === 11 ? match[2] : null
 	}`;
 }
-
-function News({ news }: NewsProps) {
+function News({ news }: NewsProps, {locale}: {locale: string}) {
 	return (
 		<div className="pb-10 dark:text-white">
 			<h1 className="text-2xl md:text-4xl text-center font-bold py-3 md:py-5">

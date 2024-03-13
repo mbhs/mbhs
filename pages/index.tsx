@@ -67,8 +67,9 @@ export async function getStaticProps({ locale }: { locale: string }) {
 		`https://strapi.mbhs.edu/api/news?filters[$and][0][removeOn][$gte]=${todayStr}&filters[$and][1][$or][0][publishOn][$lte]=${todayStr}&filters[$and][1][$or][1][publishOn][$null]=true&populate=*&sort=rank:ASC&locale=${locale}`
 	).then((res) => res.json());
 
-	let meta = await fetch(
-		"https://strapi.mbhs.edu/api/home-page?populate=*"
+	let meta = await fetch(process.env.NO_I18N === "1" ?
+		`https://strapi.mbhs.edu/api/home-page?populate=*` :
+		`https://strapi.mbhs.edu/api/home-page?populate=*&locale=${locale}`
 	).then((res) => res.json());
 
 	let scheduleDays = await fetch(
@@ -171,10 +172,11 @@ export default function Home({
 					Montgomery Blair High School
 				</h1>
 				<h3 className="md:text-xl pt-3">
-					Principal {meta.attributes.principal}
+					{meta.attributes.principal}
 				</h3>
-				<h3 className="md:text-xl">Home of the Blazers</h3>
-				<h3 className="md:text-xl italic">Crescens Scientia</h3>
+				<h3 className="md:text-xl">{meta.attributes.text}</h3> 
+				<h3 className="md:text-xl italic" >{meta.attributes.text2}</h3>
+				
 				{ /* <div className="flex justify-center pt-4 md:pt-8 gap-10 text-black dark:text-white">
 					<p className="font-extrabold">{getEvenOdd(dates)}</p>
 				</div> */ }
@@ -185,7 +187,7 @@ export default function Home({
 								<BsFillPeopleFill className="h-full w-full" />
 							</div>
 						</Link>
-						<p className="font-semibold pt-2">Resources</p>
+						<p className="font-semibold pt-2">{meta.attributes.Resources}</p>
 					</div>
 					{/* <div className="flex flex-col items-center">
 						<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-white text-white hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-4">
@@ -199,7 +201,7 @@ export default function Home({
 								<FaMapMarkerAlt className="h-full w-full" />
 							</div>
 						</a>
-						<p className="font-semibold pt-2">Directions</p>
+						<p className="font-semibold pt-2">{meta.attributes.Directions}</p>
 					</div>
 					<div className="flex flex-col items-center">
 						<Link href="/calendar">
@@ -207,7 +209,7 @@ export default function Home({
 								<BsCalendar2WeekFill className="h-full w-full" />
 							</div>
 						</Link>
-						<p className="font-semibold pt-2">Calendar</p>
+						<p className="font-semibold pt-2">{meta.attributes.Calendar}</p>
 					</div>
 					<div className="flex flex-col items-center">
 						<Link href="/achievements">
@@ -215,7 +217,7 @@ export default function Home({
 								<GiAchievement className="h-full w-full" />
 							</div>
 						</Link>
-						<p className="font-semibold pt-2">Achievements</p>
+						<p className="font-semibold pt-2">{meta.attributes.Achievements}</p>
 					</div>
 				</div>
 				<div className="flex justify-center pt-4 md:pt-6 gap-10 text-black dark:text-white">
