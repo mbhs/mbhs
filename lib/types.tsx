@@ -115,6 +115,7 @@ interface HomePage {
 		Directions: string;
 		Calendar: string;
 		Achievements: string;
+		SCO: string;
 		video: {
 			data: {
 				attributes: {

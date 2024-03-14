@@ -390,7 +390,7 @@ export default function Home({
 				>
 					<FaChevronLeft />{" "}
 					<motion.span layoutId="title" layout="preserve-aspect">
-						Silver Chips Online
+						{meta.attributes.SCO}
 					</motion.span>
 				</motion.div>
 			)}
@@ -410,7 +410,7 @@ export default function Home({
 								onClick={() => setSCO(false)}
 							/>{" "}
 							<Link href="https://silverchips.mbhs.edu">
-								Silver Chips Online
+								{meta.attributes.SCO}
 							</Link>
 						</div>
 
