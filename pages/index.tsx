@@ -145,6 +145,7 @@ export default function Home({
 	const videoRef = React.useRef<HTMLVideoElement>(null);
 	const [playing, setPlaying] = React.useState<boolean>(true);
 	const [sco, setSCO] = React.useState<boolean>(false);
+	const [seconds, setSeconds] = React.useState<number>(0);
 
 	const togglePlayPause = () => {
 		if (playing) {
@@ -155,6 +156,14 @@ export default function Home({
 			setPlaying(true);
 		}
 	};
+
+	React.useEffect(() => {
+		setSeconds((new Date("May 30, 2024 8:00:00")).getTime() - Date.now());
+
+
+	});
+
+	
 
 	return (
 		<div className="relative w-full min-h-screen">
@@ -222,7 +231,13 @@ export default function Home({
 				</div>
 				<div className="flex justify-center pt-4 md:pt-6 gap-10 text-black dark:text-white">
 					<p className="font-extrabold">{getEvenOdd(dates)}</p>
+					
 				</div>
+				<div className="flex justify-center pt-4 md:text-xl gap-10 text-red-600 dark:text-red-600">
+				<p className="font-extrabold">{seconds} <a href="https://puzzlepalooza.mbhs.edu"> ms until PuzzlePalooza!</a></p>
+
+				</div>
+				
 				<div className="pt-6 flex flex-col items-center gap-3">
 					{news
 						.filter(({ attributes: { rank } }) => rank <= 5)
