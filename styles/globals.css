@@ -4,6 +4,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities { 
+  .text-puzzlepalooza {
+    color: #4F6BAD;
+  }
+}
+
 .hide-scroll::-webkit-scrollbar {
   background: transparent; /* Chrome/Safari/Webkit */
   width: 0px;

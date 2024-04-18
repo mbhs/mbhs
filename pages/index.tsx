@@ -233,11 +233,7 @@ export default function Home({
 					<p className="font-extrabold">{getEvenOdd(dates)}</p>
 					
 				</div>
-				<div className="flex justify-center pt-4 md:text-xl gap-10 text-red-600 dark:text-red-600">
-				<p className="font-extrabold">{seconds} <a href="https://puzzlepalooza.mbhs.edu"> ms until PuzzlePalooza!</a></p>
-
-				</div>
-				
+			
 				<div className="pt-6 flex flex-col items-center gap-3">
 					{news
 						.filter(({ attributes: { rank } }) => rank <= 5)
@@ -269,6 +265,7 @@ export default function Home({
 								</div>
 							</div>
 						))}
+						
 					{events.map(
 						(
 							{
@@ -324,7 +321,7 @@ export default function Home({
 										</>
 									)}
 								</div>
-
+								
 								<div className="flex-1 text-black dark:text-white">
 									<div className="flex">
 										{title && <p className="font-bold text-xl">{title}</p>}{" "}
@@ -346,6 +343,14 @@ export default function Home({
 							</div>
 						)
 					)}
+					<div className="bg-black dark:bg-white border border-neutral-400 dark:border-neutral-700 dark:bg-opacity-10 bg-opacity-10 dark:hover:bg-opacity-5 flex grid-cols-1 gap-3 w-full text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-10 p-3">
+				<div className="flex flex-col w-full text-puzzlepalooza" >
+				<div className="flex items-center flex-col w-full text-5xl"> <b>{seconds}</b> </div>
+				<div className="flex items-center flex-col w-full text-2xl">milliseconds until</div>
+				<div className="flex items-center flex-col w-full text-2xl">Puzzlepalooza!</div>
+				
+				</div> 
+				</div>
 					{news
 						.filter(({ attributes: { rank } }) => rank > 5)
 						.map(({ attributes: { title, description, image } }, i) => (
@@ -374,7 +379,10 @@ export default function Home({
 						View all News
 					</Link> */}
 				</div>
+				
 			</div>
+			
+			
 			<div className="-z-10 absolute right-0 top-0 h-[80vh] animate-fadeIn">
 				<div className="relative h-full">
 					<div className="absolute inset-0 bg-black opacity-100 md:bg-opacity-0 md:opacity-100 md:bg-gradient-to-t from-white dark:from-black to-transparent h-full"></div>
