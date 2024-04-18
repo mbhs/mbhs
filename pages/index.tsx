@@ -347,7 +347,7 @@ export default function Home({
 				<div className="flex flex-col w-full text-puzzlepalooza" >
 				<div className="flex items-center flex-col w-full text-5xl"> <b>{seconds}</b> </div>
 				<div className="flex items-center flex-col w-full text-2xl">milliseconds until</div>
-				<div className="flex items-center flex-col w-full text-2xl">Puzzlepalooza!</div>
+				<div className="flex items-center flex-col w-full text-2xl"> <a href="https://puzzlepalooza.mbhs.edu">Puzzlepalooza!</a></div>
 				
 				</div> 
 				</div>
