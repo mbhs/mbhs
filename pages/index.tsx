@@ -158,10 +158,13 @@ export default function Home({
 	};
 
 	React.useEffect(() => {
+		const interval = setInterval(() => {
 		setSeconds((new Date("May 30, 2024 8:00:00")).getTime() - Date.now());
 
+		},1);
+		return () => clearInterval(interval);
 
-	});
+	}, [seconds]);
 
 	
 
@@ -345,7 +348,7 @@ export default function Home({
 					)}
 					<div className="bg-black dark:bg-white border border-neutral-400 dark:border-neutral-700 dark:bg-opacity-10 bg-opacity-10 dark:hover:bg-opacity-5 flex grid-cols-1 gap-3 w-full text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-10 p-3">
 				<div className="flex flex-col w-full text-puzzlepalooza" >
-				<div className="flex items-center flex-col w-full text-5xl"> <b>{seconds}</b> </div>
+				<div className="flex items-center flex-col w-full text-5xl"><b>{seconds}</b> </div>
 				<div className="flex items-center flex-col w-full text-2xl">milliseconds until</div>
 				<div className="flex items-center flex-col w-full text-2xl"> <u><a href="https://puzzlepalooza.mbhs.edu">Puzzlepalooza!</a></u></div>
 				
