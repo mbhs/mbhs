@@ -163,7 +163,7 @@ export default function Home({
 	const videoRef = React.useRef<HTMLVideoElement>(null);
 	const [playing, setPlaying] = React.useState<boolean>(true);
 	const [sco, setSCO] = React.useState<boolean>(false);
-	//const [seconds, setSeconds] = React.useState<number>(0);
+	const [seconds, setSeconds] = React.useState<number>(0);
 
 	const { width, ref } = useObserveElementWidth<HTMLDivElement>();
 	const scroll = width === 0 ? false : width < 330;
