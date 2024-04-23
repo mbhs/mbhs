@@ -178,13 +178,16 @@ export default function Home({
 			setPlaying(true);
 		}
 	};
-	/* Puzzlepalooza time
+	// Puzzlepalooza time
 	React.useEffect(() => {
+		const interval = setInterval(() => {
 		setSeconds((new Date("May 30, 2024 8:00:00")).getTime() - Date.now());
 
+		},1);
+		return () => clearInterval(interval);
 
-	});
-	*/
+	}, [seconds]);
+		
 	return (
 		<div className="relative w-full min-h-screen">
 			{/* use gloabl styles so that the video is not covered by div background */}
@@ -389,7 +392,7 @@ export default function Home({
 							</div>
 						)
 					)}
-					{/* 
+					
 					<div className="bg-black dark:bg-white border border-neutral-400 dark:border-neutral-700 dark:bg-opacity-10 bg-opacity-10 dark:hover:bg-opacity-5 flex grid-cols-1 gap-3 w-full text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-10 p-3">
 				<div className="flex flex-col w-full text-puzzlepalooza" >
 				<div className="flex items-center flex-col w-full text-5xl"> <b>{seconds}</b> </div>
@@ -398,7 +401,7 @@ export default function Home({
 				
 				</div> 
 				</div>
-				*/}
+				
 					{news
 						.filter(({ attributes: { rank } }) => rank > 5)
 						.map(({ attributes: { title, description, image } }, i) => (
