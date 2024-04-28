@@ -21,6 +21,7 @@ import { TbMapPin } from "react-icons/tb";
 import { FaRegEye, FaChevronLeft } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { motion } from "framer-motion";
+import { animated } from "react-spring"
 import { BsInstagram } from "react-icons/bs";
 import { FiYoutube } from "react-icons/fi";
 import { MdLunchDining } from "react-icons/md";
@@ -454,25 +455,25 @@ export default function Home({
 				</div>
 			</div>
 			{!sco && (
-				<motion.div
-					layoutId="bigdiv"
+				<animated.div
+					//layoutId="bigdiv"
 					onClick={() => setSCO(true)}
 					className="cursor-pointer hidden gap-2 items-center w-max absolute md:top-5 scobl:top-16 top-32 scoh:flex right-0 p-3 bg-red-600 text-white bg-opacity-50 backdrop-blur-md rounded-l-lg"
 				>
 					<FaChevronLeft />{" "}
-					<motion.span layoutId="title" layout="preserve-aspect">
+					<animated.span /* layoutId="title" layout="preserve-aspect" */>
 						Silver Chips Online
-					</motion.span>
-				</motion.div>
+					</animated.span>
+				</animated.div>
 			)}
 			{sco && (
-				<motion.div
-					layoutId="bigdiv"
+				<animated.div
+					//layoutId="bigdiv"
 					className="w-full overflow-hidden md:w-max absolute left-0 md:left-auto md:top-5 top-16 right-0 p-3 bg-red-700 text-white bg-opacity-90 backdrop-blur-md rounded-l-lg"
 				>
-					<motion.span
-						layoutId="title"
-						layout="preserve-aspect"
+					<animated.span
+						//layoutId="title"
+						//layout="preserve-aspect"
 						className="font-bold flex items-center justify-between"
 					>
 						<div className="flex items-center justify-center gap-2">
@@ -493,7 +494,7 @@ export default function Home({
 								<FiYoutube className="h-5 w-5" />
 							</Link>
 						</div>
-					</motion.span>
+					</animated.span>
 					<div className="w-full flex flex-col items-center pt-3 gap-3">
 						{scoMeta.map((s: SCO) => (
 							<Link href={s.link} className="w-full">
@@ -512,7 +513,7 @@ export default function Home({
 							</Link>
 						))}
 					</div>
-				</motion.div>
+				</animated.div>
 			)}
 			<div className="absolute right-0 top-0 h-[80vh]">
 				<div className="relative h-full">
