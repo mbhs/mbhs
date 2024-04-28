@@ -161,7 +161,7 @@ export default function Home({
 		const interval = setInterval(() => {
 		setSeconds((new Date("May 30, 2024 8:00:00")).getTime() - Date.now());
 
-		},1);
+		},500);
 		return () => clearInterval(interval);
 
 	}, [seconds]);
