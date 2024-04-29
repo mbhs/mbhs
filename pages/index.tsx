@@ -145,7 +145,6 @@ export default function Home({
 	const videoRef = React.useRef<HTMLVideoElement>(null);
 	const [playing, setPlaying] = React.useState<boolean>(true);
 	const [sco, setSCO] = React.useState<boolean>(false);
-	const [seconds, setSeconds] = React.useState<number>(0);
 
 	const togglePlayPause = () => {
 		if (playing) {
@@ -156,15 +155,6 @@ export default function Home({
 			setPlaying(true);
 		}
 	};
-
-	React.useEffect(() => {
-		const interval = setInterval(() => {
-		setSeconds((new Date("May 30, 2024 8:00:00")).getTime() - Date.now());
-
-		},500);
-		return () => clearInterval(interval);
-
-	}, [seconds]);
 
 	
 
@@ -347,12 +337,11 @@ export default function Home({
 						)
 					)}
 					<div className="bg-black dark:bg-white border border-neutral-400 dark:border-neutral-700 dark:bg-opacity-10 bg-opacity-10 dark:hover:bg-opacity-5 flex grid-cols-1 gap-3 w-full text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-10 p-3">
-				<div className="flex flex-col w-full text-puzzlepalooza" >
-				<div className="flex items-center flex-col w-full text-5xl"><b>{seconds}</b> </div>
-				<div className="flex items-center flex-col w-full text-2xl">milliseconds until</div>
-				<div className="flex items-center flex-col w-full text-2xl"> <u><a href="https://puzzlepalooza.mbhs.edu">Puzzlepalooza!</a></u></div>
-				
-				</div> 
+					<iframe
+						src="https://pp.mbhs.edu/pptimer.html"
+						allowFullScreen
+						className= "w-auto md:flex-1 md:h-60 rounded-t-lg md:rounded-tr-none md:rounded-l-lg"
+					/>
 				</div>
 					{news
 						.filter(({ attributes: { rank } }) => rank > 5)
