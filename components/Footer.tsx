@@ -21,7 +21,7 @@ export default function Footer() {
 	return (
 		<div className="bg-neutral-900 p-10 text-white flex flex-col gap-5 items-center mt-auto">
 			<div className="flex flex-wrap gap-5 items-center justify-center">
-				{badges.map((badge, i) => (
+				{badges?.map((badge, i) => (
 					<a href={badge.attributes.link} key={i}>
 						{badge.attributes.image && (
 							<img
