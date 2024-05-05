@@ -29,12 +29,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export async function getStaticProps({ params }: GetStaticPropsContext) {
 	//gets all departments
 	let departments = await fetch(
-		`https://strapi.mbhs.edu/api/departments?populate[0]=image&[populate][1]=resource.image&populate[2]=staff.image&pagination[pageSize]=1000`
+		`https://strapi.mbhs.edu/api/departments?filters[slug][$eq]=${params?.slug}&populate[0]=image&[populate][1]=resource.image&populate[2]=staff.image`
 	).then((res) => res.json());
 
-	let department = departments.data.find(
-		(d: Department) => d.attributes.slug === params?.slug
-	);
+	let department = departments.data[0];
+
+	// let department = await departments.data.find(
+	// 	(d: Department) => d.attributes.slug === params?.slug
+	// );
 
 	// sort the staff alphabetically
 	department.attributes.staff.data.sort((a: Staff, b: Staff) => {
