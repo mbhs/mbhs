@@ -382,7 +382,7 @@ export default function Home({
 							</div>
 						)
 					)}
-					
+					{/* 
 					<div className="bg-black dark:bg-white border border-neutral-400 dark:border-neutral-700 dark:bg-opacity-10 bg-opacity-10 dark:hover:bg-opacity-5 flex grid-cols-1 gap-3 w-full text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-10 p-3">
 					<iframe
 						src="https://pp.mbhs.edu/pptimer.html"
@@ -390,7 +390,7 @@ export default function Home({
 						className= "w-auto md:flex-1 md:h-60 rounded-t-lg md:rounded-tr-none md:rounded-l-lg"
 					/>
 				</div>
-			
+										*/}
 					{news
 						.filter(({ attributes: { rank } }) => rank > 5)
 						.map(({ attributes: { title, description, image } }, i) => (
