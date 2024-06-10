@@ -6,6 +6,7 @@ import { GetStaticPaths } from "next";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { IoClose } from "react-icons/io5";
+import YouTubeVideo from "../../components/YouTubeVideo";
 
 export const getStaticPaths: GetStaticPaths = async () => {
 	//gets all departments
@@ -174,6 +175,14 @@ export default function department({ department }: DepartmentsProps) {
 						<div className="absolute top-0 left-0 right-0 h-96 w-full -z-10 opacity-50 bg-white dark:bg-[#0a0a0a]" />
 					</>
 				)}
+
+				{/* Add YouTube video for World Languages department */}
+				{department.attributes.slug === "languages" && (
+				<YouTubeVideo url="https://www.youtube.com/watch?v=AvlMHB-xHf4" />
+				)}
+
+
+
 				<h1 className="font-bold text-xl md:text-4xl text-center py-5 dark:text-white">
 					{department.attributes.name}
 				</h1>
