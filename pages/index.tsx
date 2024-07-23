@@ -314,6 +314,7 @@ export default function Home({
 									startDate,
 									endDate,
 									startTime,
+									endTime,
 									location,
 								},
 							},
@@ -369,6 +370,12 @@ export default function Home({
 										{startTime && (
 											<>
 												<AiOutlineClockCircle /> {parseTime(startTime)}
+												{endTime && (
+													<>
+														<span> - </span>
+														{parseTime(endTime)}
+													</>
+												)}
 											</>
 										)}
 										{location && (
