@@ -75,6 +75,7 @@ export default function Calendar({ events }: CalendarProps) {
 								startDate,
 								endDate,
 								startTime,
+								endTime,
 								location,
 							},
 						},
@@ -132,9 +133,15 @@ export default function Calendar({ events }: CalendarProps) {
 								{title && <p className="font-bold text-xl">{title}</p>}
 								<p className="flex gap-1 items-center">
 									{startTime && (
+									<>
+										<AiOutlineClockCircle /> {parseTime(startTime)}
+										{endTime && (
 										<>
-											<AiOutlineClockCircle /> {parseTime(startTime)}
+											<span> - </span>
+											{parseTime(endTime)}
 										</>
+										)}
+									</>
 									)}
 
 									{location && (
