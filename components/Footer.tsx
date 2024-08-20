@@ -45,7 +45,7 @@ export default function Footer() {
 					<a href="https://www.facebook.com/pages/Montgomery-Blair-High-School/1631578030396596">
 						<BsFacebook className="text-4xl hover:text-blue-600 transition-all duration-300" />
 					</a>
-					<a href="https://www.instagram.com/blairprincipal/">
+					<a href="https://www.instagram.com/montgomery.blair.hs/">
 						<BsInstagram className="text-4xl hover:text-pink-500 transition-all duration-300" />
 					</a>
 					<a href="https://twitter.com/mbhs_blazers">
