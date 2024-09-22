@@ -10,8 +10,11 @@ import {
 	BsCalendar2WeekFill,
 	BsFillVolumeUpFill,
 	BsFillVolumeMuteFill,
+	BsBookmarkCheckFill,
+	BsBookmarkCheck
+
 } from "react-icons/bs";
-import { FaMapMarkerAlt } from "react-icons/fa";
+import { FaMapMarkerAlt, FaBookOpen } from "react-icons/fa";
 import { FaPlay, FaPause } from "react-icons/fa";
 import { Event, New, HomePage } from "../lib/types";
 import Markdown from "../components/Markdown";
@@ -222,16 +225,18 @@ export default function Home({
 							<div
 								id="circles"
 								ref={circlesRef}
-								className="flex justify-start circles:justify-center pt-4 gap-10 text-black dark:text-white overflow-y-hidden overflow-x-auto circles:overflow-visible whitespace-nowrap scrollbehavior:smooth"
+								className="flex justify-start circles:justify-center pt-4 gap-5 text-black dark:text-white overflow-y-hidden overflow-x-scroll circles:overflow-visible whitespace-nowrap scrollbehavior:smooth"
 							>
 								<div className="flex flex-col items-center" itemID="1">
-									<Link href="/resources">
+									<a 
+										target='blank'
+										href="https://mbhs.montgomeryschoolsmd.libguides.com/homepage">
 										<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-neutral-800 dark:hover:bg-white text-white hover:text-red-500 dark:hover:text-red-600 origin-bottom cursor-pointer w-12 h-12 p-[14px] md:w-16 md:h-16 md:p-[18px]">
-											<BsFillPeopleFill className="h-full w-full" />
+											<FaBookOpen className="h-full w-full" />
 										</div>
-									</Link>
+									</a>
 									<p className="font-semibold pt-2 md:text-base text-xs">
-										Resources
+										Media Center
 									</p>
 								</div>
 								<div className="flex flex-col items-center" itemID="2">
@@ -265,6 +270,16 @@ export default function Home({
 									</Link>
 									<p className="font-semibold pt-2 md:text-base text-xs">
 										Lunch
+									</p>
+								</div>
+								<div className="flex flex-col items-center" itemID="3">
+									<Link href="/attendanceinfo">
+										<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-neutral-800 dark:hover:bg-white text-white hover:text-red-500 dark:hover:text-red-600 origin-bottom cursor-pointer w-12 h-12 p-[14px] md:w-16 md:h-16 md:p-[18px]">
+											<BsBookmarkCheckFill className="h-full w-full" />
+										</div>
+									</Link>
+									<p className="font-semibold pt-2 md:text-base text-xs">
+										Attendance
 									</p>
 								</div>
 							</div>
