@@ -8,6 +8,7 @@ export async function getStaticProps() {
 	let departments = await fetch(
 		`https://strapi.mbhs.edu/api/departments?sort=rank:ASC&sort=name:ASC&populate=*&filters[page][$eq]=true&fields[0]=name&fields[1]=slug&fields[2]=overrideLink`
 	).then((res) => res.json());
+
 	return {
 		props: {
 			departments: departments.data,

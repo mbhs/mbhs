@@ -1,4 +1,4 @@
-import React from "react";
+import React, { use } from "react";
 import {
 	AiOutlineSound,
 	AiFillSound,
@@ -10,8 +10,11 @@ import {
 	BsCalendar2WeekFill,
 	BsFillVolumeUpFill,
 	BsFillVolumeMuteFill,
+	BsBookmarkCheckFill,
+	BsBookmarkCheck
+
 } from "react-icons/bs";
-import { FaMapMarkerAlt } from "react-icons/fa";
+import { FaMapMarkerAlt, FaBookOpen } from "react-icons/fa";
 import { FaPlay, FaPause } from "react-icons/fa";
 import { Event, New, HomePage } from "../lib/types";
 import Markdown from "../components/Markdown";
@@ -23,6 +26,9 @@ import { IoClose } from "react-icons/io5";
 import { motion } from "framer-motion";
 import { BsInstagram } from "react-icons/bs";
 import { FiYoutube } from "react-icons/fi";
+import { MdLunchDining } from "react-icons/md";
+import { BsCaretLeftFill } from "react-icons/bs";
+import { BsCaretRightFill } from "react-icons/bs";
 
 export async function getStaticProps() {
 	//gets all events that are ending today or later and sorts them by date
@@ -64,11 +70,11 @@ export async function getStaticProps() {
 	).then((res) => res.json());
 
 	let scheduleDays = await fetch(
-        "https://strapi.mbhs.edu/api/evenodd?populate=*"
-    ).then((res) => res.json());
+		"https://strapi.mbhs.edu/api/evenodd?populate=*"
+	).then((res) => res.json());
 
-  const stored: { [key: string]: number } = makeDates(scheduleDays!.data)
-  
+	const stored: { [key: string]: number } = makeDates(scheduleDays!.data);
+
 	let scoMeta = await fetch("https://silverchips.mbhs.edu/mbhssite").then(
 		(res) => res.json()
 	);
@@ -120,15 +126,39 @@ interface IndexProps {
 	news: New[];
 	meta: HomePage;
 	dates: { [key: string]: number };
-  scoMeta: SCO[];
+	scoMeta: SCO[];
 	dark: boolean;
 }
+
+export const useObserveElementWidth = <T extends HTMLElement>() => {
+	const [width, setWidth] = React.useState(0);
+	const ref = React.useRef<T>(null);
+
+	React.useEffect(() => {
+		const observer = new ResizeObserver((entries) => {
+			setWidth(entries[0].contentRect.width);
+		});
+
+		if (ref.current) {
+			observer.observe(ref.current);
+		}
+
+		return () => {
+			ref.current && observer.unobserve(ref.current);
+		};
+	}, []);
+
+	return {
+		width,
+		ref,
+	};
+};
 
 export default function Home({
 	events,
 	news,
 	meta,
-  dates,
+	dates,
 	scoMeta,
 	dark,
 }: IndexProps) {
@@ -136,6 +166,10 @@ export default function Home({
 	const videoRef = React.useRef<HTMLVideoElement>(null);
 	const [playing, setPlaying] = React.useState<boolean>(true);
 	const [sco, setSCO] = React.useState<boolean>(false);
+
+	const { width, ref } = useObserveElementWidth<HTMLDivElement>();
+	const scroll = width === 0 ? false : width < 330;
+	const circlesRef = React.useRef<HTMLDivElement>(null);
 
 	const togglePlayPause = () => {
 		if (playing) {
@@ -146,7 +180,7 @@ export default function Home({
 			setPlaying(true);
 		}
 	};
-
+		
 	return (
 		<div className="relative w-full min-h-screen">
 			{/* use gloabl styles so that the video is not covered by div background */}
@@ -163,49 +197,100 @@ export default function Home({
 					Montgomery Blair High School
 				</h1>
 				<h3 className="md:text-xl pt-3">
-					Principal {meta.attributes.principal}
+					{meta.attributes.principal}
 				</h3>
 				<h3 className="md:text-xl">Home of the Blazers</h3>
 				<h3 className="md:text-xl italic">Crescens Scientia</h3>
-				{ /* <div className="flex justify-center pt-4 md:pt-8 gap-10 text-black dark:text-white">
-					<p className="font-extrabold">{getEvenOdd(dates)}</p>
-				</div> */ }
-				<div className="flex justify-center pt-2 md:pt-4 gap-10 text-black dark:text-white">
-					<div className="flex flex-col items-center">
-						<Link href="/resources">
-							<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-neutral-800 dark:hover:bg-white text-white hover:text-red-500 dark:hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-[18px]">
-								<BsFillPeopleFill className="h-full w-full" />
+				<div className="relative">
+					{scroll && (
+						<BsCaretLeftFill
+							className="text-white w-6 h-6 absolute left-0 top-1/2 transform -translate-y-1/2 text-3xl cursor-pointer"
+							onClick={() =>
+								circlesRef.current &&
+								circlesRef.current.scrollBy({ left: -78, behavior: "smooth" })
+							}
+						/>
+					)}
+					{scroll && (
+						<BsCaretRightFill
+							className="text-white w-6 h-6 absolute right-0 top-1/2 transform -translate-y-1/2 text-3xl cursor-pointer"
+							onClick={() =>
+								circlesRef.current &&
+								circlesRef.current.scrollBy({ left: 78, behavior: "smooth" })
+							}
+						/>
+					)}
+					<div ref={ref}>
+						<div className={`${scroll && "ml-6 mr-6"}`}>
+							<div
+								id="circles"
+								ref={circlesRef}
+								className="flex justify-start circles:justify-center pt-4 gap-5 text-black dark:text-white overflow-y-hidden overflow-x-scroll circles:overflow-visible whitespace-nowrap scrollbehavior:smooth"
+							>
+								<div className="flex flex-col items-center" itemID="3">
+									<Link href="/attendanceinfo">
+										<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-neutral-800 dark:hover:bg-white text-white hover:text-red-500 dark:hover:text-red-600 origin-bottom cursor-pointer w-12 h-12 p-[14px] md:w-16 md:h-16 md:p-[18px]">
+											<BsBookmarkCheckFill className="h-full w-full" />
+										</div>
+									</Link>
+									<p className="font-semibold pt-2 md:text-base text-xs">
+										Attendance
+									</p>
+								</div>
+								<div className="flex flex-col items-center" itemID="3">
+									<Link href="/calendar">
+										<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-neutral-800 dark:hover:bg-white text-white hover:text-red-500 dark:hover:text-red-600 origin-bottom cursor-pointer w-12 h-12 p-[14px] md:w-16 md:h-16 md:p-[18px]">
+											<BsCalendar2WeekFill className="h-full w-full" />
+										</div>
+									</Link>
+									<p className="font-semibold pt-2 md:text-base text-xs">
+										Calendar
+									</p>
+								</div>
+								<div className="flex flex-col items-center" itemID="2">
+									<a
+										target="blank"
+										href="https://goo.gl/maps/M5DGpJECkjYnNpRK7"
+									>
+										<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-neutral-800 dark:hover:bg-white text-white hover:text-red-500 dark:hover:text-red-600 origin-bottom cursor-pointer w-12 h-12 p-[14px] md:w-16 md:h-16 md:p-[18px]">
+											<FaMapMarkerAlt className="h-full w-full" />
+										</div>
+									</a>
+									<p className="font-semibold pt-2 md:text-base text-xs">
+										Directions
+									</p>
+								</div>
+								
+								<div className="flex flex-col items-center" itemID="4">
+									<Link href="https://lunch.mbhs.edu">
+										<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-neutral-800 dark:hover:bg-white text-white hover:text-red-500 dark:hover:text-red-600 origin-bottom cursor-pointer w-12 h-12 p-[14px] md:w-16 md:h-16 md:p-[18px]">
+											<MdLunchDining className="h-full w-full" />
+										</div>
+									</Link>
+									<p className="font-semibold pt-2 md:text-base text-xs">
+										Lunch
+									</p>
+								</div>
+								<div className="flex flex-col items-center" itemID="1">
+									<a 
+										target='blank'
+										href="https://mbhs.montgomeryschoolsmd.libguides.com/homepage">
+										<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-neutral-800 dark:hover:bg-white text-white hover:text-red-500 dark:hover:text-red-600 origin-bottom cursor-pointer w-12 h-12 p-[14px] md:w-16 md:h-16 md:p-[18px]">
+											<FaBookOpen className="h-full w-full" />
+										</div>
+									</a>
+									<p className="font-semibold pt-2 md:text-base text-xs">
+										Media Center
+									</p>
+								</div>
 							</div>
-						</Link>
-						<p className="font-semibold pt-2">Resources</p>
-					</div>
-					{/* <div className="flex flex-col items-center">
-						<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-white text-white hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-4">
-							<BsNewspaper className="h-full w-full" />
 						</div>
-						<p className="text-white font-semibold pt-2">News</p>
-					</div> */}
-					<div className="flex flex-col items-center">
-						<a target="blank" href="https://goo.gl/maps/M5DGpJECkjYnNpRK7">
-							<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-neutral-800 dark:hover:bg-white text-white hover:text-red-500 dark:hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-[18px]">
-								<FaMapMarkerAlt className="h-full w-full" />
-							</div>
-						</a>
-						<p className="font-semibold pt-2">Directions</p>
-					</div>
-					<div className="flex flex-col items-center">
-						<Link href="/calendar">
-							<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-neutral-800 dark:hover:bg-white text-white hover:text-red-500 dark:hover:text-red-600 origin-bottom cursor-pointer w-16 h-16 p-[18px]">
-								<BsCalendar2WeekFill className="h-full w-full" />
-							</div>
-						</Link>
-						<p className="font-semibold pt-2">Calendar</p>
 					</div>
 				</div>
 				<div className="flex justify-center pt-4 md:pt-6 gap-10 text-black dark:text-white">
 					<p className="font-extrabold">{getEvenOdd(dates)}</p>
 				</div>
-				<div className="pt-6 flex flex-col items-center gap-3">
+				<div className="pt-4 flex flex-col items-center gap-3">
 					{news
 						.filter(({ attributes: { rank } }) => rank <= 5)
 						.map(({ attributes: { title, description, image, link } }, i) => (
@@ -245,6 +330,7 @@ export default function Home({
 									startDate,
 									endDate,
 									startTime,
+									endTime,
 									location,
 								},
 							},
@@ -300,6 +386,12 @@ export default function Home({
 										{startTime && (
 											<>
 												<AiOutlineClockCircle /> {parseTime(startTime)}
+												{endTime && (
+													<>
+														<span> - </span>
+														{parseTime(endTime)}
+													</>
+												)}
 											</>
 										)}
 										{location && (
@@ -313,6 +405,15 @@ export default function Home({
 							</div>
 						)
 					)}
+					{/* 
+					<div className="bg-black dark:bg-white border border-neutral-400 dark:border-neutral-700 dark:bg-opacity-10 bg-opacity-10 dark:hover:bg-opacity-5 flex grid-cols-1 gap-3 w-full text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-10 p-3">
+					<iframe
+						src="https://pp.mbhs.edu/pptimer.html"
+						allowFullScreen
+						className= "w-auto md:flex-1 md:h-60 rounded-t-lg md:rounded-tr-none md:rounded-l-lg"
+					/>
+				</div>
+										*/}
 					{news
 						.filter(({ attributes: { rank } }) => rank > 5)
 						.map(({ attributes: { title, description, image } }, i) => (

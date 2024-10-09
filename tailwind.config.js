@@ -13,6 +13,7 @@ module.exports = {
 				scobl: "381px",
 				xs: "475px",
 				// => @media (min-width: 992px) { ... }
+				"circles": "370px"
 			},
 			keyframes: {
 				fadeIn: {

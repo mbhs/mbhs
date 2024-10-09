@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { BsInstagram, BsTwitter, BsFacebook } from "react-icons/bs";
+import { BsInstagram, BsTwitterX, BsFacebook } from "react-icons/bs";
 import { Badge } from "../lib/types";
 
 export default function Footer() {
@@ -21,7 +21,7 @@ export default function Footer() {
 	return (
 		<div className="bg-neutral-900 p-10 text-white flex flex-col gap-5 items-center mt-auto">
 			<div className="flex flex-wrap gap-5 items-center justify-center">
-				{badges.map((badge, i) => (
+				{badges?.map((badge, i) => (
 					<a href={badge.attributes.link} key={i}>
 						{badge.attributes.image && (
 							<img
@@ -45,11 +45,11 @@ export default function Footer() {
 					<a href="https://www.facebook.com/pages/Montgomery-Blair-High-School/1631578030396596">
 						<BsFacebook className="text-4xl hover:text-blue-600 transition-all duration-300" />
 					</a>
-					<a href="https://www.instagram.com/blairprincipal/">
+					<a href="https://www.instagram.com/montgomery.blair.hs/">
 						<BsInstagram className="text-4xl hover:text-pink-500 transition-all duration-300" />
 					</a>
-					<a href="https://twitter.com/blairprincipal">
-						<BsTwitter className="text-4xl hover:text-blue-400 transition-all duration-300" />
+					<a href="https://twitter.com/mbhs_blazers">
+						<BsTwitterX className="text-4xl hover:text-blue-400 transition-all duration-300" />
 					</a>
 				</div>
 			</div>

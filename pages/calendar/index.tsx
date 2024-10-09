@@ -63,7 +63,7 @@ export default function Calendar({ events }: CalendarProps) {
 				Calendar
 			</h1>
 			<p className="text-center">A schedule of <a className="text-red-500 hover:underline underline-offset-2" href="/calendar/evenodd">odd/even days</a> is available here.</p>
-			<p className="text-center">A more detailed PDF of the school year schedule is <a className="text-red-500 hover:underline underline-offset-2" href="https://old.mbhs.edu/newsevents/Announcements/Calendar%202023-2024.pdf">available here</a>.</p>
+			<p className="text-center">A more detailed PDF of the school year schedule is <a className="text-red-500 hover:underline underline-offset-2" href="https://drive.google.com/file/d/1mU41xypyO8yWqH-r-gp5DmaSDoE6JqHU/view?usp=sharing">available here</a>.</p>
 			<br/>
 			<div className="flex flex-col gap-3 px-5 sm:px-8 md:px-10 lg:px-16 xl:px-24">
 				{events.map(
@@ -75,6 +75,7 @@ export default function Calendar({ events }: CalendarProps) {
 								startDate,
 								endDate,
 								startTime,
+								endTime,
 								location,
 							},
 						},
@@ -132,9 +133,15 @@ export default function Calendar({ events }: CalendarProps) {
 								{title && <p className="font-bold text-xl">{title}</p>}
 								<p className="flex gap-1 items-center">
 									{startTime && (
+									<>
+										<AiOutlineClockCircle /> {parseTime(startTime)}
+										{endTime && (
 										<>
-											<AiOutlineClockCircle /> {parseTime(startTime)}
+											<span> - </span>
+											{parseTime(endTime)}
 										</>
+										)}
+									</>
 									)}
 
 									{location && (
