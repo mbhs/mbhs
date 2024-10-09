@@ -36,7 +36,7 @@ export default function Footer() {
 			<div className="text-center">
 				<a
 					className="text-red-500 hover:underline underline-offset-2"
-					href="https://minio.mbhs.edu/strapi/MBHS_SIP_SMARTIE_Goals_for_Website_8b8b992cf0.pdf?updated_at=2023-11-04T18:26:43.573Z"
+					href="https://drive.google.com/file/d/1nYWWiCqILaN6TCPTFFEKhM7Q5AObPA92/view?usp=sharing"
 				>
 					School Improvement Plan (SIP)
 				</a>
