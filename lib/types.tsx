@@ -30,6 +30,25 @@ interface New {
 	};
 }
 
+interface Achievement {
+	id: number;
+	attributes: {
+		title: string;
+		description: string;
+		rank: number;
+		link: string;
+		image: {
+			data: {
+				attributes: {
+					url: string;
+				};
+			};
+		};
+		updatedAt: string;
+	};
+}
+
+
 interface Schedule {
 	id: number;
 	attributes: {
@@ -290,6 +309,7 @@ interface Day { //one day (the component)
 export type {
 	Event,
 	New,
+	Achievement,
 	Carousel,
 	Schedule,
 	NavLink,
