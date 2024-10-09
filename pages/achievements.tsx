@@ -14,7 +14,7 @@ export async function getStaticProps() {
 		.join("-");
 
 	let achievements = await fetch(
-		`https://strapi.mbhs.edu/api/achievements?filters[$or][0][publishOn][$lte]=${todayStr}&filters[$or][1][publishOn][$null]=true&populate=*&sort[0]=publishOn:DESC&sort[1]=rank:ASC`
+		`https://strapi.mbhs.edu/api/achievements?filters[$or][0][publishOn][$lte]=${todayStr}&filters[$or][1][publishOn][$null]=true&populate=*&sort[0]=rank:ASC&sort[1]=publishOn:DESC`
 	).then((res) => res.json());
 
 	return {
