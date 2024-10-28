@@ -227,7 +227,7 @@ export default function Home({
 								ref={circlesRef}
 								className="flex justify-start circles:justify-center pt-4 gap-5 text-black dark:text-white overflow-y-hidden overflow-x-scroll circles:overflow-visible whitespace-nowrap scrollbehavior:smooth"
 							>
-								<div className="flex flex-col items-center" itemID="3">
+								<div className="w-[100px] flex flex-col items-center" itemID="3">
 									<Link href="/attendanceinfo">
 										<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-neutral-800 dark:hover:bg-white text-white hover:text-red-500 dark:hover:text-red-600 origin-bottom cursor-pointer w-12 h-12 p-[14px] md:w-16 md:h-16 md:p-[18px]">
 											<BsBookmarkCheckFill className="h-full w-full" />
@@ -237,7 +237,7 @@ export default function Home({
 										Attendance
 									</p>
 								</div>
-								<div className="flex flex-col items-center" itemID="3">
+								<div className="w-[100px] flex flex-col items-center" itemID="3">
 									<Link href="/calendar">
 										<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-neutral-800 dark:hover:bg-white text-white hover:text-red-500 dark:hover:text-red-600 origin-bottom cursor-pointer w-12 h-12 p-[14px] md:w-16 md:h-16 md:p-[18px]">
 											<BsCalendar2WeekFill className="h-full w-full" />
@@ -247,7 +247,7 @@ export default function Home({
 										Calendar
 									</p>
 								</div>
-								<div className="flex flex-col items-center" itemID="2">
+								<div className="w-[100px] flex flex-col items-center" itemID="2">
 									<a
 										target="blank"
 										href="https://goo.gl/maps/M5DGpJECkjYnNpRK7"
@@ -261,7 +261,7 @@ export default function Home({
 									</p>
 								</div>
 								
-								<div className="flex flex-col items-center" itemID="4">
+								<div className="w-[100px] flex flex-col items-center" itemID="4">
 									<Link href="https://lunch.mbhs.edu">
 										<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-neutral-800 dark:hover:bg-white text-white hover:text-red-500 dark:hover:text-red-600 origin-bottom cursor-pointer w-12 h-12 p-[14px] md:w-16 md:h-16 md:p-[18px]">
 											<MdLunchDining className="h-full w-full" />
@@ -271,7 +271,7 @@ export default function Home({
 										Lunch
 									</p>
 								</div>
-								<div className="flex flex-col items-center" itemID="1">
+								<div className="w-[100px] flex flex-col items-center" itemID="1">
 									<a 
 										target='blank'
 										href="https://mbhs.montgomeryschoolsmd.libguides.com/homepage">
