@@ -1,8 +1,18 @@
 import { Achievement } from "../lib/types";
+import { AiOutlineCalendar } from "react-icons/ai";
 import Markdown from "../components/Markdown";
 
 interface AchievementsProps {
 	achievements: Achievement[];
+}
+
+const parseDate = (date: string) => {
+    let dateArr = date.split("-");
+    let year = dateArr[0];
+    let month = dateArr[1];
+    let day = dateArr[2];
+    
+    return `${month}/${day}/${year}`
 }
 
 export async function getStaticProps() {
@@ -65,6 +75,13 @@ function Achievements({ achievements }: AchievementsProps) {
                         <div className={`${image.data || link ? "p-3" : ""}`}>
                             {title && <p className="font-bold text-xl pb-2">{title}</p>}
                             <Markdown>{description}</Markdown>
+                            {/*<p className="flex gap-1 items-center">
+                                {publishOn && (
+                                        <>
+                                            <AiOutlineCalendar /> {parseDate(publishOn)}
+                                        </>
+                                )}
+                             </p>*/}
                         </div>
                     </div>
 				))}

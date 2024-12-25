@@ -45,6 +45,7 @@ interface Achievement {
 			};
 		};
 		updatedAt: string;
+		publishOn: string;
 	};
 }
 
