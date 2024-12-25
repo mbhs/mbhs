@@ -30,6 +30,24 @@ interface New {
 	};
 }
 
+interface Achievement {
+	id: number;
+	attributes: {
+		title: string;
+		description: string;
+		rank: number;
+		link: string;
+		image: {
+			data: {
+				attributes: {
+					url: string;
+				};
+			};
+		};
+		updatedAt: string;
+	};
+}
+
 interface Schedule {
 	id: number;
 	attributes: {
