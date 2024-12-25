@@ -308,6 +308,7 @@ interface Day { //one day (the component)
 export type {
 	Event,
 	New,
+	Achievement,
 	Carousel,
 	Schedule,
 	NavLink,
