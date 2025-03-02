@@ -29,6 +29,8 @@ import { FiYoutube } from "react-icons/fi";
 import { MdLunchDining } from "react-icons/md";
 import { BsCaretLeftFill } from "react-icons/bs";
 import { BsCaretRightFill } from "react-icons/bs";
+import ImageModal from "../components/ImageModal"; 
+
 
 export async function getStaticProps() {
 	//gets all events that are ending today or later and sorts them by date
@@ -167,6 +169,19 @@ export default function Home({
 	const [playing, setPlaying] = React.useState<boolean>(true);
 	const [sco, setSCO] = React.useState<boolean>(false);
 
+	//modal state for news images
+	const [modalData, setModalData] = React.useState<
+		{ imageUrl: string; layoutId: string } | null
+	>(null);
+
+	const openNewsModal = (imageUrl: string, id: string) => {
+		setModalData({ imageUrl, layoutId: id });
+	};
+
+	const closeNewsModal = () => {
+		setModalData(null);
+	};
+
 	const { width, ref } = useObserveElementWidth<HTMLDivElement>();
 	const scroll = width === 0 ? false : width < 330;
 	const circlesRef = React.useRef<HTMLDivElement>(null);
@@ -291,6 +306,14 @@ export default function Home({
 					<p className="font-extrabold">{getEvenOdd(dates)}</p>
 				</div>
 				<div className="pt-4 flex flex-col items-center gap-3">
+					{/* render the modal if modalData exists */}
+					{modalData && (
+						<ImageModal
+							imageUrl={modalData.imageUrl}
+							layoutId={modalData.layoutId}
+							onClose={closeNewsModal}
+						/>
+					)}
 					{news
 						.filter(({ attributes: { rank } }) => rank <= 5)
 						.map(({ attributes: { title, description, image, link } }, i) => (
@@ -310,10 +333,15 @@ export default function Home({
 									/>
 								)}
 								{image.data && !link && (
-									<img
-										src={image.data.attributes.url}
-										className="rounded-t-lg md:rounded-tr-none md:rounded-l-lg h-40 object-cover w-full md:w-80"
-									/>
+								<motion.img
+									layoutId={`news-image-${i}`}
+									src={image.data.attributes.url}
+									onClick={() =>
+									openNewsModal(image.data.attributes.url, i.toString())
+									}
+									className="rounded-t-lg md:rounded-tr-none md:rounded-l-lg h-40 object-cover w-full md:w-80 cursor-pointer hover:opacity-75 transition"
+									transition={{ type: "spring", stiffness: 500, damping: 40 }} 
+								/>
 								)}
 								<div className={`${(image.data || link) && "p-3"}`}>
 									{title && <p className="font-bold text-xl pb-2">{title}</p>}
