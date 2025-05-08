@@ -524,6 +524,9 @@ export default function Home({
 							</Link>
 						))}
 					</div>
+					<div className="flex justify-center mt-2.5">
+						<a className="text-center" target="_blank" href="https://issuu.com/silverchipsonline">Click for Silver Chips Print</a>
+					</div>
 				</motion.div>
 			)}
 			<div className="absolute right-0 top-0 h-[80vh]">
