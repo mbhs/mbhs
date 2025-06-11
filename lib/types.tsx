@@ -80,20 +80,6 @@ interface NavDropdownLink {
 	};
 }
 
-interface FooterBadge {
-	id: number;
-	attributes: {
-		image: {
-			data: {
-				attributes: {
-					url: string;
-				};
-			};
-		};
-		link: string;
-	};
-}
-
 interface Page {
 	id: number;
 	attributes: {
@@ -228,7 +214,15 @@ interface Badge {
 	attributes: {
 		name: string;
 		link: string;
+		lamp: boolean;
 		image: {
+			data: {
+				attributes: {
+					url: string;
+				};
+			};
+		};
+		imagelight: {
 			data: {
 				attributes: {
 					url: string;
@@ -294,7 +288,6 @@ export type {
 	Schedule,
 	NavLink,
 	NavDropdownLink,
-	FooterBadge,
 	Page,
 	HomePage,
 	AboutPage,

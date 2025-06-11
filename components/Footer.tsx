@@ -19,15 +19,22 @@ export default function Footer() {
 	}, []);
 
 	return (
-		<div className="bg-neutral-900 p-10 text-white flex flex-col gap-5 items-center mt-auto">
+		<div className="bg-neutral-200 dark:bg-neutral-900 p-10 dark:text-white flex flex-col gap-5 items-center mt-auto border-t border-neutral-400 dark:border-neutral-700">
 			<div className="flex flex-wrap gap-5 items-center justify-center">
-				{badges?.map((badge, i) => (
+				{badges?.filter((badge) => !badge.attributes.lamp).map((badge, i) => (
 					<a href={badge.attributes.link} key={i}>
 						{badge.attributes.image && (
 							<img
 								src={badge.attributes.image.data.attributes.url}
 								alt={badge.attributes.name}
-								className="h-24 rounded-lg"
+								className={(badge.attributes.imagelight.data) ? "h-24 rounded-lg hidden dark:block" : "h-24 rounded-lg"}
+							/>
+						)}
+						{badge.attributes.imagelight.data && (
+							<img
+								src={badge.attributes.imagelight.data.attributes.url}
+								alt={badge.attributes.name}
+								className="h-24 rounded-lg dark:hidden"
 							/>
 						)}
 					</a>
@@ -86,9 +93,25 @@ export default function Footer() {
 				</a>{" "}
 				under the supervision of Peter Hammond.
 			</p>
-			<a href="https://www.montgomeryschoolsmd.org/">
-				<img className="w-96" src="/assets/lamp.png" alt="mcps logo" />
-			</a>
+			{badges?.filter((badge) => badge.attributes.lamp).map((badge, i) => (
+					<a href={badge.attributes.link} key={i}>
+						{badge.attributes.image && (
+							<img
+								src={badge.attributes.image.data.attributes.url}
+								alt={badge.attributes.name}
+								className={(badge.attributes.imagelight.data) ? "w-96 hidden dark:block" : "w-96"}
+							/>
+						)}
+						{badge.attributes.imagelight.data && (
+							<img
+								src={badge.attributes.imagelight.data.attributes.url}
+								alt={badge.attributes.name}
+								className="w-96 dark:hidden"
+							/>
+						)}
+					</a>
+			))}
+
 		</div>
 	);
 }
