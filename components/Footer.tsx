@@ -87,7 +87,7 @@ export default function Footer() {
 				under the supervision of Peter Hammond.
 			</p>
 			<a href="https://www.montgomeryschoolsmd.org/">
-				<img className="w-16" src="/assets/lamp.png" alt="mcps logo" />
+				<img className="w-96" src="/assets/lamp.png" alt="mcps logo" />
 			</a>
 		</div>
 	);
