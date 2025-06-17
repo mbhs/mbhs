@@ -82,8 +82,7 @@ export function getEvenOdd(stored: { [key: string]: number }): string {
     } else {
         day = today
     }
-
-    if (stored[today.date.toDateString()] == null) { //summer
+    if (stored[today.date.toDateString()] == null || stored[day.date.toDateString()] == null) { //summer
         if (stored[(new Date(today.date.getFullYear(), today.date.getMonth(), today.date.getDate() + 1)).toDateString()] != null)
             return "Tomorrow is an " + reverseDayType[stored[(new Date(today.date.getFullYear(), today.date.getMonth(), today.date.getDate() + 1)).toDateString()]].toUpperCase() + " day"
         return "Have a great summer!"
