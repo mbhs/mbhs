@@ -295,7 +295,7 @@ export default function Home({
 						.filter(({ attributes: { rank } }) => rank <= 5)
 						.map(({ attributes: { title, description, image, link } }, i) => (
 							<div
-								className={`bg-black dark:bg-white border border-neutral-400 dark:border-neutral-700 bg-opacity-10 dark:bg-opacity-10 dark:hover:bg-opacity-5 w-full text-black dark:text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-10 ${
+								className={`bg-black dark:bg-white border border-neutral-400 dark:border-neutral-700 bg-opacity-10 dark:bg-opacity-10 dark:hover:bg-opacity-5 w-full text-black dark:text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-5 ${
 									image.data || link
 										? "flex flex-col md:flex-row p-0 gap-0"
 										: "p-3"
@@ -336,7 +336,7 @@ export default function Home({
 							},
 							i
 						) => (
-							<div className="bg-black dark:bg-white border border-neutral-400 dark:border-neutral-700 dark:bg-opacity-10 bg-opacity-10 dark:hover:bg-opacity-5 flex gap-3 w-full text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-10 p-3">
+							<div className="bg-black dark:bg-white border border-neutral-400 dark:border-neutral-700 dark:bg-opacity-10 bg-opacity-10 dark:hover:bg-opacity-5 flex gap-3 w-full text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-5 p-3">
 								<div
 									className={`flex justify-center items-center text-center font-semibold bg-red-600 text-white p-2 ${
 										endDate ? "w-32" : "w-16"
@@ -418,7 +418,7 @@ export default function Home({
 						.filter(({ attributes: { rank } }) => rank > 5)
 						.map(({ attributes: { title, description, image } }, i) => (
 							<div
-								className={`bg-black dark:bg-white border border-neutral-400 dark:border-neutral-700 bg-opacity-10 dark:bg-opacity-10 dark:hover:bg-opacity-5 w-full text-black dark:text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-10 ${
+								className={`bg-black dark:bg-white border border-neutral-400 dark:border-neutral-700 bg-opacity-10 dark:bg-opacity-10 dark:hover:bg-opacity-5 w-full text-black dark:text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-5 ${
 									image.data ? "flex flex-col md:flex-row p-0 gap-0" : "p-3"
 								}`}
 								key={i}

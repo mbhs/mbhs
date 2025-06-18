@@ -99,14 +99,14 @@ export default function Footer() {
 							<img
 								src={badge.attributes.image.data.attributes.url}
 								alt={badge.attributes.name}
-								className={(badge.attributes.imagelight.data) ? "w-96 hidden dark:block" : "w-96"}
+								className={(badge.attributes.imagelight.data) ? "h-24 hidden dark:block" : "w-96"}
 							/>
 						)}
 						{badge.attributes.imagelight.data && (
 							<img
 								src={badge.attributes.imagelight.data.attributes.url}
 								alt={badge.attributes.name}
-								className="w-96 dark:hidden"
+								className="h-24 dark:hidden"
 							/>
 						)}
 					</a>

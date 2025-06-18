@@ -281,6 +281,14 @@ interface Day { //one day (the component)
 	endDate: string;
 }
 
+interface Snows {
+	id: number;
+	attributes: {
+		snowing: boolean;
+		count: number;
+	}
+}
+
 export type {
 	Event,
 	New,
@@ -300,4 +308,5 @@ export type {
 	Admin,
 	Days,
 	Day,
+	Snows,
 };

@@ -5,6 +5,7 @@ import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import Snow from "../components/Snow";
 import Head from "next/head";
+import Script from "next/script";
 
 export default function App({ Component, pageProps }: AppProps) {
 	const [dark, setDark] = useState(true);
@@ -27,7 +28,7 @@ export default function App({ Component, pageProps }: AppProps) {
 				<title>Montgomery Blair High School</title>
 				<meta name="description" content="Montgomery Blair High School" />
 				<link rel="icon" href="/assets/favicon.svg" />
-				<script defer data-domain="mbhs.edu" src="https://plausible.mbhs.edu/js/plausible.js"></script>
+				<Script defer data-domain="mbhs.edu" src="https://plausible.mbhs.edu/js/plausible.js"/>
 			</Head>
 			<>
 				{dark && (
@@ -42,7 +43,7 @@ export default function App({ Component, pageProps }: AppProps) {
 				<Component {...pageProps} dark={dark} />
 			</>
 			<Footer />
-			<Snow />
+			<Snow dark={dark}/>
 		</div>
 	);
 }

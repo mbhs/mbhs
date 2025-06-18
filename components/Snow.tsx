@@ -1,45 +1,32 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Snows } from '../lib/types';
 
-export async function getStaticProps() {
-	let snow = await fetch(
-		"https://strapi.mbhs.edu/api/snow?populate=*"
-	).then((res) => res.json());
-
-	return {
-		props: {
-			snow: snow.data,
-		},
-		revalidate: 60,
-	};
-}
-
-export default function Snow() {
-  const [snow, setSnow] = useState<boolean | null>(null);
+export default function Snow({dark} : {dark: boolean}) {
+  const [snow, setSnow] = useState<Snows>();
   const svgRef = useRef<SVGSVGElement>(null);
+  const svg = svgRef.current;
 
-  const fetchSnow = async () => {
-    fetch(
-      "https://strapi.mbhs.edu/api/snow?populate=*"
-    ).then((res) => res.json())
-    .then((res) => {
-      setSnow(res.data.attributes.snow)
-    })
-  }
   useEffect(() => {
+    const fetchSnow = async () => {
+      fetch(
+        "https://strapi.mbhs.edu/api/snow?populate=*"
+      ).then((res) => res.json())
+      .then((res) => {
+        setSnow(res.data)
+      })
+    }
     fetchSnow()
   })
-
+  
   useEffect(() => {
-    if (!snow) return;
-    
-    const svg = svgRef.current;
-    const numParticles = 200;
+    if (!snow?.attributes.snowing) return
+    const numParticles = snow.attributes.count;
     //const colors = ['rgb(255,255,255)', 'rgb(255,255,255)', 'rgb(255,255,255)'];
     const startSnow = () => {
       for (let i = 0; i < numParticles; i++) {
         const particle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
         //const color = colors[Math.floor(Math.random() * colors.length)];
-        const color = "rgb(255,255,255)";
+        const color = dark ? "rgb(225,225,255)" : "rgb(150,150,180)";
         particle.setAttribute('cx', `${Math.random() * 100}vw`);
         particle.setAttribute('cy', `${Math.random() * 20}vh`);
         particle.setAttribute('r', `${Math.random() * 2 + 2}`);
@@ -55,13 +42,17 @@ export default function Snow() {
             iterations: Infinity,
           }
         );
-        
         svg?.appendChild(particle);
       }
     };
     const timeout = setTimeout(startSnow, 0);
     return () => clearTimeout(timeout);
-  }, [snow]);
+  }, [snow?.attributes.snowing, dark]);
+  useEffect(() => {
+    while(svg?.firstChild) {
+      svg.removeChild(svg.firstChild)
+    }
+  }, [dark])
   return (
     <svg ref={svgRef} width="100vw" height="100vh" style={{ overflow: 'hidden' , pointerEvents: 'none'}} className={`fixed top-0 left-0 bg-transparent animate-fadeIn`} />
   );
