@@ -14,7 +14,8 @@ export async function getStaticProps() {
 }
 
 export default function Snow() {
-  const [snow, setSnow] = useState(null);
+  const [snow, setSnow] = useState<boolean | null>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
 
   const fetchSnow = async () => {
     fetch(
@@ -28,8 +29,9 @@ export default function Snow() {
     fetchSnow()
   })
 
-  const svgRef = useRef<SVGSVGElement>(null);
   useEffect(() => {
+    if (!snow) return;
+    
     const svg = svgRef.current;
     const numParticles = 200;
     //const colors = ['rgb(255,255,255)', 'rgb(255,255,255)', 'rgb(255,255,255)'];
@@ -59,8 +61,8 @@ export default function Snow() {
     };
     const timeout = setTimeout(startSnow, 0);
     return () => clearTimeout(timeout);
-  }, []);
+  }, [snow]);
   return (
-    <svg ref={svgRef} width="100vw" height="100vh" style={{ overflow: 'hidden' , pointerEvents: 'none'}} className={`fixed top-0 left-0 bg-transparent animate-fadeIn ${snow ? "" : "hidden"}`} />
+    <svg ref={svgRef} width="100vw" height="100vh" style={{ overflow: 'hidden' , pointerEvents: 'none'}} className={`fixed top-0 left-0 bg-transparent animate-fadeIn`} />
   );
 }
