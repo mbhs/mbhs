@@ -1,6 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Snows } from '../lib/types';
 
+const backupPull:Snows = {
+  id: 1,
+  attributes: {
+    snowing: false,
+    count: 75
+  },
+}
+
 export default function Snow({dark} : {dark: boolean}) {
   const [snow, setSnow] = useState<Snows>();
   const svgRef = useRef<SVGSVGElement>(null);
@@ -13,7 +21,7 @@ export default function Snow({dark} : {dark: boolean}) {
       ).then((res) => res.json())
       .then((res) => {
         setSnow(res.data)
-      })
+      }).catch(() => setSnow(backupPull))
     }
     fetchSnow()
   })

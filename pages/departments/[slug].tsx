@@ -94,6 +94,10 @@ export default function department({ department }: DepartmentsProps) {
 		setResource(r);
 	};
 
+	const stopPropagation = (event: React.MouseEvent<HTMLDivElement>) => {
+		event.stopPropagation()
+	}
+
 	return (
 		<div>
 			{modal && (
@@ -103,7 +107,8 @@ export default function department({ department }: DepartmentsProps) {
 					exit={{ opacity: 0 }}
 					transition={{ duration: 0.3 }}
 					className="fixed z-50 bg-black backdrop-blur-md bg-opacity-25 left-0 right-0 top-0 bottom-0 flex justify-center items-center"
-					onClick={() => closeModal(false)}
+					onClick={() => closeModal()}
+					
 				>
 					<motion.div
 						layoutId={
@@ -113,6 +118,7 @@ export default function department({ department }: DepartmentsProps) {
 						}
 						//layout="preserve-aspect"
 						className="max-w-full w-auto min-h-max bg-neutral-100 dark:bg-neutral-900 dark:text-white border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-md p-3 flex flex-col gap-2"
+						onClick={stopPropagation}
 					>
 						<IoClose
 							className="w-6 h-6 mb-2 cursor-pointer"
