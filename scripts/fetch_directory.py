@@ -1,8 +1,6 @@
-import json
 from bs4 import BeautifulSoup
 import requests
 from decouple import config
-import copy
 
 # Load environment variables
 # dotenv.load_dotenv()
@@ -38,31 +36,31 @@ def parse_staff_directory_to_json(html_content, current_staff, staff_to_id):
 
   # Find all department headers and iterate through them
   for department_header in soup.find_all('h5', class_='bg-cyan dark-gray-text py-2 pl-2'):
-      department_name = department_header.get_text(strip=True)
+    department_name = department_header.get_text(strip=True)
 
-      # Find the sibling unordered lists for each department header
-      for ul in department_header.find_next_siblings('ul', class_='box-one-light'):
-          for li in ul.find_all('li'):
-              # Extract staff name, title, and email
-              name = li.find('span', class_='dark-gray-border').get_text(strip=True) if li.find('span', class_='dark-gray-border') else ''
-              # properly format spaces
-              name = name.replace("\xa0", " ")
-              
-              staffinfo_element = li.find('div', class_='staffinfo clearfix mtm')
-              title = staffinfo_element.find('p').get_text(strip=True) if staffinfo_element else ''
+    # Find the sibling unordered lists for each department header
+    for ul in department_header.find_next_siblings('ul', class_='box-one-light'):
+      for li in ul.find_all('li'):
+        # Extract staff name, title, and email
+        name = li.find('span', class_='dark-gray-border').get_text(strip=True) if li.find('span', class_='dark-gray-border') else ''
+        # properly format spaces
+        name = name.replace("\xa0", " ")
+        
+        staffinfo_element = li.find('div', class_='staffinfo clearfix mtm')
+        title = staffinfo_element.find('p').get_text(strip=True) if staffinfo_element else ''
 
-              email_element = li.find('a', href=lambda x: x and x.startswith('mailto:'))
-              email = email_element.get_text(strip=True) if email_element else ''
+        email_element = li.find('a', href=lambda x: x and x.startswith('mailto:'))
+        email = email_element.get_text(strip=True) if email_element else ''
 
-              # Append the information to the staff_info_json list as a dictionary
-              staff_info_json.append({
-                #'Department': department_name,
-                'name': name,
-                'title': title,
-                'email': email,
-                "createdBy": "Python Web Scraping Script",
-                "updatedBy": "Python Web Scraping Script"
-              })
+        # Append the information to the staff_info_json list as a dictionary
+        staff_info_json.append({
+          #'Department': department_name,
+          'name': name,
+          'title': title,
+          'email': email,
+          "createdBy": "Python Web Scraping Script",
+          "updatedBy": "Python Web Scraping Script"
+        })
   
 
   new_staff = []

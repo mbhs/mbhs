@@ -382,7 +382,7 @@ export default function Home({
 						.filter(({ attributes: { rank } }) => rank <= 5)
 						.map((n, i) => (
 							<motion.div
-								className={`border border-neutral-300 dark:border-neutral-700 dark:text-white shadow-sm hover:shadow-md flex bg-opacity-10 hover:bg-opacity-20 text-black backdrop-blur-md rounded-lg duration-300 transition-all hover:border-neutral-700 dark:hover:border-neutral-300 hover:cursor-pointer bg-black dark:bg-white  dark:bg-opacity-10 dark:hover:bg-opacity-5 w-full  ${
+								className={`border border-neutral-400 dark:border-neutral-700 dark:text-white flex bg-opacity-10 hover:bg-opacity-20 text-black backdrop-blur-md rounded-lg duration-300 transition-all hover:border-neutral-700 dark:hover:border-neutral-300 hover:cursor-pointer bg-black dark:bg-white  dark:bg-opacity-10 dark:hover:bg-opacity-5 w-full  ${
 									n.attributes.image.data || n.attributes.link ? "flex flex-col md:flex-row p-0" : "p-3"
 								}`}
 								key={i}
@@ -393,24 +393,27 @@ export default function Home({
 										<motion.iframe
 											src={getEmbed(n.attributes.link)}
 											allowFullScreen
-											className="h-40 w-full md:flex-1 rounded-l-lg object-scale-down justify-self-center"
+											className="max-h-52 h-full w-full md:flex-1 rounded-l-lg object-scale-down justify-self-center"
 											layoutId={`news-link-${n.attributes.link}`}
 											id={`news-link-${n.attributes.link}`}
+											onClick={stopPropagation}
 										/>
 									)}
 									{n.attributes.image.data && !n.attributes.link && (
 										isVideo(n.attributes.image.data.attributes.url) ? (
-											<motion.video
-												src={n.attributes.image.data.attributes.url}
-												className="h-40 w-full md:flex-1 rounded-l-lg object-scale-down justify-self-center"
-												layoutId={`news-video-${n.attributes.image.data.attributes.url}`}
-												id={`news-video-${n.attributes.image.data.attributes.url}`}
-												controls
-											/>
+											<div onClick={stopPropagation}>
+												<motion.video
+													src={n.attributes.image.data.attributes.url}
+													className="max-h-52 h-full w-full md:flex-1 rounded-l-lg object-scale-down justify-self-center"
+													layoutId={`news-video-${n.attributes.image.data.attributes.url}`}
+													id={`news-video-${n.attributes.image.data.attributes.url}`}
+													controls
+												/>
+											</div>	
 										) : (
 											<motion.img
 												src={n.attributes.image.data.attributes.url}
-												className="h-40 w-full md:flex-1 rounded-l-lg object-scale-down justify-self-center"
+												className="max-h-52 h-full w-full md:flex-1 rounded-l-lg object-scale-down justify-self-center"
 												layoutId={`news-image-${n.attributes.image.data.attributes.url}`}
 											/>
 										)
@@ -447,12 +450,12 @@ export default function Home({
 							},
 							i
 						) => (
-							<div className="bg-black dark:bg-white border border-neutral-400 dark:border-neutral-700 dark:bg-opacity-10 bg-opacity-10 dark:hover:bg-opacity-5 flex gap-3 w-full text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-5 p-3">
+							<div 
+								className="bg-black dark:bg-white border border-neutral-400 dark:border-neutral-700 dark:bg-opacity-10 bg-opacity-10 dark:hover:bg-opacity-20 flex gap-3 w-full text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-20 p-3 dark:text-white shadow-sm hover:shadow-md  hover:border-neutral-700 dark:hover:border-neutral-300 "
+								key={i}
+							>
 								<div
-									className={`flex justify-center items-center text-center font-semibold bg-red-600 text-white p-2 ${
-										endDate ? "w-32" : "w-16"
-									}
-										 h-16 rounded-full`}
+									className={`flex justify-center items-center text-center font-semibold bg-red-600 text-white p-2 rounded-full h-16 ${endDate ? "w-32" : "w-16"}`}
 								>
 									<div>
 										<p className="text-md -mb-1">
@@ -527,31 +530,71 @@ export default function Home({
 										*/}
 					{news
 						.filter(({ attributes: { rank } }) => rank > 5)
-						.map(({ attributes: { title, description, image } }, i) => (
-							<div
-								className={`bg-black dark:bg-white border border-neutral-400 dark:border-neutral-700 bg-opacity-10 dark:bg-opacity-10 dark:hover:bg-opacity-5 w-full text-black dark:text-white backdrop-blur-lg rounded-lg transition-all duration-300 hover:bg-opacity-5 ${
-									image.data ? "flex flex-col md:flex-row p-0 gap-0" : "p-3"
+						.map((n, i) => (
+							<motion.div
+								className={`border border-neutral-400 dark:border-neutral-700 dark:text-white shadow-sm hover:shadow-md flex bg-opacity-10 hover:bg-opacity-20 text-black backdrop-blur-md rounded-lg duration-300 transition-all hover:border-neutral-700 dark:hover:border-neutral-300 hover:cursor-pointer bg-black dark:bg-white  dark:bg-opacity-10 dark:hover:bg-opacity-5 w-full  ${
+									n.attributes.image.data || n.attributes.link ? "flex flex-col md:flex-row p-0" : "p-3"
 								}`}
 								key={i}
+								onClick={() => openModal(n)}
 							>
-								{image.data && (
-									<img
-										src={image.data.attributes.url}
-										className="rounded-t-lg md:rounded-tr-none md:rounded-l-lg h-40 object-cover w-full md:w-80"
-									/>
-								)}
-								<div className={`${image.data && "p-3"}`}>
-									{title && <p className="font-bold text-xl pb-2">{title}</p>}
-									<Markdown>{description}</Markdown>
+								<div>
+									{n.attributes.link && (
+										<motion.iframe
+											src={getEmbed(n.attributes.link)}
+											allowFullScreen
+											className="max-h-52 h-full w-full md:flex-1 rounded-l-lg object-scale-down justify-self-center"
+											layoutId={`news-link-${n.attributes.link}`}
+											id={`news-link-${n.attributes.link}`}
+											onClick={stopPropagation}
+										/>
+									)}
+									{n.attributes.image.data && !n.attributes.link && (
+										isVideo(n.attributes.image.data.attributes.url) ? (
+											<div onClick={stopPropagation}>
+												<motion.video
+													src={n.attributes.image.data.attributes.url}
+													className="max-h-52 h-full w-full md:flex-1 rounded-l-lg object-scale-down justify-self-center"
+													layoutId={`news-video-${n.attributes.image.data.attributes.url}`}
+													id={`news-video-${n.attributes.image.data.attributes.url}`}
+													controls
+												/>
+											</div>
+										) : (
+											<motion.img
+												src={n.attributes.image.data.attributes.url}
+												className="max-h-52 h-full w-full md:flex-1 rounded-l-lg object-scale-down justify-self-center"
+												layoutId={`news-image-${n.attributes.image.data.attributes.url}`}
+											/>
+										)
+									)}
 								</div>
-							</div>
+								<div className={`${n.attributes.image.data || n.attributes.link ? "p-3" : ""}`}>
+									{n.attributes.title && (
+									<motion.p 
+										className="font-bold text-xl pb-2" 
+										layoutId={`news-title-${n.attributes.title}`}
+									>
+										{n.attributes.title}
+									</motion.p>)}
+									<motion.div
+										layoutId={`news-description-${n.attributes.description}`}
+									>
+										<Markdown>{n.attributes.description}</Markdown>
+									</motion.div>
+								</div>
+							</motion.div>
 						))}
-					{/* <Link
-						href="/news"
-						className="p-2 bg-opacity-10 text-white bg-white rounded-md font-bold max-w-max"
+					{/* <motion.div
+								className={`border border-neutral-400 dark:border-neutral-700 dark:text-white shadow-sm hover:shadow-md bg-opacity-10 hover:bg-opacity-20 text-black backdrop-blur-md rounded-lg duration-300 transition-all hover:border-neutral-700 dark:hover:border-neutral-300 hover:cursor-pointer bg-black dark:bg-white  dark:bg-opacity-10 dark:hover:bg-opacity-5 w-full p-3 flex`}
 					>
-						View all News
-					</Link> */}
+						<Link
+							href="/news"
+							className="dark:text-white text-black font-bold w-full text-center"
+						>
+							View All News
+						</Link>
+					</motion.div> */}
 				</div>
 			</div>
 			<div className="-z-10 absolute right-0 top-0 h-[80vh] animate-fadeIn">
@@ -618,8 +661,8 @@ export default function Home({
 						</div>
 					</motion.span>
 					<div className="w-full flex flex-col items-center pt-3 gap-3">
-						{scoMeta.map((s: SCO) => (
-							<Link href={s.link} className="w-full">
+						{scoMeta.map((s: SCO, i) => (
+							<Link href={s.link} className="w-full" key={i}>
 								<div className="relative">
 									<div className="cursor-pointer flex items-center gap-2 justify-center h-full w-full absolute hover:bg-black rounded-lg z-10 opacity-0 hover:opacity-30 duration-300 transition-all">
 										<FaRegEye className="w-6 h-6" /> Read More

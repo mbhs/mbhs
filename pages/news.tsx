@@ -148,17 +148,20 @@ function News({ news }: NewsProps) {
 									className="h-40 w-full md:flex-1 rounded-l-lg object-scale-down justify-self-center"
 									layoutId={`news-link-${n.attributes.link}`}
 									id={`news-link-${n.attributes.link}`}
+									onClick={stopPropagation}
 								/>
 							)}
 							{n.attributes.image.data && !n.attributes.link && (
 								isVideo(n.attributes.image.data.attributes.url) ? (
-									<motion.video
-										src={n.attributes.image.data.attributes.url}
-										className="h-40 w-full md:flex-1 rounded-l-lg object-scale-down justify-self-center"
-										layoutId={`news-video-${n.attributes.image.data.attributes.url}`}
-										id={`news-video-${n.attributes.image.data.attributes.url}`}
-										controls
-									/>
+									<div onClick={stopPropagation}>
+										<motion.video
+											src={n.attributes.image.data.attributes.url}
+											className="h-40 w-full md:flex-1 rounded-l-lg object-cover justify-self-center"
+											layoutId={`news-video-${n.attributes.image.data.attributes.url}`}
+											id={`news-video-${n.attributes.image.data.attributes.url}`}
+											controls
+										/>
+									</div>
 								) : (
 									<motion.img
 										src={n.attributes.image.data.attributes.url}
