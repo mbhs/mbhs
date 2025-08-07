@@ -126,7 +126,7 @@ interface BusRoute {
 				attributes: {
 					url: string;
 				};
-			};
+			}[];
 		};
 		routes: {
 			data: {

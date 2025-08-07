@@ -73,13 +73,21 @@ export default function Schedule({
 						)
 					)}
 				</div>
+				{routes.attributes.image.data.map(
+					({attributes: {url}}, i) => (
+						<img
+							className="w-full cursor-pointer md:w-96 rounded-lg"
+							src={url}
+							key={i}
+							alt="drop off diagram"
+							onClick={() =>
+								window.open(url)
+							}
+						>
+						</img>
+					)
+				)}
 				<img
-					className="w-full cursor-pointer md:w-96 rounded-lg"
-					src={routes.attributes.image.data.attributes.url}
-					alt="drop off diagram"
-					onClick={() =>
-						window.open(routes.attributes.image.data?.attributes.url)
-					}
 				/>
 			</div>
 

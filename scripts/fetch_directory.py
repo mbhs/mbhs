@@ -137,18 +137,16 @@ html = requests.get('https://ww2.montgomeryschoolsmd.org/directory/directory_Box
 current_staff, staff_to_id = get_current_staff()
 parse_staff_directory_to_json(html, current_staff, staff_to_id)
 
-test_data = {
-  'name': "test",
-  'title': "test",
-  'email': "test",
-  "createdBy": "Python Web Scraping Script",
-  "updatedBy": "Python Web Scraping Script",
-  "departments" : {
-      "data" : [
-
-      ]
-    }
-  }
+# test_data = {
+#   'name': "test",
+#   'title': "test",
+#   'email': "test",
+#   "createdBy": "Python Web Scraping Script",
+#   "updatedBy": "Python Web Scraping Script",
+#   "departments" : {
+#     "connect": [16]
+#   }
+#   }
 
 # try:
 #   res = requests.post('https://strapi.mbhs.edu/api/directory', headers={
