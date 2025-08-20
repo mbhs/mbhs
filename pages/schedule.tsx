@@ -50,16 +50,19 @@ export default function Schedule({
 	return (
 		<div className="px-5 sm:px-12 md:px-24 lg:px-36 xl:px-48 dark:text-white">
 			<h1 className="text-2xl md:text-4xl text-center font-bold py-3 md:py-5">
-				Bus Schedule & Routes + Drop Off Info
+				<a href="https://www.montgomeryschoolsmd.org/departments/transportation/busroutes/" target="_blank">
+				Bus schedules are available on <span className="underline underline-offset-[6px]">MCPS website</span>.
+				</a>
 			</h1>
 			<p>
-				Bus schedules are often updated slightly during the first weeks of
+				If you are dropping your student off, please use these diagrams, one for each side of the school, as guidance:
+				{/* Bus schedules are often updated slightly during the first weeks of
 				school, and occasionally during the rest of the school year. Please
 				check back for any updates. Further information about buses is availabe
-				in English and en español.
+				in English and en español. */}
 			</p>
 			<div className="flex flex-wrap gap-5 justify-between items-center py-5">
-				<div className="flex flex-col gap-3">
+				{/* <div className="flex flex-col gap-3">
 					{routes.attributes.routes.data.map(
 						({ attributes: { url, name } }, i) => (
 							<a
@@ -72,7 +75,7 @@ export default function Schedule({
 							</a>
 						)
 					)}
-				</div>
+				</div> */}
 				{routes.attributes.image.data.map(
 					({attributes: {url}}, i) => (
 						<img
