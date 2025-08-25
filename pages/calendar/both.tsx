@@ -79,7 +79,7 @@ export default function Calendar({ events, dates }: CalendarProps) {
 			<h1 className="text-2xl md:text-4xl font-bold text-center py-3 md:py-5">
 				Calendar
 			</h1>
-			<p className="text-center">A more detailed PDF of the school year schedule is <a className="text-red-500 hover:underline underline-offset-2" href="https://old.mbhs.edu/newsevents/Announcements/Calendar%202023-2024.pdf">available here</a>.</p>
+			<p className="text-center">A more detailed PDF of the school year schedule is <a className="text-red-500 hover:underline underline-offset-2" href="https://minio.mbhs.edu/strapi/Calendar_2025_2026_1a603eeb1b.pdf">available here</a>.</p>
 			<br/>
             {/*<div className="w-full ml-8 md:ml-0 pt-2 pb-4 text-black dark:text-white font-extrabold">
                 <p className="text-center">{getEvenOdd(dates)}</p>
