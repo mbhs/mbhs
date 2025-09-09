@@ -24,7 +24,7 @@ export default function Snow({dark} : {dark: boolean}) {
       }).catch(() => setSnow(backupPull))
     }
     fetchSnow()
-  })
+  }, [])
   
   useEffect(() => {
     if (!snow?.attributes.snowing) return
