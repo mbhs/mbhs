@@ -17,10 +17,15 @@ export async function getStaticProps() {
 		`https://strapi.mbhs.edu/api/bus-route?populate=*`
 	).then((res) => res.json());
 
+	let innovationSchedules = await fetch(
+		`https://strapi.mbhs.edu/api/innovation-schedules?sort=rank:ASC`
+	).then((res) => res.json());
+
 	return {
 		props: {
 			schedules: events.data,
 			routes: routes.data,
+			innovationSchedules: innovationSchedules.data
 		},
 		revalidate: 60,
 	};
@@ -37,11 +42,14 @@ const selected = (val: boolean) => {
 export default function Schedule({
 	schedules,
 	routes,
+	innovationSchedules,
 }: {
 	schedules: ScheduleType[];
 	routes: BusRoute;
+	innovationSchedules: ScheduleType[];
 }) {
 	const [tab, setTab] = useState<string>(schedules[0].attributes.name);
+	const [innovationPeriod, setInnovationPeriod] = useState<string>(innovationSchedules[0].attributes.name);
 
 	React.useEffect(() => {
 		console.log(routes);
@@ -109,9 +117,28 @@ export default function Schedule({
 							</a>
 						</li>
 					))}
+					<li className="mr-2" key={-1}>
+							<a
+								className={selected(tab === "Innovation")}
+								onClick={() => setTab("Innovation")}
+							>
+								{"Innovation"}
+							</a>
+					</li>
 				</ul>
 			</div>
-
+			{tab==='Innovation' && (
+				<div className="flex justify-center my-5">
+					<label htmlFor="periods" className="font-bold text-lg mx-2">Innovation Period:</label> 
+					<select name="periods" id="periods" className="dark:bg-gray-800 border-2 border-gray-400 dark:border-gray-300 text-lg text-center justify-center" value={innovationPeriod} onChange={(event) => setInnovationPeriod(event.target.value)}>
+						{innovationSchedules.map(({ attributes: { name } }, i) => (
+							<option value={name} key={i}>
+								{name}
+							</option>
+						))}
+					</select>
+				</div>
+			)}
 			<div className="overflow-x-auto relative shadow-md rounded-lg my-5 bg-neutral-200 dark:bg-neutral-800">
 				<table className="w-full text-sm text-left text-neutral-500">
 					<thead className="text-xs text-neutral-700 dark:text-neutral-200 bg-neutral-50 dark:bg-neutral-800">
@@ -128,7 +155,24 @@ export default function Schedule({
 						</tr>
 					</thead>
 					<tbody>
-						{schedules
+						{tab === 'Innovation' ? (
+							innovationSchedules
+							.find((x) => x.attributes.name == innovationPeriod)
+							?.attributes.periods.map(({ name, startTime, endTime }, i) => (
+								<tr
+									className="bg-white text-neutral-800 dark:text-neutral-300 dark:bg-neutral-900 dark:hover:bg-neutral-800 border-y dark:border-neutral-700 hover:bg-neutral-50"
+									key={i}
+								>
+									<th
+										scope="row"
+										className="py-4 px-6 font-medium text-neutral-900 dark:text-neutral-200 whitespace-nowrap"
+									>
+										{name}
+									</th>
+									<td className="py-4 px-6">{startTime}</td>
+									<td className="py-4 px-6">{endTime}</td>
+								</tr>
+						))) : (schedules
 							.find((x) => x.attributes.name == tab)
 							?.attributes.periods.map(({ name, startTime, endTime }, i) => (
 								<tr
@@ -144,7 +188,7 @@ export default function Schedule({
 									<td className="py-4 px-6">{startTime}</td>
 									<td className="py-4 px-6">{endTime}</td>
 								</tr>
-							))}
+							)))}
 					</tbody>
 				</table>
 			</div>
