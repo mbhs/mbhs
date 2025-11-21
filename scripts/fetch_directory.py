@@ -1,9 +1,13 @@
+from time import sleep
 from bs4 import BeautifulSoup
 import requests
 from decouple import config
 
 # Load environment variables
 # dotenv.load_dotenv()
+
+# TODO: implement fuzzy string matching so people don't get randomly removed from the site when their name changes
+# implement a substitution for the occasional non length breaking space that pops up
 
 def get_departments():
   department_to_id = {}
@@ -54,21 +58,25 @@ def parse_staff_directory_to_json(html_content, current_staff, staff_to_id):
 
         # Append the information to the staff_info_json list as a dictionary
         staff_info_json.append({
-          #'Department': department_name,
-          'name': name,
-          'title': title,
-          'email': email,
+          'Department': department_name,
+          'name': str(name),
+          'title': str(title),
+          'email': str(email),
           "createdBy": "Python Web Scraping Script",
           "updatedBy": "Python Web Scraping Script"
         })
   
+  print(staff_info_json)
 
   new_staff = []
   lost_staff = current_staff.copy()
   for i in staff_info_json:
     # create temp name to ignore honorific differences
     honorific = i["name"].split(".",1)[0][::-1].split(" ",1)[0][::-1]+"."
+    # preferred_name = i["name"].split(")", 1)[0][::-1].split("(", 1)[0][::-1]
+    # first_name = i["name"].split(")", 1)[0].split(" ", 3)[2]
     temp_name = i["name"].replace(honorific, "").replace("  ", " ").strip()
+    #print(i["name"].replace(honorific, "").replace(first_name, preferred_name).replace("  ", " ").strip(), preferred_name, first_name)
     # filtering staff based off of new/lost/current
     if temp_name in current_staff:
       try:
@@ -76,45 +84,48 @@ def parse_staff_directory_to_json(html_content, current_staff, staff_to_id):
         lost_staff.remove(temp_name)
         # will overwrite data in strapi with mcps directory
         # res = requests.put(f'https://strapi.mbhs.edu/api/directory/{staff_to_id[temp_name]}', headers={
-        #    'Authorization': f'Bearer {config("STRAPI_API_KEY")}',
+        #    'Authorization': f'Bearer: {config("STRAPI_API_KEY")}',
         # }, json={'data': i})
 
         # if res.status_code != 200:
         #   print(res.raise_for_status())
         # print(f'Updating {i["name"]}...')
       except:
+          # print(f'Failed to update {i["name"]} Error Code: {res.status_code}')
           pass
     else:
       # if name is not in strapi, add it to new list
       new_staff.append(i['name'])
-      # try:
-      #   res = requests.post('https://strapi.mbhs.edu/api/directory', headers={
-      #     'Authorization': f'Bearer {config("STRAPI_API_KEY")}',
-      #   }, json={'data': i})
+      try:
+        res = requests.post('https://strapi.mbhs.edu/api/directory', headers={
+          'Authorization': f'Bearer: {config("STRAPI_API_KEY")}',
+        }, json={'data': i})
+        print(i)
 
-      #   if res.status_code != 200:
-      #       print(res.raise_for_status())
-      #       print(f'Adding {i["name"]}...')
-      # except:
-      #   print(f'Failed to add {i["name"]}')
-      #   print("Manual intervention required: conflict detected ")
-      #   pass
+        if res.status_code != 200:
+            print(res.raise_for_status())
+            print(f'Adding {i["name"]}...')
+      except:
+        print(f'Failed to add {i["name"]}')
+        print(f"Manual intervention required: conflict detected. Error code {res.status_code}", res.reason)
+        print(i)
+        pass
   
-  # for i in range(len(lost_staff)):
-  #   # get the id of the lost staff
-  #   id = staff_to_id[lost_staff[i]]
-  #   try:
-  #     res = requests.put(f"https://strapi.mbhs.edu/api/directory/{id}", headers={
-  #       "Authorization": f'Bearer {config("STRAPI_API_KEY")}',
-  #       }, json={"data": {"publishedAt": None}})
+  for i in range(len(lost_staff)):
+    # get the id of the lost staff
+    id = staff_to_id[lost_staff[i]]
+    try:
+      res = requests.put(f"https://strapi.mbhs.edu/api/directory/{id}", headers={
+        "Authorization": f'Bearer: {config("STRAPI_API_KEY")}',
+        }, json={"data": {"publishedAt": None}})
       
-  #     print(f'Unpublishing {lost_staff[i]}...')
+      print(f'Unpublishing {lost_staff[i]}...')
 
-  #     if res.status_code != 200:
-  #       print(res.raise_for_status())
-  #   except:
-  #     print(f"Error unpublishing {lost_staff[i]}")
-  #     pass
+      if res.status_code != 200:
+        print(res.raise_for_status())
+    except:
+      print(f"Error unpublishing {lost_staff[i]}: Error code {res.status_code}", res.reason)
+      pass
 
   # print the staff in current staff not found in mcps
   print("The following staff are no longer found in the MCPS Directory and have been automatically unpublished:")
@@ -133,7 +144,7 @@ def parse_staff_directory_to_json(html_content, current_staff, staff_to_id):
 # Specify the path to the input HTML file and the output JSON file
 html = requests.get('https://ww2.montgomeryschoolsmd.org/directory/directory_Boxschool.aspx?processlevel=04757').text
 
-# Execute the function to parse the HTML and save the data to JSON
+# # Execute the function to parse the HTML and save the data to JSON
 current_staff, staff_to_id = get_current_staff()
 parse_staff_directory_to_json(html, current_staff, staff_to_id)
 
@@ -150,7 +161,7 @@ parse_staff_directory_to_json(html, current_staff, staff_to_id)
 
 # try:
 #   res = requests.post('https://strapi.mbhs.edu/api/directory', headers={
-#     'Authorization': f'Bearer {config("STRAPI_API_KEY")}',
+#     'Authorization': f'Bearer: {config("STRAPI_API_KEY")}',
 #   }, json={'data': test_data})
 
 #   if res.status_code != 200:
