@@ -43,7 +43,7 @@ export default function Footer() {
 			<div className="text-center">
 				<a
 					className="text-red-500 hover:underline underline-offset-2"
-					href="https://drive.google.com/file/d/1nYWWiCqILaN6TCPTFFEKhM7Q5AObPA92/view?usp=sharing"
+					href="https://docs.google.com/document/d/1_L8ggCo3kHeIHmFBx9Xnc_ZqGv2_xzpgvErPT-8L8uI/edit?tab=t.0"
 				>
 					School Improvement Plan (SIP)
 				</a>
