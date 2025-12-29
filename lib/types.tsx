@@ -196,6 +196,7 @@ interface Staff {
 				};
 			};
 		};
+		nopicture: boolean;
 	};
 }
 

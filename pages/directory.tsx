@@ -183,11 +183,12 @@ export default function Directory({ departments, staff }: DirectoryProps) {
 												s.attributes.departments.data.filter((d) => d.id === id)
 													.length > 0
 										)
-										.map(({ attributes: { name, email, title, image } }, i) => (
+										.map(({ attributes: { name, email, title, image, nopicture } }, i) => (
 											<div className="w-full md:w-[410px] bg-neutral-100 dark:bg-neutral-900 dark:text-white border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-md p-5 flex flex-wrap justify-left gap-5 items-center">
 												<img
 													src={
-														image?.data?.attributes.url ?? "/assets/soon.jpg"
+														//image?.data?.attributes.url ?? "/assets/soon.jpg"
+														image?.data?.attributes.url==null || nopicture ? "/assets/soon.jpg" : image?.data?.attributes.url
 													}
 													className="h-24 rounded-full w-24 object-cover"
 												/>
@@ -223,11 +224,12 @@ export default function Directory({ departments, staff }: DirectoryProps) {
 								<div className="w-full flex flex-wrap flex-col md:flex-row gap-5">
 									{filteredStaff
 										.filter((s) => s.attributes.departments.data.length === 0)
-										.map(({ attributes: { name, email, title, image } }, i) => (
+										.map(({ attributes: { name, email, title, image, nopicture} }, i) => (
 											<div className="w-full md:w-[410px] bg-neutral-100 dark:bg-neutral-900 dark:text-white border border-neutral-300 dark:border-neutral-700 rounded-lg shadow-md p-5 flex flex-wrap justify-left gap-5 items-center">
 												<img
 													src={
-														image?.data?.attributes.url ?? "/assets/soon.jpg"
+														//image?.data?.attributes.url ?? "/assets/soon.jpg"
+														image?.data?.attributes.url==null || nopicture ? "/assets/soon.jpg" : image?.data?.attributes.url
 													}
 													className="h-24 rounded-full w-24 object-cover"
 												/>
