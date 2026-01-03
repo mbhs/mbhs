@@ -92,6 +92,8 @@ export default function Footer() {
 					Blair Sysops
 				</a>{" "}
 				under the supervision of Peter Hammond.
+				<br /><br/>
+				©1995–2025 Montgomery County Public Schools, 15 W. Gude, Suite 400, Rockville, Maryland 20850
 			</p>
 			{badges?.filter((badge) => badge.attributes.lamp).map((badge, i) => (
 					<a href={badge.attributes.link} key={i}>
