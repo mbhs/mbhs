@@ -71,9 +71,9 @@ export default function Admin({ admin }: AdminProps) {
 					>
 						<img
 							src={
-								s.attributes.image.data
-									? s.attributes.image.data.attributes.url
-									: "/assets/soon.jpg"
+								s.attributes.image.data==null || s.attributes.nopicture
+									? "/assets/soon.jpg"
+									: s.attributes.image.data.attributes.url
 							}
 							className="h-36 w-36 -mt-[84px] object-cover rounded-full inline-block mr-2 shadow-lg hover:scale-105 transition-all duration-300 origin-bottom"
 						/>
@@ -108,9 +108,9 @@ export default function Admin({ admin }: AdminProps) {
 					>
 						<img
 							src={
-								s.attributes.image.data
-									? s.attributes.image.data.attributes.url
-									: "/assets/soon.jpg"
+								s.attributes.image.data==null || s.attributes.nopicture
+									? "/assets/soon.jpg"
+									: s.attributes.image.data.attributes.url
 							}
 							className="h-36 w-36 -mt-[84px] object-cover rounded-full inline-block mr-2 shadow-lg hover:scale-105 transition-all duration-300 origin-bottom"
 						/>
