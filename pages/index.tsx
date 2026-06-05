@@ -361,7 +361,7 @@ export default function Home({
 								<div className="w-[100px] flex flex-col items-center" itemID="1">
 									<a 
 										target='blank'
-										href="https://sites.google.com/mcpsmd.net/blair-library-media-center">
+										href="https://sites.google.com/mcpsmd.net/blair-library-media-center?usp=sharing">
 										<div className="rounded-full bg-red-600 hover:shadow-md transition-all duration-300 hover:scale-125 hover:bg-neutral-800 dark:hover:bg-white text-white hover:text-red-500 dark:hover:text-red-600 origin-bottom cursor-pointer w-12 h-12 p-[14px] md:w-16 md:h-16 md:p-[18px]">
 											<FaBookOpen className="h-full w-full" />
 										</div>
