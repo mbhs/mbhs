@@ -167,8 +167,8 @@ export default function Directory({ departments, staff }: DirectoryProps) {
 										{phone && ` - `}
 										{phone && (
 											<a
-												href={`tel:${phone}`}
-												className="hover:underline underline-offset-2"
+												// href={`tel:${phone}`}
+												// className="hover:underline underline-offset-2"
 											>
 												{phone}
 											</a>
