@@ -24,7 +24,7 @@ interface StaffDirectoryProps {
 
 export async function getStaticProps() {
 	let departments = await fetch(
-		`https://strapi.mbhs.edu/api/departments?sort=rank:ASC&sort=name:ASC&fields[0]=name&fields[1]=slug&fields[2]=overrideLink&fields[3]=phone&pagination[pageSize]=1000`
+		`https://strapi.mbhs.edu/api/departments?sort=rank:ASC&sort=name:ASC&fields[0]=name&fields[1]=slug&fields[2]=overrideLink&fields[3]=phone&fields[4]=phones&pagination[pageSize]=1000`
 	).then((res) => res.json());
 
 	let staff = await fetch(
@@ -136,7 +136,7 @@ export default function Directory({ departments, staff }: DirectoryProps) {
 				</div> */}
 				<div className="w-full">
 					{filteredDepartments.map(
-						({ attributes: { name, phone, slug, overrideLink }, id }, i) => (
+						({ attributes: { name, phone, slug, overrideLink, phones }, id }, i) => (
 							<div
 								key={i}
 								className={
@@ -164,15 +164,28 @@ export default function Directory({ departments, staff }: DirectoryProps) {
 										>
 											{name}
 										</Link>
-										{phone && ` - `}
+										{(phone || (phones && phones.length >= 1)) && ` - `}
 										{phone && (
 											<a
-												// href={`tel:${phone}`}
-												// className="hover:underline underline-offset-2"
+												href={`tel:${phone}`}
+												className="hover:underline underline-offset-2"
 											>
 												{phone}
 											</a>
 										)}
+										{phones && phones.length >= 1 && phones.map((obj, idx) => (
+											<>
+												<a 
+													href={`tel:${obj.phone}`}
+													key={obj.phone}
+													className="hover:underline underline-offset-2"
+												>
+													{obj.phone}
+												</a>
+												{obj.name && ` (${obj.name})`}
+												<span>{idx < phones.length - 1 && ", "}</span>
+											</>
+										))}
 									</h2>
 								)}
 

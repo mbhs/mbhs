@@ -148,6 +148,10 @@ interface Department {
 		slug: string;
 		content: string;
 		phone: string;
+		phones: {
+				phone: string; 
+				name?: string;
+		}[] | null;
 		overrideLink: string;
 		resource: {
 			data: Staff;
